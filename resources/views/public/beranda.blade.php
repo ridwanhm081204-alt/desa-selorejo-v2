@@ -21,7 +21,7 @@
             <div class="col-lg-6 text-white pe-lg-5">
                 <span class="badge bg-white text-primary-custom mb-3 px-3 py-2 rounded-pill fw-bold shadow-sm">Sugeng Rawuh</span>
                 <h1 class="display-4 fw-bold mb-3 lh-sm" style="text-shadow: 0 2px 10px rgba(0,0,0,0.3);">Desa Wisata<br><span class="text-warning">Petik Jeruk</span> Selorejo</h1>
-                <p class="lead mb-4 fw-medium text-white">Kecamatan Dau, Kabupaten Malang, Jawa Timur</p>
+                <p class="lead mb-4 fw-medium text-white">Kecamatan Dau, Kabupaten Malang, Provinsi Jawa Timur</p>
                 <div class="d-flex flex-wrap gap-3">
                     <a href="{{ url('/wisata') }}" class="btn btn-accent-custom px-4 shadow">Jelajahi Wisata</a>
                     <a href="{{ url('/profil/sejarah') }}" class="btn btn-outline-white px-4 shadow-sm fw-bold">Profil Desa</a>
@@ -164,14 +164,14 @@
                         <div class="col-md-4">
                             <a href="{{ url('/produk/'.$p->id) }}" class="text-decoration-none">
                                 <div class="card h-100 border-0 shadow-sm card-hover rounded-4 overflow-hidden bg-white">
-                                    <img src="{{ Str::startsWith($p->gambar, 'http') ? $p->gambar : asset('storage/'.$p->gambar) }}" onerror="this.src='{{ asset('images/wisata_jeruk.png') }}'" class="card-img-top img-cover" style="height: 200px;">
+                                    <img src="{{ $p->gambar_url }}" onerror="this.src='{{ asset('images/wisata_jeruk.png') }}'" class="card-img-top img-cover" style="height: 200px;">
                                     <div class="card-body">
                                         <div class="d-flex justify-content-between mb-2">
                                             <small class="badge bg-light text-success border border-success">{{ $p->stok }}</small>
                                             <h5 class="text-success fw-bold mb-0">Rp {{ number_format($p->harga,0,',','.') }}</h5>
                                         </div>
                                         <h5 class="fw-bold text-dark">{{ $p->nama }}</h5>
-                                        <p class="text-muted small text-truncate-2">{{ Str::limit($p->deskripsi, 80) }}</p>
+                                        <p class="text-dark small text-truncate-2">{{ Str::limit($p->deskripsi, 80) }}</p>
                                     </div>
                                 </div>
                             </a>
@@ -215,54 +215,52 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            const carouselEl = document.getElementById('produkCarousel');
-            if (!carouselEl) return;
-            
-            // Wait for Bootstrap to be available
-            const initCarousel = () => {
-                if (typeof bootstrap !== 'undefined' && bootstrap.Carousel) {
-                    const carousel = new bootstrap.Carousel(carouselEl, {
-                        interval: false,
-                        ride: false
-                    });
+            // Function to handle Carousel + Custom Pagination Sync
+            const setupCustomCarousel = (carouselId, paginationId) => {
+                const carouselEl = document.getElementById(carouselId);
+                const paginationEl = document.getElementById(paginationId);
+                if (!carouselEl || !paginationEl) return;
 
-                    const prevBtn = document.getElementById('prevPage');
-                    const nextBtn = document.getElementById('nextPage');
-                    const paginationItems = document.querySelectorAll('#produkPagination .page-item[data-slide-to-item]');
-                    const totalSlides = paginationItems.length;
+                const initCarousel = () => {
+                    if (typeof bootstrap !== 'undefined' && bootstrap.Carousel) {
+                        const carousel = new bootstrap.Carousel(carouselEl, {
+                            interval: false,
+                            ride: false
+                        });
 
-                    carouselEl.addEventListener('slide.bs.carousel', function (event) {
-                        const index = event.to;
-                        
-                        // Update Numeric Buttons
-                        paginationItems.forEach(item => item.classList.remove('active'));
-                        if(paginationItems[index]) paginationItems[index].classList.add('active');
+                        const prevBtn = paginationEl.querySelector('.page-item:first-child');
+                        const nextBtn = paginationEl.querySelector('.page-item:last-child');
+                        const paginationItems = paginationEl.querySelectorAll('.page-item[data-slide-to-item]');
+                        const totalSlides = paginationItems.length;
 
-                        // Update Prev/Next Buttons Disabled State
-                        if (index === 0) {
+                        carouselEl.addEventListener('slide.bs.carousel', function (event) {
+                            const index = event.to;
+                            paginationItems.forEach(item => item.classList.remove('active'));
+                            if (paginationItems[index]) paginationItems[index].classList.add('active');
+
+                            if (index === 0) prevBtn.classList.add('disabled');
+                            else prevBtn.classList.remove('disabled');
+
+                            if (index === totalSlides - 1) nextBtn.classList.add('disabled');
+                            else nextBtn.classList.remove('disabled');
+                        });
+
+                        // Initial State
+                        if (totalSlides > 0) {
                             prevBtn.classList.add('disabled');
-                        } else {
-                            prevBtn.classList.remove('disabled');
+                            if (totalSlides === 1) nextBtn.classList.add('disabled');
                         }
-
-                        if (index === totalSlides - 1) {
-                            nextBtn.classList.add('disabled');
-                        } else {
-                            nextBtn.classList.remove('disabled');
-                        }
-                    });
-
-                    // Initial State
-                    if (totalSlides > 0) {
-                        prevBtn.classList.add('disabled');
-                        if (totalSlides === 1) nextBtn.classList.add('disabled');
+                    } else {
+                        setTimeout(initCarousel, 100);
                     }
-                } else {
-                    setTimeout(initCarousel, 100);
-                }
+                };
+                initCarousel();
             };
-            
-            initCarousel();
+
+            // Setup carousels
+            setupCustomCarousel('produkCarousel', 'produkPagination');
+            setupCustomCarousel('beritaCarousel', 'beritaPagination');
+            setupCustomCarousel('galeriCarousel', 'galeriPagination');
         });
     </script>
 
@@ -275,50 +273,84 @@
                 <a href="{{ url('/berita') }}" class="btn btn-sm btn-outline-success rounded-pill px-3">Semua Kabar</a>
             </div>
             
-            <div class="row g-4">
-                @forelse($berita as $b)
-                <div class="col-md-6 mb-2">
-                    <a href="{{ url('/berita/'.$b->slug) }}" class="text-decoration-none">
-                        <div class="card-hover d-flex align-items-start gap-3 bg-white p-3 rounded-4 shadow-sm border border-success border-opacity-10 h-100">
-                            <img src="{{ $b->gambar_url ?? asset('images/hero_desa.png') }}" onerror="this.src='{{ asset('images/hero_desa.png') }}'" class="rounded-3" style="width: 100px; height: 100px; object-fit: cover;">
-                            <div class="flex-grow-1">
-                                <span class="badge badge-kategori mb-2">{{ $b->kategori }}</span>
-                                <h6 class="fw-bold mb-1 lh-sm text-dark">{{ $b->judul }}</h6>
-                                <small class="text-muted"><i data-lucide="calendar" class="icon-sm me-1"></i>{{ \Carbon\Carbon::parse($b->tanggal)->format('d M Y') }}</small>
+            <div id="beritaCarousel" class="carousel slide" data-bs-ride="false" data-bs-interval="false">
+                <div class="carousel-inner">
+                    @forelse($berita->chunk(4) as $index => $chunk)
+                    <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
+                        <div class="row g-4 pb-4">
+                            @foreach($chunk as $b)
+                            <div class="col-md-6">
+                                <a href="{{ url('/berita/'.$b->slug) }}" class="text-decoration-none">
+                                    <div class="card-hover d-flex align-items-start gap-3 bg-white p-3 rounded-4 shadow-sm border border-success border-opacity-10 h-100">
+                                        <img src="{{ $b->gambar_url }}" onerror="this.src='{{ asset('images/hero_desa.png') }}'" class="rounded-3" style="width: 100px; height: 100px; object-fit: cover;">
+                                        <div class="flex-grow-1">
+                                            <span class="badge badge-kategori mb-2">{{ $b->kategori }}</span>
+                                            <h6 class="fw-bold mb-1 lh-sm text-dark text-truncate-2">{{ $b->judul }}</h6>
+                                            <small class="text-muted"><i data-lucide="calendar" class="icon-sm me-1"></i>{{ \Carbon\Carbon::parse($b->tanggal)->format('d M Y') }}</small>
+                                        </div>
+                                    </div>
+                                </a>
                             </div>
+                            @endforeach
                         </div>
-                    </a>
+                    </div>
+                    @empty
+                    <div class="col-12 text-center py-4 glass-card text-muted">Belum ada berita yang diterbitkan.</div>
+                    @endforelse
                 </div>
-                @empty
-                <div class="col-12 text-center py-4 glass-card text-muted">Belum ada berita yang diterbitkan.</div>
-                @endforelse
+
+                <!-- Custom Pagination Style Controls for News -->
+                @if($berita->count() > 4)
+                <div class="mt-4">
+                    <ul class="pagination-custom" id="beritaPagination">
+                        <li class="page-item" id="prevBerita">
+                            <a class="page-link-custom" href="javascript:void(0)" data-bs-target="#beritaCarousel" data-bs-slide="prev">
+                                <i data-lucide="chevron-left" class="icon-sm"></i>
+                            </a>
+                        </li>
+                        
+                        @foreach($berita->chunk(4) as $index => $chunk)
+                        <li class="page-item {{ $index == 0 ? 'active' : '' }}" data-slide-to-item="{{ $index }}">
+                            <a class="page-link-custom" href="javascript:void(0)" data-bs-target="#beritaCarousel" data-bs-slide-to="{{ $index }}">
+                                {{ $index + 1 }}
+                            </a>
+                        </li>
+                        @endforeach
+                        
+                        <li class="page-item" id="nextBerita">
+                            <a class="page-link-custom" href="javascript:void(0)" data-bs-target="#beritaCarousel" data-bs-slide="next">
+                                <i data-lucide="chevron-right" class="icon-sm"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                @endif
             </div>
         </div>
         
         <!-- Polling Sidebar Area -->
         <div class="col-lg-4">
             <div class="d-flex justify-content-between align-items-end mb-4 border-bottom border-2 pb-2 border-success border-opacity-25">
-                <h3 class="fw-bold mb-0 text-dark"><i data-lucide="pie-chart" class="text-success me-2"></i>Jajak Pendapat</h3>
+                <h3 class="fw-bold mb-0 text-dark"><i data-lucide="pie-chart" class="text-success me-2"></i>Jejak Pendapat</h3>
             </div>
             
             @if($polling)
-            <div class="glass-card bg-primary-custom text-white p-4 h-100 rounded-4 shadow-sm position-relative overflow-hidden">
-                <div class="position-absolute opacity-10 end-0 bottom-0"><i data-lucide="help-circle" style="width: 150px; height: 150px;"></i></div>
+            <div class="glass-card bg-primary-custom text-white p-4 rounded-4 shadow-sm position-relative overflow-hidden">
                 <div class="position-relative z-1">
-                    <p class="lead mb-4 fw-medium text-white">{{ $polling->pertanyaan }}</p>
+                    <p class="lead mb-4 fw-medium text-white">Apakah Anda puas dengan pelayanan Pemerintah Desa Selorejo bulan {{ \Carbon\Carbon::now()->translatedFormat('F Y') }} ini?</p>
                     
                     @if(session('success'))
-                        <div class="alert alert-light text-success fw-bold p-2 text-center rounded-3"><i data-lucide="check-circle" class="icon-sm me-1"></i>{{ session('success') }}</div>
+                        <div class="alert alert-light text-success fw-bold p-2 text-center rounded-3 mb-4"><i data-lucide="check-circle" class="icon-sm me-1"></i>{{ session('success') }}</div>
                     @endif
                     @if(session('error'))
-                        <div class="alert alert-warning p-2 text-center rounded-3"><i data-lucide="alert-circle" class="icon-sm me-1"></i>{{ session('error') }}</div>
+                        <div class="alert alert-warning p-2 text-center rounded-3 mb-4"><i data-lucide="alert-circle" class="icon-sm me-1"></i>{{ session('error') }}</div>
                     @endif
 
-                    <form action="#" method="GET" class="mb-4">
+                    <form action="{{ route('polling.vote', $polling->id) }}" method="POST" class="mb-4">
                         @csrf
                         <div class="d-grid gap-2">
-                            <button type="button" class="btn btn-light text-success fw-bold rounded-pill hover-lift shadow-sm" onclick="alert('Terima kasih! Suara Anda telah direkam.')">Ya, Setuju</button>
-                            <button type="button" class="btn btn-outline-light rounded-pill hover-lift" onclick="alert('Terima kasih! Suara Anda telah direkam.')">Tidak Setuju</button>
+                            <button type="submit" name="answer" value="ya" class="btn btn-light text-success fw-bold rounded-pill hover-lift shadow-sm">Ya, Setuju</button>
+                            <button type="submit" name="answer" value="tidak" class="btn btn-poll-no rounded-pill hover-lift">Tidak Setuju</button>
                         </div>
                     </form>
                     
@@ -329,13 +361,13 @@
                     @endphp
                     
                     <div class="pt-3 border-top border-light border-opacity-25">
-                        <small class="d-block mb-1 text-white-50">Hasil Sementara ({{ $total }} Suara)</small>
-                        <div class="progress rounded-pill bg-light bg-opacity-25" style="height: 10px;">
+                        <small class="d-block mb-2 text-white">Hasil Sementara: <strong>{{ $total }} Suara</strong></small>
+                        <div class="progress rounded-pill bg-light bg-opacity-25 mb-3" style="height: 12px;">
                             <div class="progress-bar bg-warning" role="progressbar" style="width: {{ $pctYa }}%" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
-                        <div class="d-flex justify-content-between mt-2 small text-white-50 fw-bold">
-                            <span>Ya: {{ $pctYa }}%</span>
-                            <span>Tidak: {{ $pctTidak }}%</span>
+                        <div class="d-flex justify-content-between small text-white fw-bold">
+                            <span>Ya: {{ $pctYa }}% ({{ $polling->jumlah_ya }} suara)</span>
+                            <span>Tidak: {{ $pctTidak }}% ({{ $polling->jumlah_tidak }} suara)</span>
                         </div>
                     </div>
                 </div>
@@ -344,32 +376,67 @@
         </div>
     </div>
 
-    <!-- I) GALERI PREVIEW -->
-    <div class="mb-5 pb-5">
-        <div class="text-center mb-5">
-            <span class="badge bg-success bg-opacity-10 text-success rounded-pill px-3 py-2 mb-2"><i data-lucide="camera" class="icon-sm me-1"></i> Galeri Dokumentasi</span>
-            <h2 class="fw-bold text-dark">Potret Desa Selorejo</h2>
-        </div>
-        <div class="row g-2">
-            @forelse($galeri as $index => $g)
-            @if($index < 6)
-            <div class="col-md-4 col-6">
-                <div class="card-hover rounded-3 overflow-hidden position-relative">
-                    <img src="{{ Str::startsWith($g->url, 'http') ? $g->url : asset('storage/'.$g->url) }}" class="w-100" style="height: 250px; object-fit: cover;" onerror="this.src='{{ asset('images/hero_desa.png') }}'">
-                    <div class="position-absolute bottom-0 w-100 p-3" style="background: linear-gradient(transparent, rgba(0,0,0,0.8)); opacity:0; transition: opacity 0.3s; cursor: pointer;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0">
-                        <p class="text-white mb-0 small fw-medium text-center">{{ $g->caption ?? 'Dokumentasi' }}</p>
-                    </div>
-                </div>
+        <!-- I) GALERI PREVIEW CAROUSEL -->
+        <div class="mb-5 pb-5">
+            <div class="text-center mb-5">
+                <span class="badge bg-success bg-opacity-10 text-success rounded-pill px-3 py-2 mb-2"><i data-lucide="camera" class="icon-sm me-1"></i> Galeri Dokumentasi</span>
+                <h2 class="fw-bold text-dark">Potret Desa Selorejo</h2>
             </div>
-            @endif
-            @empty
-            <div class="col-12 text-center text-muted">Belum ada foto galeri.</div>
-            @endforelse
+            
+            <div id="galeriCarousel" class="carousel slide" data-bs-ride="false" data-bs-interval="false">
+                <div class="carousel-inner">
+                    @forelse($galeri->chunk(3) as $index => $chunk)
+                    <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
+                        <div class="row g-3 pb-4">
+                            @foreach($chunk as $g)
+                            <div class="col-md-4">
+                                <div class="card-hover rounded-4 overflow-hidden position-relative shadow-sm">
+                                    <img src="{{ Str::startsWith($g->url, 'http') ? $g->url : asset('storage/'.$g->url) }}" class="w-100" style="height: 280px; object-fit: cover;" onerror="this.src='{{ asset('images/hero_desa.png') }}'">
+                                    <div class="position-absolute bottom-0 w-100 p-3" style="background: linear-gradient(transparent, rgba(0,0,0,0.8)); opacity:0; transition: opacity 0.3s; cursor: pointer;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0">
+                                        <p class="text-white mb-0 small fw-medium text-center">{{ $g->caption ?? 'Dokumentasi' }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            @endforeach
+                        </div>
+                    </div>
+                    @empty
+                    <div class="col-12 text-center text-muted py-5 glass-card">Belum ada foto galeri ditambahkan.</div>
+                    @endforelse
+                </div>
+
+                <!-- Custom Pagination Style Controls for Gallery -->
+                @if($galeri->count() > 3)
+                <div class="mt-2">
+                    <ul class="pagination-custom" id="galeriPagination">
+                        <li class="page-item" id="prevGaleri">
+                            <a class="page-link-custom" href="javascript:void(0)" data-bs-target="#galeriCarousel" data-bs-slide="prev">
+                                <i data-lucide="chevron-left" class="icon-sm"></i>
+                            </a>
+                        </li>
+                        
+                        @foreach($galeri->chunk(3) as $index => $chunk)
+                        <li class="page-item {{ $index == 0 ? 'active' : '' }}" data-slide-to-item="{{ $index }}">
+                            <a class="page-link-custom" href="javascript:void(0)" data-bs-target="#galeriCarousel" data-bs-slide-to="{{ $index }}">
+                                {{ $index + 1 }}
+                            </a>
+                        </li>
+                        @endforeach
+                        
+                        <li class="page-item" id="nextGaleri">
+                            <a class="page-link-custom" href="javascript:void(0)" data-bs-target="#galeriCarousel" data-bs-slide="next">
+                                <i data-lucide="chevron-right" class="icon-sm"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                @endif
+            </div>
+
+            <div class="text-center mt-5">
+                <a href="{{ url('/galeri') }}" class="btn btn-outline-success rounded-pill px-5 fw-bold shadow-sm hover-lift">Lihat Semua Foto</a>
+            </div>
         </div>
-        <div class="text-center mt-4">
-            <a href="{{ url('/galeri') }}" class="btn btn-outline-success rounded-pill px-4 fw-bold shadow-sm hover-lift">Lihat Semua Foto</a>
-        </div>
-    </div>
 
     <!-- J) PETA GOOGLE MAPS & K) TAUTAN TERKAIT -->
     <div class="row g-4 mb-5 pb-4">

@@ -20,7 +20,7 @@
             <img src="{{ asset('images/logo_desa.png') }}" alt="Logo Selorejo" class="me-3 shadow-sm" style="width: 45px; height: 45px; object-fit: contain;">
             <div>
                 <strong class="d-block text-white" style="font-size: 1.1rem;">Pemerintah Desa Selorejo</strong>
-                <small class="text-white-50 d-block" style="font-size: 0.75rem;">Kec. Dau, Kab. Malang</small>
+                <small class="text-white-50 d-block" style="font-size: 0.75rem;">Kec. Dau, Kab. Malang, Prov. Jawa Timur</small>
             </div>
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar">
@@ -75,7 +75,7 @@
 </nav>
 
 @php
-    $beritaTerbaru = \App\Models\Berita::where('status_publish', 'publish')->orderBy('tanggal', 'desc')->take(3)->get();
+    $beritaTerbaru = \App\Models\Berita::where('status_publish', 'publish')->orderBy('tanggal', 'desc')->get();
 @endphp
 
 @if($beritaTerbaru->count() > 0)

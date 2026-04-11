@@ -4,6 +4,37 @@
     <li class="breadcrumb-item"><a href="{{ url('/berita') }}" class="text-success text-decoration-none">Kabar Desa</a></li>
     <li class="breadcrumb-item active">{{ \Illuminate\Support\Str::limit($berita->judul, 30) }}</li>
 @endsection
+@push('styles')
+<style>
+    .btn-share-custom {
+        background: white;
+        color: #2d6a4f;
+        border: 2px solid #2d6a4f;
+        border-radius: 50px;
+        padding: 8px 24px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        text-decoration: none;
+    }
+    .btn-share-custom:hover {
+        background: #2d6a4f;
+        color: white !important;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(45, 106, 79, 0.2);
+    }
+    .btn-share-custom i {
+        color: #2d6a4f;
+        transition: all 0.3s ease;
+    }
+    .btn-share-custom:hover i {
+        color: white !important;
+    }
+    .icon-md { width: 20px; height: 20px; }
+</style>
+@endpush
 @section('content')
 <div class="container mb-5 my-4">
     <div class="row justify-content-center">
@@ -15,16 +46,22 @@
                 <span><i data-lucide="user" class="me-1" style="width:16px;"></i> {{ $berita->penulis ?? 'Admin' }}</span>
             </div>
             
-            <img src="{{ $berita->gambar_url }}" class="img-fluid rounded-4 shadow-sm mb-4 w-100" style="max-height: 400px; object-fit:cover;">
+            <img src="{{ $berita->gambar_url }}" onerror="this.src='{{ asset('images/hero_desa.png') }}'" class="img-fluid rounded-4 shadow-sm mb-4 w-100" style="max-height: 400px; object-fit:cover;">
             
             <div class="content text-justify" style="line-height:1.8; font-size:1.05rem;">
-                {!! nl2br(e($berita->konten)) !!}
+                {!! $berita->konten !!}
             </div>
             
             <div class="mt-5 pt-4 border-top">
                 <h5 class="fw-bold mb-3">Bagikan Artikel Ini:</h5>
-                <a href="https://api.whatsapp.com/send?text={{ urlencode($berita->judul . ' ' . url()->current()) }}" target="_blank" class="btn btn-success rounded-pill px-4 me-2"><i data-lucide="message-circle" class="me-1"></i> WhatsApp</a>
-                <a href="https://www.facebook.com/sharer/sharer.php?u={{ url()->current() }}" target="_blank" class="btn btn-primary rounded-pill px-4"><i data-lucide="facebook" class="me-1"></i> Facebook</a>
+                <div class="d-flex flex-wrap gap-3">
+                    <a href="https://api.whatsapp.com/send?text={{ urlencode($berita->judul . ' ' . url()->current()) }}" target="_blank" class="btn-share-custom">
+                        <i data-lucide="message-circle" class="icon-md"></i> WhatsApp
+                    </a>
+                    <a href="https://www.facebook.com/sharer/sharer.php?u={{ url()->current() }}" target="_blank" class="btn-share-custom">
+                        <i data-lucide="facebook" class="icon-md"></i> Facebook
+                    </a>
+                </div>
             </div>
         </div>
     </div>

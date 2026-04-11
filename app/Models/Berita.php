@@ -20,6 +20,8 @@ class Berita extends Model
 
     public function getGambarUrlAttribute()
     {
-        return $this->gambar ? asset('storage/' . $this->gambar) : 'https://via.placeholder.com/800x400?text=Berita';
+        if (!$this->gambar) return 'https://via.placeholder.com/800x400?text=Berita';
+        if (\Illuminate\Support\Str::startsWith($this->gambar, ['http://', 'https://'])) return $this->gambar;
+        return asset('storage/' . $this->gambar);
     }
 }

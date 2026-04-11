@@ -9,7 +9,7 @@ class BerandaController extends Controller
 {
     public function index()
     {
-        $berita = \App\Models\Berita::where('status_publish', 'publish')->orderBy('tanggal', 'desc')->take(6)->get();
+        $berita = \App\Models\Berita::where('status_publish', 'publish')->orderBy('tanggal', 'desc')->take(8)->get();
         $wisata = \App\Models\Wisata::first();
         $widgetAparat = \App\Models\WidgetAparat::first();
         $polling = \App\Models\Polling::where('is_active', true)->where('tanggal_selesai', '>=', now()->toDateString())->first();

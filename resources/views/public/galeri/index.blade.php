@@ -28,12 +28,12 @@
     <div class="tab-content" id="pills-tabContent">
         <!-- Semua -->
         <div class="tab-pane fade show active" id="pills-semua">
-            <div class="row g-4" data-masonry='{"percentPosition": true }'>
+            <div class="row g-4">
                 @forelse($galeri as $g)
                 <div class="col-md-4 col-sm-6 mb-4">
                     <div class="card border-0 shadow-sm hover-lift overflow-hidden position-relative rounded-4 bg-white p-2">
                         @if($g->tipe == 'foto')
-                            <img src="{{ asset('storage/'.$g->url) }}" class="w-100 rounded-3" style="object-fit: cover;" onerror="this.src='{{ asset('images/hero_desa.png') }}'">
+                            <img src="{{ $g->gambar_url }}" class="w-100 rounded-3" style="height: 250px; object-fit: cover;" onerror="this.src='{{ asset('images/hero_desa.png') }}'">
                         @else
                             <div class="w-100 rounded-3 d-flex justify-content-center align-items-center text-white" style="height: 250px; background: linear-gradient(45deg, #1b4332, #74c69d);">
                                 <i data-lucide="play-circle" style="width: 64px; height: 64px; opacity:0.8;"></i>
@@ -56,7 +56,7 @@
                 @foreach($galeri->where('tipe', 'foto') as $g)
                 <div class="col-md-4 col-sm-6 mb-4">
                     <div class="card border-0 shadow-sm hover-lift overflow-hidden position-relative rounded-4 bg-white p-2">
-                        <img src="{{ asset('storage/'.$g->url) }}" class="w-100 rounded-3" style="height: 280px; object-fit: cover;" onerror="this.src='{{ asset('images/hero_desa.png') }}'">
+                        <img src="{{ $g->gambar_url }}" class="w-100 rounded-3" style="height: 280px; object-fit: cover;" onerror="this.src='{{ asset('images/hero_desa.png') }}'">
                         <div class="position-absolute bottom-0 w-100 p-3 pt-5 ms-0 mb-2 me-2" style="background: linear-gradient(transparent, rgba(0,0,0,0.85)); border-radius: 0 0 10px 10px;">
                             <h6 class="text-white fw-bold mb-0 text-shadow">{{ $g->caption }}</h6>
                         </div>
@@ -99,6 +99,6 @@
 </div>
 
 @push('scripts')
-<script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+{{-- Masonry Removed to fix layout bug --}}
 @endpush
 @endsection

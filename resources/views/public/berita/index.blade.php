@@ -28,7 +28,7 @@
             <div class="glass-card card-hover h-100 bg-white border border-success border-opacity-10 shadow-sm rounded-4 overflow-hidden d-flex flex-column position-relative">
                 <span class="badge bg-warning text-dark shadow-sm position-absolute top-0 end-0 m-3 px-3 py-2 rounded-pill z-2 fw-bold"><i data-lucide="tag" class="icon-sm me-1"></i>{{ $b->kategori }}</span>
                 <div class="overflow-hidden position-relative" style="height: 220px;">
-                    <img src="{{ $b->gambar_url ?? asset('images/tani_lokal.png') }}" onerror="this.src='{{ asset('images/tani_lokal.png') }}'" class="w-100 h-100 object-fit-cover" alt="{{ $b->judul }}">
+                    <img src="{{ $b->gambar_url }}" onerror="this.src='{{ asset('images/tani_lokal.png') }}'" class="w-100 h-100 object-fit-cover" alt="{{ $b->judul }}">
                     <div class="position-absolute bottom-0 w-100 p-3 pt-5" style="background: linear-gradient(transparent, rgba(0,0,0,0.8));">
                         <small class="text-white fw-bold"><i data-lucide="calendar" class="icon-sm me-1"></i>{{ \Carbon\Carbon::parse($b->tanggal)->translatedFormat('d F Y') }}</small>
                     </div>

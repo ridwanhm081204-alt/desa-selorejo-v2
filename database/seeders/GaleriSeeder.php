@@ -7,12 +7,25 @@ class GaleriSeeder extends Seeder {
     public function run() {
         Galeri::truncate();
         $data = [
-            ['tipe'=>'foto','url'=>'https://images.unsplash.com/photo-1542442828-287217bfb218?w=800', 'caption'=>'Camping Ground Bumi Perkemahan Bedengan','kategori'=>'Wisata', 'tanggal'=>'2026-01-15'],
-            ['tipe'=>'foto','url'=>'https://images.unsplash.com/photo-1596489312224-87f5e8daadd1?w=800', 'caption'=>'Segarnya Jeruk Keprok Batu 55 Khas Selorejo','kategori'=>'Wisata', 'tanggal'=>'2025-08-20'],
-            ['tipe'=>'foto','url'=>'https://images.unsplash.com/photo-1559525839-b184a4d698c7?w=800', 'caption'=>'Kopi Arabika Lereng Kawi Hasil Panen Petani','kategori'=>'Produk', 'tanggal'=>'2025-09-01'],
-            ['tipe'=>'foto','url'=>'https://images.unsplash.com/photo-1601614742718-4721c0ad52f7?w=800', 'caption'=>'Pegunungan Kawi Landscape Dau','kategori'=>'Alam', 'tanggal'=>'2025-07-10'],
-            ['tipe'=>'foto','url'=>'https://images.unsplash.com/photo-1563229871-ddb642ec0b6f?w=800', 'caption'=>'Kolaborasi Rapat BUMDes dan Kades Bapak Bambang','kategori'=>'Pemerintahan', 'tanggal'=>'2026-02-20'],
-            ['tipe'=>'foto','url'=>'https://plus.unsplash.com/premium_photo-1661962360670-65e1dbba62bc?w=800', 'caption'=>'Infrastruktur Paving Jalan Tani Desa','kategori'=>'Pembangunan', 'tanggal'=>'2024-12-01']
+            // Wisata / Camping
+            ['tipe'=>'foto','url'=>'https://images.unsplash.com/photo-1542442828-287217bfb218?w=800', 'caption'=>'Camping Ground Bumi Perkemahan Bedengan','kategori'=>'Wisata', 'tanggal'=>'2026-03-01'],
+            ['tipe'=>'foto','url'=>'https://images.unsplash.com/photo-1596489312224-87f5e8daadd1?w=800', 'caption'=>'Atmosfer Berkemah di Hutan Pinus Selorejo','kategori'=>'Wisata', 'tanggal'=>'2026-03-05'],
+            ['tipe'=>'foto','url'=>'https://images.unsplash.com/photo-1559525839-b184a4d698c7?w=800', 'caption'=>'Area Campground Outdoor Ramai Wisatawan','kategori'=>'Wisata', 'tanggal'=>'2026-03-10'],
+
+            // Agrobisnis / Jeruk
+            ['tipe'=>'foto','url'=>'https://images.unsplash.com/photo-1627435601357-3f6c76feb185?w=800', 'caption'=>'Hamparan Kebun Jeruk Keprok Batu 55','kategori'=>'Agrobisnis', 'tanggal'=>'2026-03-12'],
+            ['tipe'=>'foto','url'=>'https://images.unsplash.com/photo-1590779033100-9f60af05a013?w=800', 'caption'=>'Proses Panen Jeruk oleh Petani Lokal','kategori'=>'Agrobisnis', 'tanggal'=>'2026-03-14'],
+            ['tipe'=>'foto','url'=>'https://images.unsplash.com/photo-1601614742718-4721c0ad52f7?w=800', 'caption'=>'Pohon Jeruk Rimbun dengan Buah Siap Petik','kategori'=>'Agrobisnis', 'tanggal'=>'2026-03-15'],
+
+            // Landscape / Alam
+            ['tipe'=>'foto','url'=>'https://images.unsplash.com/photo-1518495122543-bc87e5606d54?w=800', 'caption'=>'Terasering Sawah Hijau Selorejo','kategori'=>'Alam', 'tanggal'=>'2026-03-16'],
+            ['tipe'=>'foto','url'=>'https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=800', 'caption'=>'Panorama Alam Lereng Kawi yang Menyejukkan','kategori'=>'Alam', 'tanggal'=>'2026-03-18'],
+            ['tipe'=>'foto','url'=>'https://images.unsplash.com/photo-1596489312224-87f5e8daadd1?w=800', 'caption'=>'Pemandangan Desa di Kaki Gunung','kategori'=>'Alam', 'tanggal'=>'2026-03-20'],
+
+            // Sosial / Budaya
+            ['tipe'=>'foto','url'=>'https://images.unsplash.com/photo-1558905623-bc97b76778f5?w=800', 'caption'=>'Kegiatan Gotong Royong Warga Desa','kategori'=>'Sosial', 'tanggal'=>'2026-03-22'],
+            ['tipe'=>'foto','url'=>'https://images.unsplash.com/photo-1592982537447-6f296cb3adea?w=800', 'caption'=>'Suasana Kehidupan Sehari-hari Warga','kategori'=>'Sosial', 'tanggal'=>'2026-03-24'],
+            ['tipe'=>'foto','url'=>'https://images.unsplash.com/photo-1588612143093-41bb33659223?w=800', 'caption'=>'Pesta Rakyat Bersih Desa Selorejo','kategori'=>'Budaya', 'tanggal'=>'2026-03-26'],
         ];
         foreach ($data as $item) {
             Galeri::create($item);

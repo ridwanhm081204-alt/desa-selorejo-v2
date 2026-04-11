@@ -18,4 +18,12 @@ class Galeri extends Model
     protected $casts = [
         'tanggal' => 'date',
     ];
+
+    public function getGambarUrlAttribute()
+    {
+        if (str_starts_with($this->url, 'http')) {
+            return $this->url;
+        }
+        return asset('storage/' . $this->url);
+    }
 }
