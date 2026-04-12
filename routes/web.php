@@ -36,6 +36,7 @@ Route::post('/kontak', [\App\Http\Controllers\Public\KontakController::class, 's
 
 Route::get('/login', [\App\Http\Controllers\Auth\LoginController::class, 'showLoginForm'])->name('login')->middleware('guest');
 Route::post('/login', [\App\Http\Controllers\Auth\LoginController::class, 'login'])->middleware('guest');
+Route::post('/logout', [\App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout')->middleware('auth');
 // Operator
 Route::middleware(['auth', 'role:operator,admin'])->prefix('operator')->name('operator.')->group(function() {
     Route::get('/dashboard', [\App\Http\Controllers\Operator\DashboardController::class, 'index']);
@@ -63,8 +64,8 @@ Route::middleware(['auth', 'role:operator,admin'])->prefix('operator')->name('op
     Route::get('/polling/{id}/hasil', [\App\Http\Controllers\Operator\PollingController::class, 'hasil']);
     
     Route::resource('statistik', \App\Http\Controllers\Operator\StatistikController::class)->except(['show']);
-    Route::get('/widget', [\App\Http\Controllers\Operator\WidgetController::class, 'edit']);
-    Route::post('/widget', [\App\Http\Controllers\Operator\WidgetController::class, 'update']);
+    Route::get('/widget', [\App\Http\Controllers\Operator\WidgetController::class, 'edit'])->name('widget.edit');
+    Route::post('/widget', [\App\Http\Controllers\Operator\WidgetController::class, 'update'])->name('widget.update');
     
     // Pesan
     Route::get('/pesan', [\App\Http\Controllers\Operator\PesanController::class, 'index']);
@@ -72,8 +73,8 @@ Route::middleware(['auth', 'role:operator,admin'])->prefix('operator')->name('op
     Route::post('/pesan/{id}/baca', [\App\Http\Controllers\Operator\PesanController::class, 'baca']);
     
     // Ganti Password dll
-    Route::get('/settings/password', [\App\Http\Controllers\Operator\ProfileController::class, 'editPassword']);
-    Route::post('/settings/password', [\App\Http\Controllers\Operator\ProfileController::class, 'updatePassword']);
+    Route::get('/settings/password', [\App\Http\Controllers\Operator\ProfileController::class, 'editPassword'])->name('settings.password');
+    Route::post('/settings/password', [\App\Http\Controllers\Operator\ProfileController::class, 'updatePassword'])->name('settings.password.update');
 });
 
 // Admin
