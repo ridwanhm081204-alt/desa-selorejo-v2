@@ -83,6 +83,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::resource('operator', \App\Http\Controllers\Admin\OperatorController::class)->except(['show']);
     
     Route::get('/backup', [\App\Http\Controllers\Admin\BackupController::class, 'index']);
+    Route::post('/backup', [\App\Http\Controllers\Admin\BackupController::class, 'backup']);
     Route::get('/backup/download', [\App\Http\Controllers\Admin\BackupController::class, 'backup']);
     
     Route::get('/log', [\App\Http\Controllers\Admin\LogController::class, 'index']);

@@ -19,7 +19,9 @@ class LoginController extends Controller
             'password' => 'required|string|min:6',
         ]);
 
-        if (\Illuminate\Support\Facades\Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+        $remember = $request->has('remember');
+
+        if (\Illuminate\Support\Facades\Auth::attempt(['email' => $request->email, 'password' => $request->password], $remember)) {
             $user = \Illuminate\Support\Facades\Auth::user();
             if ($user->role == 'admin') {
                 return redirect()->intended('/admin/dashboard');
