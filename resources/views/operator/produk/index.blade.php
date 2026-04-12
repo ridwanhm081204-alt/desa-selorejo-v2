@@ -31,7 +31,7 @@
                             <small class="text-muted text-truncate d-inline-block" style="max-width:200px;">{{ Str::words($p->deskripsi, 5) }}</small>
                         </td>
                         <td class="fw-bold text-success">Rp {{ number_format($p->harga, 0, ',', '.') }}</td>
-                        <td><span class="badge bg-secondary">{{ $p->stok ?? '-' }}</span></td>
+                        <td><span class="badge bg-secondary">{{ $p->stok ?? 0 }} Pcs</span></td>
                         <td class="text-end pe-4">
                             <a href="{{ url('/operator/produk/'.$p->id.'/edit') }}" class="btn btn-sm btn-outline-primary"><i data-lucide="edit-2" style="width:14px;"></i></a>
                             <form action="{{ url('/operator/produk/'.$p->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin hapus produk ini?')">

@@ -22,8 +22,8 @@
             <h5 class="fw-bold mb-3">Deskripsi Produk</h5>
             <div class="text-dark" style="line-height: 1.8; font-weight: 400;">{!! $produk->deskripsi !!}</div>
             
-            <a href="https://wa.me/{{\App\Models\Setting::get('whatsapp', '')}}?text=Halo%20saya%20ingin%20memesan%20produk%20{{ urlencode($produk->nama) }}" target="_blank" class="btn btn-success btn-lg mt-4 w-100 py-3 fw-bold rounded-pill shadow-sm hover-lift">
-                <i data-lucide="message-circle" class="me-2"></i> Pesan via WhatsApp
+            <a href="{{ route('produk.checkout', $produk->id) }}" class="btn btn-success btn-lg mt-4 w-100 py-3 fw-bold rounded-pill shadow-sm hover-lift">
+                <i data-lucide="shopping-bag" class="me-2"></i> {{ $produk->stok > 0 ? 'Pesan Sekarang' : 'Stok Habis' }}
             </a>
         </div>
     </div>

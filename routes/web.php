@@ -19,6 +19,8 @@ Route::get('/pemerintahan/lembaga', [\App\Http\Controllers\Public\PemerintahanCo
 // Wisata & Produk
 Route::get('/wisata', [\App\Http\Controllers\Public\WisataController::class, 'index'])->name('wisata');
 Route::resource('/produk', \App\Http\Controllers\Public\ProdukController::class)->only(['index', 'show']);
+Route::get('/produk/{id}/checkout', [\App\Http\Controllers\Public\ProdukController::class, 'checkout'])->name('produk.checkout');
+Route::post('/produk/{id}/checkout', [\App\Http\Controllers\Public\ProdukController::class, 'processCheckout'])->name('produk.process');
 
 // Data Desa
 Route::get('/statistik', [\App\Http\Controllers\Public\DataDesaController::class, 'statistik'])->name('statistik');

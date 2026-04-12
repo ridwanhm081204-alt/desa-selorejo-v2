@@ -18,7 +18,7 @@ class ProdukController extends Controller
             'nama' => 'required|string|max:100',
             'deskripsi' => 'required',
             'harga' => 'required|numeric',
-            'stok' => 'nullable|string',
+            'stok' => 'required|integer|min:0',
             'gambar' => 'required|image|max:2048'
         ]);
         $data['gambar'] = $request->file('gambar')->store('produk', 'public');
@@ -35,7 +35,7 @@ class ProdukController extends Controller
             'nama' => 'required|string|max:100',
             'deskripsi' => 'required',
             'harga' => 'required|numeric',
-            'stok' => 'nullable|string',
+            'stok' => 'required|integer|min:0',
             'gambar' => 'nullable|image|max:2048'
         ]);
         if($request->hasFile('gambar')) {
