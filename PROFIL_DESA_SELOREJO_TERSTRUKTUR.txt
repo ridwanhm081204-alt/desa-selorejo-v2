@@ -1,0 +1,533 @@
+================================================================================
+       PROFIL LENGKAP DESA WISATA SELOREJO, KECAMATAN DAU, KABUPATEN MALANG
+              Disusun dan Dirapikan dari Sumber: Website Resmi Desa Wisata Selorejo
+                     (https://desawisataselorejo.blogspot.com/2016/06/desa-wisata-selorejo.html)
+================================================================================
+
+CATATAN PENYUSUN
+----------------
+Dokumen ini merupakan hasil rekonstruksi dan penataan ulang dari data mentah yang
+diperoleh melalui scraping website lama (jadul) milik Desa Wisata Selorejo. Seluruh
+isi bersumber dari halaman blog resmi desa yang dipublikasikan pada tahun 2016.
+Informasi ditampilkan apa adanya sesuai sumber, dengan penambahan struktur dan
+judul bagian untuk kemudahan baca dan referensi.
+
+================================================================================
+BAB I. GAMBARAN UMUM DESA SELOREJO
+================================================================================
+
+A. IDENTITAS DESA
+-----------------
+Nama Desa         : Desa Selorejo
+Nama Populer      : Desa Wisata Selorejo
+Kecamatan         : Dau
+Kabupaten         : Malang
+Provinsi          : Jawa Timur
+Kode Pos          : 65151
+Email             : desawisataselorejo@gmail.com
+Telepon/WA        : 0813.3163.5678
+Jarak dari Ibukota Kabupaten : ± 30,8 km (sekitar 1 jam perjalanan)
+Jarak dari Ibukota Kecamatan : ± 3 km (sekitar 7 menit perjalanan)
+
+B. LETAK GEOGRAFIS DAN BATAS WILAYAH
+--------------------------------------
+Koordinat Astronomis:
+  - Lintang Selatan : 7°56'16.50" LS
+  - Bujur Timur     : 112°32'38.93" BT
+
+Posisi Regional   : Kabupaten Malang bagian Utara
+
+Batas Wilayah:
+  - Utara  : Desa Gading Kulon
+  - Timur  : Desa Tegalweru
+  - Selatan: Desa Petung Sewu
+  - Barat  : Hutan
+
+C. KONDISI TOPOGRAFI DAN IKLIM
+--------------------------------
+Topografi         : Dataran tinggi / perbukitan
+Luas Perbukitan   : 333,76 ha
+Ketinggian        : ± 800 - 1.200 mdpl (meter dari permukaan laut)
+Curah Hujan       : 1.300 mm/tahun
+Kesuburan Tanah   : 100%
+
+Catatan: Kondisi dataran tinggi dan pegunungan menjadikan wilayah ini beriklim
+sejuk dan sangat cocok untuk pengembangan pertanian, khususnya hortikultura dan
+perkebunan buah.
+
+D. KEPENDUDUKAN
+---------------
+Jumlah Penduduk Total : 4.069 jiwa
+  - Laki-laki          : 2.038 jiwa
+  - Perempuan          : 2.031 jiwa
+
+E. TATA GUNA LAHAN
+-------------------
+Berikut rincian penggunaan lahan di Desa Selorejo:
+
+  No.  Jenis Penggunaan Lahan       Luas
+  ---  ----------------------------  ----------
+   1   Pemukiman                    ±  39,8 ha
+   2   Perkebunan                    238,277 ha
+   3   Persawahan                     6,7 ha
+   4   Hutan Lindung               1.383,8 ha
+   5   Hutan Produksi                675,1 ha
+   6   Hutan Rakyat                    7,8 ha
+   7   Perkantoran & Sarana Rekreasi  26,6 ha
+       --------------------------   ----------
+       Total Area Hutan            2.068,1 ha
+       (hutan lindung + produksi + rakyat)
+
+Jenis tanah yang dominan: tanah pertanian, ladang, dan area ternak.
+
+================================================================================
+BAB II. SEJARAH DESA SELOREJO
+================================================================================
+
+A. ASAL USUL NAMA DAN PENDIRIAN DESA
+--------------------------------------
+Desa Selorejo bermula dari sebuah kawasan hutan rimba yang dibuka (babat alas)
+pada pertengahan abad ke-18, tepatnya di akhir era Perang Diponegoro. Pembabatan
+hutan ini diprakarsai oleh dua tokoh besar, yaitu:
+
+  1. Mbah H. Turejo
+  2. Mbah Sayang
+
+Rombongan yang membuka hutan ini merupakan para pelarian dari Mataram Islam
+yang menjadikan kawasan hutan tersebut sebagai tempat hunian baru setelah
+terlibat dalam pertempuran melawan pemerintah kolonial Belanda.
+
+B. ASAL NAMA "WATUGEDHE" DAN PERUBAHAN MENJADI "SELOREJO"
+-----------------------------------------------------------
+Pada awalnya, perkampungan baru ini diberi nama "Watugedhe" yang secara harfiah
+berarti "batu besar" dalam bahasa Jawa. Penamaan ini dilatarbelakangi oleh
+ditemukannya dua buah batu berukuran besar yang tidak lazim di jalan yang
+mengelilingi desa. Batu tersebut dipercaya memiliki kekuatan mistik karena
+beberapa orang yang berupaya memecahnya dilaporkan meninggal dunia sesudahnya.
+Hingga kini kedua batu itu masih ada di tempat aslinya (insitu), meski salah
+satunya dalam kondisi rusak.
+
+Dalam perkembangannya, nama Watugedhe berubah menjadi "Selorejo", dengan rincian
+asal kata sebagai berikut:
+  - "Selo"  = batu (dalam bahasa Jawa)
+  - "Rejo"  = diambil dari nama pendiri desa, yakni Mbah H. Turejo
+
+Sehingga "Selorejo" secara simbolis bermakna "batu milik Turejo" atau lebih luas
+dimaknai sebagai "tempat yang dibangun dari batu oleh sang pendiri".
+
+================================================================================
+BAB III. VISI, MISI, DAN TUJUAN PEMERINTAH DESA SELOREJO
+================================================================================
+
+A. VISI
+-------
+"Terwujudnya Tatanan Kehidupan Masyarakat Desa Selorejo yang Agamis,
+ Demokratis, Mandiri, Bersih, Indah dan Aman"
+
+Visi ini dirangkum dalam filosofi "SATATA GAMA KARTA RAHARJA" yang memuat
+enam nilai kunci sebagai landasan pembangunan desa, yaitu:
+
+  1. AGAMIS
+     Kondisi masyarakat yang berbudi luhur dan berakhlak mulia serta
+     menerapkan nilai-nilai keagamaan dalam kehidupan sehari-hari, sehingga
+     melahirkan pribadi yang santun, arif, dan bijaksana.
+
+  2. DEMOKRATIS
+     Tatanan penyelenggaraan pemerintahan desa yang senantiasa melibatkan
+     peran serta masyarakat dalam setiap pengambilan keputusan.
+     (Filosofi: "bender jare wong akeh luweh apik tinimbang bener jare dewe")
+
+  3. MANDIRI
+     Kondisi masyarakat yang mampu mengidentifikasi, mengelola, dan memanfaatkan
+     potensi sumber daya manusia maupun sumber daya alam yang dimiliki.
+
+  4. BERSIH
+     Mencakup dua dimensi:
+     a) Pemerintahan: tata kelola pemerintahan yang baik (good government),
+        bersih dari praktik KKN (clean government).
+     b) Lingkungan: kondisi lingkungan yang sehat, bersih, dan nyaman dengan
+        tata kelola lingkungan yang baik dan berkelanjutan.
+
+  5. INDAH
+     Tata kelola lingkungan yang memperhatikan aspek keindahan, kepantasan,
+     dan berwawasan pelestarian lingkungan hidup.
+
+  6. AMAN
+     Terciptanya kondisi wilayah yang aman dan tentram sehingga masyarakat
+     merasa terlindungi dan hidup dengan tenang.
+
+B. MISI
+-------
+  1. Mewujudkan pemahaman dan pengamalan nilai-nilai agama, adat istiadat, dan budaya.
+  2. Mewujudkan tata kelola pemerintahan yang baik, bersih, siap melayani,
+     dan melindungi masyarakat.
+  3. Mewujudkan rasa kebersamaan dan rasa memiliki (roso rumongso handarbeni)
+     untuk menyatukan visi dan misi dalam membangun desa mensejahterakan masyarakat
+     (saiyek saeko proyo).
+  4. Mewujudkan usaha peningkatan kualitas sumber daya manusia.
+  5. Mewujudkan peningkatan kesejahteraan masyarakat berbasis pertanian dengan
+     menggalakkan usaha mikro, kecil, dan menengah (UMKM) dalam rangka
+     pemberdayaan masyarakat.
+  6. Mewujudkan peningkatan kualitas dan fungsi lingkungan hidup melalui sistem
+     pengelolaan lingkungan dan sumber daya alam yang berkelanjutan.
+  7. Membangun komunikasi dan kerja sama yang lebih baik antara pemerintah desa,
+     masyarakat, desa lain, dan instansi lainnya.
+
+C. TUJUAN
+---------
+  1. Membentuk kepribadian yang santun, berakhlak mulia, berbudi luhur, dan
+     berketuhanan Yang Maha Esa.
+  2. Menumbuhkan kepercayaan masyarakat terhadap penyelenggara pemerintahan desa
+     sehingga tercipta pemerintahan yang terpercaya dan bermartabat.
+  3. Menumbuhkan rasa persatuan, kerukunan, keguyupan, gotong royong, dan saling
+     membutuhkan dalam kehidupan masyarakat desa.
+  4. Mengikutsertakan peran aktif masyarakat dalam pembangunan sejak tahap
+     perencanaan sehingga tercipta rasa memiliki (roso rumongso handarbeni).
+  5. Mempersiapkan sumber daya manusia yang handal, cakap, dan berkualitas demi
+     kemajuan Desa Selorejo di masa mendatang.
+  6. Menciptakan peluang usaha baru (diversifikasi usaha) yang meningkatkan
+     kesejahteraan masyarakat.
+  7. Menciptakan suasana lingkungan yang sehat, bersih, indah, nyaman, dan aman.
+  8. Senantiasa menjaga kelestarian sumber daya alam (HAMEMAYU HAYUNING BAWONO).
+  9. Mempererat persaudaraan, kemudahan dan percepatan informasi serta kelancaran rezeki.
+
+================================================================================
+BAB IV. RENCANA ARAH KEBIJAKAN DAN PROGRAM KERJA
+================================================================================
+
+A. RENCANA ARAH KEBIJAKAN
+--------------------------
+  1. Mendorong kemajuan dan perkembangan lembaga agama, pendidikan agama, dan
+     sosial budaya.
+  2. Memperkuat kelembagaan, memperjelas tugas pokok, standar pelayanan
+     masyarakat, dan kesejahteraan personil secara adil dan proporsional.
+  3. Membangun sistem informasi dan komunikasi publik.
+  4. Mendorong kemajuan lembaga pendidikan formal dan non-formal serta
+     lembaga-lembaga pelatihan.
+  5. Mendorong kemajuan kegiatan generasi muda.
+  6. Mempercepat pembangunan infrastruktur pedesaan.
+  7. Mendorong perkembangan teknologi pertanian ramah lingkungan.
+  8. Mendorong kemajuan usaha kecil dan menengah.
+  9. Menggali dan melestarikan kebudayaan dan kesenian lokal.
+
+B. PROGRAM KERJA JANGKA PENDEK
+--------------------------------
+  1. Melanjutkan dan menyelesaikan pembangunan Kantor Desa sebagai pusat
+     pelayanan pemerintahan desa.
+  2. Bersama panitia, membantu melanjutkan pembangunan masjid.
+  3. Membuat aturan standar pelayanan masyarakat (kejelasan prosedur, persyaratan,
+     biaya, dan waktu penyelesaian layanan).
+  4. Penanganan dan pengelolaan masalah sampah dan limbah.
+  5. Merumuskan pengelolaan air minum yang merata bagi seluruh masyarakat.
+  6. Pemeliharaan dan pembangunan jalan lingkungan serta saluran irigasi.
+  7. Merumuskan sistem pengelolaan Desa Wisata (Agrowisata) agar benar-benar
+     memberikan manfaat ekonomi bagi masyarakat.
+  8. Bekerja sama dengan instansi terkait untuk program sertifikasi tanah massal
+     dengan biaya terjangkau.
+
+================================================================================
+BAB V. POTENSI UNGGULAN DESA
+================================================================================
+
+A. PERTANIAN DAN PERKEBUNAN
+-----------------------------
+Komoditas Unggulan: JERUK SELOREJO
+
+Desa Selorejo dikenal sebagai sentra pertanian jeruk. Terdapat sekurang-kurangnya
+4 (empat) varietas jeruk yang dibudidayakan di desa ini. Jeruk Selorejo memiliki
+keunggulan dalam aspek:
+  - Tingkat kemanisan
+  - Kandungan gizi yang baik
+
+Selain jeruk, sektor peternakan juga menjadi potensi desa, meliputi:
+  - Sapi
+  - Kambing
+  - Lele (budidaya ikan air tawar)
+  - Ayam
+
+B. KARAKTER DAN BUDAYA LOKAL
+------------------------------
+Salah satu daya tarik tak kasat mata Desa Selorejo adalah karakter masyarakatnya
+yang dikenal sangat ramah. Warga desa dikenal dengan kebiasaan "sumeh" (mudah
+tersenyum), yang menjadikan keramahan sebagai bentuk wisata sosial dan kharisma
+tersendiri bagi pengunjung.
+
+================================================================================
+BAB VI. PARIWISATA DESA SELOREJO
+================================================================================
+
+A. KONSEP DESA WISATA
+----------------------
+Desa wisata adalah kawasan pedesaan dengan karakteristik khusus yang menjadikannya
+destinasi wisata. Komponen utama desa wisata meliputi:
+  - Tradisi dan budaya lokal yang masih asli
+  - Makanan khas daerah
+  - Sistem pertanian dan sistem sosial yang unik
+  - Alam dan lingkungan yang masih terjaga
+
+Fasilitas pendukung yang tersedia:
+  - Sarana transportasi
+  - Sarana telekomunikasi
+  - Sarana kesehatan
+  - Akomodasi berupa pondok wisata (home stay) agar pengunjung merasakan
+    suasana pedesaan yang autentik
+
+B. JENIS-JENIS WISATA
+----------------------
+
+1. WISATA PETIK JERUK (Wisata Andalan)
+   Peserta diajak langsung ke kebun jeruk dengan program:
+   a) Pengenalan jenis-jenis jeruk Selorejo, teknik budidaya, perawatan,
+      dan manfaat jeruk
+   b) Edukasi cara petik jeruk yang benar
+   c) Praktik petik jeruk langsung di kebun, didampingi pemandu wisata (guide)
+
+2. WISATA ALAM
+   a) BUMPER BEDENGAN (Bumi Perkemahan Bedengan)
+      - Wisata perkemahan yang menjadi andalan kawasan ini
+      - Lokasi: tersedia di koordinat Google Maps dalam sumber asli
+   b) AIR TERJUN BRUES
+      - Wisata air terjun alami
+   c) ADVENTURE TRAIL & ATV
+      - Wisata olahraga dan hobi
+      - Aktivitas: mengendarai motor trail maupun ATV
+      - Pilihan: arena sirkuit (circuit cross) atau adventure trip ke hutan
+      - Tersedia juga arena outbound untuk memacu adrenalin
+
+3. WISATA BUDAYA
+   Peserta diajak mengenal dan belajar budaya warisan leluhur, meliputi:
+   - Gamelan
+   - Karawitan
+   - Jaranan / Kuda Lumping
+   - Pencak Silat Tradisional
+   - Tari tradisional
+   - Bantengan
+   - Ulo-uloan
+   - Terbang Jidor
+   - Campur Sari
+   - Ludruk
+   - Wong Ireng
+   - Wayang Kulit
+
+4. WISATA RELIGI
+   Disebutkan dalam sumber sebagai salah satu jenis wisata yang tersedia,
+   meskipun detail program tidak dijabarkan lebih lanjut.
+
+C. AGENDA WISATA TAHUNAN
+--------------------------
+Desa Selorejo memiliki agenda rutin tahunan yang menjadi daya tarik wisatawan:
+
+  1. Jabutan Opak   : tradisi lokal terkait kesenian/ritual setempat
+  2. Barikan        : selamatan / doa bersama komunal
+  3. Bersih Desa & Dusun : kegiatan gotong royong membersihkan desa dan dusun
+  4. Pawai / Karnaval
+     - Diikuti seluruh masyarakat desa, baik dari Krajan maupun Dukuh
+     - Puncak acara: Arakan Tumpeng Jeruk Ageng sebagai ungkapan rasa syukur
+       atas melimpahnya rezeki dan panen raya masyarakat Selorejo
+
+================================================================================
+BAB VII. STRUKTUR PEMERINTAHAN DESA SELOREJO
+================================================================================
+
+A. STRUKTUR UTAMA
+------------------
+Kepala Desa (pemimpin tertinggi): BAMBANG SOPONYONO
+
+Lembaga mitra sejajar (garis koordinasi / putus-putus):
+  - BPD (Badan Permusyawaratan Desa)
+    Fungsi: pengawas dan mitra pemerintah desa (bukan bawahan Kepala Desa)
+
+B. LEVEL ADMINISTRATIF INTI
+-----------------------------
+Sekretaris Desa
+  - Posisi: di bawah Kepala Desa
+  - Fungsi: mengelola administrasi dan koordinasi internal pemerintah desa
+
+C. KAUR (KEPALA URUSAN) BESERTA STAF
+--------------------------------------
+Di bawah Sekretaris Desa terdapat 3 (tiga) kepala urusan:
+
+  No.  Jabatan            Nama Kaur            Staf
+  ---  -----------------  -------------------  ------------------
+   1   Kaur Umum          Retno Kustiah         Henny Susi Wahyuni
+   2   Kaur Keuangan      Yusak Dadang S        Kiki Dwi Melasandi
+   3   Kaur Perencanaan   (tidak tercantum)     Hermawan Sutanto
+
+  Rincian Tugas:
+  - Kaur Umum       : administrasi umum, surat-menyurat, kearsipan
+  - Kaur Keuangan   : pengelolaan keuangan desa (APBDes, anggaran, dll.)
+  - Kaur Perencanaan: perencanaan program pembangunan desa
+
+D. KASI (KEPALA SEKSI)
+------------------------
+Bagian teknis lapangan yang menangani bidang spesifik:
+
+  No.  Jabatan                  Nama Pejabat
+  ---  -----------------------  ---------------
+   1   Kasi Pemerintahan        Wiyono
+   2   Kasi Kesejahteraan       Saleh
+   3   Kasi Kamtib (Keamanan)   Suiswanto
+   4   Kasi Pemberdayaan        Solikin Wibowo
+
+  Rincian Tugas:
+  - Kasi Pemerintahan  : administrasi pemerintahan dan pelayanan warga
+  - Kasi Kesejahteraan : urusan sosial dan kesejahteraan masyarakat
+  - Kasi Kamtib        : keamanan dan ketertiban wilayah
+  - Kasi Pemberdayaan  : pengembangan potensi masyarakat
+
+E. KAMITUWO (KEPALA DUSUN)
+----------------------------
+Pelaksana di tingkat wilayah yang berinteraksi langsung dengan warga:
+
+  No.  Wilayah / Dusun       Nama Kamituwo
+  ---  --------------------  ---------------
+   1   Dusun Selorejo (Krajan) Yasnadi
+   2   Dusun Selokerto         Prayitno
+   3   Dusun Gumuk             (tidak tercantum)
+
+F. ALUR HIERARKI PEMERINTAHAN
+-------------------------------
+
+  BPD  <---->  Kepala Desa (Bambang Soponyono)
+                      |
+               Sekretaris Desa
+                      |
+        ┌─────────────┼─────────────┐
+    Kaur Umum   Kaur Keuangan  Kaur Perencanaan
+        |              |              |
+     (Staf)         (Staf)         (Staf)
+                      |
+     ┌────────────────┼────────────────┐
+  Kasi Pemerin-  Kasi Keseja- Kasi Kamtib  Kasi Pember-
+  tahan          hteraan                   dayaan
+                      |
+     ┌────────────────┼────────────────┐
+  Kamituwo        Kamituwo          Kamituwo
+  Selorejo        Selokerto          Gumuk
+  (Yasnadi)       (Prayitno)         (-)
+
+================================================================================
+BAB VIII. PETA WILAYAH DAN PEMBAGIAN ADMINISTRATIF
+================================================================================
+
+A. PEMBAGIAN WILAYAH (DUSUN)
+------------------------------
+Desa Selorejo terbagi menjadi 3 (tiga) dusun utama:
+
+  1. Dusun Krajan
+     - Berlokasi di bagian tengah hingga timur desa
+     - Merupakan dusun terluas dan terpadat permukimannya
+     - Kemungkinan besar menjadi pusat aktivitas penduduk
+
+  2. Dusun Selokerto
+     - Berlokasi di sisi barat / kiri peta
+     - Cukup padat, terutama di bagian utara dan tengah dusun
+
+  3. Dusun Gumuk
+     - Berlokasi di bagian bawah kiri (selatan-barat) desa
+     - Relatif lebih sedikit bangunan dibandingkan dua dusun lainnya
+
+B. BATAS ANTAR DESA (DARI PETA)
+---------------------------------
+  - Utara  : Desa Gading Kulon
+  - Timur  : Desa Tegal Weru
+  - Selatan: Desa Petung Sewu
+  (Barat terhubung dengan kawasan hutan)
+
+C. PEMBAGIAN RT/RW
+-------------------
+
+  DUSUN SELOKERTO (RW V - RW VI bagian):
+  ----------------------------------------
+  RT.13/RW.V   |  RT.14/RW.V   |  RT.15/RW.V
+  RT.16/RW.V   |  RT.17/RW.V   |  RT.18/RW.VI
+  RT.19/RW.VI
+
+  DUSUN GUMUK (RW VI bagian):
+  ----------------------------
+  RT.20/RW.VI
+
+  DUSUN KRAJAN (RW I - RW IV):
+  ------------------------------
+  RT.01/RW.I   |  RT.02/RW.I   |  RT.03/RW.I
+  RT.04/RW.II  |  RT.05/RW.II  |  RT.06/RW.II
+  RT.07/RW.III |  RT.08/RW.III |  RT.09/RW.III
+  RT.10/RW.II  |  RT.11/RW.IV  |  RT.12/RW.IV
+
+  Total: 3 dusun, 6 RW, dan 20 RT
+
+D. FASILITAS UMUM YANG TERCATAT PADA PETA
+-------------------------------------------
+  - Balai Desa
+  - Balai Dukuh (di masing-masing dusun)
+  - Sekolah Dasar (SD)
+  - Area hutan di beberapa bagian wilayah
+  - Jalur jalan utama penghubung antar dusun
+
+E. KLASIFIKASI PERMUKIMAN (DARI LEGENDA PETA)
+----------------------------------------------
+Peta desa dilengkapi klasifikasi kondisi rumah warga:
+  - Rumah miskin
+  - Rumah sedang
+  - Rumah kaya
+
+Ini menunjukkan bahwa peta bersifat administratif sekaligus sosial-ekonomi,
+sehingga berfungsi untuk perencanaan wilayah dan pelayanan desa secara tepat
+sasaran.
+
+================================================================================
+BAB IX. INFORMASI KONTAK DAN LOKASI RESMI
+================================================================================
+
+A. KANTOR DESA SELOREJO
+------------------------
+Alamat   : Desa Selorejo, Kecamatan Dau, Kabupaten Malang, Jawa Timur
+Kode Pos : 65151
+Email    : desawisataselorejo@gmail.com
+WhatsApp : 0813.3163.5678
+
+C. TITIK LOKASI GOOGLE MAPS
+-----------------------------
+1. Bumper Bedengan (Bumi Perkemahan)
+   - Tersedia embed Google Maps di website sumber
+   - Koordinat berdasarkan embed: <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d11969.54670519227!2d112.5314907018874!3d-7.935384974057931!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7883ad1abd80ff%3A0x5ffa215adabf5308!2sBumper%20Bedengan!5e0!3m2!1sid!2sid!4v1775964734961!5m2!1sid!2sid" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+2. Kantor Desa Selorejo
+   - Koordinat berdasarkan embed: -7.9378°S, 112.5441°E
+   - Place ID Google Maps: <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3951.590213330273!2d112.54406589999999!3d-7.937794299999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7883e8e3f8e01f%3A0x99971f240006ad50!2sKantor%20Desa%20Selorejo!5e0!3m2!1sid!2sid!4v1775964843637!5m2!1sid!2sid" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+
+================================================================================
+RINGKASAN EKSEKUTIF
+================================================================================
+
+Desa Selorejo adalah sebuah desa wisata yang terletak di Kecamatan Dau,
+Kabupaten Malang, Jawa Timur, berada di ketinggian 800-1.200 mdpl dengan
+luas kawasan hutan mencapai 2.068 ha. Desa ini memiliki sejarah panjang sejak
+pertengahan abad ke-18 dan kini berkembang menjadi destinasi agrowisata berbasis
+masyarakat.
+
+Potensi unggulan desa mencakup:
+  [1] Wisata Petik Jeruk sebagai atraksi agrowisata utama
+  [2] Bumi Perkemahan Bedengan sebagai wisata alam andalan
+  [3] Wisata budaya berbasis kesenian tradisional Jawa
+  [4] Adventure Trail & ATV untuk wisata olahraga dan petualangan
+  [5] Air Terjun Brues sebagai daya tarik alam tambahan
+  [6] Agenda tahunan Arakan Tumpeng Jeruk Ageng
+
+Dari sisi pemerintahan, Desa Selorejo dipimpin Kepala Desa Bambang Soponyono
+dengan struktur administratif yang lengkap meliputi Sekretaris Desa, tiga Kaur,
+empat Kasi, dan tiga Kamituwo yang masing-masing mengelola Dusun Selorejo
+(Krajan), Selokerto, dan Gumuk.
+
+Penduduk sejumlah 4.069 jiwa hidup dalam lingkungan yang ramah, subur, dan
+kaya potensi alam, dengan visi besar mewujudkan tatanan masyarakat yang Agamis,
+Demokratis, Mandiri, Bersih, Indah, dan Aman (SATATA GAMA KARTA RAHARJA).
+
+================================================================================
+SUMBER DATA
+================================================================================
+Website   : https://desawisataselorejo.blogspot.com/2016/06/desa-wisata-selorejo.html
+Diakses   : (data diperoleh melalui scraping, tahun referensi: 2016)
+Penyusun  : Ridwan Hakim Mashadi (KKN UNS - Desa Selorejo, Kab. Malang, 2026)
+================================================================================

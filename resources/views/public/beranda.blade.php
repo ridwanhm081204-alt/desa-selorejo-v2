@@ -286,7 +286,7 @@
                                         <div class="flex-grow-1">
                                             <span class="badge badge-kategori mb-2">{{ $b->kategori }}</span>
                                             <h6 class="fw-bold mb-1 lh-sm text-dark text-truncate-2">{{ $b->judul }}</h6>
-                                            <small class="text-muted"><i data-lucide="calendar" class="icon-sm me-1"></i>{{ \Carbon\Carbon::parse($b->tanggal)->format('d M Y') }}</small>
+                                            <small class="text-muted"><i data-lucide="calendar" class="icon-sm me-1"></i>{{ \Carbon\Carbon::parse($b->tanggal)->translatedFormat('d F Y') }}</small>
                                         </div>
                                     </div>
                                 </a>
@@ -390,9 +390,14 @@
                         <div class="row g-3 pb-4">
                             @foreach($chunk as $g)
                             <div class="col-md-4">
-                                <div class="card-hover rounded-4 overflow-hidden position-relative shadow-sm">
-                                    <img src="{{ Str::startsWith($g->url, 'http') ? $g->url : asset('storage/'.$g->url) }}" class="w-100" style="height: 280px; object-fit: cover;" onerror="this.src='{{ asset('images/hero_desa.png') }}'">
-                                    <div class="position-absolute bottom-0 w-100 p-3" style="background: linear-gradient(transparent, rgba(0,0,0,0.8)); opacity:0; transition: opacity 0.3s; cursor: pointer;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0">
+                                <div class="card-hover rounded-4 overflow-hidden position-relative shadow-sm lightbox-trigger" 
+                                     style="cursor: pointer;"
+                                     data-src="{{ $g->gambar_url }}"
+                                     data-caption="{{ $g->caption }}"
+                                     data-category="{{ $g->kategori }}"
+                                     data-date="{{ $g->tanggal ? $g->tanggal->translatedFormat('l, d F Y') : '-' }}">
+                                    <img src="{{ $g->gambar_url }}" class="w-100" style="height: 280px; object-fit: cover;" onerror="this.src='{{ asset('images/hero_desa.png') }}'">
+                                    <div class="position-absolute bottom-0 w-100 p-3" style="background: linear-gradient(transparent, rgba(0,0,0,0.8)); opacity:0; transition: opacity 0.3s;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0">
                                         <p class="text-white mb-0 small fw-medium text-center">{{ $g->caption ?? 'Dokumentasi' }}</p>
                                     </div>
                                 </div>
@@ -437,6 +442,8 @@
                 <a href="{{ url('/galeri') }}" class="btn btn-outline-success rounded-pill px-5 fw-bold shadow-sm hover-lift">Lihat Semua Foto</a>
             </div>
         </div>
+
+        @include('layouts.partials.lightbox')
 
     <!-- J) PETA GOOGLE MAPS & K) TAUTAN TERKAIT -->
     <div class="row g-4 mb-5 pb-4">

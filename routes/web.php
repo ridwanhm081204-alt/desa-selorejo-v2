@@ -6,31 +6,32 @@ Route::get('/', [\App\Http\Controllers\Public\BerandaController::class, 'index']
 Route::post('/polling/{id}/vote', [\App\Http\Controllers\Public\BerandaController::class, 'vote'])->name('polling.vote');
 
 // Profil Desa
-Route::get('/profil/sejarah', [\App\Http\Controllers\Public\ProfilController::class, 'sejarah']);
-Route::get('/profil/visi-misi', [\App\Http\Controllers\Public\ProfilController::class, 'visiMisi']);
-Route::get('/profil/geografis', [\App\Http\Controllers\Public\ProfilController::class, 'geografis']);
-Route::get('/profil/peta', [\App\Http\Controllers\Public\ProfilController::class, 'peta']);
+Route::get('/profil/sejarah', [\App\Http\Controllers\Public\ProfilController::class, 'sejarah'])->name('profil.sejarah');
+Route::get('/profil/visi-misi', [\App\Http\Controllers\Public\ProfilController::class, 'visiMisi'])->name('profil.visi-misi');
+Route::get('/profil/geografis', [\App\Http\Controllers\Public\ProfilController::class, 'geografis'])->name('profil.geografis');
+Route::get('/profil/peta', [\App\Http\Controllers\Public\ProfilController::class, 'peta'])->name('profil.peta');
 
 // Pemerintahan
-Route::get('/pemerintahan/struktur', [\App\Http\Controllers\Public\PemerintahanController::class, 'struktur']);
-Route::get('/pemerintahan/bpd', [\App\Http\Controllers\Public\PemerintahanController::class, 'bpd']);
-Route::get('/pemerintahan/lembaga', [\App\Http\Controllers\Public\PemerintahanController::class, 'lembaga']);
+Route::get('/pemerintahan/struktur', [\App\Http\Controllers\Public\PemerintahanController::class, 'struktur'])->name('pemerintahan.struktur');
+Route::get('/pemerintahan/bpd', [\App\Http\Controllers\Public\PemerintahanController::class, 'bpd'])->name('pemerintahan.bpd');
+Route::get('/pemerintahan/lembaga', [\App\Http\Controllers\Public\PemerintahanController::class, 'lembaga'])->name('pemerintahan.lembaga');
 
 // Wisata & Produk
-Route::get('/wisata', [\App\Http\Controllers\Public\WisataController::class, 'index']);
+Route::get('/wisata', [\App\Http\Controllers\Public\WisataController::class, 'index'])->name('wisata');
 Route::resource('/produk', \App\Http\Controllers\Public\ProdukController::class)->only(['index', 'show']);
 
 // Data Desa
-Route::get('/statistik', [\App\Http\Controllers\Public\DataDesaController::class, 'statistik']);
-Route::get('/transparansi', [\App\Http\Controllers\Public\DataDesaController::class, 'apbdes']);
+Route::get('/statistik', [\App\Http\Controllers\Public\DataDesaController::class, 'statistik'])->name('statistik');
+Route::get('/transparansi', [\App\Http\Controllers\Public\DataDesaController::class, 'apbdes'])->name('transparansi');
 
 // Berita & Galeri
-Route::get('/berita', [\App\Http\Controllers\Public\BeritaController::class, 'index']);
-Route::get('/berita/{slug}', [\App\Http\Controllers\Public\BeritaController::class, 'show']);
-Route::get('/galeri', [\App\Http\Controllers\Public\GaleriController::class, 'index']);
+Route::get('/berita', [\App\Http\Controllers\Public\BeritaController::class, 'index'])->name('berita.index');
+Route::get('/berita/{slug}', [\App\Http\Controllers\Public\BeritaController::class, 'show'])->name('berita.show');
+Route::post('/berita/react/{id}', [\App\Http\Controllers\Public\BeritaController::class, 'react'])->name('berita.react');
+Route::get('/galeri', [\App\Http\Controllers\Public\GaleriController::class, 'index'])->name('galeri');
 
 // Kontak
-Route::get('/kontak', [\App\Http\Controllers\Public\KontakController::class, 'index']);
+Route::get('/kontak', [\App\Http\Controllers\Public\KontakController::class, 'index'])->name('kontak.index');
 Route::post('/kontak', [\App\Http\Controllers\Public\KontakController::class, 'store'])->name('kontak.store');
 
 Route::get('/login', [\App\Http\Controllers\Auth\LoginController::class, 'showLoginForm'])->name('login')->middleware('guest');

@@ -5,12 +5,11 @@
     <li class="breadcrumb-item active">BPD</li>
 @endsection
 @section('content')
-<div class="section-hero-gradient pt-5 pb-4 mb-5 text-center text-white" style="min-height: auto;">
-    <div class="container position-relative z-1">
-        <h1 class="fw-bold mb-3"><i data-lucide="users" class="me-2 text-warning"></i>Anggota BPD</h1>
-        <p class="lead fw-medium text-white-50">Badan Permusyawaratan Desa Selorejo</p>
-    </div>
-</div>
+@include('layouts.partials.page-hero', [
+    'title' => 'Badan Permusyawaratan Desa',
+    'subtitle' => 'Lembaga legislatif desa sebagai mitra Pemerintah Desa.',
+    'icon' => 'users-2'
+])
 
 <div class="container mb-5 pb-5">
     <div class="glass-card bg-white p-4 p-md-5 rounded-4 border-0 shadow-sm">

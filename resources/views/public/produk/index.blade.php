@@ -5,12 +5,11 @@
     <li class="breadcrumb-item active">Produk Unggulan</li>
 @endsection
 @section('content')
-<div class="section-hero-gradient pt-5 pb-4 mb-5 text-center text-white" style="min-height: auto;">
-    <div class="container position-relative z-1">
-        <h1 class="fw-bold mb-3"><i data-lucide="shopping-bag" class="me-2 text-warning"></i>Katalog Produk Desa</h1>
-        <p class="lead fw-medium text-white-50">Mendukung karya lokal dan UMKM Desa Selorejo</p>
-    </div>
-</div>
+@include('layouts.partials.page-hero', [
+    'title' => 'Katalog Produk Desa',
+    'subtitle' => 'Mendukung karya lokal dan UMKM Desa Selorejo',
+    'icon' => 'shopping-bag'
+])
 
 <div class="container mb-5 pb-5">
     <div class="row g-4">

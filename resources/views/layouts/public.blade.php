@@ -22,6 +22,9 @@
     <!-- Custom Design System CSS & JS -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <link rel="icon" type="image/png" href="{{ asset('images/LogoMalang.png') }}">
+    
+    <!-- Lucide Icons CDN (Fail-safe for dynamic components) -->
+    <script src="https://unpkg.com/lucide@latest"></script>
 
     
     <style>

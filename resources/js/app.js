@@ -2,11 +2,12 @@ import './bootstrap';
 import * as bootstrap from 'bootstrap';
 window.bootstrap = bootstrap;
 import { createIcons, icons } from 'lucide';
+window.lucide = { createIcons, icons };
 
 document.addEventListener('DOMContentLoaded', () => {
     // Initialize Lucide icons
-    if (typeof createIcons !== 'undefined' || icons) {
-        createIcons({ icons });
+    if (window.lucide) {
+        window.lucide.createIcons({ icons });
     }
 
     // Realtime Clock Logic

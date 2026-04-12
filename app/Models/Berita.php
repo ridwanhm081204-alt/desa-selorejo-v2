@@ -16,6 +16,9 @@ class Berita extends Model
         'tanggal',
         'penulis',
         'status_publish',
+        'views',
+        'likes',
+        'dislikes',
     ];
 
     public function getGambarUrlAttribute()

@@ -5,30 +5,36 @@
     <li class="breadcrumb-item active">Sejarah</li>
 @endsection
 @section('content')
-<div class="section-hero-gradient pt-5 pb-4 mb-5 text-center text-white" style="min-height: auto;">
-    <div class="container position-relative z-1">
-        <h1 class="fw-bold mb-3"><i data-lucide="book-open" class="me-2 text-warning"></i>Sejarah Desa Selorejo</h1>
-        <p class="lead fw-medium text-white-50">Mengenal lebih dekat asal-usul dan tradisi masa lalu.</p>
-    </div>
-</div>
+@include('layouts.partials.page-hero', [
+    'title' => 'Sejarah Desa Selorejo',
+    'subtitle' => 'Mengenal lebih dekat asal-usul dan tradisi masa lalu.',
+    'icon' => 'book-open'
+])
 
 <div class="container mb-5 pb-5">
-    <div class="row align-items-center mb-5 pb-3">
-        <div class="col-lg-6 mb-4 mb-lg-0 pe-lg-4">
-            <div class="glass-card p-4 p-md-5 bg-white h-100 lh-lg text-justify text-muted" style="text-align: justify;">
-                {!! nl2br(e($profile->sejarah ?? 'Data sejarah belum dicatat dalam sistem.')) !!}
-            </div>
-        </div>
-        <div class="col-lg-6 position-relative">
-            <div class="position-absolute bg-success rounded-circle" style="width:150px; height:150px; right:-20px; top:-20px; opacity:0.1; z-index:0;"></div>
-            <img src="https://images.unsplash.com/photo-1542204165-65bf26472b9b?w=600&q=80" alt="Zaman Dulu Desa Selorejo" class="img-fluid rounded-4 shadow-lg position-relative z-1 border border-4 border-white">
-            
-            <div class="card-hover position-absolute bottom-0 start-0 translate-middle-y ms-4 p-3 bg-white text-dark shadow rounded-3 border-start border-4 border-success z-2">
-                <div class="d-flex align-items-center">
-                    <i data-lucide="clock" class="text-success me-3 icon-xl"></i>
-                    <div>
-                        <h6 class="mb-0 fw-bold">Eksistensi</h6>
-                        <small>Terus Berkembang</small>
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="glass-card bg-white p-0 rounded-4 shadow-lg overflow-hidden border-0 mb-5">
+                <!-- Foto Utama di Atas Kotak -->
+                <div class="position-relative">
+                    <img src="{{ asset('images/SelorejoWaduk.jpg') }}" alt="Pemandangan Desa Selorejo" class="img-fluid w-100" style="max-height: 500px; object-fit: cover;">
+                    <div class="position-absolute bottom-0 start-0 w-100 p-4 bg-gradient-to-t from-dark to-transparent text-white d-none d-md-block">
+                        <small class="text-white-50"><i data-lucide="camera" class="icon-sm me-1"></i> Dokumentasi Desa Selorejo</small>
+                    </div>
+                </div>
+
+                <!-- Konten Teks Materi -->
+                <div class="p-4 p-md-5">
+                    <div class="lh-lg text-dark" style="text-align: justify; font-size: 1.05rem;">
+                        <p class="mb-4">
+                            Desa Selorejo yang dikenal saat ini awalnya memiliki akar sejarah yang kuat dengan nama <strong>"Watugedhe"</strong>. Nama ini merujuk pada keberadaan dua batu raksasa tak lazim yang dipercaya memiliki daya mistis (hingga kini batu tersebut masih berada di lokasi aslinya). Perjalanan desa ini dimulai sekitar pertengahan abad ke-18 pasca Perang Diponegoro. Para pionir, yakni <strong>Mbah H. Turejo</strong> dan <strong>Mbah Sayang</strong>, bersama rombongan pelarian dari Mataram Islam yang melawan kolonial Belanda, melakukan <em>"Babat Alas"</em> atau pembukaan lahan di tengah hutan lebat lereng gunung sebagai hunian baru. Seiring waktu, nama Watugedhe bertransformasi menjadi <strong>Selorejo</strong>, yang diambil dari kombinasi kata <em>"Selo"</em> (batu) dan <em>"Rejo"</em> (diambil dari nama Mbah H. Turejo), melambangkan wilayah berbatu yang dibangun dan dimakmurkan oleh sang pendiri.
+                        </p>
+                        <p class="mb-4">
+                            Sebelum dikenal sebagai penghasil jeruk, wilayah Selorejo merupakan lahan subur yang didominasi oleh tanaman sayur-mayur. Transformasi besar terjadi pada awal dekade <strong>1990-an</strong> ketika muncul inisiatif dari dua tokoh masyarakat visioner, <strong>Abah Sulaiman</strong> dan <strong>Abah Dulawi</strong>. Mereka mulai merintis penanaman bibit jeruk keprok setelah melihat potensi topografi desa yang berada di ketinggian 650-1000 mdpl dengan suhu udara sejuk yang sangat ideal bagi pertumbuhan jeruk. Keberhasilan awal mereka memicu gelombang transisi lahan di seluruh desa, hingga akhirnya hampir setiap warga memiliki kebun jeruk sendiri dan mengubah wajah ekonomi desa secara drastis.
+                        </p>
+                        <p class="mb-0">
+                            Memasuki era modern, potensi agrikultur ini dikembangkan lebih jauh menjadi sektor pariwisata yang terintegrasi. Pada tahun <strong>2011</strong>, Pemerintah Kabupaten Malang secara resmi mencanangkan Selorejo sebagai <strong>"Desa Wisata Jeruk"</strong>. Konsep agrowisata petik jeruk ini tidak hanya mempromosikan varietas unggulan seperti <em>Jeruk Keprok Batu 55</em> dan <em>Jeruk Baby Java</em>, tetapi juga memberikan pengalaman autentik bagi wisatawan untuk berinteraksi langsung dengan alam. Kini, Selorejo telah mengukuhkan posisinya sebagai salah satu destinasi wisata unggulan di Jawa Timur yang mandiri dan berkelanjutan.
+                        </p>
                     </div>
                 </div>
             </div>
@@ -47,23 +53,37 @@
                 
                 <div class="position-relative pb-4 ps-4 border-start border-2 border-success timeline-item">
                     <div class="position-absolute bg-success rounded-circle shadow" style="width: 16px; height: 16px; left: -9px; top: 0;"></div>
-                    <h5 class="fw-bold text-success mb-1">Masa Babat Alas (Pertengahan Abad 18)</h5>
-                    <p class="text-muted small mb-2"><i data-lucide="calendar" class="icon-sm me-1"></i> Asal Mula Desa Watugedhe</p>
-                    <p class="text-dark">Pada masa awal, wilayah ini berupa kawasan hutan lebat yang kemudian dibuka (babat alas) oleh para penatua desa, yakni Mbah H. Turejo dan Mbah Sayang sekitar pertengahan abad ke-18. Awalnya desa ini dikenal dengan nama <strong>Desa Watugedhe</strong> dikarenakan di area tersebut terdapat dua buah batu berukuran sangat raksasa yang dikeramatkan.</p>
+                    <h5 class="fw-bold text-success mb-1">Pertengahan Abad ke-18</h5>
+                    <p class="text-muted small mb-2"><i data-lucide="tag" class="icon-sm me-1"></i> Era Watugedhe (Babat Alas)</p>
+                    <p class="text-dark">Pembukaan lahan di masa akhir Perang Diponegoro oleh rombongan pelarian dari Mataram Islam yang dipimpin Mbah H. Turejo dan Mbah Sayang. Kawasan hutan lereng gunung ini awalnya dinamakan Watugedhe karena adanya dua batu keramat raksasa.</p>
                 </div>
 
                 <div class="position-relative pb-4 ps-4 border-start border-2 border-success timeline-item mt-4">
                     <div class="position-absolute bg-success rounded-circle shadow" style="width: 16px; height: 16px; left: -9px; top: 0;"></div>
-                    <h5 class="fw-bold text-success mb-1">Perubahan Nama Menjadi Selorejo</h5>
-                    <p class="text-muted small mb-2"><i data-lucide="calendar" class="icon-sm me-1"></i> Kepemimpinan Mbah H. Turejo</p>
-                    <p class="text-dark">Nama kawasan akhirnya diganti dari Watugedhe menjadi <strong>Selorejo</strong> untuk mengenang asal usul historis kawasan serta pengabdian sang perintis. <em>"Selo"</em> dalam bahasa Jawa yang berarti Batu, sedangkan kata <em>"Rejo"</em> diambil dari ujung nama Mbah H. Tu<strong>rejo</strong>.</p>
+                    <h5 class="fw-bold text-success mb-1">Awal Abad ke-20</h5>
+                    <p class="text-muted small mb-2"><i data-lucide="tag" class="icon-sm me-1"></i> Formalisasi Nama Selorejo</p>
+                    <p class="text-dark">Perubahan nama resmi dari Watugedhe menjadi Selorejo sebagai bentuk penghormatan kepada perintis desa dan simbol kemakmuran masif yang mulai dirasakan warga.</p>
+                </div>
+
+                <div class="position-relative pb-4 ps-4 border-start border-2 border-success timeline-item mt-4">
+                    <div class="position-absolute bg-success rounded-circle shadow" style="width: 16px; height: 16px; left: -9px; top: 0;"></div>
+                    <h5 class="fw-bold text-success mb-1">Tahun 1990</h5>
+                    <p class="text-muted small mb-2"><i data-lucide="sun" class="icon-sm me-1"></i> Era Revolusi Jeruk</p>
+                    <p class="text-dark">Abah Sulaiman dan Abah Dulawi merintis penanaman jeruk keprok secara masif menggantikan tanaman sayur, memicu perubahan struktur ekonomi desa menjadi sentra jeruk di Malang.</p>
+                </div>
+
+                <div class="position-relative pb-4 ps-4 border-start border-2 border-success timeline-item mt-4">
+                    <div class="position-absolute bg-success rounded-circle shadow" style="width: 16px; height: 16px; left: -9px; top: 0;"></div>
+                    <h5 class="fw-bold text-success mb-1">Tahun 2011</h5>
+                    <p class="text-muted small mb-2"><i data-lucide="map-pin" class="icon-sm me-1"></i> Peresmian Desa Wisata</p>
+                    <p class="text-dark">Pemerintah Kabupaten Malang secara resmi mencanangkan Desa Selorejo sebagai destinasi "Agrowisata Petik Jeruk" yang kini melayani ribuan wisatawan setiap bulannya.</p>
                 </div>
 
                 <div class="position-relative pb-4 ps-4 border-start border-2 border-success border-bottom-0 mt-4" style="border-image: linear-gradient(to bottom, var(--primary) 0%, transparent 100%) 1;">
                     <div class="position-absolute bg-warning rounded-circle shadow" style="width: 16px; height: 16px; left: -9px; top: 0; outline: 3px solid white;"></div>
-                    <h5 class="fw-bold text-success mb-1">Puncak Transformasi Agrowisata & Jeruk Keprok</h5>
-                    <p class="text-muted small mb-2"><i data-lucide="calendar" class="icon-sm me-1"></i> 1990an - Saat Ini</p>
-                    <p class="text-dark">Topografi lereng Gunung (Elevasi 800-1.200 mdpl) dan suhu yang sejuk memicu transisi masif ladang warga menjadi pekaran Jeruk Keprok (termasuk varietas premium <em>Batu 55</em> dan <em>Baby Java</em>). Inisiatif petani ini membuahkan hasil hingga Desa Selorejo sukses meraih gelar nasional sebagai <strong>Desa Wisata Agrowisata Petik Jeruk Terpopuler</strong> yang berkali-kali menjuarai kompetisi tingkat Jawa Timur hingga Nasional.</p>
+                    <h5 class="fw-bold text-success mb-1">Masa Kini</h5>
+                    <p class="text-muted small mb-2"><i data-lucide="check-circle" class="icon-sm me-1"></i> Pusat Agrowisata Nasional</p>
+                    <p class="text-dark">Selorejo memantapkan diri sebagai pusat edukasi agrowisata dan pemasok utama jeruk premium nasional dengan tata kelola berbasis pemberdayaan masyarakat lokal.</p>
                 </div>
             </div>
         </div>

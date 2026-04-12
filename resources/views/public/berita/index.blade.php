@@ -4,21 +4,22 @@
     <li class="breadcrumb-item active">Berita & Kabar Desa</li>
 @endsection
 @section('content')
-<div class="section-hero-gradient pt-5 pb-5 mb-5 text-center text-white" style="position: relative; background: linear-gradient(rgba(27,67,50,0.85), rgba(45,106,79,0.9)), url('{{ asset('images/hero_desa.png') }}') center/cover;">
-    <div class="container position-relative z-1 pt-4">
-        <h1 class="fw-bold mb-3 display-4"><i data-lucide="newspaper" class="me-3 text-warning icon-xl"></i>Kabar Desa</h1>
-        <p class="lead fw-medium text-white-50">Informasi, pengumuman, dan liputan terkini dari Desa Selorejo</p>
-    </div>
-</div>
+@include('layouts.partials.page-hero', [
+    'title' => 'Kabar Desa',
+    'subtitle' => 'Informasi, pengumuman, dan liputan terkini dari Desa Selorejo',
+    'icon' => 'newspaper'
+])
 
-<div class="container mb-5 pb-5" style="margin-top: -50px; position: relative; z-index: 10;">
+<div class="container mb-5 pb-5" style="margin-top: -35px; position: relative; z-index: 10;">
     <div class="row justify-content-center mb-5">
         <div class="col-lg-8">
-            <div class="glass-card bg-white p-2 p-md-3 rounded-pill shadow-sm d-flex border-0 align-items-center">
-                <i data-lucide="search" class="text-muted ms-3 me-2"></i>
-                <input type="text" class="form-control border-0 bg-transparent shadow-none" placeholder="Cari berita atau pengumuman..." name="search">
-                <button class="btn btn-success rounded-pill px-4 fw-bold shadow">CARI</button>
-            </div>
+            <form action="{{ route('berita.index') }}" method="GET">
+                <div class="glass-card bg-white p-2 p-md-3 rounded-pill shadow-sm d-flex border-0 align-items-center">
+                    <i data-lucide="search" class="text-muted ms-3 me-2"></i>
+                    <input type="text" class="form-control border-0 bg-transparent shadow-none" placeholder="Cari berita atau pengumuman..." name="search" value="{{ request('search') }}">
+                    <button type="submit" class="btn btn-success rounded-pill px-4 fw-bold shadow">CARI</button>
+                </div>
+            </form>
         </div>
     </div>
 
