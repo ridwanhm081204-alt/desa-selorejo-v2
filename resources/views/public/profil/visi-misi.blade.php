@@ -20,7 +20,7 @@
                     <span class="badge bg-warning text-dark px-3 py-2 rounded-pill fw-bold mb-3 shadow-sm border border-warning">VISI KAMI</span>
                     <h5 class="fw-bold text-success mb-2" style="letter-spacing: 2px;">SATATA GAMA KARTA RAHARJA</h5>
                     <h2 class="fw-bold lh-base text-dark display-6 mt-2" style="text-shadow: 0 1px 2px rgba(0,0,0,0.05); font-size: 2.2rem;">
-                        "Terwujudnya Tatanan Kehidupan Masyarakat Desa Selorejo yang Agamis, Demokratis, Mandiri, Bersih, Indah dan Aman"
+                        {{ $profile->visi ?? '"Terwujudnya Tatanan Kehidupan Masyarakat Desa Selorejo yang Agamis, Demokratis, Mandiri, Bersih, Indah dan Aman"' }}
                     </h2>
                 </div>
             </div>
@@ -35,15 +35,7 @@
                 </div>
                 
                 @php
-                    $misiArray = [
-                        ['icon' => 'book-open', 'text' => 'Mewujudkan pemahaman dan pengamalan nilai-nilai agama, adat istiadat, dan budaya lokal.'],
-                        ['icon' => 'shield-check', 'text' => 'Mewujudkan tata kelola pemerintahan yang baik, bersih, siap melayani, dan melindungi.'],
-                        ['icon' => 'users', 'text' => 'Menyatukan visi dalam membangun desa dengan asas kebersamaan (roso rumongso handarbeni / saiyek saeko proyo).'],
-                        ['icon' => 'graduation-cap', 'text' => 'Mewujudkan usaha peningkatan kualitas sumber daya manusia (SDM) masyarakat desa.'],
-                        ['icon' => 'sprout', 'text' => 'Mewujudkan kesejahteraan berbasis pertanian dengan menggalakkan UMKM dan pemberdayaan masyarakat.'],
-                        ['icon' => 'leaf', 'text' => 'Meningkatkan kualitas lingkungan hidup melalui sistem pengelolaan sumber daya alam yang berkelanjutan.'],
-                        ['icon' => 'network', 'text' => 'Membangun komunikasi dan kerja sama yang baik antara pemerintah desa, masyarakat, dan instansi lainnya.'],
-                    ];
+                    $misiArray = $profile->misi ?? [];
                 @endphp
 
                 <div class="row g-4 mt-2 justify-content-center">
@@ -51,7 +43,7 @@
                         <div class="col-md-6 col-lg-6">
                             <div class="d-flex align-items-start card-hover h-100 p-4 rounded-4 bg-light border border-success border-opacity-10 shadow-sm">
                                 <div class="bg-dark bg-opacity-10 text-dark rounded-circle p-2 me-3 shadow-sm flex-shrink-0" style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;">
-                                    <i data-lucide="{{ $m['icon'] }}" class="icon-sm"></i>
+                                    <i data-lucide="{{ $m['icon'] ?? 'check-circle' }}" class="icon-sm"></i>
                                 </div>
                                 <div class="flex-grow-1">
                                     <p class="text-dark fw-bold mb-0 lh-lg" style="font-size: 0.95rem;">{{ $m['text'] }}</p>

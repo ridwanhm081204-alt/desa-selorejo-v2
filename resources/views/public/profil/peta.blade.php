@@ -21,7 +21,7 @@
                     <h5 class="fw-bold mb-0 text-dark">Google Maps Integrasi</h5>
                 </div>
                 <div class="rounded-3 overflow-hidden" style="height: 450px; background: #eee;">
-                    {!! $profile->peta_embed ?? '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15806.384864810932!2d112.53843605!3d-7.937170050000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7883ef912d9999%3A0xf8ff8468809efd9c!2sSelorejo%2C%20Kec.%20Dau%2C%20Kabupaten%20Malang%2C%20Jawa%20Timur!5e0!3m2!1sid!2sid!4v1775912011055!5m2!1sid!2sid" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>' !!}
+                    {!! $profile->peta_embed ?? '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15806.384864810932!2d112.53843605!3d-7.937170050000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7883ef912d9999%3A0xf8ff8468809efd9c!2sSelorejo%2C%20Kec.%20Dau%2C%20Kabupaten%20Malang%2C%20Jawa%20Timur!5e0!3m2!1id!2sid!4v1775912011055!5m2!1sid!2sid" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>' !!}
                 </div>
             </div>
         </div>
@@ -38,7 +38,7 @@
                         <div class="bg-white bg-opacity-10 rounded p-2 me-3"><i data-lucide="car" class="icon-sm text-white" style="opacity: 0.8;"></i></div>
                         <div>
                             <strong class="d-block mb-1 text-white">Rute Kendaraan Pribadi</strong>
-                            <p class="small text-white mb-0 lh-sm">Dapat diakses 30 menit dari Kota Malang ke arah Barat (Batu).</p>
+                            <p class="small text-white mb-0 lh-sm">{{ $profile->peta_rute_pribadi ?? 'Dapat diakses 30 menit dari Kota Malang ke arah Barat (Batu).' }}</p>
                         </div>
                     </div>
                     
@@ -46,7 +46,7 @@
                         <div class="bg-white bg-opacity-10 rounded p-2 me-3"><i data-lucide="bus" class="icon-sm text-white" style="opacity: 0.8;"></i></div>
                         <div>
                             <strong class="d-block mb-1 text-white">Akses Transportasi Umum</strong>
-                            <p class="small text-white mb-0 lh-sm">Tersedia angkutan pedesaan jalur stasiun ke wilayah Terminal Landungsari.</p>
+                            <p class="small text-white mb-0 lh-sm">{{ $profile->peta_rute_umum ?? 'Tersedia angkutan pedesaan jalur stasiun ke wilayah Terminal Landungsari.' }}</p>
                         </div>
                     </div>
 

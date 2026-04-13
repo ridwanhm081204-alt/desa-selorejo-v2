@@ -14,11 +14,15 @@ class ProfilController extends Controller
 
     public function update(\Illuminate\Http\Request $request) {
         $request->validate([
-            'sejarah' => 'nullable',
-            'visi_misi' => 'nullable',
-            'geografi' => 'nullable',
-            'batas_wilayah' => 'nullable',
-            'peta_embed' => 'nullable'
+            'sejarah' => 'nullable|string',
+            'sejarah_timeline' => 'nullable|array',
+            'visi' => 'nullable|string',
+            'misi' => 'nullable|array',
+            'geografi' => 'nullable|string',
+            'geografi_stats' => 'nullable|array',
+            'batas_wilayah_json' => 'nullable|array',
+            'peta_embed' => 'nullable|string',
+            'peta_deskripsi' => 'nullable|string',
         ]);
 
         $profil = \App\Models\Profile::first();
@@ -27,7 +31,7 @@ class ProfilController extends Controller
         $profil->fill($request->all());
         $profil->save();
         
-        \App\Models\ActivityLog::create(['user_id' => auth()->id(), 'action' => 'Update Profil Desa']);
-        return back()->with('success', 'Profil berhasil diupdate!');
+        \App\Models\ActivityLog::create(['user_id' => auth()->id(), 'action' => 'Update Profil Desa (Dinamis)']);
+        return back()->with('success', 'Profil Desa berhasil diperbarui!');
     }
 }
