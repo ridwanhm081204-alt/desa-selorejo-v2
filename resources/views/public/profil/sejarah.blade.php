@@ -5,10 +5,14 @@
     <li class="breadcrumb-item active">Sejarah</li>
 @endsection
 @section('content')
+@php
+    $hero = $profile->hero_sejarah ?? ['title' => 'Sejarah Desa', 'subtitle' => 'Menelusuri jejak peradaban dan perkembangan Desa Selorejo dari masa ke masa.', 'icon' => 'history'];
+@endphp
+
 @include('layouts.partials.page-hero', [
-    'title' => 'Sejarah Desa Selorejo',
-    'subtitle' => 'Mengenal lebih dekat asal-usul dan tradisi masa lalu.',
-    'icon' => 'book-open'
+    'title' => $hero['title'] ?? 'Sejarah Desa',
+    'subtitle' => $hero['subtitle'] ?? 'Menelusuri jejak peradaban dan perkembangan Desa Selorejo dari masa ke masa.',
+    'icon' => $hero['icon'] ?? 'history'
 ])
 
 <div class="container mb-5 pb-5">

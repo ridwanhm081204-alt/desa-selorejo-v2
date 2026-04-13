@@ -5,9 +5,9 @@
 @endsection
 @section('content')
 @include('layouts.partials.page-hero', [
-    'title' => 'Hubungi Kami',
-    'subtitle' => 'Kami siap melayani dan mendengarkan aspirasi Anda.',
-    'icon' => 'phone-call'
+    'title' => $hero['title'] ?? 'Hubungi Kami',
+    'subtitle' => $hero['subtitle'] ?? 'Kami siap melayani dan mendengarkan aspirasi Anda.',
+    'icon' => $hero['icon'] ?? 'phone-call'
 ])
 <div class="container mb-5">
     <div class="row g-5">

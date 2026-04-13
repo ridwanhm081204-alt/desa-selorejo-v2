@@ -48,24 +48,42 @@ Route::middleware(['auth', 'role:operator,admin'])->prefix('operator')->name('op
     Route::post('/profil', [\App\Http\Controllers\Operator\ProfilController::class, 'update']);
     
     // Pemerintahan
+    Route::post('struktur/hero', [\App\Http\Controllers\Operator\StrukturController::class, 'updateHero']);
     Route::resource('struktur', \App\Http\Controllers\Operator\StrukturController::class)->except(['show']);
+    Route::post('bpd/hero', [\App\Http\Controllers\Operator\BpdController::class, 'updateHero']);
     Route::resource('bpd', \App\Http\Controllers\Operator\BpdController::class)->except(['show']);
+    Route::post('lembaga/hero', [\App\Http\Controllers\Operator\LembagaController::class, 'updateHero']);
     Route::resource('lembaga', \App\Http\Controllers\Operator\LembagaController::class)->except(['show']);
     
     // Wisata
-    Route::get('/wisata', [\App\Http\Controllers\Operator\WisataController::class, 'edit']);
-    Route::post('/wisata', [\App\Http\Controllers\Operator\WisataController::class, 'update']);
+    Route::post('wisata/hero', [\App\Http\Controllers\Operator\WisataController::class, 'updateHero']);
+    Route::resource('wisata', \App\Http\Controllers\Operator\WisataController::class)->except(['show']);
     
     // Produk
+    Route::post('produk/hero', [\App\Http\Controllers\Operator\ProdukController::class, 'updateHero']);
     Route::resource('produk', \App\Http\Controllers\Operator\ProdukController::class)->except(['show']);
+    // Statistik
+    Route::post('statistik/hero', [\App\Http\Controllers\Operator\StatistikController::class, 'updateHero']);
+    Route::resource('statistik', \App\Http\Controllers\Operator\StatistikController::class)->except(['show']);
+    
+    // APBDes / Transparansi
+    Route::post('apbdes/hero', [\App\Http\Controllers\Operator\ApbdesController::class, 'updateHero']);
     Route::resource('apbdes', \App\Http\Controllers\Operator\ApbdesController::class)->except(['show']);
     
+    // Berita
+    Route::post('berita/hero', [\App\Http\Controllers\Operator\BeritaController::class, 'updateHero']);
     Route::resource('berita', \App\Http\Controllers\Operator\BeritaController::class);
+    
+    // Galeri
+    Route::post('galeri/hero', [\App\Http\Controllers\Operator\GaleriController::class, 'updateHero']);
     Route::resource('galeri', \App\Http\Controllers\Operator\GaleriController::class);
+    // Polling
+    Route::post('/polling/hero', [\App\Http\Controllers\Operator\PollingController::class, 'updateHero'])->name('polling.hero');
     Route::resource('polling', \App\Http\Controllers\Operator\PollingController::class)->except(['show']);
     Route::get('/polling/{id}/hasil', [\App\Http\Controllers\Operator\PollingController::class, 'hasil']);
     
-    Route::resource('statistik', \App\Http\Controllers\Operator\StatistikController::class)->except(['show']);
+    // Kontak & Widget
+    Route::post('/widget/hero', [\App\Http\Controllers\Operator\WidgetController::class, 'updateHero'])->name('widget.hero');
     Route::get('/widget', [\App\Http\Controllers\Operator\WidgetController::class, 'edit'])->name('widget.edit');
     Route::post('/widget', [\App\Http\Controllers\Operator\WidgetController::class, 'update'])->name('widget.update');
     
@@ -86,6 +104,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     
     Route::get('/backup', [\App\Http\Controllers\Admin\BackupController::class, 'index']);
     Route::post('/backup', [\App\Http\Controllers\Admin\BackupController::class, 'backup']);
+    Route::post('/backup/import', [\App\Http\Controllers\Admin\BackupController::class, 'import'])->name('backup.import');
     Route::get('/backup/download', [\App\Http\Controllers\Admin\BackupController::class, 'backup']);
     
     Route::get('/log', [\App\Http\Controllers\Admin\LogController::class, 'index']);

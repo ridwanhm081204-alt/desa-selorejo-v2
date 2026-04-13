@@ -11,7 +11,25 @@ class WidgetController extends Controller
     public function edit()
     {
         $settings = Setting::all()->pluck('value', 'key');
-        return view('operator.widget.edit', compact('settings'));
+        $heroValue = Setting::where('key', 'hero_kontak')->value('value');
+        $hero = $heroValue ? json_decode($heroValue, true) : ['title' => 'Hubungi Kami', 'subtitle' => 'Kami siap melayani dan mendengarkan aspirasi Anda.', 'icon' => 'phone-call'];
+        return view('operator.widget.edit', compact('settings', 'hero'));
+    }
+
+    public function updateHero(Request $request) {
+        $request->validate([
+            'title' => 'required|string',
+            'subtitle' => 'required|string',
+            'icon' => 'required|string',
+        ]);
+        
+        Setting::updateOrCreate(
+            ['key' => 'hero_kontak'],
+            ['value' => json_encode($request->only('title', 'subtitle', 'icon'))]
+        );
+        
+        \App\Models\ActivityLog::create(['user_id' => auth()->id(), 'action' => 'Update Settings Header Kontak']);
+        return back()->with('success', 'Banner header Kontak berhasil diperbarui!');
     }
 
     public function update(Request $request)

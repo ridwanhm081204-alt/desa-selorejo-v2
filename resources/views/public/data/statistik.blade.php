@@ -6,9 +6,9 @@
 @endsection
 @section('content')
 @include('layouts.partials.page-hero', [
-    'title' => 'Statistik Demografi Desa',
-    'subtitle' => 'Transparansi data penduduk Desa Wisata Selorejo berdasarkan angka riil kependudukan.',
-    'icon' => 'bar-chart-2'
+    'title' => $hero['title'] ?? 'Statistik Demografi Desa',
+    'subtitle' => $hero['subtitle'] ?? 'Transparansi data penduduk Desa Wisata Selorejo berdasarkan angka riil kependudukan.',
+    'icon' => $hero['icon'] ?? 'bar-chart-2'
 ])
 
 <div class="container mb-5 pb-5">

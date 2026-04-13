@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class OperatorController extends Controller
 {
     public function index() {
-        return view('admin.operator.index', ['operators' => \App\Models\User::where('role', 'operator')->get()]);
+        return view('admin.operator.index', ['operators' => \App\Models\User::where('role', 'operator')->orderBy('name')->paginate(10)]);
     }
 
     public function create() {

@@ -6,9 +6,9 @@
 @endsection
 @section('content')
 @include('layouts.partials.page-hero', [
-    'title' => 'Lembaga Desa',
-    'subtitle' => 'Lembaga Kemasyarakatan Pendukung Pembangunan Desa',
-    'icon' => 'building-2'
+    'title' => $hero['title'] ?? 'Lembaga Desa',
+    'subtitle' => $hero['subtitle'] ?? 'Lembaga Kemasyarakatan Pendukung Pembangunan Desa',
+    'icon' => $hero['icon'] ?? 'building-2'
 ])
 
 <div class="container mb-5 pb-5">
@@ -26,8 +26,12 @@
                     <p class="text-muted small lh-lg mb-0 text-justify" style="text-align: justify; font-size: 0.95rem;">{{ $l->deskripsi ?: 'Lembaga kemasyarakatan yang berperan aktif dalam mendukung program pembangunan dan pemberdayaan masyarakat di lingkungan Desa Selorejo.' }}</p>
                 </div>
                 <div class="mt-auto p-4 rounded-4 d-flex align-items-center w-100 border border-success border-opacity-10 bg-light">
-                    <div class="bg-success bg-opacity-10 rounded-circle p-2 shadow-sm me-3 border border-success border-opacity-10 d-flex align-items-center justify-content-center" style="width: 45px; height: 45px;">
-                        <i data-lucide="user-check" class="text-dark icon-sm"></i>
+                    <div class="bg-success bg-opacity-10 rounded-circle p-2 shadow-sm me-3 border border-success border-opacity-10 d-flex align-items-center justify-content-center" style="width: 45px; height: 45px; overflow:hidden;">
+                        @if($l->foto)
+                            <img src="{{ asset('storage/'.$l->foto) }}" alt="{{ $l->ketua }}" class="img-fluid" style="width:100%; height:100%; object-fit:cover;">
+                        @else
+                            <i data-lucide="user-check" class="text-dark icon-sm"></i>
+                        @endif
                     </div>
                     <div>
                         <small class="text-muted d-block lh-1 mb-2 fw-bold">Ketua Lembaga</small>

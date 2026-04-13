@@ -8,7 +8,9 @@ use Illuminate\Http\Request;
 class KontakController extends Controller
 {
     public function index() {
-        return view('public.kontak.index');
+        $heroValue = \App\Models\Setting::where('key', 'hero_kontak')->value('value');
+        $hero = $heroValue ? json_decode($heroValue, true) : ['title' => 'Hubungi Kami', 'subtitle' => 'Kami siap melayani dan mendengarkan aspirasi Anda.', 'icon' => 'phone-call'];
+        return view('public.kontak.index', compact('hero'));
     }
 
     public function store(\Illuminate\Http\Request $request) {

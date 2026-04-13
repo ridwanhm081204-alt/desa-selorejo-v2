@@ -9,6 +9,7 @@ class Produk extends Model
     protected $table = 'produk';
     protected $fillable = [
         'nama',
+        'kategori',
         'deskripsi',
         'harga',
         'gambar',

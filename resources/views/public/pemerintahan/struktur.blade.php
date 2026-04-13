@@ -6,9 +6,9 @@
 @endsection
 @section('content')
 @include('layouts.partials.page-hero', [
-    'title' => 'Struktur Organisasi',
-    'subtitle' => 'Jajaran Perangkat Desa Selorejo Periode Terkini',
-    'icon' => 'network'
+    'title' => $hero['title'] ?? 'Struktur Organisasi',
+    'subtitle' => $hero['subtitle'] ?? 'Jajaran Perangkat Desa Selorejo Periode Terkini',
+    'icon' => $hero['icon'] ?? 'network'
 ])
 
 <div class="container mb-5 pb-5">

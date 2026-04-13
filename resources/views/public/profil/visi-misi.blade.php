@@ -5,10 +5,14 @@
     <li class="breadcrumb-item active">Visi & Misi</li>
 @endsection
 @section('content')
+@php
+    $hero = $profile->hero_visimisi ?? ['title' => 'Visi & Misi', 'subtitle' => 'Arah dan tujuan pembangunan Desa Selorejo ke depan.', 'icon' => 'target'];
+@endphp
+
 @include('layouts.partials.page-hero', [
-    'title' => 'Visi & Misi',
-    'subtitle' => 'Arah dan tujuan pembangunan Desa Selorejo ke depan.',
-    'icon' => 'target'
+    'title' => $hero['title'] ?? 'Visi & Misi',
+    'subtitle' => $hero['subtitle'] ?? 'Arah dan tujuan pembangunan Desa Selorejo ke depan.',
+    'icon' => $hero['icon'] ?? 'target'
 ])
 
 <div class="container mb-5 pb-5">
@@ -18,7 +22,7 @@
             <div class="glass-card bg-white text-dark p-5 rounded-4 text-center position-relative overflow-hidden mb-4 shadow-lg border-0">
                 <div class="position-relative z-1">
                     <span class="badge bg-warning text-dark px-3 py-2 rounded-pill fw-bold mb-3 shadow-sm border border-warning">VISI KAMI</span>
-                    <h5 class="fw-bold text-success mb-2" style="letter-spacing: 2px;">SATATA GAMA KARTA RAHARJA</h5>
+                    <h5 class="fw-bold text-success mb-2" style="letter-spacing: 2px;">{{ $profile->motto ?? 'SATATA GAMA KARTA RAHARJA' }}</h5>
                     <h2 class="fw-bold lh-base text-dark display-6 mt-2" style="text-shadow: 0 1px 2px rgba(0,0,0,0.05); font-size: 2.2rem;">
                         {{ $profile->visi ?? '"Terwujudnya Tatanan Kehidupan Masyarakat Desa Selorejo yang Agamis, Demokratis, Mandiri, Bersih, Indah dan Aman"' }}
                     </h2>

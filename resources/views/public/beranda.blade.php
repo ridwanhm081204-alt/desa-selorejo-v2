@@ -331,46 +331,73 @@
         <!-- Polling Sidebar Area -->
         <div class="col-lg-4">
             <div class="d-flex justify-content-between align-items-end mb-4 border-bottom border-2 pb-2 border-success border-opacity-25">
-                <h3 class="fw-bold mb-0 text-dark"><i data-lucide="pie-chart" class="text-success me-2"></i>Jejak Pendapat</h3>
+                <h3 class="fw-bold mb-0 text-dark"><i data-lucide="{{ $heroPolling['icon'] ?? 'pie-chart' }}" class="text-success me-2"></i>{{ $heroPolling['title'] ?? 'Jejak Pendapat' }}</h3>
             </div>
             
-            @if($polling)
-            <div class="glass-card bg-primary-custom text-white p-4 rounded-4 shadow-sm position-relative overflow-hidden">
-                <div class="position-relative z-1">
-                    <p class="lead mb-4 fw-medium text-white">Apakah Anda puas dengan pelayanan Pemerintah Desa Selorejo bulan {{ \Carbon\Carbon::now()->translatedFormat('F Y') }} ini?</p>
-                    
-                    @if(session('success'))
-                        <div class="alert alert-light text-success fw-bold p-2 text-center rounded-3 mb-4"><i data-lucide="check-circle" class="icon-sm me-1"></i>{{ session('success') }}</div>
-                    @endif
-                    @if(session('error'))
-                        <div class="alert alert-warning p-2 text-center rounded-3 mb-4"><i data-lucide="alert-circle" class="icon-sm me-1"></i>{{ session('error') }}</div>
-                    @endif
+            @if($pollings->count() > 0)
+            <div id="pollingCarousel" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    @foreach($pollings as $index => $polling)
+                    <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
+                        <div class="glass-card bg-primary-custom text-white p-4 rounded-4 shadow-sm position-relative overflow-hidden">
+                            <div class="position-relative z-1">
+                                <p class="lead mb-4 fw-medium text-white">{{ $polling->pertanyaan }}</p>
+                                
+                                @if(session('success') && session('polling_id') == $polling->id)
+                                    <div class="alert alert-light text-success fw-bold p-2 text-center rounded-3 mb-4"><i data-lucide="check-circle" class="icon-sm me-1"></i>{{ session('success') }}</div>
+                                @endif
+                                @if(session('error') && session('polling_id') == $polling->id)
+                                    <div class="alert alert-warning p-2 text-center rounded-3 mb-4"><i data-lucide="alert-circle" class="icon-sm me-1"></i>{{ session('error') }}</div>
+                                @endif
 
-                    <form action="{{ route('polling.vote', $polling->id) }}" method="POST" class="mb-4">
-                        @csrf
-                        <div class="d-grid gap-2">
-                            <button type="submit" name="answer" value="ya" class="btn btn-light text-success fw-bold rounded-pill hover-lift shadow-sm">Ya, Setuju</button>
-                            <button type="submit" name="answer" value="tidak" class="btn btn-poll-no rounded-pill hover-lift">Tidak Setuju</button>
-                        </div>
-                    </form>
-                    
-                    @php 
-                        $total = $polling->totalVotes(); 
-                        $pctYa = $total > 0 ? round(($polling->jumlah_ya / $total) * 100) : 0;
-                        $pctTidak = $total > 0 ? round(($polling->jumlah_tidak / $total) * 100) : 0;
-                    @endphp
-                    
-                    <div class="pt-3 border-top border-light border-opacity-25">
-                        <small class="d-block mb-2 text-white">Hasil Sementara: <strong>{{ $total }} Suara</strong></small>
-                        <div class="progress rounded-pill bg-light bg-opacity-25 mb-3" style="height: 12px;">
-                            <div class="progress-bar bg-warning" role="progressbar" style="width: {{ $pctYa }}%" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-                        <div class="d-flex justify-content-between small text-white fw-bold">
-                            <span>Ya: {{ $pctYa }}% ({{ $polling->jumlah_ya }} suara)</span>
-                            <span>Tidak: {{ $pctTidak }}% ({{ $polling->jumlah_tidak }} suara)</span>
+                                <form action="{{ route('polling.vote', $polling->id) }}" method="POST" class="mb-4">
+                                    @csrf
+                                    <div class="d-grid gap-2">
+                                        <button type="submit" name="answer" value="ya" class="btn btn-light text-success fw-bold rounded-pill hover-lift shadow-sm">Ya, Setuju</button>
+                                        <button type="submit" name="answer" value="tidak" class="btn btn-poll-no rounded-pill hover-lift">Tidak Setuju</button>
+                                    </div>
+                                </form>
+                                
+                                @php 
+                                    $total = $polling->totalVotes(); 
+                                    $pctYa = $total > 0 ? round(($polling->jumlah_ya / $total) * 100) : 0;
+                                    $pctTidak = $total > 0 ? round(($polling->jumlah_tidak / $total) * 100) : 0;
+                                @endphp
+                                
+                                <div class="pt-3 border-top border-light border-opacity-25">
+                                    <div class="d-flex justify-content-between align-items-center mb-2">
+                                        <small class="text-white">Hasil Sementara: <strong>{{ $total }} Suara</strong></small>
+                                        @if($pollings->count() > 1)
+                                            <span class="badge bg-white text-primary-custom rounded-pill">{{ $index + 1 }} / {{ $pollings->count() }}</span>
+                                        @endif
+                                    </div>
+                                    <div class="progress rounded-pill bg-light bg-opacity-25 mb-3" style="height: 12px;">
+                                        <div class="progress-bar bg-warning" role="progressbar" style="width: {{ $pctYa }}%" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                    <div class="d-flex justify-content-between small text-white fw-bold">
+                                        <span>Ya: {{ $pctYa }}%</span>
+                                        <span>Tidak: {{ $pctTidak }}%</span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
+                    @endforeach
                 </div>
+                
+                @if($pollings->count() > 1)
+                <button class="carousel-control-prev" type="button" data-bs-target="#pollingCarousel" data-bs-slide="prev" style="width: 5%; left: -25px;">
+                    <span class="carousel-control-prev-icon" aria-hidden="true" style="filter: invert(1) grayscale(100) brightness(2);"></span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#pollingCarousel" data-bs-slide="next" style="width: 5%; right: -25px;">
+                    <span class="carousel-control-next-icon" aria-hidden="true" style="filter: invert(1) grayscale(100) brightness(2);"></span>
+                </button>
+                @endif
+            </div>
+            @else
+            <div class="glass-card bg-light p-4 rounded-4 text-center text-muted border">
+                <i data-lucide="info" class="mx-auto mb-2 text-muted icon-xl"></i>
+                <p class="mb-0">Belum ada polling aktif saat ini.</p>
             </div>
             @endif
         </div>

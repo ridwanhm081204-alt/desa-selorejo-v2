@@ -11,7 +11,25 @@ class StatistikController extends Controller
     public function index()
     {
         $statistik = StatistikPenduduk::orderBy('tahun', 'desc')->orderBy('jenis_data')->get();
-        return view('operator.statistik.index', compact('statistik'));
+        $heroValue = \App\Models\Setting::where('key', 'hero_statistik')->value('value');
+        $hero = $heroValue ? json_decode($heroValue, true) : ['title' => 'Statistik Demografi Desa', 'subtitle' => 'Transparansi data penduduk Desa Wisata Selorejo berdasarkan angka riil kependudukan.', 'icon' => 'bar-chart-2'];
+        return view('operator.statistik.index', compact('statistik', 'hero'));
+    }
+
+    public function updateHero(Request $request) {
+        $request->validate([
+            'title' => 'required|string',
+            'subtitle' => 'required|string',
+            'icon' => 'required|string',
+        ]);
+        
+        \App\Models\Setting::updateOrCreate(
+            ['key' => 'hero_statistik'],
+            ['value' => json_encode($request->only('title', 'subtitle', 'icon'))]
+        );
+        
+        \App\Models\ActivityLog::create(['user_id' => auth()->id(), 'action' => 'Update Settings Header Statistik']);
+        return back()->with('success', 'Banner header Statistik berhasil diperbarui!');
     }
 
     public function create()

@@ -6,9 +6,9 @@
 @endsection
 @section('content')
 @include('layouts.partials.page-hero', [
-    'title' => 'Badan Permusyawaratan Desa',
-    'subtitle' => 'Lembaga legislatif desa sebagai mitra Pemerintah Desa.',
-    'icon' => 'users-2'
+    'title' => $hero['title'] ?? 'Badan Permusyawaratan Desa',
+    'subtitle' => $hero['subtitle'] ?? 'Lembaga legislatif desa sebagai mitra Pemerintah Desa.',
+    'icon' => $hero['icon'] ?? 'users-2'
 ])
 
 <div class="container mb-5 pb-5">
@@ -22,8 +22,10 @@
             @forelse($bpd as $b)
             <div class="{{ str_contains(strtolower($b->jabatan), 'ketua') ? 'col-md-10 mb-2' : 'col-md-6' }}">
                 <div class="d-flex align-items-center card-hover bg-light bg-opacity-50 border border-success border-opacity-10 p-4 rounded-4 h-100">
-                    <div class="bg-success bg-opacity-10 text-success rounded-circle p-3 me-4 d-flex align-items-center justify-content-center flex-shrink-0" style="width: 64px; height: 64px;">
-                        @if(str_contains(strtolower($b->jabatan), 'ketua'))
+                    <div class="bg-success bg-opacity-10 text-success rounded-circle p-3 me-4 d-flex align-items-center justify-content-center flex-shrink-0" style="width: 64px; height: 64px; overflow:hidden;">
+                        @if($b->foto)
+                            <img src="{{ asset('storage/'.$b->foto) }}" alt="{{ $b->nama }}" class="img-fluid" style="width:100%; height:100%; object-fit:cover;">
+                        @elseif(str_contains(strtolower($b->jabatan), 'ketua'))
                             <i data-lucide="award" class="icon-xl"></i>
                         @else
                             <i data-lucide="user-check" class="icon-xl"></i>

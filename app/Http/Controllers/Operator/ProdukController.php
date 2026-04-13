@@ -7,8 +7,60 @@ use Illuminate\Http\Request;
 
 class ProdukController extends Controller
 {
-    public function index() {
-        return view('operator.produk.index', ['produk' => \App\Models\Produk::paginate(10)]);
+    public function index(Request $request) {
+        $query = \App\Models\Produk::query();
+
+        // Search
+        if ($request->has('search') && $request->search != '') {
+            $query->where('nama', 'like', '%' . $request->search . '%')
+                  ->orWhere('deskripsi', 'like', '%' . $request->search . '%');
+        }
+
+        // Filter Kategori
+        if ($request->has('kategori') && $request->kategori != 'semua') {
+            $query->where('kategori', $request->kategori);
+        }
+
+        // Sorting
+        $sort = $request->get('sort', 'terbaru');
+        if ($sort == 'terbaru') {
+            $query->orderBy('created_at', 'desc');
+        } elseif ($sort == 'terlama') {
+            $query->orderBy('created_at', 'asc');
+        } elseif ($sort == 'harga_low') {
+            $query->orderBy('harga', 'asc');
+        } elseif ($sort == 'harga_high') {
+            $query->orderBy('harga', 'desc');
+        } elseif ($sort == 'nama_asc') {
+            $query->orderBy('nama', 'asc');
+        } elseif ($sort == 'nama_desc') {
+            $query->orderBy('nama', 'desc');
+        } else {
+            $query->orderBy('created_at', 'desc');
+        }
+
+        $produk = $query->paginate(10)->withQueryString();
+
+        $heroValue = \App\Models\Setting::where('key', 'hero_produk')->value('value');
+        $hero = $heroValue ? json_decode($heroValue, true) : ['title' => 'Katalog Produk Desa', 'subtitle' => 'Mendukung karya lokal dan UMKM Desa Selorejo', 'icon' => 'shopping-bag'];
+        
+        return view('operator.produk.index', compact('produk', 'hero'));
+    }
+
+    public function updateHero(Request $request) {
+        $request->validate([
+            'title' => 'required|string',
+            'subtitle' => 'required|string',
+            'icon' => 'required|string',
+        ]);
+        
+        \App\Models\Setting::updateOrCreate(
+            ['key' => 'hero_produk'],
+            ['value' => json_encode($request->only('title', 'subtitle', 'icon'))]
+        );
+        
+        \App\Models\ActivityLog::create(['user_id' => auth()->id(), 'action' => 'Update Settings Header Produk']);
+        return back()->with('success', 'Banner header Produk berhasil diperbarui!');
     }
     public function create() {
         return view('operator.produk.form');
@@ -16,6 +68,7 @@ class ProdukController extends Controller
     public function store(\Illuminate\Http\Request $request) {
         $data = $request->validate([
             'nama' => 'required|string|max:100',
+            'kategori' => 'nullable|string|max:50',
             'deskripsi' => 'required',
             'harga' => 'required|numeric',
             'stok' => 'required|integer|min:0',
@@ -33,6 +86,7 @@ class ProdukController extends Controller
         $produk = \App\Models\Produk::findOrFail($id);
         $data = $request->validate([
             'nama' => 'required|string|max:100',
+            'kategori' => 'nullable|string|max:50',
             'deskripsi' => 'required',
             'harga' => 'required|numeric',
             'stok' => 'required|integer|min:0',

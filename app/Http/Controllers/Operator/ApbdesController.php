@@ -8,7 +8,26 @@ use Illuminate\Http\Request;
 class ApbdesController extends Controller
 {
     public function index() {
-        return view('operator.apbdes.index', ['apbdes' => \App\Models\Apbdes::orderBy('tahun', 'desc')->paginate(10)]);
+        $apbdes = \App\Models\Apbdes::orderBy('tahun', 'desc')->paginate(10);
+        $heroValue = \App\Models\Setting::where('key', 'hero_apbdes')->value('value');
+        $hero = $heroValue ? json_decode($heroValue, true) : ['title' => 'Transparansi APBDes', 'subtitle' => 'Laporan Anggaran Pendapatan dan Belanja Desa Selorejo Tahun Anggaran 2024.', 'icon' => 'file-text'];
+        return view('operator.apbdes.index', compact('apbdes', 'hero'));
+    }
+
+    public function updateHero(Request $request) {
+        $request->validate([
+            'title' => 'required|string',
+            'subtitle' => 'required|string',
+            'icon' => 'required|string',
+        ]);
+        
+        \App\Models\Setting::updateOrCreate(
+            ['key' => 'hero_apbdes'],
+            ['value' => json_encode($request->only('title', 'subtitle', 'icon'))]
+        );
+        
+        \App\Models\ActivityLog::create(['user_id' => auth()->id(), 'action' => 'Update Settings Header APBDes']);
+        return back()->with('success', 'Banner header APBDes berhasil diperbarui!');
     }
     public function create() {
         return view('operator.apbdes.form');

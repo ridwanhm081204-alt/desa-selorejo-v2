@@ -6,12 +6,55 @@
 @endsection
 @section('content')
 @include('layouts.partials.page-hero', [
-    'title' => 'Destinasi Wisata Selorejo',
-    'subtitle' => 'Jelajahi keajaiban alam dan kearifan agrikultur di lereng pegunungan Malang.',
-    'icon' => 'mountain'
+    'title' => $hero['title'] ?? 'Destinasi Wisata Selorejo',
+    'subtitle' => $hero['subtitle'] ?? 'Jelajahi keajaiban alam dan kearifan agrikultur di lereng pegunungan Malang.',
+    'icon' => $hero['icon'] ?? 'mountain'
 ])
 
+<div class="container mb-4">
+    <form action="{{ url('/wisata') }}" method="GET" class="row g-2 align-items-center justify-content-center">
+        <div class="col-md-4">
+            <div class="input-group rounded-pill overflow-hidden border bg-white shadow-sm px-3">
+                <span class="input-group-text bg-transparent border-0"><i data-lucide="search" class="icon-sm text-success"></i></span>
+                <input type="text" name="search" class="form-control border-0 shadow-none py-2" placeholder="Cari destinasi wisata..." value="{{ request('search') }}">
+            </div>
+        </div>
+        <div class="col-md-2">
+            <select name="kategori" class="form-select rounded-pill border shadow-sm py-2 px-3" onchange="this.form.submit()">
+                <option value="semua" {{ request('kategori') == 'semua' || !request('kategori') ? 'selected' : '' }}>🏷️ Semua Kategori</option>
+                <option value="Wisata Alam" {{ request('kategori') == 'Wisata Alam' ? 'selected' : '' }}>🌿 Wisata Alam</option>
+                <option value="Agrowisata" {{ request('kategori') == 'Agrowisata' ? 'selected' : '' }}>🍊 Agrowisata</option>
+                <option value="Budaya & Event" {{ request('kategori') == 'Budaya & Event' ? 'selected' : '' }}>🎭 Budaya & Event</option>
+                <option value="Eduwisata" {{ request('kategori') == 'Eduwisata' ? 'selected' : '' }}>📚 Eduwisata</option>
+                <option value="Religi" {{ request('kategori') == 'Religi' ? 'selected' : '' }}>🕌 Religi</option>
+            </select>
+        </div>
+        <div class="col-md-2">
+            <select name="sort" class="form-select rounded-pill border shadow-sm py-2 px-3" onchange="this.form.submit()">
+                <option value="terbaru" {{ request('sort') == 'terbaru' ? 'selected' : '' }}>⬆️ Terbaru</option>
+                <option value="harga_low" {{ request('sort') == 'harga_low' ? 'selected' : '' }}>💰 HTM Termurah</option>
+                <option value="harga_high" {{ request('sort') == 'harga_high' ? 'selected' : '' }}>💎 HTM Tertinggi</option>
+                <option value="judul_asc" {{ request('sort') == 'judul_asc' ? 'selected' : '' }}>🔤 A - Z</option>
+                <option value="judul_desc" {{ request('sort') == 'judul_desc' ? 'selected' : '' }}>🔤 Z - A</option>
+            </select>
+        </div>
+        <div class="col-auto">
+            <button type="submit" class="btn btn-success rounded-pill px-4 shadow-sm">Cari</button>
+            @if(request('search') || (request('kategori') && request('kategori') != 'semua') || request('sort'))
+                <a href="{{ url('/wisata') }}" class="btn btn-outline-secondary rounded-pill px-3 ms-1">Reset</a>
+            @endif
+        </div>
+    </form>
+</div>
+
 <div class="container mb-5 pb-5">
+    @if($wisata->total() > 0)
+    <div class="text-muted small mb-3 text-center">
+        Menampilkan <strong>{{ $wisata->total() }}</strong> destinasi
+        @if(request('search')) <span>· Hasil pencarian: <em>"{{ request('search') }}"</em></span> @endif
+        @if(request('kategori') && request('kategori') != 'semua') <span>· Kategori: <em>{{ request('kategori') }}</em></span> @endif
+    </div>
+    @endif
     <div class="row g-5">
         @forelse($wisata as $w)
         <div class="col-12" id="wisata-{{ $w->id }}">
@@ -20,7 +63,10 @@
                     <!-- Bagian Gambar -->
                     <div class="col-lg-5 position-relative" style="min-height: 400px;">
                         <img src="{{ $w->gambar }}" class="position-absolute w-100 h-100" style="object-fit: cover;" alt="{{ $w->judul }}">
-                        <div class="position-absolute top-0 start-0 m-4">
+                        <div class="position-absolute top-0 start-0 m-4 d-flex flex-column gap-2">
+                            <span class="badge bg-success bg-opacity-90 text-white px-3 py-2 rounded-pill fw-bold shadow-sm" style="font-size:0.75rem;">
+                                <i data-lucide="tag" class="icon-xs me-1"></i> {{ $w->kategori ?? 'Wisata Desa' }}
+                            </span>
                             <span class="badge bg-warning text-dark px-3 py-2 rounded-pill fw-bold shadow-sm border border-warning">
                                 <i data-lucide="map-pin" class="icon-sm me-1"></i> Area Desa Selorejo
                             </span>
@@ -41,7 +87,13 @@
                                     <i data-lucide="ticket" class="text-white icon-md me-3"></i>
                                     <div>
                                         <small class="text-white text-opacity-75 d-block lh-1 mb-1 fw-bold" style="font-size: 0.65rem; letter-spacing: 0.5px;">HARGA TIKET (HTM)</small>
-                                        <h4 class="fw-bold text-white mb-0">Rp {{ number_format($w->harga_tiket, 0, ',', '.') }}</h4>
+                                        <h4 class="fw-bold text-white mb-0">
+                                            @if($w->harga_tiket == 0)
+                                                GRATIS
+                                            @else
+                                                Rp {{ number_format($w->harga_tiket, 0, ',', '.') }}
+                                            @endif
+                                        </h4>
                                     </div>
                                 </div>
                             </div>
@@ -80,9 +132,23 @@
             </div>
         </div>
         @empty
-        <div class="col-12 text-center text-muted p-5 glass-panel">Data objek wisata sedang diperbarui oleh pengelola.</div>
+        <div class="col-12 text-center text-muted p-5 glass-panel">
+            <i data-lucide="mountain" style="width:64px;height:64px;" class="opacity-25 mb-3 d-block mx-auto text-success"></i>
+            @if(request('search') || request('kategori'))
+                Destinasi wisata tidak ditemukan untuk filter yang dipilih.
+                <div class="mt-3"><a href="{{ url('/wisata') }}" class="btn btn-outline-success rounded-pill px-4">Lihat Semua Wisata</a></div>
+            @else
+                Data objek wisata sedang diperbarui oleh pengelola.
+            @endif
+        </div>
         @endforelse
     </div>
+
+    @if($wisata->hasPages())
+    <div class="d-flex justify-content-center mt-5">
+        {{ $wisata->withQueryString()->links('pagination::bootstrap-5') }}
+    </div>
+    @endif
 
     <!-- Info Tambahan Rute -->
     <div class="mt-5 text-center">

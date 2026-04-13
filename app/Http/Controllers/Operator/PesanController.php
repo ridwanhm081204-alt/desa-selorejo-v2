@@ -7,10 +7,37 @@ use Illuminate\Http\Request;
 
 class PesanController extends Controller
 {
-    public function index() {
-        $pesan = \App\Models\KontakMessage::orderByRaw("CASE WHEN status_baca = 'belum' THEN 1 ELSE 2 END")
-            ->orderBy('created_at', 'desc')
-            ->paginate(20);
+    public function index(Request $request) {
+        $query = \App\Models\KontakMessage::query();
+
+        // Filter Status
+        if ($request->filled('status')) {
+            if ($request->status !== 'semua') {
+                $query->where('status_baca', $request->status);
+            }
+        }
+
+        // Sorting Logic
+        $sort = $request->query('sort', 'terbaru');
+        switch ($sort) {
+            case 'terlama':
+                $query->orderBy('created_at', 'asc');
+                break;
+            case 'nama_asc':
+                $query->orderBy('nama', 'asc');
+                break;
+            case 'nama_desc':
+                $query->orderBy('nama', 'desc');
+                break;
+            case 'terbaru':
+            default:
+                // Default: Belum dibaca di atas, lalu terbaru
+                $query->orderByRaw("CASE WHEN status_baca = 'belum' THEN 1 ELSE 2 END")
+                      ->orderBy('created_at', 'desc');
+                break;
+        }
+
+        $pesan = $query->paginate(20)->withQueryString();
         return view('operator.pesan.index', compact('pesan'));
     }
 

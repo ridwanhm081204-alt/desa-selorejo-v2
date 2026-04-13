@@ -10,7 +10,25 @@ class StrukturController extends Controller
 {
     public function index() {
         $data = StrukturOrganisasi::orderBy('urutan')->get();
-        return view('operator.pemerintahan.struktur', compact('data'));
+        $heroValue = \App\Models\Setting::where('key', 'hero_struktur')->value('value');
+        $hero = $heroValue ? json_decode($heroValue, true) : ['title' => 'Struktur Organisasi', 'subtitle' => 'Jajaran Perangkat Desa Selorejo Periode Terkini', 'icon' => 'network'];
+        return view('operator.pemerintahan.struktur', compact('data', 'hero'));
+    }
+
+    public function updateHero(Request $request) {
+        $request->validate([
+            'title' => 'required|string',
+            'subtitle' => 'required|string',
+            'icon' => 'required|string',
+        ]);
+        
+        \App\Models\Setting::updateOrCreate(
+            ['key' => 'hero_struktur'],
+            ['value' => json_encode($request->only('title', 'subtitle', 'icon'))]
+        );
+        
+        \App\Models\ActivityLog::create(['user_id' => auth()->id(), 'action' => 'Update Settings Header Struktur']);
+        return back()->with('success', 'Banner header struktur berhasil diperbarui!');
     }
 
     public function store(Request $request) {
@@ -18,7 +36,7 @@ class StrukturController extends Controller
             'jabatan' => 'required',
             'nama_pejabat' => 'required',
             'urutan' => 'required|integer',
-            'foto' => 'nullable|image'
+            'foto' => 'nullable|image|mimes:jpg,jpeg,png,svg|max:2048'
         ]);
 
         if ($request->hasFile('foto')) {
@@ -36,7 +54,7 @@ class StrukturController extends Controller
             'jabatan' => 'required',
             'nama_pejabat' => 'required',
             'urutan' => 'required|integer',
-            'foto' => 'nullable|image'
+            'foto' => 'nullable|image|mimes:jpg,jpeg,png,svg|max:2048'
         ]);
 
         if ($request->hasFile('foto')) {

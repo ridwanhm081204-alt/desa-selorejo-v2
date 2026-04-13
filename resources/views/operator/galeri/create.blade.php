@@ -24,11 +24,22 @@
             </div>
 
             <div class="row mb-4">
-                <div class="col-md-8">
+                <div class="col-md-5">
                     <label class="form-label fw-bold">Keterangan (Caption)</label>
-                    <input type="text" name="caption" class="form-control">
+                    <input type="text" name="caption" class="form-control" placeholder="Tulis keterangan singkat...">
                 </div>
                 <div class="col-md-4">
+                    <label class="form-label fw-bold">Kategori / Tag</label>
+                    <select name="kategori" class="form-select" required>
+                        <option value="Potensi Desa">Potensi Desa</option>
+                        <option value="Wisata Alam">Wisata Alam</option>
+                        <option value="Kegiatan Warga">Kegiatan Warga</option>
+                        <option value="Infrastruktur">Infrastruktur</option>
+                        <option value="Event">Event & Festival</option>
+                        <option value="Umum">Umum</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
                     <label class="form-label fw-bold">Tanggal</label>
                     <input type="date" name="tanggal" class="form-control" value="{{ date('Y-m-d') }}" required>
                 </div>

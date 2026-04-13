@@ -5,19 +5,38 @@
 @endsection
 @section('content')
 @include('layouts.partials.page-hero', [
-    'title' => 'Kabar Desa',
-    'subtitle' => 'Informasi, pengumuman, dan liputan terkini dari Desa Selorejo',
-    'icon' => 'newspaper'
+    'title' => $hero['title'] ?? 'Kabar Desa',
+    'subtitle' => $hero['subtitle'] ?? 'Informasi, pengumuman, dan liputan terkini dari Desa Selorejo',
+    'icon' => $hero['icon'] ?? 'newspaper'
 ])
 
 <div class="container mb-5 pb-5" style="margin-top: -35px; position: relative; z-index: 10;">
     <div class="row justify-content-center mb-5">
         <div class="col-lg-8">
             <form action="{{ route('berita.index') }}" method="GET">
-                <div class="glass-card bg-white p-2 p-md-3 rounded-pill shadow-sm d-flex border-0 align-items-center">
+                <div class="glass-card bg-white p-2 p-md-3 rounded-pill shadow-sm d-flex border-0 align-items-center mb-3">
                     <i data-lucide="search" class="text-muted ms-3 me-2"></i>
-                    <input type="text" class="form-control border-0 bg-transparent shadow-none" placeholder="Cari berita atau pengumuman..." name="search" value="{{ request('search') }}">
+                    <input type="text" class="form-control border-0 bg-transparent shadow-none" placeholder="Cari kabar atau pengumuman..." name="search" value="{{ request('search') }}">
                     <button type="submit" class="btn btn-success rounded-pill px-4 fw-bold shadow">CARI</button>
+                </div>
+                
+                <div class="d-flex flex-wrap justify-content-center gap-2">
+                    <select name="kategori" class="btn btn-white bg-white shadow-sm border-0 rounded-pill px-4 py-2 small fw-bold text-muted hover-lift" onchange="this.form.submit()">
+                        <option value="semua" {{ request('kategori') == 'semua' ? 'selected' : '' }}>Semua Kategori</option>
+                        <option value="Kegiatan Desa" {{ request('kategori') == 'Kegiatan Desa' ? 'selected' : '' }}>Kegiatan Desa</option>
+                        <option value="Pariwisata" {{ request('kategori') == 'Pariwisata' ? 'selected' : '' }}>Pariwisata</option>
+                        <option value="Ekonomi & UMKM" {{ request('kategori') == 'Ekonomi & UMKM' ? 'selected' : '' }}>Ekonomi & UMKM</option>
+                        <option value="Pembangunan" {{ request('kategori') == 'Pembangunan' ? 'selected' : '' }}>Pembangunan</option>
+                        <option value="Sosial" {{ request('kategori') == 'Sosial' ? 'selected' : '' }}>Sosial</option>
+                        <option value="Pengumuman" {{ request('kategori') == 'Pengumuman' ? 'selected' : '' }}>Pengumuman</option>
+                    </select>
+                    
+                    <select name="sort" class="btn btn-white bg-white shadow-sm border-0 rounded-pill px-4 py-2 small fw-bold text-muted hover-lift" onchange="this.form.submit()">
+                        <option value="terbaru" {{ request('sort') == 'terbaru' ? 'selected' : '' }}>Terbaru</option>
+                        <option value="terlama" {{ request('sort') == 'terlama' ? 'selected' : '' }}>Terlama</option>
+                        <option value="judul_asc" {{ request('sort') == 'judul_asc' ? 'selected' : '' }}>Judul A-Z</option>
+                        <option value="judul_desc" {{ request('sort') == 'judul_desc' ? 'selected' : '' }}>Judul Z-A</option>
+                    </select>
                 </div>
             </form>
         </div>

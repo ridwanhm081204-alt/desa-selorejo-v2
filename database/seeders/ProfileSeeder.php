@@ -14,7 +14,7 @@ class ProfileSeeder extends Seeder
     {
         Profile::updateOrCreate(['id' => 1], [
             // SEJARAH
-            'sejarah' => 'Desa Selorejo yang dikenal saat ini awalnya memiliki akar sejarah yang kuat dengan nama "Watugedhe". Nama ini merujuk pada keberadaan dua batu raksasa tak lazim yang dipercaya memiliki daya mistis (hingga kini batu tersebut masih berada di lokasi aslinya). Perjalanan desa ini dimulai sekitar pertengahan abad ke-18 pasca Perang Diponegoro. Para pionir, yakni Mbah H. Turejo dan Mbah Sayang, bersama rombongan pelarian dari Mataram Islam yang melawan kolonial Belanda, melakukan "Babat Alas" atau pembukaan lahan di tengah hutan lebat lereng gunung sebagai hunian baru.\n\nSeiring waktu, nama Watugedhe bertransformasi menjadi Selorejo, yang diambil dari kombinasi kata "Selo" (batu) dan "Rejo" (diambil dari nama Mbah H. Turejo), melambangkan wilayah berbatu yang dibangun dan dimakmurkan oleh sang pendiri.\n\nSebelum dikenal sebagai penghasil jeruk, wilayah Selorejo merupakan lahan subur yang didominasi oleh tanaman sayur-mayur. Transformasi besar terjadi pada awal dekade 1990-an ketika muncul inisiatif dari dua tokoh masyarakat visioner, Abah Sulaiman dan Abah Dulawi. Mereka mulai merintis penanaman bibit jeruk keprok setelah melihat potensi topografi desa yang berada di ketinggian 650-1000 mdpl dengan suhu udara sejuk yang sangat ideal bagi pertumbuhan jeruk.\n\nMemasuki era modern, potensi agrikultur ini dikembangkan lebih jauh menjadi sektor pariwisata yang terintegrasi. Pada tahun 2011, Pemerintah Kabupaten Malang secara resmi mencanangkan Selorejo sebagai "Desa Wisata Jeruk". Kini, Selorejo telah mengukuhkan posisinya sebagai salah satu destinasi wisata unggulan di Jawa Timur yang mandiri dan berkelanjutan.',
+            'sejarah' => "Desa Selorejo yang dikenal saat ini awalnya memiliki akar sejarah yang kuat dengan nama \"Watugedhe\". Nama ini merujuk pada keberadaan dua batu raksasa tak lazim yang dipercaya memiliki daya mistis (hingga kini batu tersebut masih berada di lokasi aslinya). Perjalanan desa ini dimulai sekitar pertengahan abad ke-18 pasca Perang Diponegoro. Para pionir, yakni Mbah H. Turejo dan Mbah Sayang, bersama rombongan pelarian dari Mataram Islam yang melawan kolonial Belanda, melakukan \"Babat Alas\" atau pembukaan lahan di tengah hutan lebat lereng gunung sebagai hunian baru.\n\nSeiring waktu, nama Watugedhe bertransformasi menjadi Selorejo, yang diambil dari kombinasi kata \"Selo\" (batu) dan \"Rejo\" (diambil dari nama Mbah H. Turejo), melambangkan wilayah berbatu yang dibangun dan dimakmurkan oleh sang pendiri.\n\nSebelum dikenal sebagai penghasil jeruk, wilayah Selorejo merupakan lahan subur yang didominasi oleh tanaman sayur-mayur. Transformasi besar terjadi pada awal dekade 1990-an ketika muncul inisiatif dari dua tokoh masyarakat visioner, Abah Sulaiman dan Abah Dulawi. Mereka mulai merintis penanaman bibit jeruk keprok setelah melihat potensi topografi desa yang berada di ketinggian 650-1000 mdpl dengan suhu udara sejuk yang sangat ideal bagi pertumbuhan jeruk.\n\nMemasuki era modern, potensi agrikultur ini dikembangkan lebih jauh menjadi sektor pariwisata yang terintegrasi. Pada tahun 2011, Pemerintah Kabupaten Malang secara resmi mencanangkan Selorejo sebagai \"Desa Wisata Jeruk\". Kini, Selorejo telah mengukuhkan posisinya sebagai salah satu destinasi wisata unggulan di Jawa Timur yang mandiri dan berkelanjutan.",
             
             'sejarah_timeline' => [
                 ['year' => 'Pertengahan Abad ke-18', 'title' => 'Era Watugedhe (Babat Alas)', 'desc' => 'Pembukaan lahan di masa akhir Perang Diponegoro oleh rombongan pelarian dari Mataram Islam yang dipimpin Mbah H. Turejo dan Mbah Sayang.', 'icon' => 'tag'],
@@ -37,7 +37,7 @@ class ProfileSeeder extends Seeder
             ],
 
             // GEOGRAFI
-            'geografi' => 'Desa Selorejo secara strategis berada di Kecamatan Dau, Kabupaten Malang, dengan koordinat kisaran 7°56\'16.50" LS dan 112°32\'38.93" BT. Desa ini berada pada wilayah tinggi bersuhu sejuk yang ekstrem, yakni antara 800 hingga 1.200 meter di atas permukaan laut (mdpl). Kawasan desa dikelilingi oleh bentang alam yang luas, termasuk lebih dari 2.068 hektare area hutan (lindung dan produksi) dan lebih dari 238 hektare lahan perkebunan, menjadikannya paru-paru hijau dan kawasan tangkapan air vital bagi Kabupaten Malang.\n\nKondisi topografi Desa Selorejo didominasi oleh perbukitan. Struktur tanah pertanian murni yang mencapai tingkat kesuburan 100% dan suhu rata-rata sejuk menciptakan ekosistem yang sangat ideal bagi sektor agrikultur murni. Curah hujan yang stabil mendukung produktivitas lahan, terutama untuk budidaya komoditas unggulan Jeruk yang ditopang oleh subsektor peternakan (sapi, kambing, ayam, lele).\n\nDari aspek sosial-kewilayahan, Selorejo memiliki karakteristik khas yang menjadi kebanggaan tersendiri. Masyarakat desa dikenal sangat tangguh dan memiliki sifat bawaan "Sumeh" (ramah senyum). Karakteristik ramah tamah yang tulus ini pada akhirnya berpadu harmonis dengan lanskap alam yang asri.',
+            'geografi' => "Desa Selorejo secara strategis berada di Kecamatan Dau, Kabupaten Malang, dengan koordinat kisaran 7°56'16.50\" LS dan 112°32'38.93\" BT. Desa ini berada pada wilayah tinggi bersuhu sejuk yang ekstrem, yakni antara 800 hingga 1.200 meter di atas permukaan laut (mdpl). Kawasan desa dikelilingi oleh bentang alam yang luas, termasuk lebih dari 2.068 hektare area hutan (lindung dan produksi) dan lebih dari 238 hektare lahan perkebunan, menjadikannya paru-paru hijau dan kawasan tangkapan air vital bagi Kabupaten Malang.\n\nKondisi topografi Desa Selorejo didominasi oleh perbukitan. Struktur tanah pertanian murni yang mencapai tingkat kesuburan 100% dan suhu rata-rata sejuk menciptakan ekosistem yang sangat ideal bagi sektor agrikultur murni. Curah hujan yang stabil mendukung produktivitas lahan, terutama untuk budidaya komoditas unggulan Jeruk yang ditopang oleh subsektor peternakan (sapi, kambing, ayam, lele).\n\nDari aspek sosial-kewilayahan, Selorejo memiliki karakteristik khas yang menjadi kebanggaan tersendiri. Masyarakat desa dikenal sangat tangguh dan memiliki sifat bawaan \"Sumeh\" (ramah senyum). Karakteristik ramah tamah yang tulus ini pada akhirnya berpadu harmonis dengan lanskap alam yang asri.",
             
             'geografi_stats' => [
                 ['icon' => 'cloud-sun', 'value' => '18-26°C', 'label' => 'Suhu Rata-rata'],
@@ -57,6 +57,54 @@ class ProfileSeeder extends Seeder
             'peta_embed' => '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15806.384864810932!2d112.53843605!3d-7.937170050000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7883ef912d9999%3A0xf8ff8468809efd9c!2sSelorejo%2C%20Kec.%20Dau%2C%20Kabupaten%20Malang%2C%20Jawa%20Timur!5e0!3m2!1sid!2sid!4v1775912011055!5m2!1sid!2sid" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
             'peta_rute_pribadi' => 'Dapat diakses 30 menit dari Kota Malang ke arah Barat (Batu).',
             'peta_rute_umum' => 'Tersedia angkutan pedesaan jalur stasiun ke wilayah Terminal Landungsari.',
+
+            // V2 ADDITIONS: HEROES
+            'hero_sejarah' => ['title' => 'Sejarah Desa', 'subtitle' => 'Menelusuri jejak peradaban dan perkembangan Desa Selorejo dari masa ke masa.', 'icon' => 'history'],
+            'hero_visimisi' => ['title' => 'Visi & Misi', 'subtitle' => 'Arah dan tujuan pembangunan Desa Selorejo ke depan.', 'icon' => 'target'],
+            'hero_geografi' => ['title' => 'Kondisi Geografis', 'subtitle' => 'Letak, topografi, dan iklim yang mendukung pertanian.', 'icon' => 'mountain'],
+            'hero_peta' => ['title' => 'Peta Wilayah Desa', 'subtitle' => 'Penunjuk arah digital menuju Desa Wisata Petik Jeruk Selorejo', 'icon' => 'map'],
+
+            // V2 ADDITIONS: MOTTO
+            'motto' => 'SATATA GAMA KARTA RAHARJA',
+
+            // V2 ADDITIONS: DUSUN INFO
+            'dusun_info' => [
+                [
+                    'nama' => 'Dusun Krajan',
+                    'geografi_desc' => 'Dusun terluas dan terpadat permukimannya, meliputi RW I hingga RW IV (12 RT).',
+                    'peta_desc' => 'Berlokasi di bagian tengah hingga timur desa. Merupakan kawasan terluas, terpadat, dan menjadi pusat aktivitas utama penduduk.',
+                    'admin_rw' => 'RW I - RW IV',
+                    'admin_rt' => '12 RT (RT.01 - RT.12)',
+                    'color_theme' => 'success'
+                ],
+                [
+                    'nama' => 'Dusun Selokerto',
+                    'geografi_desc' => 'Berlokasi di sisi barat desa yang cukup padat, meliputi sebagian RW V dan RW VI (7 RT).',
+                    'peta_desc' => 'Berlokasi di sisi barat/kiri dari peta desa. Cukup padat, terutama berkonsentrasi di sektor utara dan tengah wilayah dusun.',
+                    'admin_rw' => 'RW V - RW VI (Sebagian)',
+                    'admin_rt' => '7 RT (RT.13 - RT.19)',
+                    'color_theme' => 'warning'
+                ],
+                [
+                    'nama' => 'Dusun Gumuk',
+                    'geografi_desc' => 'Berlokasi di selatan-barat desa, meliputi satu lingkungan spesifik di RW VI (1 RT).',
+                    'peta_desc' => 'Berlokasi merapat di bagian barat daya. Relatif memiliki sebaran bangunan pemukiman yang lebih sedikit dibanding dua dusun lainnya.',
+                    'admin_rw' => 'RW VI (Sebagian)',
+                    'admin_rt' => '1 RT (RT.20)',
+                    'color_theme' => 'primary'
+                ],
+            ],
+
+            // V2 ADDITIONS: PETA ELEMENTS
+            'peta_image' => 'images/Peta Desa Selorejo.jpg',
+            'peta_narasi_utama' => 'Berdasarkan pemetaan struktural, batas wilayah Utara terhubung ke Desa Gading Kulon, Timur ke Tegal Weru, Selatan ke Petung Sewu, dan Barat berupa hamparan hutan murni.',
+            'peta_narasi_legenda' => 'Peta desa ini berfungsi tidak hanya secara administratif, tapi juga sosial-ekonomi. Pemukiman diklasifikasikan menjadi tiga tingkatan: Rumah Miskin, Rumah Sedang, dan Rumah Kaya, guna memfasilitasi perencanaan tata ruang dan program kesejahteraan yang tepat sasaran.',
+            'peta_fasilitas' => [
+                ['icon' => 'check-circle', 'text' => 'Balai Desa sebagai pusat administrasi.'],
+                ['icon' => 'check-circle', 'text' => 'Balai Dukuh di masing-masing area Dusun.'],
+                ['icon' => 'check-circle', 'text' => 'Fasilitas Pendidikan (SD).'],
+                ['icon' => 'check-circle', 'text' => 'Jalur utama penghubung antar Dusun.'],
+            ],
         ]);
     }
 }

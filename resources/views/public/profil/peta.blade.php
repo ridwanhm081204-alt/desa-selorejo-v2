@@ -5,10 +5,14 @@
     <li class="breadcrumb-item active">Peta Desa</li>
 @endsection
 @section('content')
+@php
+    $hero = $profile->hero_peta ?? ['title' => 'Peta Wilayah Desa', 'subtitle' => 'Penunjuk arah digital menuju Desa Wisata Petik Jeruk Selorejo', 'icon' => 'map'];
+@endphp
+
 @include('layouts.partials.page-hero', [
-    'title' => 'Peta Wilayah Desa',
-    'subtitle' => 'Penunjuk arah digital menuju Desa Wisata Petik Jeruk Selorejo',
-    'icon' => 'map'
+    'title' => $hero['title'] ?? 'Peta Wilayah Desa',
+    'subtitle' => $hero['subtitle'] ?? 'Penunjuk arah digital menuju Desa Wisata Petik Jeruk Selorejo',
+    'icon' => $hero['icon'] ?? 'map'
 ])
 
 <div class="container mb-5 pb-5">
@@ -67,7 +71,7 @@
                         <h5 class="fw-bold mb-0 text-dark">Peta Klasifikasi Administratif</h5>
                     </div>
                     <div class="rounded-3 overflow-hidden text-center bg-light">
-                        <img src="{{ asset('images/Peta Desa Selorejo.jpg') }}" class="img-fluid w-100" alt="Peta Desa Selorejo" style="max-height: 500px; object-fit: contain;">
+                        <img src="{{ $profile->peta_image ? asset($profile->peta_image) : asset('images/Peta Desa Selorejo.jpg') }}" class="img-fluid w-100" alt="Peta Desa Selorejo" style="max-height: 500px; object-fit: contain;">
                     </div>
                 </div>
             </div>
@@ -79,20 +83,27 @@
                     <h3 class="fw-bold text-dark mb-4">Membaca Peta Desa</h3>
                     
                     <p class="text-muted mb-4 text-justify">
-                        Berdasarkan pemetaan struktural, batas wilayah Utara terhubung ke Desa Gading Kulon, Timur ke Tegal Weru, Selatan ke Petung Sewu, dan Barat berupa hamparan hutan murni.
+                        {{ $profile->peta_narasi_utama ?? 'Berdasarkan pemetaan struktural, batas wilayah Utara terhubung ke Desa Gading Kulon, Timur ke Tegal Weru, Selatan ke Petung Sewu, dan Barat berupa hamparan hutan murni.' }}
                     </p>
 
                     <h6 class="fw-bold text-dark mb-2"><i data-lucide="home" class="icon-sm text-success me-2"></i>Klasifikasi Permukiman (Legenda)</h6>
                     <p class="text-muted small mb-4">
-                        Peta desa ini berfungsi tidak hanya secara administratif, tapi juga sosial-ekonomi. Pemukiman diklasifikasikan menjadi tiga tingkatan: Rumah Miskin, Rumah Sedang, dan Rumah Kaya, guna memfasilitasi perencanaan tata ruang dan program kesejahteraan yang tepat sasaran.
+                        {{ $profile->peta_narasi_legenda ?? 'Peta desa ini berfungsi tidak hanya secara administratif, tapi juga sosial-ekonomi. Pemukiman diklasifikasikan menjadi tiga tingkatan: Rumah Miskin, Rumah Sedang, dan Rumah Kaya, guna memfasilitasi perencanaan tata ruang dan program kesejahteraan yang tepat sasaran.' }}
                     </p>
 
                     <h6 class="fw-bold text-dark mb-2"><i data-lucide="building" class="icon-sm text-success me-2"></i>Fasilitas Umum Penting</h6>
                     <ul class="list-unstyled text-muted small mb-0">
-                        <li class="mb-2"><i data-lucide="check-circle" class="icon-sm text-success me-2"></i>Balai Desa sebagai pusat administrasi.</li>
-                        <li class="mb-2"><i data-lucide="check-circle" class="icon-sm text-success me-2"></i>Balai Dukuh di masing-masing area Dusun.</li>
-                        <li class="mb-2"><i data-lucide="check-circle" class="icon-sm text-success me-2"></i>Fasilitas Pendidikan (SD).</li>
-                        <li><i data-lucide="check-circle" class="icon-sm text-success me-2"></i>Jalur utama penghubung antar Dusun.</li>
+                        @php 
+                            $fasilitas = $profile->peta_fasilitas ?? [
+                                ['icon' => 'check-circle', 'text' => 'Balai Desa sebagai pusat administrasi.'],
+                                ['icon' => 'check-circle', 'text' => 'Balai Dukuh di masing-masing area Dusun.'],
+                                ['icon' => 'check-circle', 'text' => 'Fasilitas Pendidikan (SD).'],
+                                ['icon' => 'check-circle', 'text' => 'Jalur utama penghubung antar Dusun.']
+                            ]; 
+                        @endphp
+                        @foreach($fasilitas as $f)
+                        <li class="mb-2"><i data-lucide="{{ $f['icon'] }}" class="icon-sm text-success me-2"></i>{{ $f['text'] }}</li>
+                        @endforeach
                     </ul>
                 </div>
             </div>
@@ -100,56 +111,31 @@
 
         <!-- Pembagian Dusun & RT/RW -->
         <div class="row g-4 mt-2">
+            @php 
+                $dusuns = $profile->dusun_info ?? [
+                    ['nama' => 'Dusun Krajan', 'peta_desc' => 'Berlokasi di bagian tengah hingga timur desa. Merupakan kawasan terluas, terpadat, dan menjadi pusat aktivitas utama penduduk.', 'admin_rw' => 'RW I - RW IV', 'admin_rt' => '12 RT (RT.01 - RT.12)', 'color_theme' => 'success'],
+                    ['nama' => 'Dusun Selokerto', 'peta_desc' => 'Berlokasi di sisi barat/kiri dari peta desa. Cukup padat, terutama berkonsentrasi di sektor utara dan tengah wilayah dusun.', 'admin_rw' => 'RW V - RW VI (Sebagian)', 'admin_rt' => '7 RT (RT.13 - RT.19)', 'color_theme' => 'warning'],
+                    ['nama' => 'Dusun Gumuk', 'peta_desc' => 'Berlokasi merapat di bagian barat daya. Relatif memiliki sebaran bangunan pemukiman yang lebih sedikit dibanding dua dusun lainnya.', 'admin_rw' => 'RW VI (Sebagian)', 'admin_rt' => '1 RT (RT.20)', 'color_theme' => 'primary']
+                ];
+            @endphp
+            @foreach(array_slice($dusuns, 0, 3) as $dsn)
             <div class="col-md-4">
-                <div class="glass-card bg-white p-4 rounded-4 shadow-sm h-100 border-top border-4 border-success hover-lift">
+                <div class="glass-card bg-white p-4 rounded-4 shadow-sm h-100 border-top border-4 border-{{ $dsn['color_theme'] ?? 'success' }} hover-lift">
                     <div class="d-flex align-items-center mb-3">
-                        <div class="bg-success text-white rounded p-2 me-3"><i data-lucide="map" class="icon-sm"></i></div>
-                        <h5 class="fw-bold text-dark mb-0">Dusun Krajan</h5>
+                        <div class="bg-{{ $dsn['color_theme'] ?? 'success' }} text-white rounded p-2 me-3"><i data-lucide="map" class="icon-sm"></i></div>
+                        <h5 class="fw-bold text-dark mb-0">{{ $dsn['nama'] }}</h5>
                     </div>
-                    <p class="text-muted small mb-4 text-justify" style="min-height: 60px;">Berlokasi di bagian tengah hingga timur desa. Merupakan kawasan terluas, terpadat, dan menjadi pusat aktivitas utama penduduk.</p>
-                    <div class="bg-success bg-opacity-10 rounded p-3 text-center border border-success border-opacity-25">
-                        <strong class="d-block text-success mb-2 fw-bold"><i data-lucide="users" class="icon-sm me-1"></i> Area Administrasi</strong>
+                    <p class="text-muted small mb-4 text-justify" style="min-height: 60px;">{{ $dsn['peta_desc'] }}</p>
+                    <div class="bg-{{ $dsn['color_theme'] ?? 'success' }} bg-opacity-10 rounded p-3 text-center border border-{{ $dsn['color_theme'] ?? 'success' }} border-opacity-25">
+                        <strong class="d-block text-{{ $dsn['color_theme'] ?? 'success' }} mb-2 fw-bold"><i data-lucide="users" class="icon-sm me-1"></i> Area Administrasi</strong>
                         <div class="d-flex flex-wrap justify-content-center gap-2">
-                            <span class="badge bg-white text-success border border-success border-opacity-25 px-3 py-2 shadow-sm">RW I - RW IV</span>
-                            <span class="badge bg-white text-success border border-success border-opacity-25 px-3 py-2 shadow-sm">12 RT (RT.01 - RT.12)</span>
+                            <span class="badge bg-white text-{{ $dsn['color_theme'] ?? 'success' }} border border-{{ $dsn['color_theme'] ?? 'success' }} border-opacity-25 px-3 py-2 shadow-sm">{{ $dsn['admin_rw'] }}</span>
+                            <span class="badge bg-white text-{{ $dsn['color_theme'] ?? 'success' }} border border-{{ $dsn['color_theme'] ?? 'success' }} border-opacity-25 px-3 py-2 shadow-sm">{{ $dsn['admin_rt'] }}</span>
                         </div>
                     </div>
                 </div>
             </div>
-            
-            <div class="col-md-4">
-                <div class="glass-card bg-white p-4 rounded-4 shadow-sm h-100 border-top border-4 border-warning hover-lift">
-                    <div class="d-flex align-items-center mb-3">
-                        <div class="bg-warning text-dark rounded p-2 me-3"><i data-lucide="map" class="icon-sm"></i></div>
-                        <h5 class="fw-bold text-dark mb-0">Dusun Selokerto</h5>
-                    </div>
-                    <p class="text-muted small mb-4 text-justify" style="min-height: 60px;">Berlokasi di sisi barat/kiri dari peta desa. Cukup padat, terutama berkonsentrasi di sektor utara dan tengah wilayah dusun.</p>
-                    <div class="bg-warning bg-opacity-10 rounded p-3 text-center border border-warning border-opacity-25">
-                        <strong class="d-block text-dark fw-bold mb-2"><i data-lucide="users" class="icon-sm me-1"></i> Area Administrasi</strong>
-                        <div class="d-flex flex-wrap justify-content-center gap-2">
-                            <span class="badge bg-white text-dark border border-warning border-opacity-50 px-3 py-2 shadow-sm">RW V - RW VI (Sebagian)</span>
-                            <span class="badge bg-white text-dark border border-warning border-opacity-50 px-3 py-2 shadow-sm">7 RT (RT.13 - RT.19)</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-4">
-                <div class="glass-card bg-white p-4 rounded-4 shadow-sm h-100 border-top border-4 border-primary hover-lift">
-                    <div class="d-flex align-items-center mb-3">
-                        <div class="bg-primary text-white rounded p-2 me-3"><i data-lucide="map" class="icon-sm"></i></div>
-                        <h5 class="fw-bold text-dark mb-0">Dusun Gumuk</h5>
-                    </div>
-                    <p class="text-muted small mb-4 text-justify" style="min-height: 60px;">Berlokasi merapat di bagian barat daya. Relatif memiliki sebaran bangunan pemukiman yang lebih sedikit dibanding dua dusun lainnya.</p>
-                    <div class="bg-primary bg-opacity-10 rounded p-3 text-center border border-primary border-opacity-25">
-                        <strong class="d-block text-primary fw-bold mb-2"><i data-lucide="users" class="icon-sm me-1"></i> Area Administrasi</strong>
-                        <div class="d-flex flex-wrap justify-content-center gap-2">
-                            <span class="badge bg-white text-primary border border-primary border-opacity-25 px-3 py-2 shadow-sm">RW VI (Sebagian)</span>
-                            <span class="badge bg-white text-primary border border-primary border-opacity-25 px-3 py-2 shadow-sm">1 RT (RT.20)</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            @endforeach
         </div>
     </div>
 

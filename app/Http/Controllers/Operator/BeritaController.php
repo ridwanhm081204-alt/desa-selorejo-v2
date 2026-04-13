@@ -7,8 +7,55 @@ use Illuminate\Http\Request;
 
 class BeritaController extends Controller
 {
-    public function index() {
-        return view('operator.berita.index', ['berita' => \App\Models\Berita::orderBy('tanggal', 'desc')->paginate(10)]);
+    public function index(Request $request) {
+        $query = \App\Models\Berita::query();
+
+        // Filter: Kategori
+        if ($request->has('kategori') && $request->kategori != 'semua') {
+            $query->where('kategori', $request->kategori);
+        }
+
+        // Search
+        if ($request->has('search')) {
+            $query->where('judul', 'like', '%' . $request->search . '%');
+        }
+
+        // Sorting
+        $sort = $request->get('sort', 'terbaru');
+        if ($sort == 'terbaru') {
+            $query->orderBy('tanggal', 'desc');
+        } elseif ($sort == 'terlama') {
+            $query->orderBy('tanggal', 'asc');
+        } elseif ($sort == 'judul_asc') {
+            $query->orderBy('judul', 'asc');
+        } elseif ($sort == 'judul_desc') {
+            $query->orderBy('judul', 'desc');
+        } else {
+            $query->orderBy('tanggal', 'desc');
+        }
+
+        $berita = $query->paginate(10)->withQueryString();
+        
+        $heroValue = \App\Models\Setting::where('key', 'hero_berita')->value('value');
+        $hero = $heroValue ? json_decode($heroValue, true) : ['title' => 'Kabar Desa', 'subtitle' => 'Informasi, pengumuman, dan liputan terkini dari Desa Selorejo', 'icon' => 'newspaper'];
+
+        return view('operator.berita.index', compact('berita', 'hero'));
+    }
+
+    public function updateHero(Request $request) {
+        $request->validate([
+            'title' => 'required|string',
+            'subtitle' => 'required|string',
+            'icon' => 'required|string',
+        ]);
+        
+        \App\Models\Setting::updateOrCreate(
+            ['key' => 'hero_berita'],
+            ['value' => json_encode($request->only('title', 'subtitle', 'icon'))]
+        );
+        
+        \App\Models\ActivityLog::create(['user_id' => auth()->id(), 'action' => 'Update Settings Header Berita']);
+        return back()->with('success', 'Banner header Berita berhasil diperbarui!');
     }
     public function create() {
         return view('operator.berita.create');

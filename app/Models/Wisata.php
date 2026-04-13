@@ -9,6 +9,7 @@ class Wisata extends Model
     protected $table = 'wisata';
     protected $fillable = [
         'judul',
+        'kategori',
         'deskripsi',
         'harga_tiket',
         'jadwal',

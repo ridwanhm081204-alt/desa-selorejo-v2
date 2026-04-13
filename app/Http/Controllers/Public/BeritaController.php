@@ -7,18 +7,42 @@ use Illuminate\Http\Request;
 
 class BeritaController extends Controller
 {
-    public function index(Request $request) {
-        $search = $request->query('search');
-        $berita = \App\Models\Berita::where('status_publish', 'publish')
-            ->when($search, function($query) use ($search) {
-                return $query->where('judul', 'like', '%'.$search.'%');
-            })
-            ->orderBy('tanggal', 'desc')
-            ->paginate(9)
-            ->withQueryString();
+    public function index(Request $request)
+    {
+        $query = \App\Models\Berita::where('status_publish', 'publish');
 
-        return view('public.berita.index', compact('berita', 'search'));
+        // Filter: Kategori
+        if ($request->has('kategori') && $request->kategori != 'semua') {
+            $query->where('kategori', $request->kategori);
+        }
+
+        // Search
+        if ($request->has('search')) {
+            $query->where('judul', 'like', '%' . $request->search . '%');
+        }
+
+        // Sorting
+        $sort = $request->get('sort', 'terbaru');
+        if ($sort == 'terbaru') {
+            $query->orderBy('tanggal', 'desc');
+        } elseif ($sort == 'terlama') {
+            $query->orderBy('tanggal', 'asc');
+        } elseif ($sort == 'judul_asc') {
+            $query->orderBy('judul', 'asc');
+        } elseif ($sort == 'judul_desc') {
+            $query->orderBy('judul', 'desc');
+        } else {
+            $query->orderBy('tanggal', 'desc');
+        }
+
+        $berita = $query->paginate(9)->withQueryString();
+        
+        $heroValue = \App\Models\Setting::where('key', 'hero_berita')->value('value');
+        $hero = $heroValue ? json_decode($heroValue, true) : ['title' => 'Kabar Desa', 'subtitle' => 'Informasi, pengumuman, dan liputan terkini dari Desa Selorejo', 'icon' => 'newspaper'];
+
+        return view('public.berita.index', compact('berita', 'hero'));
     }
+
     public function show($slug) {
         $berita = \App\Models\Berita::where('slug', $slug)->firstOrFail();
         

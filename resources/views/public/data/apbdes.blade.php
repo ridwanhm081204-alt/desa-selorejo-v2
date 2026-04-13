@@ -6,9 +6,9 @@
 @endsection
 @section('content')
 @include('layouts.partials.page-hero', [
-    'title' => 'Transparansi APBDes',
-    'subtitle' => 'Laporan Anggaran Pendapatan dan Belanja Desa Selorejo Tahun Anggaran 2024.',
-    'icon' => 'file-text'
+    'title' => $hero['title'] ?? 'Transparansi APBDes',
+    'subtitle' => $hero['subtitle'] ?? 'Laporan Anggaran Pendapatan dan Belanja Desa Selorejo Tahun Anggaran 2024.',
+    'icon' => $hero['icon'] ?? 'file-text'
 ])
 
 <div class="container mb-5 pb-5">
