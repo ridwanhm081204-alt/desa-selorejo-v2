@@ -15,5 +15,6 @@ class Wisata extends Model
         'jadwal',
         'aturan',
         'gambar',
+        'whatsapp',
     ];
 }

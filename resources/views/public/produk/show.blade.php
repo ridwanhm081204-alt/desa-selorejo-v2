@@ -20,7 +20,7 @@
             <div class="mt-4 p-3 bg-white rounded-4 shadow-sm border">
                 <h6 class="fw-bold mb-3 text-dark small text-uppercase"><i data-lucide="share-2" class="icon-xs me-1"></i> Bagikan Produk</h6>
                 <div class="d-flex justify-content-center gap-2 flex-wrap">
-                    <a href="https://api.whatsapp.com/send?text={{ urlencode('Beli produk lokal Selorejo: ' . $produk->nama . ' ' . url()->current()) }}" target="_blank" class="btn btn-sm btn-outline-success rounded-pill px-3 share-btn">
+                    <a href="https://api.whatsapp.com/send?phone={{ preg_replace('/[^0-9]/', '', $produk->whatsapp ?: \App\Models\Setting::get('whatsapp', '')) }}&text={{ urlencode('Beli produk lokal Selorejo: ' . $produk->nama . ' ' . url()->current()) }}" target="_blank" class="btn btn-sm btn-outline-success rounded-pill px-3 share-btn">
                         <i data-lucide="message-circle" class="icon-xs me-1"></i> WA
                     </a>
                     <a href="https://www.facebook.com/sharer/sharer.php?u={{ url()->current() }}" target="_blank" class="btn btn-sm btn-outline-primary rounded-pill px-3 share-btn">

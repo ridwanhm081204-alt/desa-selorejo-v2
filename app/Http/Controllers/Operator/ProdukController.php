@@ -74,6 +74,7 @@ class ProdukController extends Controller
             'deskripsi' => 'required',
             'harga' => 'required|numeric',
             'stok' => 'required|integer|min:0',
+            'whatsapp' => 'nullable|string|max:20',
             'gambar' => 'required|image|max:2048'
         ]);
         $data['gambar'] = $request->file('gambar')->store('produk', 'public');
@@ -92,6 +93,7 @@ class ProdukController extends Controller
             'deskripsi' => 'required',
             'harga' => 'required|numeric',
             'stok' => 'required|integer|min:0',
+            'whatsapp' => 'nullable|string|max:20',
             'gambar' => 'nullable|image|max:2048'
         ]);
         if($request->hasFile('gambar')) {

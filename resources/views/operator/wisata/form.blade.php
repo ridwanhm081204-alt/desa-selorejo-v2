@@ -77,6 +77,17 @@
                         </div>
                     </div>
 
+                    <div class="mb-4 text-start">
+                        <label class="form-label small fw-bold text-muted">NOMOR WHATSAPP KHUSUS (OPSIONAL)</label>
+                        <div class="input-group bg-light rounded-3 overflow-hidden">
+                            <span class="input-group-text bg-white border-0"><i data-lucide="phone" class="icon-xs text-muted"></i></span>
+                            <input type="text" name="whatsapp" class="form-control border-0 bg-transparent shadow-none py-2 @error('whatsapp') is-invalid @enderror" 
+                                   value="{{ old('whatsapp', $wisata->whatsapp ?? '') }}" placeholder="Kosongkan jika menggunakan nomor admin desa (08xxxx)">
+                        </div>
+                        <small class="text-muted d-block mt-1 italic" style="font-size: 0.75rem;">Gunakan format angka saja (contoh: 08123456789)</small>
+                        @error('whatsapp') <div class="invalid-feedback d-block mt-1">{{ $message }}</div> @enderror
+                    </div>
+
                     <div class="mb-4 text-start text-start">
                         <label class="form-label small fw-bold text-muted">ATURAN PENGUNJUNG (OPSIONAL)</label>
                         <textarea name="aturan" class="form-control rounded-3 p-3 border-0 bg-light shadow-none @error('aturan') is-invalid @enderror" 

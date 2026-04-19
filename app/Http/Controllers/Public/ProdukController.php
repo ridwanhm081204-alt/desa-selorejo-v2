@@ -92,10 +92,11 @@ class ProdukController extends Controller
             $produk->stok -= $request->jumlah;
             $produk->save();
             
+            $whatsappNumber = preg_replace('/[^0-9]/', '', $produk->whatsapp ?: \App\Models\Setting::get('whatsapp', ''));
             return response()->json([
                 'success' => true,
                 'message' => 'Pesanan Anda telah dicatat!',
-                'whatsapp_url' => "https://wa.me/" . \App\Models\Setting::get('whatsapp', '') . "?text=" . urlencode("Halo Admin, saya ingin konfirmasi pesanan:\n\nID Transaksi: #{$transaksi->id}\nProduk: {$produk->nama}\nJumlah: {$transaksi->jumlah}\nTotal: Rp " . number_format($transaksi->total_harga, 0, ',', '.') . "\nNama: {$transaksi->nama_pemesan}"),
+                'whatsapp_url' => "https://wa.me/{$whatsappNumber}?text=" . urlencode("Halo Admin Toko Desa Selorejo,\n\nSaya ingin KONFIRMASI PESANAN dengan detail berikut:\n\n📦 *ID Transaksi:* #{$transaksi->id}\n🛍️ *Produk:* {$produk->nama}\n🔢 *Jumlah:* {$transaksi->jumlah} item\n💰 *Total Harga:* Rp " . number_format($transaksi->total_harga, 0, ',', '.') . "\n💳 *Metode Pembayaran:* {$transaksi->metode_pembayaran}\n\n👤 *Data Pemesan:*\nNama: {$transaksi->nama_pemesan}\nTelepon: {$transaksi->telepon}\n📍 *Alamat Pengiriman:*\n{$transaksi->alamat}, Kel. {$transaksi->kelurahan}, Kec. {$transaksi->kecamatan}, Kab. {$transaksi->kabupaten}, Kode Pos: {$transaksi->kode_pos}\n\nMohon segera diproses ya, terima kasih!"),
                 'data' => $transaksi
             ]);
         }

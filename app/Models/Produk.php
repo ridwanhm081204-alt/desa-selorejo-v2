@@ -14,6 +14,7 @@ class Produk extends Model
         'harga',
         'gambar',
         'stok',
+        'whatsapp',
     ];
 
     public function getGambarUrlAttribute()

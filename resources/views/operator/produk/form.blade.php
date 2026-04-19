@@ -64,6 +64,17 @@
                     </div>
 
                     <div class="mb-4 text-start">
+                        <label class="form-label fw-bold text-muted small">NOMOR WHATSAPP PENJUAL (OPSIONAL)</label>
+                        <div class="input-group bg-light rounded-3 overflow-hidden">
+                            <span class="input-group-text bg-white border-0"><i data-lucide="phone" class="icon-xs text-muted"></i></span>
+                            <input type="text" name="whatsapp" class="form-control border-0 bg-transparent shadow-none py-2 @error('whatsapp') is-invalid @enderror" 
+                                   value="{{ old('whatsapp', $produk->whatsapp ?? '') }}" placeholder="Kosongkan jika menggunakan nomor admin toko (08xxxx)">
+                        </div>
+                        <small class="text-muted d-block mt-1 italic" style="font-size: 0.75rem;">Gunakan format angka saja (contoh: 08123456789)</small>
+                        @error('whatsapp') <div class="invalid-feedback d-block mt-1">{{ $message }}</div> @enderror
+                    </div>
+
+                    <div class="mb-4 text-start">
                         <label class="form-label fw-bold text-muted small">DESKRIPSI PRODUK <span class="text-danger">*</span></label>
                         <textarea name="deskripsi" class="form-control rounded-4 p-3 border-0 bg-light shadow-none" rows="6" placeholder="Jelaskan kualitas, rasa, atau spesifikasi produk ini..." required>{{ old('deskripsi', $produk->deskripsi ?? '') }}</textarea>
                     </div>

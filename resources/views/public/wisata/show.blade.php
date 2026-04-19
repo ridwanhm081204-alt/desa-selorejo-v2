@@ -95,7 +95,7 @@
                         </li>
                     </ul>
                     
-                    <a href="https://wa.me/{{\App\Models\Setting::get('whatsapp', '')}}?text=Halo%20Admin,%20saya%20ingin%20bertanya%20seputar%20destinasi%20wisata%20{{ urlencode($wisata->judul) }}" target="_blank" class="btn btn-success w-100 mt-4 rounded-pill fw-bold hover-lift">
+                    <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $wisata->whatsapp ?: \App\Models\Setting::get('whatsapp', '')) }}?text={{ urlencode("Halo Pengelola Wisata Desa Selorejo,\n\nSaya tertarik untuk berkunjung ke: " . $wisata->judul . "\n\nBisakah saya mendapatkan informasi lebih lanjut mengenai akses dan ketersediaan kuota untuk kunjungan dalam waktu dekat?\n\nTerima kasih.") }}" target="_blank" class="btn btn-success w-100 mt-4 rounded-pill fw-bold hover-lift">
                         <i data-lucide="message-circle" class="me-2 icon-sm"></i> Hubungi Pengelola
                     </a>
                 </div>
