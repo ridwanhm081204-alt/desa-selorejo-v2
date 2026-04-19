@@ -16,8 +16,9 @@ class BeritaController extends Controller
         }
 
         // Search
-        if ($request->has('search')) {
-            $query->where('judul', 'like', '%' . $request->search . '%');
+        if ($request->filled('search')) {
+            $query->where('judul', 'like', '%' . $request->search . '%')
+                  ->orWhere('konten', 'like', '%' . $request->search . '%');
         }
 
         // Sorting

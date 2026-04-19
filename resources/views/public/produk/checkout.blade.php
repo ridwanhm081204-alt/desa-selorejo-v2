@@ -65,6 +65,12 @@
                                 <div class="invalid-feedback">Nama wajib diisi.</div>
                             </div>
 
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold text-dark"><i data-lucide="phone" class="me-1"></i> Nomor WhatsApp (Aktif)</label>
+                                <input type="text" name="telepon" class="form-control rounded-3 text-dark border-dark" placeholder="Contoh: 08123456789" required>
+                                <div class="invalid-feedback">Nomor WhatsApp wajib diisi untuk koordinasi pengiriman.</div>
+                            </div>
+
                             <div class="col-md-12">
                                 <label class="form-label fw-bold text-dark"><i data-lucide="package" class="me-1"></i> Jumlah (Pcs)</label>
                                 <input type="number" name="jumlah" id="qtyInput" class="form-control rounded-3 text-dark border-dark fw-bold" value="1" min="1" max="{{ $produk->stok }}" required>
@@ -234,29 +240,10 @@
                     confirmButtonColor: '#198754',
                     allowOutsideClick: false
                 }).then(() => {
-                    // Redirect to WhatsApp
-                    const data = res.data;
-                    const total = data.jumlah * productPrice;
-                    const waNumber = "6289694707982";
-                    
-                    let message = `*STRUK PESANAN DESA SELOREJO*\n`;
-                    message += `_Tanggal: ${tanggalFormatted}_\n\n`;
-                    message += `*PRODUK*: ${productName}\n`;
-                    message += `*HARGA*: ${formatRupiah(productPrice)}\n`;
-                    message += `*JUMLAH*: ${data.jumlah} Pcs\n`;
-                    message += `*TOTAL BAYAR*: ${formatRupiah(total)}\n`;
-                    message += `--------------------------\n`;
-                    message += `*DATA PEMESAN*\n`;
-                    message += `Nama: ${data.nama_pemesan}\n`;
-                    message += `Alamat: ${data.alamat}, ${data.kelurahan}, ${data.kecamatan}, ${data.kabupaten} (${data.kode_pos})\n`;
-                    message += `Maps: ${data.gmaps_link}\n`;
-                    message += `\n*PEMBAYARAN*\n`;
-                    message += `Metode: ${data.metode_pembayaran}\n`;
-                    message += `Status Bukti: Sudah Diunggah (√)\n`;
-                    if (data.catatan) message += `\n*CATATAN*\n${data.catatan}\n`;
-                    message += `\n_Mohon segera diproses, terima kasih._`;
-
-                    window.open(`https://wa.me/${waNumber}?text=${encodeURIComponent(message)}`, '_blank');
+                    // Redirect to WhatsApp using URL from server (contains transaction details)
+                    if (res.whatsapp_url) {
+                        window.open(res.whatsapp_url, '_blank');
+                    }
                     window.location.href = "{{ route('produk.index') }}";
                 });
             } else {

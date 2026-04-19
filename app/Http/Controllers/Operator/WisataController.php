@@ -11,9 +11,11 @@ class WisataController extends Controller
         $query = \App\Models\Wisata::query();
 
         // Search
-        if ($request->has('search') && $request->search != '') {
-            $query->where('judul', 'like', '%' . $request->search . '%')
+        if ($request->filled('search')) {
+            $query->where(function($q) use ($request) {
+                $q->where('judul', 'like', '%' . $request->search . '%')
                   ->orWhere('deskripsi', 'like', '%' . $request->search . '%');
+            });
         }
 
         // Filter Kategori

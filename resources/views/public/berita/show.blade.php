@@ -53,11 +53,11 @@
                 {!! $berita->konten !!}
             </div>
             
-            <div class="mt-5 pt-4 border-top d-flex flex-column flex-md-row justify-content-between gap-4">
+            <div class="mt-5 pt-4 border-top text-center">
                 <!-- Reaksi Area -->
-                <div>
+                <div class="mb-4">
                     <h5 class="fw-bold mb-3">Apakah tulisan ini bermanfaat?</h5>
-                    <div class="d-flex flex-wrap gap-2">
+                    <div class="d-flex flex-wrap gap-2 justify-content-center">
                         <button type="button" class="btn btn-outline-success rounded-pill px-4 d-flex align-items-center gap-2 btn-react" data-type="like" id="btn-like">
                             <i data-lucide="thumbs-up" class="icon-md"></i> Suka (<span id="likes-count">{{ $berita->likes }}</span>)
                         </button>
@@ -72,11 +72,17 @@
                 <div>
                     <h5 class="fw-bold mb-3">Bagikan Artikel Ini:</h5>
                     <div class="d-flex flex-wrap gap-3">
-                        <a href="https://api.whatsapp.com/send?text={{ urlencode($berita->judul . ' ' . url()->current()) }}" target="_blank" class="btn-share-custom">
+                        <a href="https://api.whatsapp.com/send?text={{ urlencode($berita->judul . ' ' . url()->current()) }}" target="_blank" class="btn-share-custom share-btn">
                             <i data-lucide="message-circle" class="icon-md"></i> WhatsApp
                         </a>
-                        <a href="https://www.facebook.com/sharer/sharer.php?u={{ url()->current() }}" target="_blank" class="btn-share-custom">
+                        <a href="https://www.facebook.com/sharer/sharer.php?u={{ url()->current() }}" target="_blank" class="btn-share-custom share-btn">
                             <i data-lucide="facebook" class="icon-md"></i> Facebook
+                        </a>
+                        <a href="javascript:void(0)" onclick="trackShare('Instagram')" class="btn-share-custom share-btn">
+                            <i data-lucide="instagram" class="icon-md"></i> Instagram
+                        </a>
+                        <a href="javascript:void(0)" onclick="trackShare('TikTok')" class="btn-share-custom share-btn">
+                            <i data-lucide="music-2" class="icon-md"></i> TikTok
                         </a>
                     </div>
                 </div>
@@ -133,6 +139,41 @@
                     console.error('Error:', error);
                 });
             });
+        });
+    });
+
+    function trackShare(platform) {
+        const url = '{{ url()->current() }}';
+        
+        // Simpan ke database
+        fetch("{{ route('berita.share', $berita->id) }}", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                'Accept': 'application/json'
+            }
+        });
+
+        if (platform === 'Instagram' || platform === 'TikTok') {
+            copyToClipboard(url, platform);
+        }
+    }
+
+    function copyToClipboard(text, platform) {
+        navigator.clipboard.writeText(text).then(function() {
+            alert('Link Berita berhasil disalin! Silakan tempelkan di ' + platform + ' Anda.');
+        }, function(err) {
+            console.error('Could not copy text: ', err);
+        });
+    }
+
+    document.querySelectorAll('.share-btn').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            const platform = this.innerText.trim();
+            if (platform === 'WhatsApp' || platform === 'Facebook') {
+                trackShare(platform);
+            }
         });
     });
 </script>

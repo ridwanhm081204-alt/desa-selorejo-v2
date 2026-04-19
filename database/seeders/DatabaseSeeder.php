@@ -20,6 +20,9 @@ class DatabaseSeeder extends Seeder {
             WidgetAparatSeeder::class,
             TautanTerkaitSeeder::class,
             SettingSeeder::class,
+            InteractiveStatsSeeder::class,
+            ProdukReviewSeeder::class,
+            ProdukTransaksiSeeder::class,
         ]);
     }
 }

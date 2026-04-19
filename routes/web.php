@@ -17,8 +17,13 @@ Route::get('/pemerintahan/bpd', [\App\Http\Controllers\Public\PemerintahanContro
 Route::get('/pemerintahan/lembaga', [\App\Http\Controllers\Public\PemerintahanController::class, 'lembaga'])->name('pemerintahan.lembaga');
 
 // Wisata & Produk
-Route::get('/wisata', [\App\Http\Controllers\Public\WisataController::class, 'index'])->name('wisata');
+Route::get('/wisata', [\App\Http\Controllers\Public\WisataController::class, 'index'])->name('wisata.index');
+Route::get('/wisata/{id}', [\App\Http\Controllers\Public\WisataController::class, 'show'])->name('wisata.show');
+Route::post('/wisata/share/{id}', [\App\Http\Controllers\Public\WisataController::class, 'share'])->name('wisata.share');
+Route::post('/wisata/react/{id}', [\App\Http\Controllers\Public\WisataController::class, 'react'])->name('wisata.react');
 Route::resource('/produk', \App\Http\Controllers\Public\ProdukController::class)->only(['index', 'show']);
+Route::post('/produk/share/{id}', [\App\Http\Controllers\Public\ProdukController::class, 'share'])->name('produk.share');
+Route::post('/produk/{id}/review', [\App\Http\Controllers\Public\ProdukController::class, 'storeReview'])->name('produk.review');
 Route::get('/produk/{id}/checkout', [\App\Http\Controllers\Public\ProdukController::class, 'checkout'])->name('produk.checkout');
 Route::post('/produk/{id}/checkout', [\App\Http\Controllers\Public\ProdukController::class, 'processCheckout'])->name('produk.process');
 
@@ -30,6 +35,7 @@ Route::get('/transparansi', [\App\Http\Controllers\Public\DataDesaController::cl
 Route::get('/berita', [\App\Http\Controllers\Public\BeritaController::class, 'index'])->name('berita.index');
 Route::get('/berita/{slug}', [\App\Http\Controllers\Public\BeritaController::class, 'show'])->name('berita.show');
 Route::post('/berita/react/{id}', [\App\Http\Controllers\Public\BeritaController::class, 'react'])->name('berita.react');
+Route::post('/berita/share/{id}', [\App\Http\Controllers\Public\BeritaController::class, 'share'])->name('berita.share');
 Route::get('/galeri', [\App\Http\Controllers\Public\GaleriController::class, 'index'])->name('galeri');
 
 // Kontak
@@ -61,6 +67,8 @@ Route::middleware(['auth', 'role:operator,admin'])->prefix('operator')->name('op
     
     // Produk
     Route::post('produk/hero', [\App\Http\Controllers\Operator\ProdukController::class, 'updateHero']);
+    Route::get('produk/transaksi', [\App\Http\Controllers\Operator\ProdukController::class, 'transaksi'])->name('produk.transaksi');
+    Route::post('produk/transaksi/{id}/status', [\App\Http\Controllers\Operator\ProdukController::class, 'updateTransaksiStatus'])->name('produk.transaksi.status');
     Route::resource('produk', \App\Http\Controllers\Operator\ProdukController::class)->except(['show']);
     // Statistik
     Route::post('statistik/hero', [\App\Http\Controllers\Operator\StatistikController::class, 'updateHero']);

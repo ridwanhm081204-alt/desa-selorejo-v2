@@ -58,6 +58,9 @@
             @include('layouts.partials.sidebar-admin')
         @endif
     @endif
+    
+    <!-- Mobile Sidebar Backdrop -->
+    <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
 
     <div class="content-area">
         <!-- Top Navigation -->
@@ -70,8 +73,9 @@
             </div>
             
             <div class="d-flex align-items-center">
-                <span class="me-3 text-muted">
-                    <i data-lucide="user" class="me-1" style="width: 14px;"></i> {{ Auth::user()->name ?? 'Guest' }}
+                <span class="me-3 text-muted d-flex align-items-center">
+                    <i data-lucide="user" class="me-1 icon-xs"></i> 
+                    <span class="d-none d-sm-inline-block text-truncate" style="max-width: 100px;">{{ Auth::user()->name ?? 'Guest' }}</span>
                     <span class="badge bg-secondary ms-1">{{ ucfirst(Auth::user()->role ?? '') }}</span>
                 </span>
                 
@@ -110,9 +114,20 @@
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
     <script>
         lucide.createIcons();
-        document.getElementById('sidebarToggle')?.addEventListener('click', function() {
-            document.querySelector('.sidebar').classList.toggle('show');
-        });
+        const sidebarToggle = document.getElementById('sidebarToggle');
+        const sidebar = document.querySelector('.sidebar');
+        const backdrop = document.getElementById('sidebarBackdrop');
+
+        if (sidebarToggle && sidebar && backdrop) {
+            const toggleSidebar = () => {
+                sidebar.classList.toggle('show');
+                backdrop.classList.toggle('show');
+                document.body.style.overflow = sidebar.classList.contains('show') ? 'hidden' : '';
+            };
+
+            sidebarToggle.addEventListener('click', toggleSidebar);
+            backdrop.addEventListener('click', toggleSidebar);
+        }
     </script>
     @stack('scripts')
 </body>

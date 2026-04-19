@@ -33,7 +33,7 @@
 </div>
 
 <!-- B-D) CONTENT OVERVIEW SECTION -->
-<div class="content-overview py-5" style="background-color: #fbfbfb;">
+<div class="content-overview py-4 py-md-5" style="background-color: #fbfbfb;">
     <!-- B) STATS BAR -->
     <div class="container mb-5">
         <div class="row g-4 justify-content-center">
@@ -70,16 +70,16 @@
 
     <div class="container pt-2">
         <!-- C) SAMBUTAN KEPALA DESA -->
-        <div class="glass-card mb-5 overflow-hidden border-0 bg-white" style="background: rgba(255,255,255,0.85);">
+        <div class="glass-card mb-4 mb-md-5 overflow-hidden border-0 bg-white" style="background: rgba(255,255,255,0.85);">
             <div class="row g-0 align-items-center">
-                <div class="col-md-3 text-center p-4">
+                <div class="col-md-3 text-center p-3 p-md-4">
                     @if($widgetAparat && $widgetAparat->foto_kades)
-                        <img src="{{ asset('storage/' . $widgetAparat->foto_kades) }}" class="img-fluid rounded-circle shadow-lg border border-4 border-white" style="width: 180px; height: 180px; object-fit: cover;" alt="{{ $widgetAparat->nama_kades }}" onerror="this.src='{{ asset('images/kades_selorejo.jpg') }}'">
+                        <img src="{{ asset('storage/' . $widgetAparat->foto_kades) }}" class="img-fluid rounded-circle shadow-lg border border-4 border-white" style="width: 150px; height: 150px; object-fit: cover;" alt="{{ $widgetAparat->nama_kades }}" onerror="this.src='{{ asset('images/kades_selorejo.jpg') }}'">
                     @else
-                        <img src="{{ asset('images/kades_selorejo.jpg') }}" class="img-fluid rounded-circle shadow-lg border border-4 border-white" style="width: 180px; height: 180px; object-fit: cover;" alt="Kades">
+                        <img src="{{ asset('images/kades_selorejo.jpg') }}" class="img-fluid rounded-circle shadow-lg border border-4 border-white" style="width: 150px; height: 150px; object-fit: cover;" alt="Kades">
                     @endif
                 </div>
-                <div class="col-md-9 p-4 p-lg-5 ps-md-0">
+                <div class="col-md-9 p-3 p-md-4 p-lg-5 text-center text-md-start">
                     <span class="badge bg-success mb-2"><i data-lucide="mic" class="icon-sm me-1"></i> Sambutan Kepala Desa</span>
                     <h3 class="fw-bold mb-3 text-dark">{{ $widgetAparat->nama_kades ?? 'Bambang Soponyono' }}</h3>
                     <p class="lead text-dark fst-italic">"{!! nl2br(e($widgetAparat->sambutan ?? 'Selamat datang di website resmi Desa Selorejo. Kami berkomitmen untuk mewujudkan desa yang mandiri dan berdaya saing melalui digitalisasi dan pengembangan agrowisata.')) !!}"</p>
@@ -126,7 +126,7 @@
 </div>
 
 <!-- E) POTENSI WISATA -->
-<div class="section-green py-5 my-5 text-white position-relative">
+<div class="section-green py-4 py-md-5 my-4 my-md-5 text-white position-relative">
     <div class="container">
         <div class="row align-items-center">
             <div class="col-md-6 mb-4 mb-md-0">
@@ -386,10 +386,10 @@
                 </div>
                 
                 @if($pollings->count() > 1)
-                <button class="carousel-control-prev" type="button" data-bs-target="#pollingCarousel" data-bs-slide="prev" style="width: 5%; left: -25px;">
+                <button class="carousel-control-prev" type="button" data-bs-target="#pollingCarousel" data-bs-slide="prev" style="width: 10%;">
                     <span class="carousel-control-prev-icon" aria-hidden="true" style="filter: invert(1) grayscale(100) brightness(2);"></span>
                 </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#pollingCarousel" data-bs-slide="next" style="width: 5%; right: -25px;">
+                <button class="carousel-control-next" type="button" data-bs-target="#pollingCarousel" data-bs-slide="next" style="width: 10%;">
                     <span class="carousel-control-next-icon" aria-hidden="true" style="filter: invert(1) grayscale(100) brightness(2);"></span>
                 </button>
                 @endif
@@ -476,8 +476,8 @@
     <div class="row g-4 mb-5 pb-4">
         <div class="col-lg-8">
             <h4 class="fw-bold mb-3 border-bottom pb-2 text-dark"><i data-lucide="map" class="text-success me-2"></i>Lokasi Desa Selorejo</h4>
-            <div class="rounded-4 overflow-hidden shadow-sm" style="height: 400px; border: 1px solid rgba(116,198,157,0.3);">
-                {!! $profile->peta_embed ?? '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15806.384864810932!2d112.53843605!3d-7.937170050000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7883ef912d9999%3A0xf8ff8468809efd9c!2sSelorejo%2C%20Kec.%20Dau%2C%20Kabupaten%20Malang%2C%20Jawa%20Timur!5e0!3m2!1sid!2sid!4v1775912011055!5m2!1sid!2sid" width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>' !!}
+            <div class="rounded-4 overflow-hidden shadow-sm ratio ratio-16x9 border border-success border-opacity-25" style="min-height: 300px;">
+                {!! $profile->peta_embed ?? '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15806.384864810932!2d112.53843605!3d-7.937170050000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7883ef912d9999%3A0xf8ff8468809efd9c!2sSelorejo%2C%20Kec.%20Dau%2C%20Kabupaten%20Malang%2C%20Jawa%20Timur!5e0!3m2!1sid!2sid!4v1775912011055!5m2!1sid!2sid" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>' !!}
             </div>
         </div>
         <div class="col-lg-4">

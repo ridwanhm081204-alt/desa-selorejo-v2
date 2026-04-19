@@ -1,26 +1,15 @@
 <!-- HEADER (posisi sticky/fixed-top dengan Bootstrap) -->
-<div class="bg-primary-custom text-white py-1">
-    <div class="container d-flex justify-content-between align-items-center small">
-        <div class="d-flex align-items-center">
-            <i data-lucide="calendar" class="me-2" style="width:14px;"></i>
-            <span id="realtime-clock"></span>
-        </div>
-        <div>
-            <a href="#" class="text-white me-2 hover-accent"><i data-lucide="facebook" style="width:14px;"></i></a>
-            <a href="#" class="text-white me-2 hover-accent"><i data-lucide="instagram" style="width:14px;"></i></a>
-            <a href="#" class="text-white me-3 hover-accent"><i data-lucide="youtube" style="width:14px;"></i></a>
-            <a href="{{ url('/login') }}" class="text-white text-decoration-none fw-bold hover-accent"><i data-lucide="log-in" class="me-1" style="width:14px;"></i> Login Admin</a>
-        </div>
-    </div>
-</div>
-
 <nav class="navbar navbar-expand-lg navbar-dark glass-navbar sticky-top">
     <div class="container">
         <a class="navbar-brand d-flex align-items-center" href="{{ url('/') }}">
             <img src="{{ asset('images/logo_desa.png') }}" alt="Logo Selorejo" class="me-3 shadow-sm" style="width: 45px; height: 45px; object-fit: contain;">
             <div>
                 <strong class="d-block text-white" style="font-size: 1.1rem;">Pemerintah Desa Selorejo</strong>
-                <small class="text-white d-block" style="font-size: 0.75rem; opacity: 0.9;">Kec. Dau, Kab. Malang, Prov. Jawa Timur</small>
+                <small class="text-white d-none d-md-block" style="font-size: 0.75rem; opacity: 0.9;">Kec. Dau, Kab. Malang, Prov. Jawa Timur</small>
+                <small class="text-warning d-flex align-items-center mt-1" style="font-size: 0.70rem; font-weight: 600;">
+                    <i data-lucide="calendar" class="me-1" style="width:12px;"></i>
+                    <span id="realtime-clock">Memuat waktu...</span>
+                </small>
             </div>
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar">
@@ -53,7 +42,7 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link nav-link-custom dropdown-toggle {{ request()->is('wisata*') || request()->is('produk*') ? 'active' : '' }}" href="#" data-bs-toggle="dropdown"><i data-lucide="map-pin" class="icon-sm me-1"></i> Wisata & Produk</a>
                     <ul class="dropdown-menu border-0 shadow">
-                        <li><a class="dropdown-item" href="{{ route('wisata') }}"><i data-lucide="map-pin" class="icon-sm me-2"></i>Destinasi Wisata</a></li>
+                        <li><a class="dropdown-item" href="{{ url('/wisata') }}"><i data-lucide="map-pin" class="icon-sm me-2"></i>Destinasi Wisata</a></li>
                         <li><a class="dropdown-item" href="{{ route('produk.index') }}"><i data-lucide="shopping-bag" class="icon-sm me-2"></i>Produk Unggulan</a></li>
                     </ul>
                 </li>
@@ -81,7 +70,7 @@
 @if($beritaTerbaru->count() > 0)
 <div class="bg-white text-dark py-2 small shadow-sm border-bottom border-light">
     <div class="container d-flex align-items-center">
-        <strong class="me-3 text-nowrap text-dark fw-bold"><i data-lucide="bell" style="width:16px" class="me-1 text-danger"></i> SEKILAS INFO:</strong>
+        <strong class="me-3 text-nowrap text-dark fw-bold d-flex align-items-center"><i data-lucide="bell" style="width:16px" class="me-1 text-danger"></i> <span class="d-none d-md-inline">SEKILAS INFO:</span></strong>
         <marquee behavior="scroll" direction="left" scrollamount="5" class="text-dark fw-bold">
             @foreach($beritaTerbaru as $b)
                 {{ $b->judul }} &nbsp; ★ &nbsp; 
@@ -92,7 +81,7 @@
 @else
 <div class="bg-white text-dark py-2 small shadow-sm border-bottom border-light">
     <div class="container d-flex align-items-center">
-        <strong class="me-3 text-nowrap text-dark fw-bold"><i data-lucide="bell" style="width:16px" class="me-1 text-danger"></i> SEKILAS INFO:</strong>
+        <strong class="me-3 text-nowrap text-dark fw-bold d-flex align-items-center"><i data-lucide="bell" style="width:16px" class="me-1 text-danger"></i> <span class="d-none d-md-inline">SEKILAS INFO:</span></strong>
         <marquee behavior="scroll" direction="left" scrollamount="5" class="text-dark fw-bold">Selamat datang di Website Desa Wisata Petik Jeruk Selorejo</marquee>
     </div>
 </div>

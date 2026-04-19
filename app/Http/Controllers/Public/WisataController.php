@@ -11,9 +11,11 @@ class WisataController extends Controller
         $query = \App\Models\Wisata::query();
 
         // Search
-        if ($request->has('search') && $request->search != '') {
-            $query->where('judul', 'like', '%' . $request->search . '%')
+        if ($request->filled('search')) {
+            $query->where(function($q) use ($request) {
+                $q->where('judul', 'like', '%' . $request->search . '%')
                   ->orWhere('deskripsi', 'like', '%' . $request->search . '%');
+            });
         }
 
         // Filter Kategori
@@ -45,5 +47,50 @@ class WisataController extends Controller
         $hero = $heroValue ? json_decode($heroValue, true) : ['title' => 'Destinasi Wisata Selorejo', 'subtitle' => 'Jelajahi keajaiban alam dan kearifan agrikultur di lereng pegunungan Malang.', 'icon' => 'mountain'];
         
         return view('public.wisata.index', ['wisata' => $wisataData, 'hero' => $hero]);
+    }
+    public function show($id) {
+        $wisata = \App\Models\Wisata::findOrFail($id);
+        
+        // Auto increment views
+        $wisata->increment('views');
+        
+        // Rekomendasi wisata lain (opsional, ambil 3 secara acak selain yang sedang dibuka)
+        $wisataLain = \App\Models\Wisata::where('id', '!=', $id)->inRandomOrder()->limit(3)->get();
+        
+        return view('public.wisata.show', compact('wisata', 'wisataLain'));
+    }
+
+    public function react(Request $request, $id) {
+        $wisata = \App\Models\Wisata::findOrFail($id);
+        $type = $request->input('type'); // 'like' or 'dislike'
+
+        // Check session to prevent multiple reactions from same user session
+        $sessionKey = 'reacted_wisata_' . $wisata->id;
+        
+        if (session()->has($sessionKey)) {
+            return response()->json(['error' => 'Anda sudah memberikan reaksi pada objek wisata ini.'], 400);
+        }
+
+        if ($type === 'like') {
+            $wisata->increment('likes');
+        } elseif ($type === 'dislike') {
+            $wisata->increment('dislikes');
+        } else {
+            return response()->json(['error' => 'Tipe reaksi tidak valid.'], 400);
+        }
+
+        session()->put($sessionKey, $type);
+
+        return response()->json([
+            'success' => true, 
+            'likes' => $wisata->fresh()->likes, 
+            'dislikes' => $wisata->fresh()->dislikes
+        ]);
+    }
+
+    public function share($id) {
+        $wisata = \App\Models\Wisata::findOrFail($id);
+        $wisata->increment('shares');
+        return response()->json(['success' => true, 'shares' => $wisata->shares]);
     }
 }

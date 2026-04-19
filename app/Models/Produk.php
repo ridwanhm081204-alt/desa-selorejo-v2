@@ -22,4 +22,14 @@ class Produk extends Model
         if (\Illuminate\Support\Str::startsWith($this->gambar, ['http://', 'https://'])) return $this->gambar;
         return asset('storage/' . $this->gambar);
     }
+
+    public function reviews()
+    {
+        return $this->hasMany(ProdukReview::class);
+    }
+
+    public function transaksis()
+    {
+        return $this->hasMany(ProdukTransaksi::class);
+    }
 }

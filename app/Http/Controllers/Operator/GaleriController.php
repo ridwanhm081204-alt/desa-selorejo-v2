@@ -21,7 +21,7 @@ class GaleriController extends Controller
         }
 
         // Search
-        if ($request->has('search')) {
+        if ($request->filled('search')) {
             $query->where('caption', 'like', '%' . $request->search . '%');
         }
 

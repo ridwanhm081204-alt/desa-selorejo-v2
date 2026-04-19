@@ -98,34 +98,13 @@
                                 </div>
                             </div>
                         </div>
-
-                        <div class="text-dark lh-lg mb-5 flex-grow-1" style="text-align: justify; font-size: 1.05rem;">
-                            @foreach(explode("\n\n", $w->deskripsi) as $paragraph)
-                                <p class="mb-3">{{ $paragraph }}</p>
-                            @endforeach
+                        
+                        <div class="text-dark lh-lg mb-4 flex-grow-1" style="text-align: justify; font-size: 1.05rem;">
+                            {{ Str::limit($w->deskripsi, 200, '...') }}
                         </div>
 
-                        <div class="row g-3 mt-auto pt-4 border-top border-success border-opacity-10">
-                            <!-- Jadwal Buka -->
-                            <div class="col-md-6">
-                                <div class="p-4 rounded-4 bg-success d-flex align-items-center h-100 shadow-sm">
-                                    <i data-lucide="clock" class="text-white icon-md me-3"></i>
-                                    <div>
-                                        <small class="text-white text-opacity-75 d-block lh-1 mb-2 fw-bold">Jadwal Operasional</small>
-                                        <p class="text-white mb-0 small fw-bold lh-sm">{!! nl2br(e($w->jadwal)) !!}</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Tata Tertib / Highlight -->
-                            <div class="col-md-6">
-                                <div class="p-4 rounded-4 bg-success d-flex align-items-center h-100 shadow-sm">
-                                    <i data-lucide="shield-check" class="text-white icon-md me-3"></i>
-                                    <div>
-                                        <small class="text-white text-opacity-75 d-block lh-1 mb-2 fw-bold">Informasi Kunjungan</small>
-                                        <p class="text-white mb-0 small fw-bold lh-sm">Wajib menjaga kelestarian alam dan kebersihan Desa.</p>
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="mt-auto pt-4 border-top border-success border-opacity-10 text-end">
+                            <a href="{{ url('/wisata/'.$w->id) }}" class="btn btn-outline-success fw-bold px-4 rounded-pill shadow-sm hover-lift">Lihat Detail Wisata <i data-lucide="arrow-right" class="icon-sm ms-1"></i></a>
                         </div>
                     </div>
                 </div>

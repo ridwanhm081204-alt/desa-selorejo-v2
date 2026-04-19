@@ -11,9 +11,11 @@ class ProdukController extends Controller
         $query = \App\Models\Produk::query();
 
         // Search
-        if ($request->has('search') && $request->search != '') {
-            $query->where('nama', 'like', '%' . $request->search . '%')
+        if ($request->filled('search')) {
+            $query->where(function($q) use ($request) {
+                $q->where('nama', 'like', '%' . $request->search . '%')
                   ->orWhere('deskripsi', 'like', '%' . $request->search . '%');
+            });
         }
 
         // Filter Kategori
@@ -104,5 +106,30 @@ class ProdukController extends Controller
         $produk->delete();
         \App\Models\ActivityLog::create(['user_id' => auth()->id(), 'action' => 'Hapus Produk']);
         return back()->with('success', 'Produk dihapus!');
+    }
+
+    public function transaksi() {
+        $transaksis = \App\Models\ProdukTransaksi::with('produk')->orderBy('created_at', 'desc')->paginate(15);
+        return view('operator.produk.transaksi', compact('transaksis'));
+    }
+
+    public function updateTransaksiStatus(\Illuminate\Http\Request $request, $id) {
+        $transaksi = \App\Models\ProdukTransaksi::findOrFail($id);
+        $request->validate([
+            'status' => 'required|in:Pesanan Masuk,Sedang Dipacking,Dalam Perjalanan,Sudah Sampai Tujuan'
+        ]);
+
+        $oldStatus = $transaksi->status;
+        $transaksi->update(['status' => $request->status]);
+
+        \App\Models\ActivityLog::create([
+            'user_id' => auth()->id(),
+            'action' => "Update Status Transaksi #{$transaksi->id} dari {$oldStatus} ke {$request->status}"
+        ]);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Status transaksi berhasil diperbarui.'
+        ]);
     }
 }

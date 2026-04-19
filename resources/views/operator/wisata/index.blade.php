@@ -82,6 +82,7 @@
                 <thead class="bg-light text-uppercase">
                     <tr>
                         <th class="ps-4 py-3 small fw-bold text-muted">Destinasi</th>
+                        <th class="py-3 small fw-bold text-muted text-center">Statistik</th>
                         <th class="py-3 small fw-bold text-muted text-center" style="width: 15%">Harga Tiket</th>
                         <th class="py-3 small fw-bold text-muted" style="width: 25%">Jadwal</th>
                         <th class="text-end pe-4 py-3 small fw-bold text-muted" style="width: 12%">Aksi</th>
@@ -107,6 +108,25 @@
                                         </span>
                                         <small class="text-muted text-truncate d-block" style="max-width:200px;">{{ Str::limit($item->deskripsi, 40) }}</small>
                                     </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="text-center">
+                            <div class="d-inline-flex flex-column gap-2" style="min-width: 120px;">
+                                <div class="d-flex justify-content-between align-items-center bg-light rounded-pill px-2 py-1 border border-opacity-10" title="Dilihat">
+                                    <span class="small text-muted me-2"><i data-lucide="eye" class="icon-xs text-primary"></i></span>
+                                    <span class="fw-bold small">{{ number_format($item->views) }}</span>
+                                </div>
+                                <div class="d-flex gap-1 justify-content-between">
+                                    <div class="badge bg-success bg-opacity-10 text-success rounded-pill px-2 py-1 flex-fill d-flex align-items-center justify-content-center" title="Menarik">
+                                        <i data-lucide="thumbs-up" class="icon-xs me-1"></i> {{ $item->likes }}
+                                    </div>
+                                    <div class="badge bg-danger bg-opacity-10 text-danger rounded-pill px-2 py-1 flex-fill d-flex align-items-center justify-content-center" title="Biasa Saja">
+                                        <i data-lucide="thumbs-down" class="icon-xs me-1"></i> {{ $item->dislikes }}
+                                    </div>
+                                </div>
+                                <div class="badge bg-info bg-opacity-10 text-info border border-info border-opacity-10 rounded-pill px-2 py-1 flex-fill d-flex align-items-center justify-content-center" title="Dibagikan">
+                                    <i data-lucide="share-2" class="icon-xs me-1"></i> {{ $item->shares }}
                                 </div>
                             </div>
                         </td>

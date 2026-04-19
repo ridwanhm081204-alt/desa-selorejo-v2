@@ -82,6 +82,7 @@
                 <thead class="bg-light text-uppercase">
                     <tr>
                         <th class="ps-4 py-3 small fw-bold text-muted">Produk</th>
+                        <th class="py-3 small fw-bold text-muted text-center">Rating</th>
                         <th class="py-3 small fw-bold text-muted text-center" style="width: 15%">Harga Unit</th>
                         <th class="py-3 small fw-bold text-muted text-center" style="width: 15%">Stok Tersedia</th>
                         <th class="text-end pe-4 py-3 small fw-bold text-muted" style="width: 12%">Aksi</th>
@@ -107,6 +108,18 @@
                                         </span>
                                         <small class="text-muted text-truncate d-block" style="max-width:200px;">{{ Str::limit($p->deskripsi, 35) }}</small>
                                     </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="text-center">
+                            <div class="d-inline-flex flex-column gap-2" style="min-width: 120px;">
+                                @php $avgRating = $p->reviews->avg('rating') ?? 0; @endphp
+                                <div class="badge bg-warning bg-opacity-10 text-dark border border-warning border-opacity-25 rounded-pill px-3 py-1 fw-bold" style="font-size: 0.75rem;" title="Rating Rata-rata">
+                                    <i data-lucide="star" class="icon-xs text-warning fill-warning me-1"></i> {{ number_format($avgRating, 1) }}
+                                    <small class="text-muted fw-normal ms-1">({{ $p->reviews->count() }})</small>
+                                </div>
+                                <div class="badge bg-info bg-opacity-10 text-info border border-info border-opacity-10 rounded-pill px-2 py-1 flex-fill d-flex align-items-center justify-content-center" title="Dibagikan">
+                                    <i data-lucide="share-2" class="icon-xs me-1"></i> {{ $p->shares ?? 0 }}
                                 </div>
                             </div>
                         </td>

@@ -82,6 +82,7 @@
                     <tr>
                         <th class="ps-4 py-3 text-uppercase small fw-bold text-muted">Aset & Judul</th>
                         <th class="py-3 text-uppercase small fw-bold text-muted">Info</th>
+                        <th class="py-3 text-uppercase small fw-bold text-muted text-center" style="width: 15%">Statistik</th>
                         <th class="py-3 text-uppercase small fw-bold text-muted">Status</th>
                         <th class="text-end pe-4 py-3 text-uppercase small fw-bold text-muted">Aksi</th>
                     </tr>
@@ -107,6 +108,25 @@
                         <td>
                             <span class="badge bg-success bg-opacity-10 text-success rounded-pill px-3">{{ $b->kategori }}</span>
                             <div class="small text-muted mt-1 px-1">Oleh: {{ $b->penulis }}</div>
+                        </td>
+                        <td class="text-center">
+                            <div class="d-inline-flex flex-column gap-2" style="min-width: 120px;">
+                                <div class="d-flex justify-content-between align-items-center bg-light rounded-pill px-2 py-1 border border-opacity-10" title="Dilihat">
+                                    <span class="small text-muted me-2"><i data-lucide="eye" class="icon-xs text-primary"></i></span>
+                                    <span class="fw-bold small">{{ number_format($b->views) }}</span>
+                                </div>
+                                <div class="d-flex gap-1 justify-content-between">
+                                    <div class="badge bg-success bg-opacity-10 text-success rounded-pill px-2 py-1 flex-fill d-flex align-items-center justify-content-center" title="Suka">
+                                        <i data-lucide="thumbs-up" class="icon-xs me-1"></i> {{ $b->likes }}
+                                    </div>
+                                    <div class="badge bg-danger bg-opacity-10 text-danger rounded-pill px-2 py-1 flex-fill d-flex align-items-center justify-content-center" title="Tidak Suka">
+                                        <i data-lucide="thumbs-down" class="icon-xs me-1"></i> {{ $b->dislikes }}
+                                    </div>
+                                </div>
+                                <div class="badge bg-info bg-opacity-10 text-info border border-info border-opacity-10 rounded-pill px-2 py-1 flex-fill d-flex align-items-center justify-content-center" title="Dibagikan">
+                                    <i data-lucide="share-2" class="icon-xs me-1"></i> {{ $b->shares }}
+                                </div>
+                            </div>
                         </td>
                         <td>
                             @if($b->status_publish == 'publish')

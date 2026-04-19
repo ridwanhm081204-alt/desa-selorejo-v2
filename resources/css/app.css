@@ -356,6 +356,7 @@ html { scroll-behavior: smooth; }
 }
 
 /* LUCIDE ICONS — KONSISTEN */
+.icon-xs { width: 14px; height: 14px; }
 .icon-sm { width: 16px; height: 16px; }
 .icon-md { width: 20px; height: 20px; }
 .icon-lg { width: 24px; height: 24px; }
@@ -640,6 +641,30 @@ html { scroll-behavior: smooth; }
 .list-group-item-action {
   transition: all 0.3s ease;
 }
+
+/* BACKEND SIDEBAR OVERLAY */
+.sidebar-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  backdrop-filter: blur(3px);
+  z-index: 1040;
+  display: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.sidebar-backdrop.show {
+  display: block;
+  opacity: 1;
+}
+.sidebar {
+  z-index: 1050;
+}
+
+/* Tabel Backend Aksi (Mencegah Wrap) */
+.table td.text-end {
+  white-space: nowrap;
+}
 .list-group-item-action:hover {
   background: var(--primary) !important;
   color: white !important;
@@ -681,4 +706,11 @@ html { scroll-behavior: smooth; }
 .nav-link-custom:hover, 
 .nav-link-custom.active {
   color: #ffca28 !important;
+}
+
+/* PREVENT GLOBAL HORIZONTAL SCROLL */
+html, body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
 }

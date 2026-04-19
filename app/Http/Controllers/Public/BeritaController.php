@@ -17,8 +17,11 @@ class BeritaController extends Controller
         }
 
         // Search
-        if ($request->has('search')) {
-            $query->where('judul', 'like', '%' . $request->search . '%');
+        if ($request->filled('search')) {
+            $query->where(function($q) use ($request) {
+                $q->where('judul', 'like', '%' . $request->search . '%')
+                  ->orWhere('konten', 'like', '%' . $request->search . '%');
+            });
         }
 
         // Sorting
@@ -78,5 +81,11 @@ class BeritaController extends Controller
             'likes' => $berita->fresh()->likes, 
             'dislikes' => $berita->fresh()->dislikes
         ]);
+    }
+
+    public function share($id) {
+        $berita = \App\Models\Berita::findOrFail($id);
+        $berita->increment('shares');
+        return response()->json(['success' => true, 'shares' => $berita->shares]);
     }
 }

@@ -11,9 +11,11 @@ class ProdukController extends Controller
         $query = \App\Models\Produk::query();
 
         // Search
-        if ($request->has('search') && $request->search != '') {
-            $query->where('nama', 'like', '%' . $request->search . '%')
+        if ($request->filled('search')) {
+            $query->where(function($q) use ($request) {
+                $q->where('nama', 'like', '%' . $request->search . '%')
                   ->orWhere('deskripsi', 'like', '%' . $request->search . '%');
+            });
         }
 
         // Filter Kategori
@@ -46,8 +48,16 @@ class ProdukController extends Controller
         
         return view('public.produk.index', compact('produk', 'hero'));
     }
-    public function show($id) {
-        return view('public.produk.show', ['produk' => \App\Models\Produk::findOrFail($id)]);
+    public function show(Request $request, $id) {
+        $produk = \App\Models\Produk::with(['reviews' => function($q) use ($request) {
+            $sort = $request->get('review_sort', 'terbaru');
+            if ($sort == 'rating_desc') $q->orderBy('rating', 'desc');
+            elseif ($sort == 'rating_asc') $q->orderBy('rating', 'asc');
+            elseif ($sort == 'terlama') $q->orderBy('created_at', 'asc');
+            else $q->orderBy('created_at', 'desc'); // terbaru
+        }])->findOrFail($id);
+
+        return view('public.produk.show', compact('produk'));
     }
 
     public function checkout($id) {
@@ -58,9 +68,10 @@ class ProdukController extends Controller
     public function processCheckout(Request $request, $id) {
         $produk = \App\Models\Produk::findOrFail($id);
         
-        $request->validate([
+        $validated = $request->validate([
             'jumlah' => 'required|integer|min:1|max:' . $produk->stok,
             'nama_pemesan' => 'required|string|max:255',
+            'telepon' => 'required|string|max:20',
             'alamat' => 'required|string',
             'kelurahan' => 'required|string',
             'kecamatan' => 'required|string',
@@ -69,6 +80,13 @@ class ProdukController extends Controller
             'metode_pembayaran' => 'required|string',
         ]);
 
+        // Simpan ke Database
+        $transaksi = \App\Models\ProdukTransaksi::create(array_merge($validated, [
+            'produk_id' => $produk->id,
+            'total_harga' => $validated['jumlah'] * $produk->harga,
+            'status' => 'Pesanan Masuk'
+        ]));
+
         // Pengurangan Stok
         if ($produk->stok >= $request->jumlah) {
             $produk->stok -= $request->jumlah;
@@ -76,9 +94,9 @@ class ProdukController extends Controller
             
             return response()->json([
                 'success' => true,
-                'message' => 'Pembelian Berhasil!',
-                'data' => $request->all(),
-                'produk' => $produk
+                'message' => 'Pesanan Anda telah dicatat!',
+                'whatsapp_url' => "https://wa.me/" . \App\Models\Setting::get('whatsapp', '') . "?text=" . urlencode("Halo Admin, saya ingin konfirmasi pesanan:\n\nID Transaksi: #{$transaksi->id}\nProduk: {$produk->nama}\nJumlah: {$transaksi->jumlah}\nTotal: Rp " . number_format($transaksi->total_harga, 0, ',', '.') . "\nNama: {$transaksi->nama_pemesan}"),
+                'data' => $transaksi
             ]);
         }
 
@@ -86,5 +104,41 @@ class ProdukController extends Controller
             'success' => false,
             'message' => 'Stok tidak mencukupi!'
         ], 422);
+    }
+
+    public function storeReview(Request $request, $id)
+    {
+        $produk = \App\Models\Produk::findOrFail($id);
+        
+        $request->validate([
+            'nama_lengkap' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'rating' => 'required|integer|min:1|max:5',
+            'saran' => 'required|string',
+            'kritik' => 'required|string',
+            'foto_produk' => 'required|image|max:2048'
+        ]);
+
+        $fotoPath = null;
+        if ($request->hasFile('foto_produk')) {
+            $fotoPath = $request->file('foto_produk')->store('reviews', 'public');
+        }
+
+        $produk->reviews()->create([
+            'nama_lengkap' => $request->nama_lengkap,
+            'email' => $request->email,
+            'rating' => $request->rating,
+            'saran' => $request->saran,
+            'kritik' => $request->kritik,
+            'foto_produk' => $fotoPath
+        ]);
+
+        return back()->with('success', 'Terima kasih atas ulasan Anda!');
+    }
+
+    public function share($id) {
+        $produk = \App\Models\Produk::findOrFail($id);
+        $produk->increment('shares');
+        return response()->json(['success' => true, 'shares' => $produk->shares]);
     }
 }

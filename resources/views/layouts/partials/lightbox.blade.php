@@ -69,7 +69,7 @@
     @media (max-width: 1100px) {
         .lightbox-btns-container {
             position: fixed;
-            bottom: 30px;
+            bottom: 20px;
             right: 0;
             top: auto;
             width: 100%;
@@ -77,13 +77,34 @@
             justify-content: center;
             transform: none;
             padding: 10px;
+            gap: 15px; /* Spasi antar tombol lebih lebar agar tidak senggol */
         }
         .btn-lightbox {
-            background: rgba(0, 0, 0, 0.5);
-            border-color: rgba(255, 255, 255, 0.2);
+            width: 44px;
+            height: 44px;
+            background: rgba(0, 0, 0, 0.7);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+        .btn-lightbox i {
+            width: 18px;
+            height: 18px;
         }
         .btn-lightbox-close {
-            background: rgba(230, 57, 70, 0.6) !important;
+            background: rgba(230, 57, 70, 0.8) !important;
+        }
+    }
+
+    /* Small Mobile Fix */
+    @media (max-width: 576px) {
+        .lightbox-wrapper {
+            padding: 15px;
+        }
+        .lightbox-content {
+            max-width: 95%;
+            max-height: 60vh;
+        }
+        .lightbox-footer {
+            bottom: 85px; /* Geser caption agar tidak tertutup tombol di bawah */
         }
     }
 </style>

@@ -5,27 +5,205 @@
     <li class="breadcrumb-item active">{{ $produk->nama }}</li>
 @endsection
 @section('content')
+@section('content')
 <div class="container mb-5 my-5">
     <div class="row g-5">
         <div class="col-md-6 text-center">
-            <img src="{{ $produk->gambar_url }}" onerror="this.src='{{ asset('images/wisata_jeruk.png') }}'" class="img-fluid rounded-4 shadow-lg" style="object-fit: cover; width: 100%; max-height:500px;">
+            <div class="position-relative">
+                <img src="{{ $produk->gambar_url }}" onerror="this.src='{{ asset('images/wisata_jeruk.png') }}'" class="img-fluid rounded-4 shadow-lg w-100" style="object-fit: cover; max-height:500px;">
+                <div class="position-absolute bottom-0 end-0 m-3">
+                    <span class="badge bg-success bg-opacity-75 px-3 py-2 rounded-pill"><i data-lucide="tag" class="icon-xs me-1"></i> {{ $produk->kategori ?? 'UMKM Desa' }}</span>
+                </div>
+            </div>
+            
+            <!-- Share Medsos -->
+            <div class="mt-4 p-3 bg-white rounded-4 shadow-sm border">
+                <h6 class="fw-bold mb-3 text-dark small text-uppercase"><i data-lucide="share-2" class="icon-xs me-1"></i> Bagikan Produk</h6>
+                <div class="d-flex justify-content-center gap-2 flex-wrap">
+                    <a href="https://api.whatsapp.com/send?text={{ urlencode('Beli produk lokal Selorejo: ' . $produk->nama . ' ' . url()->current()) }}" target="_blank" class="btn btn-sm btn-outline-success rounded-pill px-3 share-btn">
+                        <i data-lucide="message-circle" class="icon-xs me-1"></i> WA
+                    </a>
+                    <a href="https://www.facebook.com/sharer/sharer.php?u={{ url()->current() }}" target="_blank" class="btn btn-sm btn-outline-primary rounded-pill px-3 share-btn">
+                        <i data-lucide="facebook" class="icon-xs me-1"></i> FB
+                    </a>
+                    <a href="javascript:void(0)" onclick="trackShare('Instagram')" class="btn btn-sm btn-outline-danger rounded-pill px-3 share-btn">
+                        <i data-lucide="instagram" class="icon-xs me-1"></i> IG
+                    </a>
+                    <a href="javascript:void(0)" onclick="trackShare('TikTok')" class="btn btn-sm btn-outline-dark rounded-pill px-3 share-btn">
+                        <i data-lucide="music-2" class="icon-xs me-1"></i> TikTok
+                    </a>
+                </div>
+            </div>
         </div>
         <div class="col-md-6 d-flex flex-column justify-content-center">
-            <h1 class="fw-bold text-dark">{{ $produk->nama }}</h1>
+            <h1 class="fw-bold text-dark mb-1">{{ $produk->nama }}</h1>
+            <div class="d-flex align-items-center mb-3">
+                <div class="text-warning me-2">
+                    @php $avg = $produk->reviews->avg('rating') ?? 0; @endphp
+                    @for($i=1; $i<=5; $i++)
+                        <i data-lucide="star" class="icon-sm {{ $i <= $avg ? 'fill-warning' : 'text-muted' }}" style="width:16px;"></i>
+                    @endfor
+                </div>
+                <span class="text-muted small">({{ $produk->reviews->count() }} Ulasan)</span>
+            </div>
+
             <h3 class="text-success fw-bold mb-4">Rp {{ number_format($produk->harga, 0, ',', '.') }}</h3>
             
             <div class="p-3 bg-light rounded-3 mb-4 border-start border-4 border-success">
-                <span class="d-block fw-bold mb-1">Status Stok:</span>
-                <span class="badge bg-{{ $produk->stok == 'Tersedia' ? 'success' : 'warning text-dark' }}">{{ $produk->stok ?? 'Menunggu Info' }}</span>
+                <span class="d-block fw-bold mb-1 small text-muted text-uppercase">Status Stok:</span>
+                <span class="badge bg-{{ $produk->stok > 0 ? 'success' : 'danger' }}">{{ $produk->stok > 0 ? 'Tersedia (' . $produk->stok . ')' : 'Stok Habis' }}</span>
             </div>
             
-            <h5 class="fw-bold mb-3">Deskripsi Produk</h5>
-            <div class="text-dark" style="line-height: 1.8; font-weight: 400;">{!! $produk->deskripsi !!}</div>
+            <h5 class="fw-bold mb-3 d-flex align-items-center"><i data-lucide="file-text" class="icon-sm me-2 text-success"></i>Deskripsi Produk</h5>
+            <div class="text-dark mb-4" style="line-height: 1.8; font-weight: 400; text-align: justify;">{!! $produk->deskripsi !!}</div>
             
-            <a href="{{ route('produk.checkout', $produk->id) }}" class="btn btn-success btn-lg mt-4 w-100 py-3 fw-bold rounded-pill shadow-sm hover-lift">
-                <i data-lucide="shopping-bag" class="me-2"></i> {{ $produk->stok > 0 ? 'Pesan Sekarang' : 'Stok Habis' }}
+            <a href="{{ route('produk.checkout', $produk->id) }}" class="btn btn-success btn-lg w-100 py-3 fw-bold rounded-pill shadow-sm hover-lift {{ $produk->stok <= 0 ? 'disabled' : '' }}">
+                <i data-lucide="shopping-bag" class="me-2"></i> {{ $produk->stok > 0 ? 'Pesan Sekarang' : 'Maaf, Stok Habis' }}
             </a>
+        </div>
+    </div>
+
+    <!-- SECTION REVIEW & RATING -->
+    <div class="row mt-5 pt-5">
+        <div class="col-lg-4 mb-5">
+            <div class="card border-0 shadow-sm rounded-4 p-4 sticky-top" style="top: 100px;">
+                <h5 class="fw-bold text-dark mb-4">Beri Ulasan Produk</h5>
+                
+                @if(session('success'))
+                    <div class="alert alert-success alert-dismissible fade show rounded-3" role="alert">
+                        {{ session('success') }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                @endif
+
+                <form action="{{ route('produk.review', $produk->id) }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold">Penilaian Bintang</label>
+                        <div class="rating-input d-flex gap-2">
+                            @for($i=5; $i>=1; $i--)
+                            <input type="radio" name="rating" value="{{ $i }}" id="star{{ $i }}" class="btn-check" required>
+                            <label class="btn btn-outline-warning btn-sm rounded-pill" for="star{{ $i }}">{{ $i }} <i data-lucide="star" class="icon-xs"></i></label>
+                            @endfor
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <input type="text" name="nama_lengkap" class="form-control rounded-pill px-3" placeholder="Nama Lengkap" required>
+                    </div>
+                    <div class="mb-3">
+                        <input type="email" name="email" class="form-control rounded-pill px-3" placeholder="Alamat Email" required>
+                    </div>
+                    <div class="mb-3">
+                        <textarea name="saran" class="form-control rounded-4 px-3" rows="3" placeholder="Saran/Kelebihan Produk..." required></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <textarea name="kritik" class="form-control rounded-4 px-3" rows="3" placeholder="Kritik/Kekurangan Produk..." required></textarea>
+                    </div>
+                    <div class="mb-4">
+                        <label class="form-label small fw-bold">Foto Produk (Wajib)</label>
+                        <input type="file" name="foto_produk" class="form-control form-control-sm rounded-pill" accept="image/*" required>
+                    </div>
+                    <button type="submit" class="btn btn-success w-100 rounded-pill fw-bold">Kirim Ulasan</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="col-lg-8">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h4 class="fw-bold text-dark mb-0">Ulasan Pengguna ({{ $produk->reviews->count() }})</h4>
+                <form action="{{ url()->current() }}" method="GET" class="d-flex gap-2">
+                    <select name="review_sort" class="form-select form-select-sm rounded-pill border shadow-sm px-3" onchange="this.form.submit()">
+                        <option value="terbaru" {{ request('review_sort') == 'terbaru' ? 'selected' : '' }}>⬇️ Terbaru</option>
+                        <option value="terlama" {{ request('review_sort') == 'terlama' ? 'selected' : '' }}>⬆️ Terlama</option>
+                        <option value="rating_desc" {{ request('review_sort') == 'rating_desc' ? 'selected' : '' }}>⭐ Bintang Tertinggi</option>
+                        <option value="rating_asc" {{ request('review_sort') == 'rating_asc' ? 'selected' : '' }}>⭐ Bintang Terendah</option>
+                    </select>
+                </form>
+            </div>
+
+            <div class="review-list">
+                @forelse($produk->reviews as $review)
+                <div class="card border-0 shadow-sm rounded-4 mb-3 p-4 bg-white">
+                    <div class="row">
+                        <div class="col-md-{{ $review->foto_produk ? '8' : '12' }}">
+                            <div class="d-flex justify-content-between mb-2">
+                                <h6 class="fw-bold text-success mb-0">{{ $review->nama_lengkap }}</h6>
+                                <small class="text-muted">{{ $review->created_at->translatedFormat('d F Y') }}</small>
+                            </div>
+                            <div class="text-warning mb-3">
+                                @for($i=1; $i<=5; $i++)
+                                    <i data-lucide="star" class="icon-xs {{ $i <= $review->rating ? 'fill-warning' : 'text-muted' }}" style="width:14px;"></i>
+                                @endfor
+                            </div>
+                            
+                            @if($review->saran)
+                            <div class="mb-3">
+                                <small class="text-muted fw-bold d-block mb-1 text-uppercase" style="font-size: 0.65rem;">Saran & Keunggulan:</small>
+                                <p class="text-dark small mb-0">{{ $review->saran }}</p>
+                            </div>
+                            @endif
+
+                            @if($review->kritik)
+                            <div class="mb-0">
+                                <small class="text-muted fw-bold d-block mb-1 text-uppercase" style="font-size: 0.65rem;">Kritik & Masukan:</small>
+                                <p class="text-dark small mb-0">{{ $review->kritik }}</p>
+                            </div>
+                            @endif
+                        </div>
+                        @if($review->foto_produk)
+                        <div class="col-md-4 mt-3 mt-md-0">
+                            <img src="{{ asset('storage/' . $review->foto_produk) }}" class="rounded-3 w-100 shadow-sm object-fit-cover" style="height: 120px;">
+                        </div>
+                        @endif
+                    </div>
+                </div>
+                @empty
+                <div class="text-center py-5 text-muted glass-panel rounded-4">
+                    <i data-lucide="message-square" class="icon-lg opacity-25 mb-2"></i>
+                    <p class="mb-0">Belum ada ulasan untuk produk ini. Jadi yang pertama memberi ulasan!</p>
+                </div>
+                @endforelse
+            </div>
         </div>
     </div>
 </div>
 @endsection
+
+@push('scripts')
+<script>
+    function trackShare(platform) {
+        const url = '{{ url()->current() }}';
+        
+        // Simpan ke database
+        fetch("{{ route('produk.share', $produk->id) }}", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                'Accept': 'application/json'
+            }
+        });
+
+        if (platform === 'Instagram' || platform === 'TikTok') {
+            copyToClipboard(url, platform);
+        }
+    }
+
+    function copyToClipboard(text, platform) {
+        navigator.clipboard.writeText(text).then(function() {
+            alert('Link Produk berhasil disalin! Silakan tempelkan di ' + platform + ' Anda.');
+        }, function(err) {
+            console.error('Could not copy text: ', err);
+        });
+    }
+
+    document.querySelectorAll('.share-btn').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            const platform = this.innerText.trim();
+            if (platform === 'WA' || platform === 'FB') {
+                trackShare(platform);
+            }
+        });
+    });
+</script>
+@endpush

@@ -3,11 +3,14 @@
         <div class="row g-4">
             <!-- Kolom 1 -->
             <div class="col-md-3">
-                <div class="d-flex align-items-center mb-3">
-                    <i data-lucide="leaf" class="me-2"></i>
-                    <h5 class="mb-0">{{\App\Models\Setting::get('nama_desa', 'Desa Selorejo')}}</h5>
+                <div class="d-flex align-items-center mb-4">
+                    <img src="{{ asset('images/logo_desa.png') }}" alt="Logo Selorejo" class="me-3 shadow-sm" style="width: 45px; height: 45px; object-fit: contain;">
+                    <div>
+                        <strong class="d-block text-white" style="font-size: 1.05rem;">Pemerintah Desa Selorejo</strong>
+                        <small class="text-white d-block" style="font-size: 0.75rem; opacity: 0.9;">Kec. Dau, Kab. Malang, Prov. Jawa Timur</small>
+                    </div>
                 </div>
-                <p class="small text-white d-flex align-items-start gap-2">
+                <p class="small text-white d-flex align-items-start gap-2 mt-2">
                     <i data-lucide="map-pin" class="mt-1" style="width:16px; min-width:16px;"></i> 
                     <span>{{\App\Models\Setting::get('alamat', '')}}</span>
                 </p>
@@ -71,6 +74,12 @@
                     <i data-lucide="info" style="width:18px;"></i> Tentang Website
                 </h5>
                 <p class="small text-white" style="line-height: 1.6; opacity: 0.9;">Website resmi {{\App\Models\Setting::get('nama_desa', 'Desa Selorejo')}} dikelola oleh Pemerintah Desa untuk mewujudkan transparansi publik dan mempromosikan potensi agrowisata petik jeruk ke khalayak luas secara digital.</p>
+                
+                <div class="mt-4">
+                    <a href="{{ url('/login') }}" class="btn btn-outline-light btn-sm rounded-pill d-inline-flex align-items-center hover-accent">
+                        <i data-lucide="log-in" class="me-2" style="width:14px;"></i> Portal Admin
+                    </a>
+                </div>
             </div>
         </div>
     </div>

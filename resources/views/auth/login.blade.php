@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="d-flex justify-content-center align-items-center py-5" style="min-height: 80vh; background: radial-gradient(circle at top right, rgba(45, 106, 79, 0.05), transparent);">
-    <div class="card border-0 shadow-lg rounded-4 overflow-hidden" style="width: 420px; background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(10px);">
+    <div class="card border-0 shadow-lg rounded-4 overflow-hidden" style="width: 420px; max-width: 100%; background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(10px);">
         <!-- Top accent line -->
         <div style="height: 5px; background: linear-gradient(90deg, #1b4332, #52b788);"></div>
         
