@@ -98,10 +98,10 @@
                                                    $t->status == 'Sedang Dipacking' ? '#856404' : (
                                                    $t->status == 'Dalam Perjalanan' ? '#055160' : '#0f5132')) 
                                                }};">
-                                    <option value="Pesanan Masuk" {{ $t->status == 'Pesanan Masuk' ? 'selected' : '' }}>🔵 Pesanan Masuk</option>
-                                    <option value="Sedang Dipacking" {{ $t->status == 'Sedang Dipacking' ? 'selected' : '' }}>🟠 Sedang Dipacking</option>
-                                    <option value="Dalam Perjalanan" {{ $t->status == 'Dalam Perjalanan' ? 'selected' : '' }}>🚚 Dalam Perjalanan</option>
-                                    <option value="Sudah Sampai Tujuan" {{ $t->status == 'Sudah Sampai Tujuan' ? 'selected' : '' }}>✅ Sudah Sampai</option>
+                                    <option value="Pesanan Masuk" {{ $t->status == 'Pesanan Masuk' ? 'selected' : '' }}>Pesanan Masuk</option>
+                                    <option value="Sedang Dipacking" {{ $t->status == 'Sedang Dipacking' ? 'selected' : '' }}>Sedang Dipacking</option>
+                                    <option value="Dalam Perjalanan" {{ $t->status == 'Dalam Perjalanan' ? 'selected' : '' }}>Dalam Perjalanan</option>
+                                    <option value="Sudah Sampai Tujuan" {{ $t->status == 'Sudah Sampai Tujuan' ? 'selected' : '' }}>Sudah Sampai</option>
                                 </select>
                             </div>
                         </td>

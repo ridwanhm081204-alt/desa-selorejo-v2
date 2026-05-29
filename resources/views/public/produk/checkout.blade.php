@@ -1,9 +1,9 @@
 @extends('layouts.public')
 @section('title', 'Pemesanan ' . $produk->nama)
 @section('breadcrumb')
-    <li class="breadcrumb-item"><a href="{{ url('/produk') }}" class="text-decoration-none text-success">Produk</a></li>
-    <li class="breadcrumb-item"><a href="{{ route('produk.show', $produk->id) }}" class="text-decoration-none text-success">{{ $produk->nama }}</a></li>
-    <li class="breadcrumb-item active">Checkout</li>
+    <li class="breadcrumb-item"><a href="{{ url('/produk') }}" class="text-decoration-none" style="color: var(--color-forest) !important; font-family: var(--font-body);">Produk</a></li>
+    <li class="breadcrumb-item"><a href="{{ route('produk.show', $produk->id) }}" class="text-decoration-none" style="color: var(--color-forest) !important; font-family: var(--font-body);">{{ $produk->nama }}</a></li>
+    <li class="breadcrumb-item active" style="font-family: var(--font-body);">Checkout</li>
 @endsection
 
 @section('content')
@@ -11,14 +11,14 @@
     <div class="row g-4">
         <!-- Rincian Produk Side -->
         <div class="col-lg-4 order-lg-2">
-            <div class="card border-0 shadow-sm rounded-4 sticky-top" style="top: 100px; z-index: 100 !important;">
-                <div class="card-body p-4">
-                    <h5 class="fw-bold mb-4">Rincian Produk</h5>
+            <div class="card border-0 shadow-sm rounded-4 sticky-top" style="top: 100px; z-index: 100 !important; border-top: 4px solid var(--color-forest) !important;">
+                <div class="card-body p-4" style="font-family: var(--font-body);">
+                    <h5 class="fw-bold mb-4" style="font-family: var(--font-heading);">Rincian Produk</h5>
                     <div class="d-flex align-items-center mb-3">
                         <img src="{{ $produk->gambar_url }}" class="rounded-3 me-3" style="width: 80px; height: 80px; object-fit: cover;">
                         <div>
-                            <h6 class="fw-bold mb-1">{{ $produk->nama }}</h6>
-                            <span class="text-success fw-bold">Rp {{ number_format($produk->harga, 0, ',', '.') }}</span>
+                            <h6 class="fw-bold mb-1" style="font-family: var(--font-heading);">{{ $produk->nama }}</h6>
+                            <span class="fw-bold" style="color: var(--color-forest) !important;">Rp {{ number_format($produk->harga, 0, ',', '.') }}</span>
                         </div>
                     </div>
                     <hr class="my-4 opacity-50">
@@ -31,11 +31,11 @@
                         <span id="qtyDisplay">1</span>
                     </div>
                     <div class="d-flex justify-content-between mt-3">
-                        <span class="fw-bold fs-5">Total Bayar</span>
-                        <span class="fw-bold fs-5 text-success" id="totalDisplay">Rp {{ number_format($produk->harga, 0, ',', '.') }}</span>
+                        <span class="fw-bold fs-5" style="font-family: var(--font-heading);">Total Bayar</span>
+                        <span class="fw-bold fs-5" style="color: var(--color-forest) !important; font-family: var(--font-heading);" id="totalDisplay">Rp {{ number_format($produk->harga, 0, ',', '.') }}</span>
                     </div>
                     
-                    <div class="alert alert-info mt-4 p-2 small border-0 rounded-3">
+                    <div class="alert mt-4 p-2 small border-0 rounded-3" style="background-color: var(--color-cream) !important; color: var(--color-forest) !important;">
                         <i data-lucide="info" class="me-1" style="width: 14px;"></i> Stok tersedia: <strong>{{ $produk->stok }} Pcs</strong>
                     </div>
                 </div>
@@ -44,13 +44,13 @@
 
         <!-- Form Pemesanan -->
         <div class="col-lg-8 order-lg-1">
-            <div class="card border-0 shadow-sm rounded-4 text-dark">
+            <div class="card border-0 shadow-sm rounded-4 text-dark" style="border-top: 4px solid var(--color-forest) !important;">
                 <div class="card-body p-4 p-md-5">
-                    <h2 class="fw-bold mb-4 text-dark"><i data-lucide="clipboard-list" class="me-2 text-success"></i>Form Pemesanan</h2>
+                    <h2 class="fw-bold mb-4 text-dark" style="font-family: var(--font-heading);"><i data-lucide="clipboard-list" class="me-2" style="color: var(--color-forest) !important;"></i>Form Pemesanan</h2>
                     
                     <form id="checkoutForm" class="needs-validation" novalidate enctype="multipart/form-data">
                         @csrf
-                        <div class="row g-3">
+                        <div class="row g-3" style="font-family: var(--font-body);">
                             <!-- Tanggal Otomatis -->
                             <div class="col-md-6">
                                 <label class="form-label fw-bold text-dark"><i data-lucide="calendar" class="me-1"></i> Tanggal Pemesanan</label>
@@ -71,7 +71,7 @@
                                 <div class="invalid-feedback">Nomor WhatsApp wajib diisi untuk koordinasi pengiriman.</div>
                             </div>
 
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                                 <label class="form-label fw-bold text-dark"><i data-lucide="package" class="me-1"></i> Jumlah (Pcs)</label>
                                 <input type="number" name="jumlah" id="qtyInput" class="form-control rounded-3 text-dark border-dark fw-bold" value="1" min="1" max="{{ $produk->stok }}" required>
                                 <div class="small text-muted mb-2">Maksimal pembelian: {{ $produk->stok }} Pcs (sesuai stok tersedia).</div>
@@ -128,7 +128,7 @@
 
                             <div class="col-12 mt-5 text-center">
                                 <p class="small text-muted mb-3"><i data-lucide="shield-check" class="me-1"></i> Pastikan semua data sudah terisi dengan benar untuk mengaktifkan tombol beli.</p>
-                                <button type="submit" class="btn btn-success btn-lg w-100 py-3 fw-bold rounded-pill shadow" id="submitBtn" disabled>
+                                <button type="submit" class="btn btn-lg w-100 py-3 fw-bold rounded-pill shadow" style="background-color: var(--color-forest) !important; color: #fff !important; font-family: var(--font-heading); border: none;" id="submitBtn" disabled>
                                     <i data-lucide="shopping-cart" class="me-2"></i> <span id="btnText">Beli Sekarang</span>
                                     <span id="btnLoading" class="spinner-border spinner-border-sm d-none" role="status"></span>
                                 </button>
@@ -237,7 +237,7 @@
                     text: 'Detail pesanan anda akan dikirimkan ke WhatsApp penjual.',
                     icon: 'success',
                     confirmButtonText: 'Kirim Struk ke WhatsApp',
-                    confirmButtonColor: '#198754',
+                    confirmButtonColor: '#1a5c38',
                     allowOutsideClick: false
                 }).then(() => {
                     // Redirect to WhatsApp using URL from server (contains transaction details)

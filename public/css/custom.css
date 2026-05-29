@@ -1,16 +1,53 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap');
+
 :root {
-  --primary: #2d6a4f;
-  --primary-dark: #1b4332;
-  --primary-light: #52b788;
-  --secondary: #74c69d;
-  --accent: #f4a261;
-  --accent-dark: #e76f51;
-  --bg-light: #f0f7f4;
-  --text-dark: #1b4332;
-  --text-muted: #6c757d;
-  --glass-bg: rgba(255, 255, 255, 0.15);
-  --glass-border: rgba(255, 255, 255, 0.25);
-  --glass-shadow: 0 8px 32px rgba(45, 106, 79, 0.15);
+  /* ── COLOR PALETTE UTAMA ── */
+  --color-sunshine:     #F5C518;   /* Kuning — Accent, CTA, Highlight */
+  --color-cream:        #F5F0E8;   /* Krem — Background halaman */
+  --color-carro:        #F26522;   /* Oranye — Secondary accent, hover */
+  --color-tomato:       #D93025;   /* Merah — Danger, delete, error */
+  --color-forest:       #1A5C38;   /* Hijau tua — Primary, navbar, sidebar */
+  --color-kiwi:         #7CB518;   /* Hijau lime — Success, badge, link */
+  --color-sky:          #2AABE2;   /* Biru — Info, active link */
+  --color-gray-light:   #E8E8E8;   /* Abu — Border, divider */
+  --color-gray-mid:     #9E9E9E;   /* Abu sedang — Placeholder, muted */
+  --color-dark:         #1A1A1A;   /* Hitam teks */
+  --color-white:        #FFFFFF;
+
+  /* ── ALIAS SEMANTIK (dipakai di komponen) ── */
+  --primary:            var(--color-forest);    /* #1A5C38 */
+  --primary-dark:       #0F3D25;               /* Forest lebih gelap untuk hover */
+  --primary-light:      #2E7D4F;               /* Forest lebih terang */
+  --secondary:          var(--color-kiwi);      /* #7CB518 */
+  --accent:             var(--color-sunshine);  /* #F5C518 */
+  --accent-hover:       #D4A914;               /* Sunshine lebih gelap saat hover */
+  --accent-orange:      var(--color-carro);     /* #F26522 */
+  --danger:             var(--color-tomato);    /* #D93025 */
+  --info:               var(--color-sky);       /* #2AABE2 */
+  --success:            var(--color-kiwi);      /* #7CB518 */
+  --bg-light:           var(--color-cream);     /* #F5F0E8 — background dashboard */
+  --text-dark:          var(--color-forest);
+  --text-muted:         var(--color-gray-mid);
+  --glass-bg:           rgba(255, 255, 255, 0.15);
+  --glass-border:       rgba(255, 255, 255, 0.25);
+  --glass-shadow:       0 8px 32px rgba(26, 92, 56, 0.15);
+
+  /* ── TYPOGRAPHY ── */
+  --font-display:   'Bebas Neue', 'Impact', sans-serif;
+  --font-heading:   'Open Sans', 'Segoe UI', system-ui, sans-serif;
+  --font-body:      'Open Sans', 'Segoe UI', system-ui, sans-serif;
+}
+
+body, button, input, select, textarea {
+  font-family: var(--font-body) !important;
+}
+
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+  font-family: var(--font-heading) !important;
+}
+
+.display-1, .display-2, .display-3, .display-4, .display-5, .display-6, .hero-title, .section-display-title {
+  font-family: var(--font-display) !important;
 }
 
 /* GLASSMORPHISM COMPONENTS */
@@ -293,6 +330,69 @@ html { scroll-behavior: smooth; }
 /* RESPONSIVE */
 @media (max-width: 768px) {
   .stat-counter { font-size: 1.8rem; }
-  .section-hero-gradient { min-height: 65vh; }
   .glass-card { border-radius: 12px; }
 }
+
+/* HOVER LIFT & GENERAL BUTTON HOVER RESPONSIVENESS */
+.hover-lift {
+  transition: transform 0.25s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.25s cubic-bezier(0.165, 0.84, 0.44, 1), filter 0.25s ease !important;
+}
+.hover-lift:hover {
+  transform: translateY(-4px) !important;
+  box-shadow: 0 8px 24px rgba(26, 92, 56, 0.2) !important;
+  filter: brightness(0.92) contrast(1.05) !important;
+}
+.hover-lift:active {
+  transform: translateY(-1px) !important;
+  box-shadow: 0 4px 10px rgba(26, 92, 56, 0.1) !important;
+}
+
+/* Ensure all standard buttons have a transition and visual reaction on hover */
+.btn {
+  transition: all 0.25s cubic-bezier(0.165, 0.84, 0.44, 1) !important;
+}
+.btn:hover {
+  filter: brightness(0.9) contrast(1.05) !important;
+  transform: translateY(-1.5px);
+}
+.btn:active {
+  transform: translateY(0);
+}
+
+/* OUTLINE FOREST RESPONSIVE BUTTON */
+.btn-outline-forest {
+  border: 2px solid var(--color-forest) !important;
+  color: var(--color-forest) !important;
+  background: transparent !important;
+  transition: all 0.25s cubic-bezier(0.165, 0.84, 0.44, 1) !important;
+}
+.btn-outline-forest:hover {
+  background: var(--color-forest) !important;
+  color: #ffffff !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(26, 92, 56, 0.15) !important;
+}
+.btn-outline-forest:active {
+  transform: translateY(0);
+}
+
+/* CARD HOVER BACA AND KATEGORI HOVER EFFECTS */
+.btn-baca-custom {
+  transition: all 0.25s ease !important;
+}
+.berita-card:hover .btn-baca-custom,
+.btn-baca-custom:hover {
+  background-color: var(--color-forest) !important;
+  color: #ffffff !important;
+  border-color: var(--color-forest) !important;
+}
+
+.tag-kategori-custom {
+  transition: all 0.25s ease !important;
+}
+.card-hover:hover .tag-kategori-custom,
+.tag-kategori-custom:hover {
+  background-color: var(--color-forest) !important;
+  color: #ffffff !important;
+}
+

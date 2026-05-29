@@ -15,18 +15,18 @@
     <div class="row g-4">
         @forelse($lembaga as $l)
         <div class="col-lg-6">
-            <div class="glass-card card-hover bg-white p-4 p-md-5 rounded-4 border-0 shadow-sm h-100 d-flex flex-column border border-success border-opacity-10" style="background: white;">
-                <div class="d-flex justify-content-between align-items-start border-bottom border-success border-opacity-10 pb-4 mb-4">
-                    <h4 class="fw-bold text-dark mb-0 d-flex align-items-center">
+            <div class="glass-card card-hover bg-white p-4 p-md-5 rounded-4 border shadow-sm h-100 d-flex flex-column" style="border-color: var(--color-forest)33 !important;">
+                <div class="d-flex justify-content-between align-items-start border-bottom pb-4 mb-4" style="border-bottom-color: var(--color-forest)33 !important;">
+                    <h4 class="fw-bold text-dark mb-0 d-flex align-items-center" style="font-family: var(--font-heading);">
                         <i data-lucide="shield-check" class="icon-md me-3 text-dark"></i>{{ $l->nama_lembaga }}
                     </h4>
-                    <span class="badge bg-warning text-dark px-3 py-2 rounded-pill fw-bold border border-warning shadow-sm" style="font-size: 0.7rem;">{{ $l->jenis }}</span>
+                    <span class="badge px-3 py-2 rounded-pill fw-bold border" style="background-color: var(--accent) !important; border-color: var(--accent) !important; color: var(--text-on-accent) !important; font-family: var(--font-body); font-size: 0.7rem;">{{ $l->jenis }}</span>
                 </div>
                 <div class="mb-4 flex-grow-1">
-                    <p class="text-muted small lh-lg mb-0 text-justify" style="text-align: justify; font-size: 0.95rem;">{{ $l->deskripsi ?: 'Lembaga kemasyarakatan yang berperan aktif dalam mendukung program pembangunan dan pemberdayaan masyarakat di lingkungan Desa Selorejo.' }}</p>
+                    <p class="text-muted small lh-lg mb-0 text-justify" style="text-align: justify; font-size: 0.95rem; font-family: var(--font-body);">{{ $l->deskripsi ?: 'Lembaga kemasyarakatan yang berperan aktif dalam mendukung program pembangunan dan pemberdayaan masyarakat di lingkungan Desa Selorejo.' }}</p>
                 </div>
-                <div class="mt-auto p-4 rounded-4 d-flex align-items-center w-100 border border-success border-opacity-10 bg-light">
-                    <div class="bg-success bg-opacity-10 rounded-circle p-2 shadow-sm me-3 border border-success border-opacity-10 d-flex align-items-center justify-content-center" style="width: 45px; height: 45px; overflow:hidden;">
+                <div class="mt-auto p-4 rounded-4 d-flex align-items-center w-100 border bg-light" style="border-color: var(--color-forest)33 !important;">
+                    <div class="rounded-circle p-2 shadow-sm me-3 border d-flex align-items-center justify-content-center" style="width: 45px; height: 45px; overflow:hidden; background-color: rgba(26,92,56,0.1) !important; color: var(--color-forest) !important; border-color: rgba(26,92,56,0.1) !important;">
                         @if($l->foto)
                             <img src="{{ asset('storage/'.$l->foto) }}" alt="{{ $l->ketua }}" class="img-fluid" style="width:100%; height:100%; object-fit:cover;">
                         @else
@@ -34,14 +34,14 @@
                         @endif
                     </div>
                     <div>
-                        <small class="text-muted d-block lh-1 mb-2 fw-bold">Ketua Lembaga</small>
-                        <strong class="text-dark fs-5">{{ $l->ketua ?: 'Belum ditentukan' }}</strong>
+                        <small class="text-muted d-block lh-1 mb-2 fw-bold" style="font-family: var(--font-body);">Ketua Lembaga</small>
+                        <strong class="text-dark fs-5" style="font-family: var(--font-heading);">{{ $l->ketua ?: 'Belum ditentukan' }}</strong>
                     </div>
                 </div>
             </div>
         </div>
         @empty
-        <div class="col-12 text-center text-muted p-5 glass-panel">Belum ada data Lembaga Desa.</div>
+        <div class="col-12 text-center text-muted p-5 bg-white border rounded-4" style="font-family: var(--font-body);">Belum ada data Lembaga Desa.</div>
         @endforelse
     </div>
 </div>

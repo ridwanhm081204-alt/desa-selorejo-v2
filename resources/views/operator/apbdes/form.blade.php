@@ -35,8 +35,8 @@
                         <div class="col-md-3">
                             <label class="form-label fw-bold text-muted small">JENIS ANGGARAN</label>
                             <select name="jenis" class="form-select rounded-3 py-2 fw-bold text-success border-2 border-success border-opacity-10 shadow-none bg-light" required>
-                                <option value="pendapatan" {{ (old('jenis', $apbdes->jenis ?? '') == 'pendapatan') ? 'selected' : '' }}>💰 Pendapatan Desa</option>
-                                <option value="belanja" {{ (old('jenis', $apbdes->jenis ?? '') == 'belanja') ? 'selected' : '' }}>💸 Belanja / Pengeluaran</option>
+                                <option value="pendapatan" {{ (old('jenis', $apbdes->jenis ?? '') == 'pendapatan') ? 'selected' : '' }}>Pendapatan Desa</option>
+                                <option value="belanja" {{ (old('jenis', $apbdes->jenis ?? '') == 'belanja') ? 'selected' : '' }}>Belanja / Pengeluaran</option>
                             </select>
                         </div>
                         <div class="col-md-6">

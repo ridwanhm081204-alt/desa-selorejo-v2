@@ -31,8 +31,8 @@
                     <div class="mb-4">
                         <label class="form-label small fw-bold text-muted">JENIS MEDIA</label>
                         <select name="tipe" class="form-select rounded-3 py-2 fw-bold text-success border-2 border-success border-opacity-10 shadow-none" id="mediaTipe" onchange="toggleTipe()" required>
-                            <option value="foto" {{ old('tipe', $galeri->tipe ?? 'foto') == 'foto' ? 'selected' : '' }}>📸 Foto / Gambar Statis</option>
-                            <option value="video" {{ old('tipe', $galeri->tipe ?? '') == 'video' ? 'selected' : '' }}>🎥 Video (Embed YouTube)</option>
+                            <option value="foto" {{ old('tipe', $galeri->tipe ?? 'foto') == 'foto' ? 'selected' : '' }}>Foto / Gambar Statis</option>
+                            <option value="video" {{ old('tipe', $galeri->tipe ?? '') == 'video' ? 'selected' : '' }}>Video (Embed YouTube)</option>
                         </select>
                         @error('tipe') <div class="invalid-feedback d-block mt-1">{{ $message }}</div> @enderror
                     </div>

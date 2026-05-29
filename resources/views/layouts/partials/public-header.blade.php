@@ -1,15 +1,25 @@
+<!-- TOP BAR -->
+<div class="py-2 text-white" style="background: var(--color-forest); color: #fff; font-family: var(--font-body); font-size: var(--text-xs);">
+    <div class="container d-flex justify-content-between align-items-center flex-wrap">
+        <div>
+            <span class="me-3"><i data-lucide="map-pin" class="icon-xs me-1"></i> Desa Selorejo, Dau, Malang</span>
+            <span class="d-none d-sm-inline"><i data-lucide="mail" class="icon-xs me-1"></i> info@selorejo.desa.id</span>
+        </div>
+        <div class="d-flex align-items-center">
+            <i data-lucide="calendar" class="me-1" style="width:12px;"></i>
+            <span id="realtime-clock">Memuat waktu...</span>
+        </div>
+    </div>
+</div>
+
 <!-- HEADER (posisi sticky/fixed-top dengan Bootstrap) -->
-<nav class="navbar navbar-expand-lg navbar-dark glass-navbar sticky-top">
+<nav class="navbar navbar-expand-lg navbar-light sticky-top" style="background: #fff; border-bottom: 3px solid var(--accent);" id="mainNavbarWrapper">
     <div class="container">
         <a class="navbar-brand d-flex align-items-center" href="{{ url('/') }}">
-            <img src="{{ asset('images/logo_desa.png') }}" alt="Logo Selorejo" class="me-3 shadow-sm" style="width: 45px; height: 45px; object-fit: contain;">
+            <img src="{{ asset('images/logo_desa.png') }}" alt="Logo Selorejo" class="me-3 shadow-sm" style="background: var(--color-forest); border-radius: var(--radius-sm); padding: 7px; width: 45px; height: 45px; object-fit: contain;">
             <div>
-                <strong class="d-block text-white" style="font-size: 1.1rem;">Pemerintah Desa Selorejo</strong>
-                <small class="text-white d-none d-md-block" style="font-size: 0.75rem; opacity: 0.9;">Kec. Dau, Kab. Malang, Prov. Jawa Timur</small>
-                <small class="text-warning d-flex align-items-center mt-1" style="font-size: 0.70rem; font-weight: 600;">
-                    <i data-lucide="calendar" class="me-1" style="width:12px;"></i>
-                    <span id="realtime-clock">Memuat waktu...</span>
-                </small>
+                <strong class="d-block" style="font-family: var(--font-display); font-size: 1.1rem; letter-spacing: 0.04em; color: #1a1a1a;">Pemerintah Desa Selorejo</strong>
+                <small class="d-none d-md-block" style="font-family: var(--font-body); font-size: var(--text-xs); color: #4a4a4a;">Kec. Dau, Kab. Malang, Prov. Jawa Timur</small>
             </div>
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar">
@@ -68,21 +78,21 @@
 @endphp
 
 @if($beritaTerbaru->count() > 0)
-<div class="bg-white text-dark py-2 small shadow-sm border-bottom border-light">
+<div style="background: var(--accent); padding: 7px 0; border-bottom: 2px solid var(--accent-hover);">
     <div class="container d-flex align-items-center">
-        <strong class="me-3 text-nowrap text-dark fw-bold d-flex align-items-center"><i data-lucide="bell" style="width:16px" class="me-1 text-danger"></i> <span class="d-none d-md-inline">SEKILAS INFO:</span></strong>
-        <marquee behavior="scroll" direction="left" scrollamount="5" class="text-dark fw-bold">
+        <strong class="me-3 text-nowrap d-flex align-items-center" style="font-family: var(--font-body); font-size: var(--text-xs); font-weight: 600; color: var(--text-on-accent);"><i data-lucide="bell" style="width:16px; color: var(--text-on-accent);" class="me-1"></i> <span class="d-none d-md-inline">SEKILAS INFO:</span></strong>
+        <marquee behavior="scroll" direction="left" scrollamount="5" style="font-family: var(--font-body); font-size: var(--text-xs); font-weight: 600; color: var(--text-on-accent);">
             @foreach($beritaTerbaru as $b)
-                {{ $b->judul }} &nbsp; ★ &nbsp; 
+                {{ $b->judul }} &nbsp;&nbsp;·&nbsp;&nbsp;
             @endforeach
         </marquee>
     </div>
 </div>
 @else
-<div class="bg-white text-dark py-2 small shadow-sm border-bottom border-light">
+<div style="background: var(--accent); padding: 7px 0; border-bottom: 2px solid var(--accent-hover);">
     <div class="container d-flex align-items-center">
-        <strong class="me-3 text-nowrap text-dark fw-bold d-flex align-items-center"><i data-lucide="bell" style="width:16px" class="me-1 text-danger"></i> <span class="d-none d-md-inline">SEKILAS INFO:</span></strong>
-        <marquee behavior="scroll" direction="left" scrollamount="5" class="text-dark fw-bold">Selamat datang di Website Desa Wisata Petik Jeruk Selorejo</marquee>
+        <strong class="me-3 text-nowrap d-flex align-items-center" style="font-family: var(--font-body); font-size: var(--text-xs); font-weight: 600; color: var(--text-on-accent);"><i data-lucide="bell" style="width:16px; color: var(--text-on-accent);" class="me-1"></i> <span class="d-none d-md-inline">SEKILAS INFO:</span></strong>
+        <marquee behavior="scroll" direction="left" scrollamount="5" style="font-family: var(--font-body); font-size: var(--text-xs); font-weight: 600; color: var(--text-on-accent);">Selamat datang di Website Desa Wisata Petik Jeruk Selorejo</marquee>
     </div>
 </div>
 @endif

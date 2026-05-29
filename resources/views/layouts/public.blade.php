@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=1280">
     <title>@yield('title', 'Beranda') - {{\App\Models\Setting::get('nama_desa', 'Desa Wisata Selorejo')}}</title>
     <meta name="description" content="@yield('meta_description', 'Website resmi Desa Wisata Petik Jeruk Selorejo, Kecamatan Dau, Kabupaten Malang. Informasi wisata, profil desa, transparansi, dan berita terbaru.')">
     <meta name="keywords" content="@yield('meta_keywords', 'wisata petik jeruk, Selorejo, Kecamatan Dau, Kabupaten Malang, agrowisata, jeruk keprok')">

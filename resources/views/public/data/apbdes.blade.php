@@ -18,10 +18,10 @@
             <div class="row g-4">
                 <!-- Chart Pendapatan (Doughnut) -->
                 <div class="col-12">
-                    <div class="glass-card bg-white p-4 shadow-sm border-0 border-top border-4 border-success h-100">
+                    <div class="glass-card bg-white p-4 shadow-sm border h-100" style="border-top: 5px solid var(--color-forest) !important; border-color: var(--color-forest)1a !important;">
                         <div class="d-flex align-items-center mb-4">
-                            <div class="bg-success bg-opacity-10 p-2 rounded me-3"><i data-lucide="trending-up" class="text-success"></i></div>
-                            <h5 class="fw-bold text-dark mb-0">Sumber Pendapatan Desa</h5>
+                            <div class="p-2 rounded me-3" style="background-color: rgba(26,92,56,0.1) !important; color: var(--color-forest) !important;"><i data-lucide="trending-up"></i></div>
+                            <h5 class="fw-bold text-dark mb-0" style="font-family: var(--font-heading);">Sumber Pendapatan Desa</h5>
                         </div>
                         <div style="height: 300px;">
                             <canvas id="revenuePie"></canvas>
@@ -31,10 +31,10 @@
 
                 <!-- Chart Belanja (Horizontal Bar) -->
                 <div class="col-12">
-                    <div class="glass-card bg-white p-4 shadow-sm border-0 border-top border-4 border-danger h-100">
+                    <div class="glass-card bg-white p-4 shadow-sm border h-100" style="border-top: 5px solid var(--accent-orange) !important; border-color: var(--color-forest)1a !important;">
                         <div class="d-flex align-items-center mb-4">
-                            <div class="bg-danger bg-opacity-10 p-2 rounded me-3"><i data-lucide="trending-down" class="text-danger"></i></div>
-                            <h5 class="fw-bold text-dark mb-0">Prioritas Belanja Bidang</h5>
+                            <div class="p-2 rounded me-3" style="background-color: rgba(245,124,0,0.1) !important; color: var(--accent-orange) !important;"><i data-lucide="trending-down"></i></div>
+                            <h5 class="fw-bold text-dark mb-0" style="font-family: var(--font-heading);">Prioritas Belanja Bidang</h5>
                         </div>
                         <div style="height: 350px;">
                             <canvas id="expenditureBar"></canvas>
@@ -46,40 +46,40 @@
 
         <!-- Tabel Detail Column -->
         <div class="col-xl-7">
-            <div class="glass-card bg-white p-4 p-md-5 h-100 shadow-sm border-0 table-responsive">
-                <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-3">
-                    <h5 class="fw-bold mb-0 text-dark">Rincian APBDes Selorejo 2024</h5>
-                    <span class="badge bg-success px-3 py-2 rounded-pill fw-bold">TOTAL: Rp {{ number_format($apbdes->where('jenis', 'pendapatan')->sum('nominal'), 0, ',', '.') }}</span>
+            <div class="glass-card bg-white p-4 p-md-5 h-100 shadow-sm border table-responsive" style="border-color: var(--color-forest)1a !important; font-family: var(--font-body);">
+                <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-3" style="border-bottom-color: var(--color-forest)1a !important;">
+                    <h5 class="fw-bold mb-0 text-dark" style="font-family: var(--font-heading);">Rincian APBDes Selorejo 2024</h5>
+                    <span class="badge px-3 py-2 rounded-pill fw-bold" style="background-color: var(--color-forest) !important; color: #fff !important;">TOTAL: Rp {{ number_format($apbdes->where('jenis', 'pendapatan')->sum('nominal'), 0, ',', '.') }}</span>
                 </div>
 
-                <table class="table table-hover align-middle mb-0">
-                    <thead class="bg-light">
-                        <tr>
-                            <th class="py-3 text-dark fw-bold border-0">Jenis</th>
-                            <th class="py-3 text-dark fw-bold border-0">Bidang / Sumber</th>
-                            <th class="py-3 text-dark fw-bold border-0 text-end">Nominal</th>
+                <table class="table table-hover align-middle mb-0" style="border: 2px solid #111; border-collapse: collapse;">
+                    <thead>
+                        <tr style="background-color: var(--color-forest);">
+                            <th class="py-3 fw-bold" style="color: #fff !important; border: 2px solid #111;">Jenis</th>
+                            <th class="py-3 fw-bold" style="color: #fff !important; border: 2px solid #111;">Bidang / Sumber</th>
+                            <th class="py-3 fw-bold text-end" style="color: #fff !important; border: 2px solid #111;">Nominal</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach($apbdes as $a)
-                        <tr class="border-bottom border-light">
-                            <td>
+                        <tr>
+                            <td style="border: 1.5px solid #333;">
                                 @if($a->jenis == 'pendapatan')
-                                    <span class="badge bg-success bg-opacity-10 text-success border border-success border-opacity-10 px-2 py-1"><i data-lucide="download" class="icon-xs me-1"></i> Pendapatan</span>
+                                    <span class="badge px-2 py-1" style="background-color: rgba(26,92,56,0.1) !important; color: var(--color-forest) !important; border: 1px solid rgba(26,92,56,0.2) !important;"><i data-lucide="download" class="icon-xs me-1"></i> Pendapatan</span>
                                 @else
-                                    <span class="badge bg-danger bg-opacity-10 text-danger border border-danger border-opacity-10 px-2 py-1"><i data-lucide="upload" class="icon-xs me-1"></i> Belanja</span>
+                                    <span class="badge px-2 py-1" style="background-color: rgba(245,124,0,0.1) !important; color: var(--accent-orange) !important; border: 1px solid rgba(245,124,0,0.2) !important;"><i data-lucide="upload" class="icon-xs me-1"></i> Belanja</span>
                                 @endif
                             </td>
-                            <td class="fw-medium text-dark">{{ $a->bidang }}</td>
-                            <td class="text-end fw-bold text-dark">Rp {{ number_format($a->nominal, 0, ',', '.') }}</td>
+                            <td class="fw-medium text-dark" style="border: 1.5px solid #333;">{{ $a->bidang }}</td>
+                            <td class="text-end fw-bold text-dark" style="border: 1.5px solid #333;">Rp {{ number_format($a->nominal, 0, ',', '.') }}</td>
                         </tr>
                         @endforeach
                     </tbody>
                 </table>
 
                 <!-- Data Attribution -->
-                <div class="mt-5 p-3 rounded-4 bg-light border border-success border-opacity-10 d-flex align-items-center">
-                    <i data-lucide="shield-check" class="text-success me-3" style="width: 32px; height: 32px;"></i>
+                <div class="mt-5 p-3 rounded-4 bg-light border d-flex align-items-center" style="border-color: var(--color-forest)1a !important;">
+                    <i data-lucide="shield-check" class="me-3" style="width: 32px; height: 32px; color: var(--color-forest) !important;"></i>
                     <div>
                         <p class="mb-0 small text-muted lh-sm">Data ini disajikan secara transparan berdasarkan <strong class="text-dark">Pagu Anggaran Resmi Kabupaten Malang</strong> untuk Desa Selorejo Tahun Anggaran 2024.</p>
                     </div>
@@ -94,7 +94,7 @@
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         // Global Config
-        Chart.defaults.font.family = "'Outfit', sans-serif";
+        Chart.defaults.font.family = "'Open Sans', sans-serif";
         Chart.defaults.color = '#555';
 
         const data = @json($apbdes);
@@ -110,7 +110,7 @@
                 labels: pendapatan.map(i => i.bidang),
                 datasets: [{
                     data: pendapatan.map(i => i.nominal),
-                    backgroundColor: ['#1b4332', '#2d6a4f', '#40916c', '#52b788', '#95d5b2'],
+                    backgroundColor: ['#1a5c38', '#f5c518', '#f57c00', '#2d6a4f', '#40916c'],
                     borderWidth: 0,
                     hoverOffset: 10
                 }]
@@ -132,9 +132,9 @@
                 datasets: [{
                     label: 'Nominal (Rp)',
                     data: belanja.map(i => i.nominal),
-                    backgroundColor: '#e76f51',
+                    backgroundColor: '#1a5c38',
                     borderRadius: 5,
-                    hoverBackgroundColor: '#d62828'
+                    hoverBackgroundColor: '#f5c518'
                 }]
             },
             options: {

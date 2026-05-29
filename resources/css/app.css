@@ -1,16 +1,276 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap');
+
 :root {
-  --primary: #2d6a4f;
-  --primary-dark: #1b4332;
-  --primary-light: #52b788;
-  --secondary: #74c69d;
-  --accent: #f4a261;
-  --accent-dark: #e76f51;
-  --bg-light: #f0f7f4;
-  --text-dark: #000000;
-  --text-muted: #6c757d;
-  --glass-bg: rgba(255, 255, 255, 0.15);
-  --glass-border: rgba(255, 255, 255, 0.25);
-  --glass-shadow: 0 8px 32px rgba(45, 106, 79, 0.15);
+  /* ── COLOR PALETTE UTAMA ── */
+  --color-sunshine:     #F5C518;   /* Kuning — Accent, CTA, Highlight */
+  --color-cream:        #F5F0E8;   /* Krem — Background halaman */
+  --color-carro:        #F26522;   /* Oranye — Secondary accent, hover */
+  --color-tomato:       #D93025;   /* Merah — Danger, delete, error */
+  --color-forest:       #1A5C38;   /* Hijau tua — Primary, navbar, sidebar */
+  --color-kiwi:         #7CB518;   /* Hijau lime — Success, badge, link */
+  --color-sky:          #2AABE2;   /* Biru — Info, active link */
+  --color-gray-light:   #E8E8E8;   /* Abu — Border, divider */
+  --color-gray-mid:     #9E9E9E;   /* Abu sedang — Placeholder, muted */
+  --color-dark:         #1A1A1A;   /* Hitam teks */
+  --color-white:        #FFFFFF;
+
+  /* ── ALIAS SEMANTIK (dipakai di komponen) ── */
+  --primary:            var(--color-forest);    /* #1A5C38 */
+  --primary-dark:       #0F3D25;               /* Forest lebih gelap untuk hover */
+  --primary-light:      #2E7D4F;               /* Forest lebih terang */
+  --secondary:          var(--color-kiwi);      /* #7CB518 */
+  --accent:             var(--color-sunshine);  /* #F5C518 */
+  --accent-hover:       #D4A914;               /* Sunshine lebih gelap saat hover */
+  --accent-orange:      var(--color-carro);     /* #F26522 */
+  --danger:             var(--color-tomato);    /* #D93025 */
+  --info:               var(--color-sky);       /* #2AABE2 */
+  --success:            var(--color-kiwi);      /* #7CB518 */
+  --bg-page:            var(--color-cream);     /* #F5F0E8 — background semua halaman */
+  --bg-card:            #FFFFFF;               /* Background card */
+  --bg-sidebar:         var(--color-forest);   /* #1A5C38 — sidebar dashboard */
+  --bg-navbar:          #FFFFFF;               /* Navbar publik */
+  --bg-topbar:          var(--color-forest);   /* Top bar publik */
+  --border-color:       var(--color-gray-light); /* #E8E8E8 */
+  --text-primary:       var(--color-dark);      /* #1A1A1A */
+  --text-muted:         var(--color-gray-mid);  /* #9E9E9E */
+  --text-on-primary:    #FFFFFF;               /* Teks di atas warna primary */
+  --text-on-accent:     #1A1A1A;              /* Teks di atas sunshine (gelap) */
+
+  /* ── TYPOGRAPHY ── */
+  --font-display:   'Bebas Neue', 'Impact', sans-serif;
+  --font-heading:   'Open Sans', 'Segoe UI', system-ui, sans-serif;
+  --font-body:      'Open Sans', 'Segoe UI', system-ui, sans-serif;
+  --font-mono:      'Courier New', monospace;
+
+  /* ── FONT SIZE SCALE ── */
+  --text-xs:    0.72rem;    /* 11.5px */
+  --text-sm:    0.825rem;   /* 13.2px */
+  --text-base:  1rem;       /* 16px */
+  --text-lg:    1.125rem;   /* 18px */
+  --text-xl:    1.375rem;   /* 22px */
+  --text-2xl:   1.75rem;    /* 28px */
+  --text-3xl:   2.25rem;    /* 36px */
+  --text-4xl:   3rem;       /* 48px */
+  --text-display: 4rem;     /* 64px — khusus hero */
+
+  /* ── SPACING & RADIUS ── */
+  --radius-sm:   6px;
+  --radius-md:   10px;
+  --radius-lg:   16px;
+  --radius-xl:   24px;
+  --shadow-sm:   0 1px 4px rgba(26,92,56,0.08);
+  --shadow-md:   0 4px 16px rgba(26,92,56,0.12);
+  --shadow-lg:   0 8px 32px rgba(26,92,56,0.16);
+}
+
+/* ── GLOBAL BASE ── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  color: var(--text-primary);
+  background-color: var(--bg-page);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── HEADINGS: Open Sans untuk H1–H6 ── */
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.25;
+}
+
+/* ── DISPLAY HEADINGS: Bebas Neue (pengganti Peace Sans) ── */
+.display-1, .display-2, .display-3, .display-4,
+.display-5, .display-6,
+.font-display,
+.hero-title,
+.section-display-title {
+  font-family: var(--font-display) !important;
+  letter-spacing: 0.03em;
+  line-height: 1.1;
+}
+
+/* ── BOOTSTRAP VARIABLE OVERRIDES ── */
+/* Warna Bootstrap disesuaikan dengan palette baru */
+.btn-primary {
+  background-color: var(--primary) !important;
+  border-color: var(--primary) !important;
+  color: var(--text-on-primary) !important;
+  font-family: var(--font-heading);
+  font-weight: 600;
+}
+.btn-primary:hover,
+.btn-primary:focus {
+  background-color: var(--primary-dark) !important;
+  border-color: var(--primary-dark) !important;
+}
+
+.btn-accent,
+.btn-warning {
+  background-color: var(--accent) !important;
+  border-color: var(--accent) !important;
+  color: var(--text-on-accent) !important;
+  font-family: var(--font-heading);
+  font-weight: 700;
+}
+.btn-accent:hover,
+.btn-warning:hover {
+  background-color: var(--accent-hover) !important;
+  border-color: var(--accent-hover) !important;
+  color: var(--text-on-accent) !important;
+}
+
+.btn-success {
+  background-color: var(--color-kiwi) !important;
+  border-color: var(--color-kiwi) !important;
+  color: #fff !important;
+}
+.btn-danger {
+  background-color: var(--color-tomato) !important;
+  border-color: var(--color-tomato) !important;
+  color: #fff !important;
+}
+.btn-info {
+  background-color: var(--color-sky) !important;
+  border-color: var(--color-sky) !important;
+  color: #fff !important;
+}
+
+/* ── BADGE COLORS ── */
+.badge.bg-primary { background-color: var(--primary) !important; }
+.badge.bg-success { background-color: var(--color-kiwi) !important; }
+.badge.bg-warning { background-color: var(--accent) !important; color: var(--text-on-accent) !important; }
+.badge.bg-danger  { background-color: var(--color-tomato) !important; }
+.badge.bg-info    { background-color: var(--color-sky) !important; }
+
+/* ── LINKS ── */
+a {
+  color: var(--primary);
+  transition: color 0.2s ease;
+}
+a:hover {
+  color: var(--accent-orange);
+  text-decoration: none;
+}
+
+/* ── FORM CONTROLS ── */
+.form-control,
+.form-select {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  border-color: var(--border-color);
+  border-radius: var(--radius-sm);
+  background-color: #fff;
+  color: var(--text-primary);
+}
+.form-control:focus,
+.form-select:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(26,92,56,0.12);
+}
+.form-label {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: var(--text-sm);
+  color: var(--text-primary);
+  margin-bottom: 6px;
+}
+
+/* ── CARDS ── */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+}
+.card-header {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  background: #fff;
+  border-bottom: 2px solid var(--border-color);
+}
+
+/* ── ALERTS ── */
+.alert-success {
+  background: #f0faf0;
+  border-color: var(--color-kiwi);
+  color: #2a5a0a;
+}
+.alert-danger {
+  background: #fef0f0;
+  border-color: var(--color-tomato);
+  color: #8a1a14;
+}
+.alert-info {
+  background: #f0f8ff;
+  border-color: var(--color-sky);
+  color: #0a4a6a;
+}
+.alert-warning {
+  background: #fffbf0;
+  border-color: var(--accent);
+  color: #6a4a00;
+}
+
+/* ── TABLES ── */
+.table th {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: var(--text-sm);
+  background: var(--primary);
+  color: #fff;
+  border-color: var(--primary-dark);
+}
+.table td {
+  font-size: var(--text-sm);
+  color: var(--text-primary);
+  vertical-align: middle;
+}
+.table-striped > tbody > tr:nth-of-type(odd) > * {
+  background-color: rgba(245,240,232,0.6);
+}
+
+/* ── PAGINATION ── */
+.page-link {
+  color: var(--primary);
+  border-color: var(--border-color);
+  font-family: var(--font-body);
+}
+.page-link:hover {
+  background-color: var(--accent);
+  color: var(--text-on-accent);
+  border-color: var(--accent);
+}
+.page-item.active .page-link {
+  background-color: var(--primary);
+  border-color: var(--primary);
+  color: #fff;
+}
+
+/* ── BREADCRUMB ── */
+.breadcrumb {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  background: transparent;
+}
+.breadcrumb-item a {
+  color: var(--primary);
+}
+.breadcrumb-item.active {
+  color: var(--text-muted);
 }
 
 /* GLOBAL TEXT OVERRIDES */
@@ -118,7 +378,9 @@
 /* SECTION STYLES */
 .section-hero-gradient {
   background: linear-gradient(135deg, #1b4332 0%, #2d6a4f 50%, #40916c 100%);
-  min-height: 85vh;
+  min-height: 640px;
+  height: 640px;
+  max-height: 640px;
   position: relative;
   overflow: hidden;
 }
@@ -714,3 +976,384 @@ html, body {
   max-width: 100%;
   overflow-x: hidden;
 }
+
+/* Navbar public links */
+#mainNavbar .nav-link {
+  font-family: var(--font-heading);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--text-primary) !important;
+  padding: 8px 14px;
+  border-radius: var(--radius-sm);
+  transition: background 0.2s, color 0.2s;
+}
+#mainNavbar .nav-link:hover,
+#mainNavbar .nav-link.active {
+  background: var(--accent);
+  color: var(--text-on-accent) !important;
+}
+#mainNavbar .dropdown-menu {
+  border: none;
+  border-top: 3px solid var(--accent);
+  border-radius: 0 0 var(--radius-md) var(--radius-md);
+  box-shadow: var(--shadow-md);
+  padding: 8px 0;
+}
+#mainNavbar .dropdown-item {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: var(--text-primary);
+  padding: 9px 18px;
+  transition: background 0.15s;
+}
+#mainNavbar .dropdown-item:hover {
+  background: var(--color-cream);
+  color: var(--color-forest);
+}
+/* Hamburger toggler warna */
+#mainNavbarWrapper .navbar-toggler {
+  border: 2px solid var(--color-forest) !important;
+}
+#mainNavbarWrapper .navbar-toggler-icon {
+  filter: invert(20%) sepia(60%) saturate(800%) hue-rotate(110deg) !important;
+}
+
+.footer-link {
+  color: rgba(255,255,255,0.7) !important;
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  transition: color 0.2s;
+  text-decoration: none;
+}
+.footer-link:hover {
+  color: var(--accent) !important;
+}
+
+.footer-social-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 50%;
+  color: #fff !important;
+  margin-right: 8px;
+  transition: background 0.2s, transform 0.2s;
+}
+.footer-social-icon:hover {
+  background: var(--accent);
+  color: var(--text-on-accent) !important;
+  transform: translateY(-2px);
+}
+
+/* Hero Slider */
+.hero-slider .carousel-caption {
+  background: linear-gradient(
+    to top,
+    rgba(26,92,56,0.90) 0%,
+    rgba(26,92,56,0.40) 70%,
+    transparent 100%
+  );
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  padding: 32px 40px 28px !important;
+  text-align: left !important;
+  border-radius: 0 !important;
+}
+.hero-slider .carousel-caption .caption-kecil {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--accent); /* kuning sunshine */
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 6px;
+}
+.hero-slider .carousel-caption h5,
+.hero-slider .carousel-caption .caption-judul {
+  font-family: var(--font-display); /* Bebas Neue */
+  font-size: 2.4rem;
+  letter-spacing: 0.04em;
+  color: #fff;
+  line-height: 1.1;
+  margin-bottom: 10px;
+}
+.hero-slider .carousel-caption p {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  color: rgba(255,255,255,0.85);
+  margin-bottom: 16px;
+}
+.hero-slider .carousel-caption .btn-cta-hero {
+  background: var(--accent);
+  color: var(--text-on-accent);
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: var(--text-sm);
+  padding: 10px 24px;
+  border: none;
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  display: inline-block;
+  transition: background 0.2s, transform 0.15s;
+}
+.hero-slider .carousel-caption .btn-cta-hero:hover {
+  background: var(--accent-hover);
+  transform: translateY(-1px);
+}
+/* Carousel indicators warna */
+.hero-slider .carousel-indicators button {
+  background-color: rgba(255,255,255,0.5) !important;
+  width: 8px !important;
+  height: 8px !important;
+  border-radius: 50% !important;
+}
+.hero-slider .carousel-indicators .active {
+  background-color: var(--accent) !important;
+}
+
+/* Section heading pattern */
+.section-heading-wrapper {
+  margin-bottom: 32px;
+}
+.section-label {        /* Teks kecil di atas judul: "KATEGORI" */
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--accent-orange); /* oranye carro */
+  display: block;
+  margin-bottom: 4px;
+}
+.section-title {        /* Judul utama section */
+  font-family: var(--font-display); /* Bebas Neue */
+  font-size: var(--text-3xl);
+  letter-spacing: 0.04em;
+  color: var(--color-forest);
+  line-height: 1;
+  margin-bottom: 8px;
+}
+.section-divider {      /* Garis dekoratif bawah judul */
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+}
+.section-divider::before {
+  content: '';
+  display: block;
+  width: 48px;
+  height: 4px;
+  background: var(--accent);
+  border-radius: 2px;
+}
+.section-divider::after {
+  content: '';
+  display: block;
+  width: 12px;
+  height: 4px;
+  background: var(--accent-orange);
+  border-radius: 2px;
+}
+
+.berita-card {
+  border: none !important;
+  border-radius: var(--radius-md) !important;
+  overflow: hidden !important;
+  box-shadow: var(--shadow-sm) !important;
+  transition: transform 0.2s, box-shadow 0.2s !important;
+  background: var(--bg-card) !important;
+}
+.berita-card:hover {
+  transform: translateY(-4px) !important;
+  box-shadow: var(--shadow-md) !important;
+}
+.berita-card .card-img-top {
+  height: 180px;
+  object-fit: cover;
+  transition: transform 0.3s;
+}
+.berita-card:hover .card-img-top {
+  transform: scale(1.04);
+}
+.berita-card .badge-kategori {
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  background: var(--accent);
+  color: var(--text-on-accent);
+  padding: 3px 10px;
+  border-radius: 30px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.berita-card .card-title {
+  font-family: var(--font-heading);
+  font-size: var(--text-base);
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.35;
+  margin: 10px 0 6px;
+}
+.berita-card .card-text {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+.berita-card .btn-baca {
+  font-family: var(--font-heading);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-forest);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: color 0.2s, gap 0.2s;
+}
+.berita-card .btn-baca:hover {
+  color: var(--accent-orange);
+  gap: 8px;
+}
+
+.produk-card {
+  border: none !important;
+  border-radius: var(--radius-md) !important;
+  overflow: hidden !important;
+  box-shadow: var(--shadow-sm) !important;
+  transition: transform 0.2s, box-shadow 0.2s !important;
+}
+.produk-card:hover {
+  transform: translateY(-4px) !important;
+  box-shadow: var(--shadow-md) !important;
+}
+.produk-card .harga {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  color: var(--color-forest);
+  letter-spacing: 0.02em;
+}
+.produk-card .stok-badge {
+  font-size: var(--text-xs);
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 30px;
+}
+.produk-card .stok-badge.tersedia {
+  background: #edfaed;
+  color: #1a7a1a;
+}
+.produk-card .stok-badge.habis {
+  background: #feeeee;
+  color: var(--color-tomato);
+}
+
+.quick-btn {
+  background: #fff !important;
+  border: 2px solid var(--border-color) !important;
+  border-radius: var(--radius-md) !important;
+  color: var(--text-primary) !important;
+  font-family: var(--font-heading) !important;
+  font-weight: 700 !important;
+  font-size: var(--text-sm) !important;
+  transition: border-color 0.2s, background 0.2s, transform 0.15s !important;
+  text-decoration: none !important;
+}
+.quick-btn:hover {
+  border-color: var(--accent) !important;
+  background: var(--accent) !important;
+  color: var(--text-on-accent) !important;
+  transform: translateY(-2px) !important;
+}
+.quick-btn [data-lucide] {
+  color: var(--color-forest);
+  transition: color 0.2s;
+}
+.quick-btn:hover [data-lucide] {
+  color: var(--text-on-accent);
+}
+
+/* Page Hero */
+.page-hero {
+  background: linear-gradient(
+    135deg,
+    var(--color-forest) 0%,
+    var(--primary-dark) 100%
+  ) !important;
+  position: relative;
+  overflow: hidden;
+}
+.page-hero-title {
+  font-family: var(--font-display) !important;
+  font-size: var(--text-4xl) !important;
+  letter-spacing: 0.04em !important;
+  color: #fff !important;
+}
+
+/* HOVER LIFT & GENERAL BUTTON HOVER RESPONSIVENESS */
+.hover-lift {
+  transition: transform 0.25s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.25s cubic-bezier(0.165, 0.84, 0.44, 1), filter 0.25s ease !important;
+}
+.hover-lift:hover {
+  transform: translateY(-4px) !important;
+  box-shadow: 0 8px 24px rgba(26, 92, 56, 0.2) !important;
+  filter: brightness(0.92) contrast(1.05) !important;
+}
+.hover-lift:active {
+  transform: translateY(-1px) !important;
+  box-shadow: 0 4px 10px rgba(26, 92, 56, 0.1) !important;
+}
+
+/* Ensure all standard buttons have a transition and visual reaction on hover */
+.btn {
+  transition: all 0.25s cubic-bezier(0.165, 0.84, 0.44, 1) !important;
+}
+.btn:hover {
+  filter: brightness(0.9) contrast(1.05) !important;
+  transform: translateY(-1.5px);
+}
+.btn:active {
+  transform: translateY(0);
+}
+
+/* OUTLINE FOREST RESPONSIVE BUTTON */
+.btn-outline-forest {
+  border: 2px solid var(--color-forest) !important;
+  color: var(--color-forest) !important;
+  background: transparent !important;
+  transition: all 0.25s cubic-bezier(0.165, 0.84, 0.44, 1) !important;
+}
+.btn-outline-forest:hover {
+  background: var(--color-forest) !important;
+  color: #ffffff !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(26, 92, 56, 0.15) !important;
+}
+.btn-outline-forest:active {
+  transform: translateY(0);
+}
+
+/* CARD HOVER BACA AND KATEGORI HOVER EFFECTS */
+.btn-baca-custom {
+  transition: all 0.25s ease !important;
+}
+.berita-card:hover .btn-baca-custom,
+.btn-baca-custom:hover {
+  background-color: var(--color-forest) !important;
+  color: #ffffff !important;
+  border-color: var(--color-forest) !important;
+}
+
+.tag-kategori-custom {
+  transition: all 0.25s ease !important;
+}
+.card-hover:hover .tag-kategori-custom,
+.tag-kategori-custom:hover {
+  background-color: var(--color-forest) !important;
+  color: #ffffff !important;
+}
+

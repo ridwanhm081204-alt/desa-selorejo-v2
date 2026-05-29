@@ -38,25 +38,25 @@
     </div>
 
     <!-- Timeline Visual Sejarah -->
-    <div class="mt-5 pt-4 border-top border-success border-opacity-10">
+    <div class="mt-5 pt-4 border-top border-opacity-10" style="border-top-color: var(--color-forest) !important;">
         <div class="text-center mb-5">
-            <span class="badge bg-warning text-dark px-3 py-2 rounded-pill mb-2 border border-warning shadow-sm">Jejak Waktu Sejarah</span>
-            <h3 class="fw-bold text-primary-custom text-dark">Lini Masa Perkembangan</h3>
+            <span class="badge px-3 py-2 rounded-pill mb-2 border shadow-sm" style="background-color: var(--accent) !important; border-color: var(--accent) !important; color: var(--text-on-accent) !important; font-family: var(--font-body);">Jejak Waktu Sejarah</span>
+            <h3 class="fw-bold text-dark" style="font-family: var(--font-heading);">Lini Masa Perkembangan</h3>
         </div>
         
         <div class="row position-relative ps-4 ps-md-0">
             <div class="col-md-10 mx-auto">
                 @php $timelines = $profile->sejarah_timeline ?? []; @endphp
                 @foreach($timelines as $index => $item)
-                <div class="position-relative pb-4 ps-4 border-start border-2 border-success timeline-item {{ $index > 0 ? 'mt-4' : '' }} {{ $loop->last ? 'border-bottom-0' : '' }}" 
-                     @if($loop->last) style="border-image: linear-gradient(to bottom, var(--primary) 0%, transparent 100%) 1;" @endif>
+                <div class="position-relative pb-4 ps-4 border-start border-2 timeline-item {{ $index > 0 ? 'mt-4' : '' }} {{ $loop->last ? 'border-bottom-0' : '' }}" 
+                     style="border-left-color: var(--color-forest) !important; @if($loop->last) border-image: linear-gradient(to bottom, var(--color-forest) 0%, transparent 100%) 1; @endif">
                     
-                    <div class="position-absolute {{ $loop->last ? 'bg-warning' : 'bg-success' }} rounded-circle shadow" 
-                         style="width: 16px; height: 16px; left: -9px; top: 0; {{$loop->last ? 'outline: 3px solid white;' : ''}}"></div>
+                    <div class="position-absolute rounded-circle shadow" 
+                         style="width: 16px; height: 16px; left: -9px; top: 0; background-color: {{ $loop->last ? 'var(--accent)' : 'var(--color-forest)' }} !important; {{$loop->last ? 'outline: 3px solid white;' : ''}}"></div>
                     
-                    <h5 class="fw-bold text-success mb-1">{{ $item['year'] }}</h5>
-                    <p class="text-muted small mb-2"><i data-lucide="{{ $item['icon'] ?? 'tag' }}" class="icon-sm me-1"></i> {{ $item['title'] }}</p>
-                    <p class="text-dark">{{ $item['desc'] }}</p>
+                    <h5 class="fw-bold mb-1" style="color: var(--color-forest) !important; font-family: var(--font-heading);">{{ $item['year'] }}</h5>
+                    <p class="text-muted small mb-2" style="font-family: var(--font-body);"><i data-lucide="{{ $item['icon'] ?? 'tag' }}" class="icon-sm me-1"></i> {{ $item['title'] }}</p>
+                    <p class="text-dark" style="font-family: var(--font-body);">{{ $item['desc'] }}</p>
                 </div>
                 @endforeach
             </div>

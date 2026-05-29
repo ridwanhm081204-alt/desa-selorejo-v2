@@ -1,59 +1,70 @@
-<footer class="mt-5" style="background-color: #1b4332; color: #fff;">
+<footer class="mt-5" style="background: var(--color-forest); color: #fff; padding: 48px 0 0 0;">
     <div class="container py-5">
         <div class="row g-4">
             <!-- Kolom 1 -->
             <div class="col-md-3">
                 <div class="d-flex align-items-center mb-4">
-                    <img src="{{ asset('images/logo_desa.png') }}" alt="Logo Selorejo" class="me-3 shadow-sm" style="width: 45px; height: 45px; object-fit: contain;">
+                    <img src="{{ asset('images/logo_desa.png') }}" alt="Logo Selorejo" class="me-3 shadow-sm" style="background: var(--color-white); border-radius: var(--radius-sm); padding: 5px; width: 45px; height: 45px; object-fit: contain;">
                     <div>
-                        <strong class="d-block text-white" style="font-size: 1.05rem;">Pemerintah Desa Selorejo</strong>
-                        <small class="text-white d-block" style="font-size: 0.75rem; opacity: 0.9;">Kec. Dau, Kab. Malang, Prov. Jawa Timur</small>
+                        <strong class="d-block text-white" style="font-family: var(--font-display); font-size: 1.1rem; letter-spacing: 0.04em; color: var(--accent);">Pemerintah Desa Selorejo</strong>
+                        <small class="d-block" style="font-family: var(--font-body); font-size: var(--text-xs); color: rgba(255,255,255,0.85);">Kec. Dau, Kab. Malang, Prov. Jawa Timur</small>
                     </div>
                 </div>
-                <p class="small text-white d-flex align-items-start gap-2 mt-2">
+                <p style="font-family: var(--font-body); font-size: var(--text-sm); color: rgba(255,255,255,0.85); line-height: 1.8;" class="d-flex align-items-start gap-2 mt-2">
                     <i data-lucide="map-pin" class="mt-1" style="width:16px; min-width:16px;"></i> 
                     <span>{{\App\Models\Setting::get('alamat', '')}}</span>
                 </p>
-                <p class="small text-white mb-2">
-                    <a href="tel:{{\App\Models\Setting::get('telepon', '')}}" class="text-white text-decoration-none hover-accent d-flex align-items-center gap-2">
+                <p style="font-family: var(--font-body); font-size: var(--text-sm); color: rgba(255,255,255,0.85); line-height: 1.8;" class="mb-2">
+                    <a href="tel:{{\App\Models\Setting::get('telepon', '')}}" class="footer-link d-flex align-items-center gap-2">
                         <i data-lucide="phone" style="width:16px;"></i> {{\App\Models\Setting::get('telepon', '')}}
                     </a>
                 </p>
-                <p class="small text-white mb-2">
-                    <a href="mailto:{{\App\Models\Setting::get('email', '')}}" class="text-white text-decoration-none hover-accent d-flex align-items-center gap-2">
+                <p style="font-family: var(--font-body); font-size: var(--text-sm); color: rgba(255,255,255,0.85); line-height: 1.8;" class="mb-2">
+                    <a href="mailto:{{\App\Models\Setting::get('email', '')}}" class="footer-link d-flex align-items-center gap-2">
                         <i data-lucide="mail" style="width:16px;"></i> {{\App\Models\Setting::get('email', '')}}
                     </a>
                 </p>
-                <p class="small text-white mb-2">
-                    <a href="https://wa.me/{{\App\Models\Setting::get('whatsapp', '')}}" target="_blank" class="text-white text-decoration-none hover-accent d-flex align-items-center gap-2">
+                <p style="font-family: var(--font-body); font-size: var(--text-sm); color: rgba(255,255,255,0.85); line-height: 1.8;" class="mb-2">
+                    <a href="https://wa.me/{{\App\Models\Setting::get('whatsapp', '')}}" target="_blank" class="footer-link d-flex align-items-center gap-2">
                         <i data-lucide="message-circle" style="width:16px;"></i> WhatsApp: {{\App\Models\Setting::get('whatsapp', '')}}
                     </a>
                 </p>
+                <div class="mt-4">
+                    <a href="#" class="footer-social-icon">
+                        <i data-lucide="facebook" style="width:16px;"></i>
+                    </a>
+                    <a href="#" class="footer-social-icon">
+                        <i data-lucide="instagram" style="width:16px;"></i>
+                    </a>
+                    <a href="#" class="footer-social-icon">
+                        <i data-lucide="youtube" style="width:16px;"></i>
+                    </a>
+                </div>
             </div>
             
             <!-- Kolom 2 -->
             <div class="col-md-3">
-                <h5 class="mb-3 border-bottom pb-2 d-flex align-items-center gap-2">
+                <h5 class="mb-3 d-flex align-items-center gap-2" style="font-family: var(--font-display); font-size: 1.1rem; letter-spacing: 0.05em; color: var(--accent); margin-bottom: 16px; padding-bottom: 8px; border-bottom: 2px solid rgba(245,197,24,0.3);">
                     <i data-lucide="link" style="width:18px;"></i> Tautan Penting
                 </h5>
                 <ul class="list-unstyled small">
                     @foreach(\App\Models\TautanTerkait::all() as $tautan)
                     <li class="mb-2">
-                        <a href="{{ $tautan->url }}" class="text-white text-decoration-none hover-accent d-flex align-items-center gap-2" target="_blank">
+                        <a href="{{ $tautan->url }}" class="footer-link d-flex align-items-center gap-2" target="_blank">
                             <i data-lucide="chevron-right" style="width:14px;"></i> {{ $tautan->nama }}
                         </a>
                     </li>
                     @endforeach
                     @if(\App\Models\TautanTerkait::count() == 0)
-                    <li class="mb-2"><a href="#" class="text-white text-decoration-none hover-accent d-flex align-items-center gap-2"><i data-lucide="chevron-right" style="width:14px;"></i> Pemerintah Kabupaten Malang</a></li>
-                    <li class="mb-2"><a href="#" class="text-white text-decoration-none hover-accent d-flex align-items-center gap-2"><i data-lucide="chevron-right" style="width:14px;"></i> Kementerian Desa PDTT</a></li>
+                    <li class="mb-2"><a href="#" class="footer-link d-flex align-items-center gap-2"><i data-lucide="chevron-right" style="width:14px;"></i> Pemerintah Kabupaten Malang</a></li>
+                    <li class="mb-2"><a href="#" class="footer-link d-flex align-items-center gap-2"><i data-lucide="chevron-right" style="width:14px;"></i> Kementerian Desa PDTT</a></li>
                     @endif
                 </ul>
             </div>
             
             <!-- Kolom 3 -->
             <div class="col-md-3">
-                <h5 class="mb-3 border-bottom pb-2 d-flex align-items-center gap-2">
+                <h5 class="mb-3 d-flex align-items-center gap-2" style="font-family: var(--font-display); font-size: 1.1rem; letter-spacing: 0.05em; color: var(--accent); margin-bottom: 16px; padding-bottom: 8px; border-bottom: 2px solid rgba(245,197,24,0.3);">
                     <i data-lucide="map" style="width:18px;"></i> Lokasi Kami
                 </h5>
                 <div class="rounded overflow-hidden shadow-sm border border-white border-opacity-10">
@@ -70,10 +81,10 @@
             
             <!-- Kolom 4 -->
             <div class="col-md-3">
-                <h5 class="mb-3 border-bottom pb-2 d-flex align-items-center gap-2">
+                <h5 class="mb-3 d-flex align-items-center gap-2" style="font-family: var(--font-display); font-size: 1.1rem; letter-spacing: 0.05em; color: var(--accent); margin-bottom: 16px; padding-bottom: 8px; border-bottom: 2px solid rgba(245,197,24,0.3);">
                     <i data-lucide="info" style="width:18px;"></i> Tentang Website
                 </h5>
-                <p class="small text-white" style="line-height: 1.6; opacity: 0.9;">Website resmi {{\App\Models\Setting::get('nama_desa', 'Desa Selorejo')}} dikelola oleh Pemerintah Desa untuk mewujudkan transparansi publik dan mempromosikan potensi agrowisata petik jeruk ke khalayak luas secara digital.</p>
+                <p style="font-family: var(--font-body); font-size: var(--text-sm); color: rgba(255,255,255,0.85); line-height: 1.8;" class="mb-3">Website resmi {{\App\Models\Setting::get('nama_desa', 'Desa Selorejo')}} dikelola oleh Pemerintah Desa untuk mewujudkan transparansi publik dan mempromosikan potensi agrowisata petik jeruk ke khalayak luas secara digital.</p>
                 
                 <div class="mt-4">
                     <a href="{{ url('/login') }}" class="btn btn-outline-light btn-sm rounded-pill d-inline-flex align-items-center hover-accent">
@@ -84,7 +95,7 @@
         </div>
     </div>
     
-    <div class="py-3 text-center" style="background-color: #081c15; border-top: 1px solid rgba(255,255,255,0.1);">
-        <small class="text-white">Copyright &copy; {{ date('Y') }} Pemerintah {{\App\Models\Setting::get('nama_desa', 'Desa Selorejo')}}. All Rights Reserved.</small>
+    <div class="py-3 text-center" style="background: var(--primary-dark); padding: 12px 0; margin-top: 40px; border-top: 1px solid rgba(255,255,255,0.1);">
+        <small style="font-family: var(--font-body); font-size: var(--text-xs); color: rgba(255,255,255,0.6); text-align: center;">Copyright &copy; {{ date('Y') }} Pemerintah {{\App\Models\Setting::get('nama_desa', 'Desa Selorejo')}}. All Rights Reserved.</small>
     </div>
 </footer>
