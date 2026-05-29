@@ -67,13 +67,16 @@
     <div class="row g-4">
         @forelse($galeri as $g)
         <div class="col-md-6 col-lg-4 mb-4">
-            <div class="glass-card card-hover h-100 bg-white border shadow-sm rounded-4 overflow-hidden d-flex flex-column position-relative @if($g->tipe == 'foto') lightbox-trigger @endif"
-                 style="border-color: var(--color-forest)1a !important; @if($g->tipe == 'foto') cursor: pointer; @endif"
+            <div class="glass-card card-hover h-100 bg-white border shadow-sm rounded-4 overflow-hidden d-flex flex-column position-relative {{ $g->tipe == 'foto' ? 'lightbox-trigger' : 'video-trigger' }}"
+                 style="border-color: var(--color-forest)1a !important; cursor: pointer;"
                  @if($g->tipe == 'foto')
                     data-src="{{ $g->gambar_url }}"
                     data-caption="{{ $g->caption }}"
                     data-category="{{ $g->kategori }}"
                     data-date="{{ $g->tanggal ? $g->tanggal->translatedFormat('l, d F Y') : '-' }}"
+                 @else
+                    data-video-url="{{ $g->url }}"
+                    data-caption="{{ $g->caption }}"
                  @endif>
                 
                 <div class="overflow-hidden" style="height: 250px;">
@@ -88,7 +91,7 @@
                                 @php 
                                     preg_match('/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/i', $g->url, $match);
                                     $ytId = $match[1] ?? '';
-                                </php>
+                                @endphp
                                 <img src="https://img.youtube.com/vi/{{ $ytId }}/hqdefault.jpg" class="w-100 h-100 object-fit-cover opacity-50">
                                 <i data-lucide="play-circle" class="position-absolute text-white" style="width: 60px; height: 60px;"></i>
                             @else
@@ -98,14 +101,11 @@
                         <div class="position-absolute top-0 start-0 m-3">
                             <span class="badge px-3 py-2 rounded-pill fw-bold shadow-sm" style="background-color: var(--color-tomato) !important; color: #fff !important; font-family: var(--font-body); border: none;"><i data-lucide="video" class="icon-xs me-1"></i> VIDEO</span>
                         </div>
-                        @if($g->tipe == 'video')
-                            <a href="{{ $g->url }}" target="_blank" class="stretched-link"></a>
-                        @endif
                     @endif
                 </div>
 
                 <div class="card-body p-4 text-center">
-                    <span class="badge mb-3 d-inline-block px-3 py-1 rounded-pill tag-kategori-custom" style="background-color: rgba(26, 92, 56, 0.1) !important; color: var(--color-forest) !important; font-family: var(--font-body);">{{ $g->kategori ?? 'Umum' }}</span>
+                    <span class="badge mb-3 d-inline-block px-3 py-1 rounded-pill tag-kategori-custom" style="font-family: var(--font-body);">{{ $g->kategori ?? 'Umum' }}</span>
                     <h6 class="fw-bold text-dark mb-2 lh-sm" style="font-family: var(--font-heading);">{{ $g->caption ?? 'Dokumentasi Desa' }}</h6>
                     <small class="text-muted" style="font-family: var(--font-body);"><i data-lucide="calendar" class="icon-xs me-1"></i>{{ $g->tanggal ? $g->tanggal->translatedFormat('d M Y') : '-' }}</small>
                 </div>

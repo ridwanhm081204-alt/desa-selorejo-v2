@@ -72,7 +72,7 @@
                         <div class="rounded-circle text-white d-flex align-items-center justify-content-center me-2" style="width:30px; height:30px; background-color: var(--color-forest) !important;"><i data-lucide="user" class="icon-sm"></i></div>
                         <small class="text-muted fw-bold">Admin</small>
                     </div>
-                    <span class="text-decoration-none fw-bold small d-inline-flex align-items-center px-3 py-1 rounded-pill btn-baca-custom" style="color: var(--color-forest) !important; font-family: var(--font-heading);">Baca <i data-lucide="arrow-right" class="icon-sm ms-1"></i></span>
+                    <span class="text-decoration-none fw-bold small d-inline-flex align-items-center px-3 py-1 rounded-pill btn-baca-custom" style="font-family: var(--font-heading);">Baca <i data-lucide="arrow-right" class="icon-sm ms-1"></i></span>
                 </div>
             </div>
         </div>
