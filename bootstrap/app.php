@@ -19,6 +19,14 @@ return Application::configure(basePath: dirname(__DIR__))
             'admin'    => \App\Http\Middleware\IsAdmin::class,
             'role'     => \App\Http\Middleware\RoleMiddleware::class,
         ]);
+
+        // Jika user sudah login dan mengakses halaman guest (/login), arahkan langsung ke dashboard yang sesuai
+        $middleware->redirectUsersTo(function () {
+            if (auth()->user()?->role === 'admin') {
+                return '/admin/dashboard';
+            }
+            return '/operator/dashboard';
+        });
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
