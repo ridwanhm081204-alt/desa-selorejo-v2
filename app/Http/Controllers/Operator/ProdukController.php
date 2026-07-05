@@ -98,6 +98,9 @@ class ProdukController extends Controller
             'gambar' => 'nullable|image|max:2048'
         ]);
         if($request->hasFile('gambar')) {
+            if ($produk->gambar) {
+                Storage::disk('public')->delete($produk->gambar);
+            }
             $data['gambar'] = $request->file('gambar')->store('produk', 'public');
         }
         $produk->update($data);

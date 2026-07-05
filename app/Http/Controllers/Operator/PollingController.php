@@ -63,6 +63,18 @@ class PollingController extends Controller
         \App\Models\ActivityLog::create(['user_id' => auth()->id(), 'action' => 'Update Data Polling']);
         return redirect('/operator/polling')->with('success', 'Polling berhasil diperbarui!');
     }
+    public function hasil($id) {
+        $polling = \App\Models\Polling::findOrFail($id);
+        // Load votes grouped by pilihan
+        $votes = \App\Models\PollingVote::where('polling_id', $id)
+            ->selectRaw('pilihan, COUNT(*) as total')
+            ->groupBy('pilihan')
+            ->get()
+            ->pluck('total', 'pilihan');
+        $totalVotes = $votes->sum();
+        return view('operator.polling.hasil', compact('polling', 'votes', 'totalVotes'));
+    }
+
     public function destroy($id) {
         $polling = \App\Models\Polling::findOrFail($id);
         $polling->delete();

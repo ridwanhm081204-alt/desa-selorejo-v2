@@ -57,6 +57,9 @@ class LembagaController extends Controller
             'foto' => 'nullable|image|mimes:jpg,jpeg,png,svg|max:2048'
         ]);
         if ($request->hasFile('foto')) {
+            if ($lembaga->foto) {
+                Storage::disk('public')->delete($lembaga->foto);
+            }
             $validated['foto'] = $request->file('foto')->store('lembaga', 'public');
         }
         $lembaga->update($validated);

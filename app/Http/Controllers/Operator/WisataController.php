@@ -94,6 +94,9 @@ class WisataController extends Controller
         ]);
 
         if ($request->hasFile('gambar')) {
+            if ($wisata->gambar) {
+                Storage::disk('public')->delete($wisata->gambar);
+            }
             $data['gambar'] = $request->file('gambar')->store('wisata', 'public');
         }
 

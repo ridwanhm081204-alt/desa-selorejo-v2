@@ -59,6 +59,9 @@ class StrukturController extends Controller
         ]);
 
         if ($request->hasFile('foto')) {
+            if ($struktur->foto) {
+                Storage::disk('public')->delete($struktur->foto);
+            }
             $validated['foto'] = $request->file('foto')->store('aparat', 'public');
         }
 

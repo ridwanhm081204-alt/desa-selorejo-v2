@@ -27,7 +27,7 @@ class LoginController extends Controller
     {
         $request->validate([
             'email'    => 'required|email',
-            'password' => 'required|string|min:8',
+            'password' => 'required|string',
         ]);
 
         // Throttle: cegah brute-force attack

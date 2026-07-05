@@ -90,12 +90,20 @@ class GaleriController extends Controller
         if ($data['tipe'] == 'foto') {
             if($request->hasFile('file_foto')) {
                 $request->validate(['file_foto' => 'image|max:2048']);
+                // Hapus foto lama jika ada
+                if ($galeri->tipe === 'foto' && $galeri->url) {
+                    Storage::disk('public')->delete($galeri->url);
+                }
                 $data['url'] = $request->file('file_foto')->store('galeri', 'public');
             } else {
                 $data['url'] = $galeri->url;
             }
         } else {
             $request->validate(['url_video' => 'required|url']);
+            // Tipe berubah dari foto ke video: hapus file foto lama
+            if ($galeri->tipe === 'foto' && $galeri->url) {
+                Storage::disk('public')->delete($galeri->url);
+            }
             $data['url'] = $request->url_video;
         }
 

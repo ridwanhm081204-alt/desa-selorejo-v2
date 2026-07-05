@@ -95,6 +95,10 @@ class BeritaController extends Controller
         ]);
         $data['slug'] = \Illuminate\Support\Str::slug($data['judul']);
         if($request->hasFile('gambar')) {
+            // Hapus gambar lama dari storage
+            if ($berita->gambar) {
+                Storage::disk('public')->delete($berita->gambar);
+            }
             $data['gambar'] = $request->file('gambar')->store('berita', 'public');
         }
         $berita->update($data);

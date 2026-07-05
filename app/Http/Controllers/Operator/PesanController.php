@@ -48,4 +48,10 @@ class PesanController extends Controller
         }
         return view('operator.pesan.show', compact('pesan'));
     }
+
+    public function baca($id) {
+        $pesan = \App\Models\KontakMessage::findOrFail($id);
+        $pesan->update(['status_baca' => 'sudah']);
+        return response()->json(['success' => true, 'message' => 'Pesan ditandai sudah dibaca.']);
+    }
 }

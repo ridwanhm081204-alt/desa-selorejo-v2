@@ -54,6 +54,9 @@ class BpdController extends Controller
             'foto' => 'nullable|image|mimes:jpg,jpeg,png,svg|max:2048'
         ]);
         if ($request->hasFile('foto')) {
+            if ($bpd->foto) {
+                Storage::disk('public')->delete($bpd->foto);
+            }
             $validated['foto'] = $request->file('foto')->store('aparat', 'public');
         }
         $bpd->update($validated);

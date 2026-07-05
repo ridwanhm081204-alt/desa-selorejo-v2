@@ -61,6 +61,9 @@ class ApbdesController extends Controller
             'dokumen_pdf' => 'nullable|file|mimes:pdf|max:5120'
         ]);
         if($request->hasFile('dokumen_pdf')) {
+            if ($apbdes->dokumen_pdf) {
+                Storage::disk('public')->delete($apbdes->dokumen_pdf);
+            }
             $data['dokumen_pdf'] = $request->file('dokumen_pdf')->store('apbdes', 'public');
         }
         $apbdes->update($data);
