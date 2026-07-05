@@ -24,9 +24,18 @@ class OperatorController extends Controller
         
         $data['role'] = 'operator';
         $data['password'] = \Illuminate\Support\Facades\Hash::make($data['password']);
-        \App\Models\User::create($data);
-        
-        \App\Models\ActivityLog::create(['user_id' => auth()->id(), 'action' => 'Menambahkan Akun Operator: '.$data['name']]);
+
+        // Set role secara eksplisit (bukan via fillable) — keamanan mass assignment
+        $user = new \App\Models\User($data);
+        $user->role = 'operator';
+        $user->save();
+
+        \App\Models\ActivityLog::create([
+            'user_id'    => auth()->id(),
+            'action'     => 'Menambahkan Akun Operator: ' . $data['name'],
+            'ip_address' => request()->ip(),
+            'user_agent' => request()->userAgent(),
+        ]);
         return redirect('/admin/operator')->with('success', 'Akun operator berhasil dibuat!');
     }
 
@@ -49,7 +58,12 @@ class OperatorController extends Controller
         }
         
         $operator->update($data);
-        \App\Models\ActivityLog::create(['user_id' => auth()->id(), 'action' => 'Update Akun Operator: '.$data['name']]);
+        \App\Models\ActivityLog::create([
+            'user_id'    => auth()->id(),
+            'action'     => 'Update Akun Operator: ' . $data['name'],
+            'ip_address' => request()->ip(),
+            'user_agent' => request()->userAgent(),
+        ]);
         return redirect('/admin/operator')->with('success', 'Akun operator berhasil diupdate!');
     }
 
@@ -57,7 +71,12 @@ class OperatorController extends Controller
         $operator = \App\Models\User::findOrFail($id);
         if ($operator->id == auth()->id()) abort(403, 'Aksi dilarang.');
         $operator->delete();
-        \App\Models\ActivityLog::create(['user_id' => auth()->id(), 'action' => 'Menghapus Akun Operator']);
+        \App\Models\ActivityLog::create([
+            'user_id'    => auth()->id(),
+            'action'     => 'Menghapus Akun Operator',
+            'ip_address' => request()->ip(),
+            'user_agent' => request()->userAgent(),
+        ]);
         return back()->with('success', 'Akun operator dihapus!');
     }
 }

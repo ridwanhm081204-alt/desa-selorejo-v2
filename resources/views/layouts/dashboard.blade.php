@@ -5,8 +5,7 @@
     <meta name="viewport" content="width=1280">
     <title>@yield('title', 'Dashboard') - {{\App\Models\Setting::get('nama_desa', 'Kemendes')}}</title>
     
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Google Fonts loaded by custom CSS: Bebas Neue + Open Sans -->
     
     <!-- Bootstrap 5 CSS CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -23,7 +22,7 @@
             --primary-light: #52b788;
             --bg-light: #f0f7f4;
         }
-        body { background-color: var(--bg-light); font-family: 'Inter', sans-serif; color: #333; }
+        body { background-color: var(--bg-light); font-family: var(--font-body), sans-serif; color: #333; }
         .content-area { margin-left: 260px; padding: 30px; width: calc(100% - 260px); min-height: 100vh; transition: all 0.3s ease; }
         
         /* Premium Dashboard Components */

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Operator;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\StrukturOrganisasi;
+use Illuminate\Support\Facades\Storage;
 
 class StrukturController extends Controller
 {
@@ -68,6 +69,11 @@ class StrukturController extends Controller
 
     public function destroy($id) {
         $struktur = StrukturOrganisasi::findOrFail($id);
+        
+        if ($struktur->foto) {
+            Storage::disk('public')->delete($struktur->foto);
+        }
+
         $struktur->delete();
         \App\Models\ActivityLog::create(['user_id' => auth()->id(), 'action' => 'Hapus Aparat']);
         return back()->with('success', 'Data dihapus!');

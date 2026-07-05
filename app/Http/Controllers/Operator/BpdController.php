@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Operator;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Bpd;
+use Illuminate\Support\Facades\Storage;
 
 class BpdController extends Controller
 {
@@ -62,7 +63,13 @@ class BpdController extends Controller
 
     public function destroy($id) {
         $bpd = Bpd::findOrFail($id);
+        
+        if ($bpd->foto) {
+            Storage::disk('public')->delete($bpd->foto);
+        }
+
         $bpd->delete();
+        \App\Models\ActivityLog::create(['user_id' => auth()->id(), 'action' => 'Hapus Anggota BPD']);
         return back()->with('success', 'Data dihapus!');
     }
 }

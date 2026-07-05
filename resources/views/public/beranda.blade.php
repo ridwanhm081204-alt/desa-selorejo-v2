@@ -17,14 +17,14 @@
     <div class="hero-overlay" style="background: linear-gradient(to top, rgba(26,92,56,0.85) 0%, rgba(26,92,56,0.30) 70%, transparent 100%);"></div>
 
     <div class="container position-relative z-1">
-        <div class="row align-items-center">
-            <div class="col-lg-6 text-white pe-lg-5">
-                <span class="badge bg-white mb-3 px-3 py-2 rounded-pill fw-bold shadow-sm" style="color: var(--color-forest) !important; font-family: var(--font-body); font-size: var(--text-xs);">Sugeng Rawuh</span>
-                <h1 class="display-4 mb-3 lh-sm" style="text-shadow: 0 2px 15px rgba(0,0,0,0.7), 0 4px 30px rgba(0,0,0,0.5); font-family: var(--font-display); color: #fff;">Desa Wisata<br><span style="color: var(--color-sunshine); text-shadow: 0 2px 15px rgba(0,0,0,0.7), 0 4px 30px rgba(0,0,0,0.5);">Petik Jeruk</span> Selorejo</h1>
-                <p class="lead mb-4 fw-medium text-white" style="font-family: var(--font-body); text-shadow: 0 2px 10px rgba(0,0,0,0.8), 0 1px 4px rgba(0,0,0,0.8);">Kecamatan Dau, Kabupaten Malang, Provinsi Jawa Timur</p>
-                <div class="d-flex flex-wrap gap-3">
-                    <a href="{{ url('/wisata') }}" class="btn px-4 py-2 shadow" style="background: var(--accent); color: var(--text-on-accent); font-family: var(--font-heading); font-weight: 700; border-radius: var(--radius-sm); border: none;">Jelajahi Wisata</a>
-                    <a href="{{ url('/profil/sejarah') }}" class="btn btn-outline-light px-4 py-2 shadow-sm fw-bold" style="font-family: var(--font-heading); border-radius: var(--radius-sm);">Profil Desa</a>
+        <div class="row justify-content-center text-center">
+            <div class="col-lg-10 col-xl-9 text-white">
+                <span class="badge bg-white mb-4 px-4 py-2 rounded-pill fw-bold shadow-sm" style="color: var(--color-forest) !important; font-family: var(--font-body); font-size: var(--text-sm); letter-spacing: 1px;">SUGENG RAWUH</span>
+                <h1 class="display-3 mb-4 lh-sm fw-bold" style="text-shadow: 0 2px 15px rgba(0,0,0,0.7), 0 4px 30px rgba(0,0,0,0.5); font-family: var(--font-display); color: #fff; font-size: 3.8rem;">Desa Wisata <span style="color: var(--color-sunshine); text-shadow: 0 2px 15px rgba(0,0,0,0.7), 0 4px 30px rgba(0,0,0,0.5);">Petik Jeruk</span> Selorejo</h1>
+                <p class="lead mb-5 fw-medium text-white" style="font-family: var(--font-body); font-size: 1.35rem; text-shadow: 0 2px 12px rgba(0,0,0,0.8), 0 1px 5px rgba(0,0,0,0.8);">Kecamatan Dau, Kabupaten Malang, Provinsi Jawa Timur</p>
+                <div class="d-flex justify-content-center flex-wrap gap-3">
+                    <a href="{{ url('/wisata') }}" class="btn px-5 py-3 shadow hover-lift" style="background: var(--accent); color: var(--text-on-accent); font-family: var(--font-heading); font-weight: 700; font-size: 1.1rem; border-radius: var(--radius-md); border: none;">Jelajahi Wisata</a>
+                    <a href="{{ url('/profil/sejarah') }}" class="btn btn-outline-light px-5 py-3 shadow-sm fw-bold hover-lift" style="font-family: var(--font-heading); font-size: 1.1rem; border-radius: var(--radius-md);">Profil Desa</a>
                 </div>
             </div>
         </div>

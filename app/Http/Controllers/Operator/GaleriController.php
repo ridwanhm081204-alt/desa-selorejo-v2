@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Operator;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class GaleriController extends Controller
 {
@@ -105,8 +106,19 @@ class GaleriController extends Controller
 
     public function destroy($id) {
         $galeri = \App\Models\Galeri::findOrFail($id);
+
+        // Hapus file fisik dari storage jika ada (hanya untuk tipe foto)
+        if ($galeri->tipe === 'foto' && $galeri->url) {
+            Storage::disk('public')->delete($galeri->url);
+        }
+
         $galeri->delete();
-        \App\Models\ActivityLog::create(['user_id' => auth()->id(), 'action' => 'Hapus Galeri']);
+        \App\Models\ActivityLog::create([
+            'user_id'    => auth()->id(),
+            'action'     => 'Hapus Galeri',
+            'ip_address' => request()->ip(),
+            'user_agent' => request()->userAgent(),
+        ]);
         return redirect('/operator/galeri')->with('success', 'Berhasil menghapus item galeri.');
     }
 

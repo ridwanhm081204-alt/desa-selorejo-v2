@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Operator;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ApbdesController extends Controller
 {
@@ -68,6 +69,11 @@ class ApbdesController extends Controller
     }
     public function destroy($id) {
         $apbdes = \App\Models\Apbdes::findOrFail($id);
+        
+        if ($apbdes->dokumen_pdf) {
+            Storage::disk('public')->delete($apbdes->dokumen_pdf);
+        }
+
         $apbdes->delete();
         \App\Models\ActivityLog::create(['user_id' => auth()->id(), 'action' => 'Hapus APBDes']);
         return back()->with('success', 'Data dihapus!');

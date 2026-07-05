@@ -12,5 +12,6 @@ class KontakMessage extends Model
         'email',
         'pesan',
         'status_baca',
+        'ip_address',
     ];
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Operator;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class BeritaController extends Controller
 {
@@ -102,8 +103,19 @@ class BeritaController extends Controller
     }
     public function destroy($id) {
         $berita = \App\Models\Berita::findOrFail($id);
+
+        // Hapus file gambar fisik dari storage
+        if ($berita->gambar) {
+            Storage::disk('public')->delete($berita->gambar);
+        }
+
         $berita->delete();
-        \App\Models\ActivityLog::create(['user_id' => auth()->id(), 'action' => 'Hapus Berita']);
+        \App\Models\ActivityLog::create([
+            'user_id'    => auth()->id(),
+            'action'     => 'Hapus Berita',
+            'ip_address' => request()->ip(),
+            'user_agent' => request()->userAgent(),
+        ]);
         return redirect('/operator/berita')->with('success', 'Berita berhasil dihapus!');
     }
 }

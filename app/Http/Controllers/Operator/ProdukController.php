@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Operator;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ProdukController extends Controller
 {
@@ -105,6 +106,11 @@ class ProdukController extends Controller
     }
     public function destroy($id) {
         $produk = \App\Models\Produk::findOrFail($id);
+        
+        if ($produk->gambar) {
+            Storage::disk('public')->delete($produk->gambar);
+        }
+
         $produk->delete();
         \App\Models\ActivityLog::create(['user_id' => auth()->id(), 'action' => 'Hapus Produk']);
         return back()->with('success', 'Produk dihapus!');

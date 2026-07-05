@@ -18,10 +18,10 @@ class ProfileController extends Controller
     {
         $request->validate([
             'password_lama'    => 'required|string',
-            'password_baru'    => 'required|string|min:6|confirmed',
+            'password_baru'    => 'required|string|min:8|confirmed',
         ], [
             'password_baru.confirmed' => 'Konfirmasi password baru tidak cocok.',
-            'password_baru.min'       => 'Password baru minimal 6 karakter.',
+            'password_baru.min'       => 'Password baru minimal 8 karakter.',
         ]);
 
         $user = Auth::user();

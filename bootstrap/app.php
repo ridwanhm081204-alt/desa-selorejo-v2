@@ -11,10 +11,13 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
+        // Daftarkan Security Headers sebagai middleware global (semua request)
+        $middleware->append(\App\Http\Middleware\SecurityHeaders::class);
+
         $middleware->alias([
             'operator' => \App\Http\Middleware\IsOperator::class,
-            'admin' => \App\Http\Middleware\IsAdmin::class,
-            'role' => \App\Http\Middleware\RoleMiddleware::class,
+            'admin'    => \App\Http\Middleware\IsAdmin::class,
+            'role'     => \App\Http\Middleware\RoleMiddleware::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

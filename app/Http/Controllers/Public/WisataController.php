@@ -90,7 +90,15 @@ class WisataController extends Controller
 
     public function share($id) {
         $wisata = \App\Models\Wisata::findOrFail($id);
+        
+        $sessionKey = 'shared_wisata_' . $wisata->id;
+        if (session()->has($sessionKey)) {
+            return response()->json(['success' => true, 'shares' => $wisata->shares]);
+        }
+
         $wisata->increment('shares');
+        session()->put($sessionKey, true);
+
         return response()->json(['success' => true, 'shares' => $wisata->shares]);
     }
 }

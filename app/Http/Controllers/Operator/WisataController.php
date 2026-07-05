@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Operator;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\Storage;
+
 class WisataController extends Controller
 {
     public function index(Request $request) {
@@ -102,6 +104,11 @@ class WisataController extends Controller
 
     public function destroy($id) {
         $wisata = \App\Models\Wisata::findOrFail($id);
+        
+        if ($wisata->gambar) {
+            Storage::disk('public')->delete($wisata->gambar);
+        }
+
         $wisata->delete();
         \App\Models\ActivityLog::create(['user_id' => auth()->id(), 'action' => 'Hapus Wisata']);
         return back()->with('success', 'Wisata berhasil dihapus!');

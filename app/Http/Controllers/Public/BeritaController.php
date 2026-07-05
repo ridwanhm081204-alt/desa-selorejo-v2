@@ -85,7 +85,15 @@ class BeritaController extends Controller
 
     public function share($id) {
         $berita = \App\Models\Berita::findOrFail($id);
+        
+        $sessionKey = 'shared_berita_' . $berita->id;
+        if (session()->has($sessionKey)) {
+            return response()->json(['success' => true, 'shares' => $berita->shares]);
+        }
+
         $berita->increment('shares');
+        session()->put($sessionKey, true);
+
         return response()->json(['success' => true, 'shares' => $berita->shares]);
     }
 }

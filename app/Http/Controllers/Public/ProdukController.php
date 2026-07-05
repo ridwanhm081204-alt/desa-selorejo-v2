@@ -139,7 +139,15 @@ class ProdukController extends Controller
 
     public function share($id) {
         $produk = \App\Models\Produk::findOrFail($id);
+        
+        $sessionKey = 'shared_produk_' . $produk->id;
+        if (session()->has($sessionKey)) {
+            return response()->json(['success' => true, 'shares' => $produk->shares]);
+        }
+
         $produk->increment('shares');
+        session()->put($sessionKey, true);
+
         return response()->json(['success' => true, 'shares' => $produk->shares]);
     }
 }

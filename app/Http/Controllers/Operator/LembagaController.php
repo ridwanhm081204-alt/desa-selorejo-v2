@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Operator;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\LembagaDesa;
+use Illuminate\Support\Facades\Storage;
 
 class LembagaController extends Controller
 {
@@ -64,7 +65,13 @@ class LembagaController extends Controller
 
     public function destroy($id) {
         $lembaga = LembagaDesa::findOrFail($id);
+        
+        if ($lembaga->foto) {
+            Storage::disk('public')->delete($lembaga->foto);
+        }
+
         $lembaga->delete();
+        \App\Models\ActivityLog::create(['user_id' => auth()->id(), 'action' => 'Hapus Lembaga Desa']);
         return back()->with('success', 'Data dihapus!');
     }
 }

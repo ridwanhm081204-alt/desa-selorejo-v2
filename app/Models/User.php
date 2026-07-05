@@ -21,7 +21,9 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'role',
+        // CATATAN KEAMANAN: 'role' sengaja tidak ada di sini.
+        // Role HARUS diset secara eksplisit: $user->role = 'operator';
+        // Ini mencegah mass assignment privilege escalation attack.
     ];
 
     /**
