@@ -99,26 +99,26 @@
             
             <div class="row g-3" style="font-family: var(--font-body);">
                 <div class="col-6 col-md-3">
-                    <a href="{{ url('/operator/wisata') }}" class="dash-card p-3 rounded-4 text-center d-block text-decoration-none transition-all hover-lift bg-light border-0 h-100">
-                        <i data-lucide="map" class="mb-2" style="width:32px;height:32px; color: var(--color-forest) !important;"></i>
+                    <a href="{{ url('/operator/wisata') }}" class="dash-card quick-access-card p-4 rounded-4 text-center d-block text-decoration-none transition-all h-100">
+                        <i data-lucide="map" class="mb-3" style="width:36px;height:36px; color: var(--color-forest) !important;"></i>
                         <div class="fw-bold text-dark small">Destinasi Wisata</div>
                     </a>
                 </div>
                 <div class="col-6 col-md-3">
-                    <a href="{{ url('/operator/polling') }}" class="dash-card p-3 rounded-4 text-center d-block text-decoration-none transition-all hover-lift bg-light border-0 h-100">
-                        <i data-lucide="pie-chart" class="mb-2" style="width:32px;height:32px; color: var(--color-forest) !important;"></i>
+                    <a href="{{ url('/operator/polling') }}" class="dash-card quick-access-card p-4 rounded-4 text-center d-block text-decoration-none transition-all h-100">
+                        <i data-lucide="pie-chart" class="mb-3" style="width:36px;height:36px; color: var(--color-forest) !important;"></i>
                         <div class="fw-bold text-dark small">Jajak Pendapat</div>
                     </a>
                 </div>
                 <div class="col-6 col-md-3">
-                    <a href="{{ url('/operator/apbdes') }}" class="dash-card p-3 rounded-4 text-center d-block text-decoration-none transition-all hover-lift bg-light border-0 h-100">
-                        <i data-lucide="file-spreadsheet" class="mb-2" style="width:32px;height:32px; color: var(--color-forest) !important;"></i>
+                    <a href="{{ url('/operator/apbdes') }}" class="dash-card quick-access-card p-4 rounded-4 text-center d-block text-decoration-none transition-all h-100">
+                        <i data-lucide="file-spreadsheet" class="mb-3" style="width:36px;height:36px; color: var(--color-forest) !important;"></i>
                         <div class="fw-bold text-dark small">Transparansi Dana</div>
                     </a>
                 </div>
                 <div class="col-6 col-md-3">
-                    <a href="{{ url('/operator/settings/password') }}" class="dash-card p-3 rounded-4 text-center d-block text-decoration-none transition-all hover-lift bg-light border-0 h-100">
-                        <i data-lucide="lock" class="text-muted mb-2" style="width:32px;height:32px;"></i>
+                    <a href="{{ url('/operator/settings/password') }}" class="dash-card quick-access-card p-4 rounded-4 text-center d-block text-decoration-none transition-all h-100">
+                        <i data-lucide="lock" class="mb-3" style="width:36px;height:36px; color: var(--color-forest) !important;"></i>
                         <div class="fw-bold text-dark small">Ganti Password</div>
                     </a>
                 </div>
@@ -126,4 +126,21 @@
         </div>
     </div>
 </div>
+
+@push('styles')
+<style>
+    .quick-access-card {
+        background-color: #ffffff !important;
+        border: 1px solid rgba(45, 106, 79, 0.08) !important;
+        box-shadow: 0 4px 12px rgba(45, 106, 79, 0.04) !important;
+        transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+    }
+    .quick-access-card:hover {
+        transform: translateY(-5px) scale(1.02) !important;
+        box-shadow: 0 15px 30px rgba(45, 106, 79, 0.15) !important;
+        background-color: #ffffff !important;
+        border-color: var(--primary-light) !important;
+    }
+</style>
+@endpush
 @endsection

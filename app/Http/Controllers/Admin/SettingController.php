@@ -57,6 +57,11 @@ class SettingController extends Controller
 
     public function update(Request $request)
     {
+        $request->validate([
+            'telepon' => 'nullable|string|max:16|regex:/^\+?[0-9]{8,15}$/',
+            'whatsapp' => 'nullable|string|max:16|regex:/^\+?[0-9]{8,15}$/',
+        ]);
+
         $data = $request->except(['_token', '_method']);
 
         foreach ($data as $key => $value) {

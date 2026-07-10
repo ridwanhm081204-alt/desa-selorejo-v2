@@ -62,7 +62,7 @@ class WisataController extends Controller
             'harga_tiket' => 'nullable|numeric',
             'jadwal' => 'nullable',
             'aturan' => 'nullable',
-            'whatsapp' => 'nullable|string|max:20',
+            'whatsapp' => ['nullable', 'string', 'max:16', 'regex:/^\+?[0-9]{8,15}$/'],
             'gambar' => 'required|image|max:2048'
         ]);
 
@@ -89,7 +89,7 @@ class WisataController extends Controller
             'harga_tiket' => 'nullable|numeric',
             'jadwal' => 'nullable',
             'aturan' => 'nullable',
-            'whatsapp' => 'nullable|string|max:20',
+            'whatsapp' => ['nullable', 'string', 'max:16', 'regex:/^\+?[0-9]{8,15}$/'],
             'gambar' => 'nullable|image|max:2048'
         ]);
 

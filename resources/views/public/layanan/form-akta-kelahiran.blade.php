@@ -146,11 +146,21 @@
                                 @error('nik_ayah') <small class="text-danger mt-1 d-block">{{ $message }}</small> @enderror
                             </div>
                             <div class="col-md-6">
+                                <label class="form-label fw-bold text-muted small">NAMA LENGKAP AYAH <span class="text-danger">*</span></label>
+                                <input type="text" name="nama_ayah" class="form-control rounded-3 py-2 border-0 bg-light shadow-none" value="{{ old('nama_ayah') }}" placeholder="Masukkan nama lengkap ayah" required>
+                                @error('nama_ayah') <small class="text-danger mt-1 d-block">{{ $message }}</small> @enderror
+                            </div>
+                            <div class="col-md-6">
                                 <label class="form-label fw-bold text-muted small">NIK IBU (16 DIGIT) <span class="text-danger">*</span></label>
                                 <input type="text" name="nik_ibu" class="form-control rounded-3 py-2 border-0 bg-light shadow-none" value="{{ old('nik_ibu') }}" placeholder="Contoh: 3507xxxxxxxxxxxx" required maxlength="16">
                                 @error('nik_ibu') <small class="text-danger mt-1 d-block">{{ $message }}</small> @enderror
                             </div>
                             <div class="col-md-6">
+                                <label class="form-label fw-bold text-muted small">NAMA LENGKAP IBU <span class="text-danger">*</span></label>
+                                <input type="text" name="nama_ibu" class="form-control rounded-3 py-2 border-0 bg-light shadow-none" value="{{ old('nama_ibu') }}" placeholder="Masukkan nama lengkap ibu" required>
+                                @error('nama_ibu') <small class="text-danger mt-1 d-block">{{ $message }}</small> @enderror
+                            </div>
+                            <div class="col-md-12">
                                 <label class="form-label fw-bold text-muted small">NOMOR KARTU KELUARGA (KK) ORANG TUA <span class="text-danger">*</span></label>
                                 <input type="text" name="no_kk_orangtua" class="form-control rounded-3 py-2 border-0 bg-light shadow-none" value="{{ old('no_kk_orangtua') }}" placeholder="Contoh: 3507xxxxxxxxxxxx" required maxlength="16">
                                 @error('no_kk_orangtua') <small class="text-danger mt-1 d-block">{{ $message }}</small> @enderror

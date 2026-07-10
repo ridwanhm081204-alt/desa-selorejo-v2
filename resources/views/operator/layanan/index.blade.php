@@ -12,41 +12,55 @@
 </div>
 
 <!-- Counter Badges -->
+@php
+    $totalCount = $counts['total'] ?? 0;
+    $pctDiajukan = $totalCount > 0 ? round(($counts['diajukan'] / $totalCount) * 100) : 0;
+    $pctDiverifikasi = $totalCount > 0 ? round(($counts['diverifikasi'] / $totalCount) * 100) : 0;
+    $pctDiproses = $totalCount > 0 ? round(($counts['diproses_disdukcapil'] / $totalCount) * 100) : 0;
+    $pctSelesai = $totalCount > 0 ? round(($counts['selesai'] / $totalCount) * 100) : 0;
+    $pctDitolak = $totalCount > 0 ? round(($counts['ditolak'] / $totalCount) * 100) : 0;
+@endphp
 <div class="row g-3 mb-4 text-start" style="font-family: var(--font-body);">
     <div class="col-md-2 col-sm-4">
         <div class="card border-0 shadow-sm rounded-4 p-3 bg-white text-center border-start border-4 border-info">
             <small class="text-muted d-block fw-bold" style="font-size: 0.7rem;">TOTAL PENGAJUAN</small>
             <h3 class="fw-bold mb-0 text-dark mt-1">{{ $counts['total'] }}</h3>
+            <small class="text-muted fw-bold d-block mt-1">100%</small>
         </div>
     </div>
     <div class="col-md-2 col-sm-4">
         <div class="card border-0 shadow-sm rounded-4 p-3 bg-white text-center border-start border-4 border-primary">
             <small class="text-muted d-block fw-bold" style="font-size: 0.7rem;">DIAJUKAN (BARU)</small>
             <h3 class="fw-bold mb-0 text-primary mt-1">{{ $counts['diajukan'] }}</h3>
+            <small class="text-muted fw-bold d-block mt-1">{{ $pctDiajukan }}%</small>
         </div>
     </div>
     <div class="col-md-2 col-sm-4">
         <div class="card border-0 shadow-sm rounded-4 p-3 bg-white text-center border-start border-4 border-warning">
             <small class="text-muted d-block fw-bold" style="font-size: 0.7rem;">DIVERIFIKASI</small>
             <h3 class="fw-bold mb-0 text-warning mt-1">{{ $counts['diverifikasi'] }}</h3>
+            <small class="text-muted fw-bold d-block mt-1">{{ $pctDiverifikasi }}%</small>
         </div>
     </div>
     <div class="col-md-2 col-sm-4">
         <div class="card border-0 shadow-sm rounded-4 p-3 bg-white text-center border-start border-4 border-secondary">
             <small class="text-muted d-block fw-bold" style="font-size: 0.7rem;">DIPROSES DISDUK</small>
             <h3 class="fw-bold mb-0 text-muted mt-1">{{ $counts['diproses_disdukcapil'] }}</h3>
+            <small class="text-muted fw-bold d-block mt-1">{{ $pctDiproses }}%</small>
         </div>
     </div>
     <div class="col-md-2 col-sm-4">
         <div class="card border-0 shadow-sm rounded-4 p-3 bg-white text-center border-start border-4 border-success">
             <small class="text-muted d-block fw-bold" style="font-size: 0.7rem;">SELESAI</small>
             <h3 class="fw-bold mb-0 text-success mt-1">{{ $counts['selesai'] }}</h3>
+            <small class="text-muted fw-bold d-block mt-1">{{ $pctSelesai }}%</small>
         </div>
     </div>
     <div class="col-md-2 col-sm-4">
         <div class="card border-0 shadow-sm rounded-4 p-3 bg-white text-center border-start border-4 border-danger">
             <small class="text-muted d-block fw-bold" style="font-size: 0.7rem;">DITOLAK</small>
             <h3 class="fw-bold mb-0 text-danger mt-1">{{ $counts['ditolak'] }}</h3>
+            <small class="text-muted fw-bold d-block mt-1">{{ $pctDitolak }}%</small>
         </div>
     </div>
 </div>

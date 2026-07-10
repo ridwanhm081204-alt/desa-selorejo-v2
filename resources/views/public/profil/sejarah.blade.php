@@ -21,7 +21,7 @@
             <div class="glass-card bg-white p-0 rounded-4 shadow-lg overflow-hidden border-0 mb-5">
                 <!-- Foto Utama di Atas Kotak -->
                 <div class="position-relative">
-                    <img src="{{ asset('images/SelorejoWaduk.jpg') }}" alt="Pemandangan Desa Selorejo" class="img-fluid w-100" style="max-height: 500px; object-fit: cover;">
+                    <img src="{{ asset($profile->sejarah_image ?? 'images/SelorejoWaduk.jpg') }}" alt="Pemandangan Desa Selorejo" class="img-fluid w-100" style="max-height: 500px; object-fit: cover;">
                     <div class="position-absolute bottom-0 start-0 w-100 p-4 bg-gradient-to-t from-dark to-transparent text-white d-none d-md-block">
                         <small class="text-white-50"><i data-lucide="camera" class="icon-sm me-1"></i> Dokumentasi Desa Selorejo</small>
                     </div>

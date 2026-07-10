@@ -45,6 +45,47 @@
             .content-area { margin-left: 0; width: 100%; padding: 20px; }
             .sidebar.show { transform: translateX(0); }
         }
+
+        /* Lucide Autocomplete Dropdown Styles */
+        .lucide-dropdown-container {
+            position: relative;
+        }
+        .lucide-dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            z-index: 1050;
+            max-height: 250px;
+            overflow-y: auto;
+            background: white;
+            border: 1px solid rgba(45, 106, 79, 0.15);
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-top: 5px;
+            display: none;
+        }
+        .lucide-dropdown-item {
+            display: flex;
+            align-items: center;
+            padding: 8px 12px;
+            cursor: pointer;
+            transition: background 0.2s;
+            font-size: 0.85rem;
+            color: #333;
+            text-align: left;
+        }
+        .lucide-dropdown-item:hover, .lucide-dropdown-item.active {
+            background-color: #f0f7f4;
+            color: #1b4332;
+        }
+        .lucide-dropdown-item svg, .lucide-dropdown-item i {
+            width: 16px;
+            height: 16px;
+            margin-right: 10px;
+            color: #2d6a4f;
+            flex-shrink: 0;
+        }
     </style>
     @stack('styles')
 </head>
@@ -127,6 +168,101 @@
             sidebarToggle.addEventListener('click', toggleSidebar);
             backdrop.addEventListener('click', toggleSidebar);
         }
+
+        // Global Lucide Autocomplete Dropdown Logic
+        document.addEventListener('DOMContentLoaded', function () {
+            const iconInputs = document.querySelectorAll('input[name="icon"]');
+            if (iconInputs.length === 0) return;
+            
+            // Get all available icons dynamically from global lucide bundle
+            const allIcons = Object.keys(window.lucide?.icons || {}).map(str => {
+                return str.replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCase();
+            }).sort();
+            
+            iconInputs.forEach(input => {
+                // Setup wrapper
+                const wrapper = document.createElement('div');
+                wrapper.className = 'lucide-dropdown-container w-100';
+                input.parentNode.insertBefore(wrapper, input);
+                wrapper.appendChild(input);
+                
+                // Setup dropdown menu
+                const menu = document.createElement('div');
+                menu.className = 'lucide-dropdown-menu';
+                wrapper.appendChild(menu);
+                
+                const renderList = (filter = '') => {
+                    const query = filter.toLowerCase().trim();
+                    const filtered = allIcons.filter(name => name.includes(query)).slice(0, 100);
+                    
+                    if (filtered.length === 0) {
+                        menu.innerHTML = '<div class="p-2 text-muted text-center small">Ikon tidak ditemukan</div>';
+                        return;
+                    }
+                    
+                    menu.innerHTML = filtered.map(name => `
+                        <div class="lucide-dropdown-item" data-icon="${name}">
+                            <i data-lucide="${name}" class="icon-sm"></i>
+                            <span>${name}</span>
+                        </div>
+                    `).join('');
+                    
+                    // Re-initialize lucide icons inside menu
+                    if (window.lucide) {
+                        window.lucide.createIcons({
+                            root: menu
+                        });
+                    }
+                };
+                
+                // Focus: show list
+                input.addEventListener('focus', () => {
+                    renderList(input.value);
+                    menu.style.display = 'block';
+                });
+                
+                // Typing: filter list
+                input.addEventListener('input', () => {
+                    renderList(input.value);
+                });
+                
+                // Click item: select
+                menu.addEventListener('click', (e) => {
+                    const item = e.target.closest('.lucide-dropdown-item');
+                    if (item) {
+                        const iconName = item.getAttribute('data-icon');
+                        input.value = iconName;
+                        menu.style.display = 'none';
+                        
+                        // Dispatch standard input/change events
+                        input.dispatchEvent(new Event('change', { bubbles: true }));
+                        input.dispatchEvent(new Event('input', { bubbles: true }));
+                    }
+                });
+                
+                // Close when clicking outside
+                document.addEventListener('click', (e) => {
+                    if (!wrapper.contains(e.target)) {
+                        menu.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Clean phone/whatsapp input fields on type (Operator/Admin)
+        document.addEventListener('DOMContentLoaded', function () {
+            document.querySelectorAll('input[name="no_hp_pemohon"], input[name="whatsapp"], input[name="telepon"]').forEach(input => {
+                input.setAttribute('maxlength', '15');
+                
+                input.addEventListener('input', function() {
+                    let val = this.value;
+                    let cleaned = val.replace(/(?!^\+)[^\d]/g, '');
+                    if (cleaned !== val) {
+                        this.value = cleaned;
+                    }
+                });
+            });
+        });
     </script>
     @stack('scripts')
 </body>

@@ -32,6 +32,7 @@ class ProfilController extends Controller
             'motto' => 'nullable|string',
             'dusun_info' => 'nullable|array',
             'peta_image' => 'nullable|image|max:2048',
+            'sejarah_image' => 'nullable|image|max:2048',
             'peta_narasi_utama' => 'nullable|string',
             'peta_narasi_legenda' => 'nullable|string',
             'peta_fasilitas' => 'nullable|array',
@@ -40,11 +41,16 @@ class ProfilController extends Controller
         $profil = \App\Models\Profile::first();
         if(!$profil) $profil = new \App\Models\Profile();
         
-        $data = $request->except('peta_image');
+        $data = $request->except(['peta_image', 'sejarah_image']);
         
         if ($request->hasFile('peta_image')) {
             $path = $request->file('peta_image')->store('public/profil');
             $data['peta_image'] = str_replace('public/', 'storage/', $path);
+        }
+
+        if ($request->hasFile('sejarah_image')) {
+            $path = $request->file('sejarah_image')->store('public/profil');
+            $data['sejarah_image'] = str_replace('public/', 'storage/', $path);
         }
 
         $profil->fill($data);

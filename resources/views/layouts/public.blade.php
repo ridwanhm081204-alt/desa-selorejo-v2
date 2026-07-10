@@ -55,6 +55,23 @@
     @include('layouts.partials.public-footer')
 
     <!-- Optimized Asset Loading (Vite handles Bootstrap & Lucide) -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Clean phone/whatsapp input fields on type
+            document.querySelectorAll('input[name="no_hp_pemohon"], input[name="whatsapp"], input[name="telepon"]').forEach(input => {
+                input.setAttribute('maxlength', '15');
+                
+                input.addEventListener('input', function() {
+                    let val = this.value;
+                    // Keep only numbers and optional leading +
+                    let cleaned = val.replace(/(?!^\+)[^\d]/g, '');
+                    if (cleaned !== val) {
+                        this.value = cleaned;
+                    }
+                });
+            });
+        });
+    </script>
     @stack('scripts')
 </body>
 </html>

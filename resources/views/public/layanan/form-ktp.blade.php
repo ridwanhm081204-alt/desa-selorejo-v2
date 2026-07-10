@@ -94,8 +94,9 @@
                             </div>
                             <div class="col-md-12">
                                 <label class="form-label fw-bold text-muted small">Rencana Kedatangan untuk Perekaman/Pengambilan Sidik Jari (Opsional)</label>
-                                <input type="datetime-local" name="jadwal_perekaman" class="form-control rounded-3 py-2 border-0 bg-light shadow-none" value="{{ old('jadwal_perekaman') }}">
-                                <small class="text-muted d-block mt-1" style="font-size: 0.7rem;">Pilih hari kerja (Senin - Jumat jam 08.00 - 14.00) agar admin bisa menjadwalkan kedatangan Anda.</small>
+                                <input type="datetime-local" name="jadwal_perekaman" id="jadwal_perekaman" class="form-control rounded-3 py-2 border-0 bg-light shadow-none" value="{{ old('jadwal_perekaman') }}">
+                                <small class="text-muted d-block mt-1" style="font-size: 0.7rem;">Pilih hari kerja (Senin - Jumat, jam 08.00 - 14.00) agar admin bisa menjadwalkan kedatangan Anda.</small>
+                                <div class="text-danger mt-1 small" id="jadwal_perekaman_error" style="display: none; font-weight: bold;"></div>
                                 @error('jadwal_perekaman') <small class="text-danger mt-1 d-block">{{ $message }}</small> @enderror
                             </div>
                         </div>
@@ -173,6 +174,43 @@
 
             select.addEventListener('change', toggleKehilangan);
             toggleKehilangan();
+        }
+
+        const inputJadwal = document.getElementById('jadwal_perekaman');
+        const errorJadwal = document.getElementById('jadwal_perekaman_error');
+
+        if (inputJadwal && errorJadwal) {
+            inputJadwal.addEventListener('change', function () {
+                const val = this.value;
+                if (!val) {
+                    errorJadwal.style.display = 'none';
+                    return;
+                }
+
+                const date = new Date(val);
+                const day = date.getDay(); // 0 is Sunday, 6 is Saturday
+                const hour = date.getHours();
+                const minutes = date.getMinutes();
+
+                let isValid = true;
+                let errorMsg = '';
+
+                if (day === 0 || day === 6) {
+                    isValid = false;
+                    errorMsg = 'Jadwal kedatangan hanya bisa dipilih untuk hari kerja (Senin - Jumat).';
+                } else if (hour < 8 || hour > 14 || (hour === 14 && minutes > 0)) {
+                    isValid = false;
+                    errorMsg = 'Jadwal kedatangan hanya bisa dipilih antara jam 08.00 - 14.00.';
+                }
+
+                if (!isValid) {
+                    errorJadwal.innerText = errorMsg;
+                    errorJadwal.style.display = 'block';
+                    this.value = '';
+                } else {
+                    errorJadwal.style.display = 'none';
+                }
+            });
         }
     });
 </script>

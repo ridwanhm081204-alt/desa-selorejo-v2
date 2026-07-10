@@ -90,9 +90,19 @@
                                     @error('nik_suami') <small class="text-danger mt-1 d-block">{{ $message }}</small> @enderror
                                 </div>
                                 <div class="col-md-6">
+                                    <label class="form-label fw-bold text-muted small">NAMA LENGKAP SUAMI <span class="text-danger">*</span></label>
+                                    <input type="text" name="nama_suami" id="input_nama_suami" class="form-control rounded-3 py-2 border-0 bg-light shadow-none" value="{{ old('nama_suami') }}" placeholder="Nama Lengkap Suami">
+                                    @error('nama_suami') <small class="text-danger mt-1 d-block">{{ $message }}</small> @enderror
+                                </div>
+                                <div class="col-md-6">
                                     <label class="form-label fw-bold text-muted small">NIK ISTRI <span class="text-danger">*</span></label>
                                     <input type="text" name="nik_istri" id="input_nik_istri" class="form-control rounded-3 py-2 border-0 bg-light shadow-none" value="{{ old('nik_istri') }}" placeholder="NIK Istri" maxlength="16">
                                     @error('nik_istri') <small class="text-danger mt-1 d-block">{{ $message }}</small> @enderror
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold text-muted small">NAMA LENGKAP ISTRI <span class="text-danger">*</span></label>
+                                    <input type="text" name="nama_istri" id="input_nama_istri" class="form-control rounded-3 py-2 border-0 bg-light shadow-none" value="{{ old('nama_istri') }}" placeholder="Nama Lengkap Istri">
+                                    @error('nama_istri') <small class="text-danger mt-1 d-block">{{ $message }}</small> @enderror
                                 </div>
                                 <div class="col-md-12">
                                     <label class="form-label fw-bold text-muted small">NOMOR KK ASAL (SUAMI / ISTRI) <span class="text-danger">*</span></label>
@@ -144,7 +154,12 @@
                                     <input type="text" name="nik_anak" id="input_nik_anak" class="form-control rounded-3 py-2 border-0 bg-light shadow-none" value="{{ old('nik_anak') }}" placeholder="NIK anak jika sudah ada" maxlength="16">
                                     @error('nik_anak') <small class="text-danger mt-1 d-block">{{ $message }}</small> @enderror
                                 </div>
-                                <div class="col-md-12">
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold text-muted small">NAMA LENGKAP ANAK <span class="text-danger">*</span></label>
+                                    <input type="text" name="nama_anak" id="input_nama_anak" class="form-control rounded-3 py-2 border-0 bg-light shadow-none" value="{{ old('nama_anak') }}" placeholder="Nama lengkap anak">
+                                    @error('nama_anak') <small class="text-danger mt-1 d-block">{{ $message }}</small> @enderror
+                                </div>
+                                <div class="col-md-6">
                                     <label class="form-label fw-bold text-muted small">NOMOR AKTA KELAHIRAN ANAK <span class="text-danger">*</span></label>
                                     <input type="text" name="no_akta_lahir" id="input_akta_lahir" class="form-control rounded-3 py-2 border-0 bg-light shadow-none" value="{{ old('no_akta_lahir') }}" placeholder="Nomor akta lahir anak">
                                     @error('no_akta_lahir') <small class="text-danger mt-1 d-block">{{ $message }}</small> @enderror
@@ -181,8 +196,8 @@
                                 </div>
                                 <div class="col-md-6">
                                     <label class="form-label fw-bold text-muted small">NAMA ANGGOTA KELUARGA YANG DIUBAH <span class="text-danger">*</span></label>
-                                    <input type="text" name="anggota_ubah_name" id="input_anggota_ubah" class="form-control rounded-3 py-2 border-0 bg-light shadow-none" value="{{ old('anggota_ubah_name') }}" placeholder="Contoh: Budi Santoso">
-                                    @error('anggota_ubah_name') <small class="text-danger mt-1 d-block">{{ $message }}</small> @enderror
+                                    <input type="text" name="anggota_ubah_nama" id="input_anggota_ubah" class="form-control rounded-3 py-2 border-0 bg-light shadow-none" value="{{ old('anggota_ubah_nama') }}" placeholder="Contoh: Budi Santoso">
+                                    @error('anggota_ubah_nama') <small class="text-danger mt-1 d-block">{{ $message }}</small> @enderror
                                 </div>
                                 <div class="col-md-4">
                                     <label class="form-label fw-bold text-muted small">JENIS PERUBAHAN <span class="text-danger">*</span></label>
@@ -298,7 +313,9 @@
         const inputs = {
             kk_baru: [
                 {id: 'input_nik_suami', req: true},
+                {id: 'input_nama_suami', req: true},
                 {id: 'input_nik_istri', req: true},
+                {id: 'input_nama_istri', req: true},
                 {id: 'input_kk_asal_baru', req: true},
                 {id: 'input_alamat_baru_kk', req: true},
                 {id: 'file_nikah_baru', req: true},
@@ -307,6 +324,7 @@
             ],
             kk_tambah_anggota: [
                 {id: 'input_kk_asal_tambah', req: true},
+                {id: 'input_nama_anak', req: true},
                 {id: 'input_akta_lahir', req: true},
                 {id: 'file_akta_lahir_anak', req: true},
                 {id: 'file_kk_lama_tambah', req: true}

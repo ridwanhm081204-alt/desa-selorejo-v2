@@ -101,8 +101,8 @@
                                 @error('tanggal_meninggal') <small class="text-danger mt-1 d-block">{{ $message }}</small> @enderror
                             </div>
                             <div class="col-12">
-                                <label class="form-label fw-bold text-muted small">SEBAB KEMATIAN (OPSIONAL)</label>
-                                <input type="text" name="sebab_kematian" class="form-control rounded-3 py-2 border-0 bg-light shadow-none" value="{{ old('sebab_kematian') }}" placeholder="Sakit, Kecelakaan, Lanjut Usia, dll">
+                                <label class="form-label fw-bold text-muted small">SEBAB KEMATIAN <span class="text-danger">*</span></label>
+                                <input type="text" name="sebab_kematian" class="form-control rounded-3 py-2 border-0 bg-light shadow-none" value="{{ old('sebab_kematian') }}" placeholder="Sakit, Kecelakaan, Lanjut Usia, dll" required>
                                 @error('sebab_kematian') <small class="text-danger mt-1 d-block">{{ $message }}</small> @enderror
                             </div>
                             <div class="col-12">

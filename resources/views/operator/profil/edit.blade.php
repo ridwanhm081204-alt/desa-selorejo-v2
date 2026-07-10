@@ -63,10 +63,26 @@
                                 </div>
                             </div>
 
-                            <h5 class="fw-bold mb-4 d-flex align-items-center"><i data-lucide="pencil-line" class="text-success me-3"></i> Narasi Sejarah Desa</h5>
-                            <div class="mb-5">
-                                <label class="form-label text-muted small fw-bold">Konten Sejarah (Mendukung HTML Sederhana)</label>
-                                <textarea name="sejarah" class="form-control rounded-4 shadow-none p-4" rows="12" placeholder="Masukkan narasi sejarah desa dengan mendalam...">{{ old('sejarah', $profil->sejarah) }}</textarea>
+                            <h5 class="fw-bold mb-4 d-flex align-items-center"><i data-lucide="pencil-line" class="text-success me-3"></i> Narasi & Gambar Sejarah Desa</h5>
+                            <div class="row g-4 mb-5">
+                                <div class="col-md-7">
+                                    <label class="form-label text-muted small fw-bold">Konten Sejarah (Mendukung HTML Sederhana)</label>
+                                    <textarea name="sejarah" class="form-control rounded-4 shadow-none p-4" rows="12" placeholder="Masukkan narasi sejarah desa dengan mendalam...">{{ old('sejarah', $profil->sejarah) }}</textarea>
+                                </div>
+                                <div class="col-md-5 text-start">
+                                    <label class="form-label text-muted small fw-bold">Unggah Gambar Sejarah</label>
+                                    <div class="p-3 border rounded-4 bg-light text-center">
+                                        @if($profil->sejarah_image)
+                                            <img src="{{ asset($profil->sejarah_image) }}" class="img-thumbnail rounded-4 shadow-sm mb-3" style="max-height: 200px; width: 100%; object-fit: contain;">
+                                        @else
+                                            <div class="bg-white rounded-4 border border-dashed py-5 mb-3">
+                                                <i data-lucide="image" class="text-muted opacity-25" style="width:48px;height:48px;"></i>
+                                            </div>
+                                        @endif
+                                        <input type="file" name="sejarah_image" class="form-control rounded-pill border-0 shadow-sm" accept="image/*">
+                                        <small class="text-muted mt-3 d-block italic fw-medium">Direkomendasikan gambar dengan resolusi tinggi (Maks 2MB)</small>
+                                    </div>
+                                </div>
                             </div>
 
                             <div class="d-flex justify-content-between align-items-center mb-4 pt-4 border-top">

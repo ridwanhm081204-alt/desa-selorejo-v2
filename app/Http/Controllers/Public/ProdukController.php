@@ -71,7 +71,7 @@ class ProdukController extends Controller
         $validated = $request->validate([
             'jumlah' => 'required|integer|min:1|max:' . $produk->stok,
             'nama_pemesan' => 'required|string|max:255',
-            'telepon' => 'required|string|max:20',
+            'telepon' => ['required', 'string', 'max:16', 'regex:/^\+?[0-9]{8,15}$/'],
             'alamat' => 'required|string',
             'kelurahan' => 'required|string',
             'kecamatan' => 'required|string',

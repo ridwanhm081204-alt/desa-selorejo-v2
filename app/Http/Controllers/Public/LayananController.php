@@ -44,7 +44,7 @@ class LayananController extends Controller
         $rules = [
             'nik_pemohon' => 'required|numeric|digits:16',
             'nama_pemohon' => 'required|string|max:100',
-            'no_hp_pemohon' => 'required|string|max:15',
+            'no_hp_pemohon' => ['required', 'string', 'max:15', 'regex:/^\+?[0-9]{8,14}$/'],
             'email_pemohon' => 'nullable|email|max:100',
             'jenis_layanan' => 'required|string',
         ];
@@ -61,7 +61,9 @@ class LayananController extends Controller
                 'berat_lahir' => 'nullable|numeric|min:0',
                 'panjang_lahir' => 'nullable|numeric|min:0',
                 'nik_ayah' => 'required|numeric|digits:16',
+                'nama_ayah' => 'required|string|max:100',
                 'nik_ibu' => 'required|numeric|digits:16',
+                'nama_ibu' => 'required|string|max:100',
                 'no_kk_orangtua' => 'required|numeric|digits:16',
                 'nama_saksi1' => 'required|string|max:100',
                 'nik_saksi1' => 'required|numeric|digits:16',
@@ -83,7 +85,7 @@ class LayananController extends Controller
                 'tanggal_lahir_almarhum' => 'required|date',
                 'tempat_meninggal' => 'required|string|max:100',
                 'tanggal_meninggal' => 'required|date|before_or_equal:today',
-                'sebab_kematian' => 'nullable|string|max:255',
+                'sebab_kematian' => 'required|string|max:255',
                 'nama_pelapor' => 'required|string|max:100',
                 'nik_pelapor' => 'required|numeric|digits:16',
                 'hubungan_pelapor' => 'required|string|max:50',
@@ -101,9 +103,12 @@ class LayananController extends Controller
                 'alamat_baru' => 'nullable|string',
                 // For KK Baru
                 'nik_suami' => 'nullable|numeric|digits:16',
+                'nama_suami' => 'nullable|required_if:jenis_layanan,kk_baru|string|max:100',
                 'nik_istri' => 'nullable|numeric|digits:16',
+                'nama_istri' => 'nullable|required_if:jenis_layanan,kk_baru|string|max:100',
                 // For Tambah Anggota
                 'nik_anak' => 'nullable|numeric|digits:16',
+                'nama_anak' => 'nullable|required_if:jenis_layanan,kk_tambah_anggota|string|max:100',
                 'no_akta_lahir' => 'nullable|string|max:100',
                 // For Ubah Data
                 'anggota_ubah_nama' => 'nullable|string|max:100',
@@ -126,7 +131,23 @@ class LayananController extends Controller
             $rules = array_merge($rules, [
                 'jenis_pengajuan_ktp' => 'required|in:baru_17tahun,rusak,hilang,ubah_data',
                 'no_surat_kehilangan' => 'nullable|required_if:jenis_pengajuan_ktp,hilang|string|max:50',
-                'jadwal_perekaman' => 'nullable|date|after:today',
+                'jadwal_perekaman' => [
+                    'nullable',
+                    'date',
+                    'after:today',
+                    function ($attribute, $value, $fail) {
+                        $timestamp = strtotime($value);
+                        $dayOfWeek = date('N', $timestamp); // 1 (Mon) - 7 (Sun)
+                        $time = date('H:i', $timestamp);
+                        
+                        if ($dayOfWeek > 5) {
+                            $fail('Rencana kedatangan hanya boleh hari kerja (Senin - Jumat).');
+                        }
+                        if ($time < '08:00' || $time > '14:00') {
+                            $fail('Rencana kedatangan hanya boleh antara jam 08:00 - 14:00.');
+                        }
+                    }
+                ],
                 // Files
                 'file_kk_pemohon' => 'required|file|mimes:pdf,jpg,png|max:2048',
                 'file_surat_kehilangan' => 'nullable|required_if:jenis_pengajuan_ktp,hilang|file|mimes:pdf,jpg,png|max:2048',
@@ -181,7 +202,9 @@ class LayananController extends Controller
                     'berat_lahir' => $validated['berat_lahir'],
                     'panjang_lahir' => $validated['panjang_lahir'],
                     'nik_ayah' => $validated['nik_ayah'],
+                    'nama_ayah' => $validated['nama_ayah'],
                     'nik_ibu' => $validated['nik_ibu'],
+                    'nama_ibu' => $validated['nama_ibu'],
                     'no_kk_orangtua' => $validated['no_kk_orangtua'],
                     'nama_saksi1' => $validated['nama_saksi1'],
                     'nik_saksi1' => $validated['nik_saksi1'],
@@ -234,11 +257,14 @@ class LayananController extends Controller
                 if ($jenisLayanan === 'kk_baru') {
                     $dataBaru = [
                         'nik_suami' => $validated['nik_suami'] ?? null,
+                        'nama_suami' => $validated['nama_suami'] ?? null,
                         'nik_istri' => $validated['nik_istri'] ?? null,
+                        'nama_istri' => $validated['nama_istri'] ?? null,
                     ];
                 } elseif ($jenisLayanan === 'kk_tambah_anggota') {
                     $dataBaru = [
                         'nik_anak' => $validated['nik_anak'] ?? null,
+                        'nama_anak' => $validated['nama_anak'] ?? null,
                         'no_akta_lahir' => $validated['no_akta_lahir'] ?? null,
                     ];
                 } elseif ($jenisLayanan === 'kk_ubah_data') {

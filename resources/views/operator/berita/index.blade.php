@@ -43,8 +43,8 @@
                             <input type="text" name="search" class="form-control border-0 bg-transparent shadow-none" placeholder="Cari berita..." value="{{ request('search') }}">
                         </div>
                     </div>
-                    <div class="col-md-2">
-                        <select name="kategori" class="form-select form-select-sm border-0 bg-light rounded-pill px-3 shadow-none" onchange="this.form.submit()">
+                    <div class="col-md-3">
+                        <select name="kategori" class="form-select form-select-sm border-0 bg-light rounded-pill ps-3 pe-4 shadow-none" onchange="this.form.submit()">
                             <option value="semua" {{ request('kategori') == 'semua' || !request('kategori') ? 'selected' : '' }}>Semua Kategori</option>
                             <option value="Kegiatan Desa" {{ request('kategori') == 'Kegiatan Desa' ? 'selected' : '' }}>Kegiatan Desa</option>
                             <option value="Pariwisata" {{ request('kategori') == 'Pariwisata' ? 'selected' : '' }}>Pariwisata</option>
