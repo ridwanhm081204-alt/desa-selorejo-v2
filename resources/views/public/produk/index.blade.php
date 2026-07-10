@@ -73,6 +73,13 @@
                             <i data-lucide="tag" class="icon-xs me-1"></i>{{ $p->kategori ?? 'Produk Desa' }}
                         </span>
                     </div>
+                    @if($p->hasMarketplaceLinks())
+                    <div class="position-absolute top-0 end-0 m-3">
+                        <span class="badge px-2 py-1 shadow-sm rounded-pill" style="font-size:0.65rem; background: linear-gradient(135deg, #EE4D2D, #42b549) !important; color: #fff !important; font-family: var(--font-body);">
+                            <i data-lucide="shopping-cart" class="icon-xs me-1"></i>Marketplace
+                        </span>
+                    </div>
+                    @endif
                 </div>
                 
                 <div class="card-body p-4 d-flex flex-column">

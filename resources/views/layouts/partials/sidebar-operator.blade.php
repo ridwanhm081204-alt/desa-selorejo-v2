@@ -39,6 +39,21 @@
             </li>
         </ul>
 
+        <small class="text-white text-opacity-25 text-uppercase fw-bold x-small mb-3 d-block ps-2">Layanan Kependudukan</small>
+        <ul class="nav flex-column gap-1 mb-4">
+            <li class="nav-item">
+                <a href="{{ route('operator.layanan.index') }}" class="nav-link py-2 px-3 text-white rounded-3 d-flex align-items-center {{ request()->is('operator/layanan*') ? 'active-glass shadow-sm' : 'bg-hover-glass' }}">
+                    <i data-lucide="file-text" class="me-3 icon-sm"></i> <span>Verifikasi Berkas</span>
+                    @php
+                        $pendingCount = \App\Models\Pengajuan::where('status', 'diajukan')->count();
+                    @endphp
+                    @if($pendingCount > 0)
+                        <span class="badge bg-danger ms-auto">{{ $pendingCount }}</span>
+                    @endif
+                </a>
+            </li>
+        </ul>
+
         <small class="text-white text-opacity-25 text-uppercase fw-bold x-small mb-3 d-block ps-2">Informasi Publik</small>
         <ul class="nav flex-column gap-1 mb-4">
             <li class="nav-item"><a href="{{ url('/operator/berita') }}" class="nav-link py-2 px-3 text-white rounded-3 d-flex align-items-center {{ request()->is('operator/berita*') ? 'active-glass shadow-sm' : 'bg-hover-glass' }}"><i data-lucide="newspaper" class="me-3 icon-sm"></i> <span>Berita</span></a></li>

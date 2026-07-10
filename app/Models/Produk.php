@@ -15,7 +15,18 @@ class Produk extends Model
         'gambar',
         'stok',
         'whatsapp',
+        'link_shopee',
+        'link_tokopedia',
+        'link_marketplace_lainnya',
     ];
+
+    /**
+     * Cek apakah produk ini punya minimal satu link marketplace.
+     */
+    public function hasMarketplaceLinks(): bool
+    {
+        return !empty($this->link_shopee) || !empty($this->link_tokopedia) || !empty($this->link_marketplace_lainnya);
+    }
 
     public function getGambarUrlAttribute()
     {

@@ -74,6 +74,47 @@
                         @error('whatsapp') <div class="invalid-feedback d-block mt-1">{{ $message }}</div> @enderror
                     </div>
 
+                    {{-- Link Marketplace --}}
+                    <div class="mb-4 p-4 bg-light rounded-4 text-start">
+                        <label class="form-label fw-bold text-muted small mb-3">
+                            <i data-lucide="shopping-cart" class="icon-xs me-1"></i> LINK MARKETPLACE (OPSIONAL)
+                        </label>
+                        <small class="text-muted d-block mb-3" style="font-size: 0.75rem;">Tambahkan link produk di marketplace agar pembeli bisa langsung membeli via Shopee/Tokopedia/lainnya.</small>
+                        
+                        <div class="row g-3">
+                            <div class="col-12">
+                                <div class="input-group bg-white rounded-3 overflow-hidden shadow-sm">
+                                    <span class="input-group-text border-0" style="background: #EE4D2D1a; color: #EE4D2D; font-weight: 700; font-size: 0.75rem; min-width: 110px;">
+                                        <i data-lucide="shopping-bag" class="icon-xs me-1"></i> Shopee
+                                    </span>
+                                    <input type="url" name="link_shopee" class="form-control border-0 shadow-none py-2 @error('link_shopee') is-invalid @enderror" 
+                                           value="{{ old('link_shopee', $produk->link_shopee ?? '') }}" placeholder="https://shopee.co.id/...">
+                                </div>
+                                @error('link_shopee') <div class="invalid-feedback d-block mt-1">{{ $message }}</div> @enderror
+                            </div>
+                            <div class="col-12">
+                                <div class="input-group bg-white rounded-3 overflow-hidden shadow-sm">
+                                    <span class="input-group-text border-0" style="background: #42b5491a; color: #42b549; font-weight: 700; font-size: 0.75rem; min-width: 110px;">
+                                        <i data-lucide="store" class="icon-xs me-1"></i> Tokopedia
+                                    </span>
+                                    <input type="url" name="link_tokopedia" class="form-control border-0 shadow-none py-2 @error('link_tokopedia') is-invalid @enderror" 
+                                           value="{{ old('link_tokopedia', $produk->link_tokopedia ?? '') }}" placeholder="https://www.tokopedia.com/...">
+                                </div>
+                                @error('link_tokopedia') <div class="invalid-feedback d-block mt-1">{{ $message }}</div> @enderror
+                            </div>
+                            <div class="col-12">
+                                <div class="input-group bg-white rounded-3 overflow-hidden shadow-sm">
+                                    <span class="input-group-text border-0" style="background: #6c757d1a; color: #6c757d; font-weight: 700; font-size: 0.75rem; min-width: 110px;">
+                                        <i data-lucide="external-link" class="icon-xs me-1"></i> Lainnya
+                                    </span>
+                                    <input type="url" name="link_marketplace_lainnya" class="form-control border-0 shadow-none py-2 @error('link_marketplace_lainnya') is-invalid @enderror" 
+                                           value="{{ old('link_marketplace_lainnya', $produk->link_marketplace_lainnya ?? '') }}" placeholder="https://... (Bukalapak, Lazada, dll)">
+                                </div>
+                                @error('link_marketplace_lainnya') <div class="invalid-feedback d-block mt-1">{{ $message }}</div> @enderror
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="mb-4 text-start">
                         <label class="form-label fw-bold text-muted small">DESKRIPSI PRODUK <span class="text-danger">*</span></label>
                         <textarea name="deskripsi" class="form-control rounded-4 p-3 border-0 bg-light shadow-none" rows="6" placeholder="Jelaskan kualitas, rasa, atau spesifikasi produk ini..." required>{{ old('deskripsi', $produk->deskripsi ?? '') }}</textarea>

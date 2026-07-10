@@ -42,12 +42,32 @@ Route::get('/galeri', [\App\Http\Controllers\Public\GaleriController::class, 'in
 Route::get('/kontak', [\App\Http\Controllers\Public\KontakController::class, 'index'])->name('kontak.index');
 Route::post('/kontak', [\App\Http\Controllers\Public\KontakController::class, 'store'])->name('kontak.store');
 
+// Sistem Layanan Administrasi Desa
+Route::prefix('layanan')->name('layanan.')->group(function() {
+    Route::get('/', [\App\Http\Controllers\Public\LayananController::class, 'index'])->name('index');
+    Route::get('/akta-kelahiran', [\App\Http\Controllers\Public\LayananController::class, 'formAktaKelahiran'])->name('akta-kelahiran');
+    Route::get('/akta-kematian', [\App\Http\Controllers\Public\LayananController::class, 'formAktaKematian'])->name('akta-kematian');
+    Route::get('/kartu-keluarga', [\App\Http\Controllers\Public\LayananController::class, 'formKk'])->name('kk');
+    Route::get('/ktp', [\App\Http\Controllers\Public\LayananController::class, 'formKtp'])->name('ktp');
+    Route::post('/store', [\App\Http\Controllers\Public\LayananController::class, 'store'])->name('store');
+    Route::get('/sukses', [\App\Http\Controllers\Public\LayananController::class, 'sukses'])->name('sukses');
+    Route::get('/cek-status', [\App\Http\Controllers\Public\LayananController::class, 'cekStatus'])->name('cek-status');
+    Route::get('/cek-status/hasil', [\App\Http\Controllers\Public\LayananController::class, 'hasilStatus'])->name('hasil-status');
+});
+
 Route::get('/login', [\App\Http\Controllers\Auth\LoginController::class, 'showLoginForm'])->name('login')->middleware('guest');
 Route::post('/login', [\App\Http\Controllers\Auth\LoginController::class, 'login'])->middleware('guest');
 Route::post('/logout', [\App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout')->middleware('auth');
+
 // Operator
 Route::middleware(['auth', 'role:operator,admin'])->prefix('operator')->name('operator.')->group(function() {
     Route::get('/dashboard', [\App\Http\Controllers\Operator\DashboardController::class, 'index']);
+    
+    // Layanan Administrasi Desa
+    Route::get('/layanan', [\App\Http\Controllers\Operator\LayananController::class, 'index'])->name('layanan.index');
+    Route::get('/layanan/{id}', [\App\Http\Controllers\Operator\LayananController::class, 'show'])->name('layanan.show');
+    Route::post('/layanan/{id}/status', [\App\Http\Controllers\Operator\LayananController::class, 'updateStatus'])->name('layanan.status');
+    Route::get('/layanan/{id}/notif', [\App\Http\Controllers\Operator\LayananController::class, 'kirimNotifikasi'])->name('layanan.notif');
     
     // Profil
     Route::get('/profil', [\App\Http\Controllers\Operator\ProfilController::class, 'edit']);

@@ -56,9 +56,66 @@
             <h5 class="fw-bold mb-3 d-flex align-items-center" style="font-family: var(--font-heading);"><i data-lucide="file-text" class="icon-sm me-2" style="color: var(--color-forest) !important;"></i>Deskripsi Produk</h5>
             <div class="text-dark mb-4" style="line-height: 1.8; font-weight: 400; text-align: justify; font-family: var(--font-body);">{!! $produk->deskripsi !!}</div>
             
-            <a href="{{ route('produk.checkout', $produk->id) }}" class="btn btn-lg w-100 py-3 fw-bold rounded-pill shadow-sm hover-lift {{ $produk->stok <= 0 ? 'disabled' : '' }}" style="background-color: var(--color-forest) !important; color: #fff !important; font-family: var(--font-heading); border: none;">
-                <i data-lucide="shopping-bag" class="me-2"></i> {{ $produk->stok > 0 ? 'Pesan Sekarang' : 'Maaf, Stok Habis' }}
-            </a>
+            {{-- Dual Order Buttons --}}
+            <div class="d-flex flex-column gap-2 mt-auto">
+                {{-- Button Pesan via WhatsApp --}}
+                <a href="{{ route('produk.checkout', $produk->id) }}" class="btn btn-lg w-100 py-3 fw-bold rounded-pill shadow-sm hover-lift {{ $produk->stok <= 0 ? 'disabled' : '' }}" style="background-color: var(--color-forest) !important; color: #fff !important; font-family: var(--font-heading); border: none;">
+                    <i data-lucide="message-circle" class="me-2"></i> {{ $produk->stok > 0 ? 'Pesan via WhatsApp' : 'Maaf, Stok Habis' }}
+                </a>
+
+                {{-- Button Beli di Marketplace --}}
+                @if($produk->hasMarketplaceLinks())
+                <div class="dropdown w-100">
+                    <button class="btn btn-lg w-100 py-3 fw-bold rounded-pill shadow-sm hover-lift dropdown-toggle {{ $produk->stok <= 0 ? 'disabled' : '' }}" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="background: linear-gradient(135deg, #EE4D2D 0%, #FF6633 50%, #42b549 100%) !important; color: #fff !important; font-family: var(--font-heading); border: none;">
+                        <i data-lucide="shopping-cart" class="me-2"></i> Beli di Marketplace
+                    </button>
+                    <ul class="dropdown-menu w-100 border-0 shadow-lg rounded-4 p-2" style="font-family: var(--font-body);">
+                        @if($produk->link_shopee)
+                        <li>
+                            <a class="dropdown-item rounded-3 py-3 px-3 d-flex align-items-center hover-lift" href="{{ $produk->link_shopee }}" target="_blank" rel="noopener noreferrer">
+                                <span class="d-inline-flex align-items-center justify-content-center rounded-circle me-3" style="width: 36px; height: 36px; background: #EE4D2D1a;">
+                                    <i data-lucide="shopping-bag" style="width: 18px; height: 18px; color: #EE4D2D;"></i>
+                                </span>
+                                <div>
+                                    <span class="fw-bold d-block" style="color: #EE4D2D;">Shopee</span>
+                                    <small class="text-muted">Beli di Shopee</small>
+                                </div>
+                                <i data-lucide="external-link" class="ms-auto icon-sm text-muted"></i>
+                            </a>
+                        </li>
+                        @endif
+                        @if($produk->link_tokopedia)
+                        <li>
+                            <a class="dropdown-item rounded-3 py-3 px-3 d-flex align-items-center hover-lift" href="{{ $produk->link_tokopedia }}" target="_blank" rel="noopener noreferrer">
+                                <span class="d-inline-flex align-items-center justify-content-center rounded-circle me-3" style="width: 36px; height: 36px; background: #42b5491a;">
+                                    <i data-lucide="store" style="width: 18px; height: 18px; color: #42b549;"></i>
+                                </span>
+                                <div>
+                                    <span class="fw-bold d-block" style="color: #42b549;">Tokopedia</span>
+                                    <small class="text-muted">Beli di Tokopedia</small>
+                                </div>
+                                <i data-lucide="external-link" class="ms-auto icon-sm text-muted"></i>
+                            </a>
+                        </li>
+                        @endif
+                        @if($produk->link_marketplace_lainnya)
+                        <li>
+                            <a class="dropdown-item rounded-3 py-3 px-3 d-flex align-items-center hover-lift" href="{{ $produk->link_marketplace_lainnya }}" target="_blank" rel="noopener noreferrer">
+                                <span class="d-inline-flex align-items-center justify-content-center rounded-circle me-3" style="width: 36px; height: 36px; background: #6c757d1a;">
+                                    <i data-lucide="external-link" style="width: 18px; height: 18px; color: #6c757d;"></i>
+                                </span>
+                                <div>
+                                    <span class="fw-bold d-block text-dark">Marketplace Lainnya</span>
+                                    <small class="text-muted">Beli di marketplace lain</small>
+                                </div>
+                                <i data-lucide="external-link" class="ms-auto icon-sm text-muted"></i>
+                            </a>
+                        </li>
+                        @endif
+                    </ul>
+                </div>
+                @endif
+            </div>
         </div>
     </div>
 

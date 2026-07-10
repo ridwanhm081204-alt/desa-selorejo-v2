@@ -986,6 +986,9 @@ html, body {
   padding: 8px 14px;
   border-radius: var(--radius-sm);
   transition: background 0.2s, color 0.2s;
+  display: inline-flex !important;
+  align-items: center !important;
+  white-space: nowrap;
 }
 #mainNavbar .nav-link:hover,
 #mainNavbar .nav-link.active {

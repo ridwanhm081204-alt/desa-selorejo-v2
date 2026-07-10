@@ -58,6 +58,14 @@
                 </li>
 
                 <li class="nav-item dropdown">
+                    <a class="nav-link nav-link-custom dropdown-toggle {{ request()->is('layanan*') ? 'active' : '' }}" href="#" data-bs-toggle="dropdown"><i data-lucide="file-text" class="icon-sm me-1"></i> Pelayanan</a>
+                    <ul class="dropdown-menu border-0 shadow">
+                        <li><a class="dropdown-item" href="{{ route('layanan.index') }}"><i data-lucide="file-text" class="icon-sm me-2"></i>Pengajuan Dokumen</a></li>
+                        <li><a class="dropdown-item" href="{{ route('layanan.cek-status') }}"><i data-lucide="search" class="icon-sm me-2"></i>Cek Status Berkas</a></li>
+                    </ul>
+                </li>
+
+                <li class="nav-item dropdown">
                     <a class="nav-link nav-link-custom dropdown-toggle {{ request()->is('statistik*') || request()->is('transparansi*') ? 'active' : '' }}" href="#" data-bs-toggle="dropdown"><i data-lucide="bar-chart-2" class="icon-sm me-1"></i> Data Desa</a>
                     <ul class="dropdown-menu border-0 shadow">
                         <li><a class="dropdown-item" href="{{ route('statistik') }}"><i data-lucide="bar-chart-2" class="icon-sm me-2"></i>Statistik Penduduk</a></li>
