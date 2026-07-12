@@ -9,7 +9,7 @@
     </div>
     
     <div class="nav-section px-2" style="font-family: var(--font-body);">
-        <small class="text-white text-opacity-25 text-uppercase fw-bold x-small mb-3 d-block ps-2">Sistem Utama</small>
+        <small class="text-white text-uppercase fw-bold mb-3 d-block ps-2" style="font-size: 11.5px; letter-spacing: 0.8px; opacity: 0.9;">Sistem Utama</small>
         
         <ul class="nav flex-column gap-1 mb-4">
             <li class="nav-item">
@@ -24,7 +24,7 @@
             </li>
         </ul>
 
-        <small class="text-white text-opacity-25 text-uppercase fw-bold x-small mb-3 d-block ps-2">Kapasitas & Keamanan</small>
+        <small class="text-white text-uppercase fw-bold mb-3 d-block ps-2" style="font-size: 11.5px; letter-spacing: 0.8px; opacity: 0.9;">Kapasitas & Keamanan</small>
         <ul class="nav flex-column gap-1 mb-4">
             <li class="nav-item">
                 <a href="{{ url('/admin/backup') }}" class="nav-link py-2 px-3 text-white rounded-3 d-flex align-items-center {{ request()->is('admin/backup*') ? 'active-glass shadow-sm' : 'bg-hover-glass' }}">
@@ -38,7 +38,7 @@
             </li>
         </ul>
 
-        <small class="text-white text-opacity-25 text-uppercase fw-bold x-small mb-3 d-block ps-2">Konfigurasi</small>
+        <small class="text-white text-uppercase fw-bold mb-3 d-block ps-2" style="font-size: 11.5px; letter-spacing: 0.8px; opacity: 0.9;">Konfigurasi</small>
         <ul class="nav flex-column gap-1 mb-4">
             <li class="nav-item">
                 <a href="{{ url('/admin/pengaturan') }}" class="nav-link py-2 px-3 text-white rounded-3 d-flex align-items-center {{ request()->is('admin/pengaturan*') ? 'active-glass shadow-sm' : 'bg-hover-glass' }}">

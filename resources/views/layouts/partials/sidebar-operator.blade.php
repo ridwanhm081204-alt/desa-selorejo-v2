@@ -8,7 +8,7 @@
     </div>
     
     <div class="nav-section px-2">
-        <small class="text-white text-opacity-25 text-uppercase fw-bold x-small mb-3 d-block ps-2">Menu Utama</small>
+        <small class="text-white text-uppercase fw-bold mb-3 d-block ps-2" style="font-size: 11.5px; letter-spacing: 0.8px; opacity: 0.9;">Menu Utama</small>
         
         <ul class="nav flex-column gap-1 mb-4">
             <li class="nav-item">
@@ -39,7 +39,7 @@
             </li>
         </ul>
 
-        <small class="text-white text-opacity-25 text-uppercase fw-bold x-small mb-3 d-block ps-2">Layanan Kependudukan</small>
+        <small class="text-white text-uppercase fw-bold mb-3 d-block ps-2" style="font-size: 11.5px; letter-spacing: 0.8px; opacity: 0.9;">Layanan Kependudukan</small>
         <ul class="nav flex-column gap-1 mb-4">
             <li class="nav-item">
                 <a href="{{ route('operator.layanan.index') }}" class="nav-link py-2 px-3 text-white rounded-3 d-flex align-items-center {{ request()->is('operator/layanan*') ? 'active-glass shadow-sm' : 'bg-hover-glass' }}">
@@ -54,7 +54,7 @@
             </li>
         </ul>
 
-        <small class="text-white text-opacity-25 text-uppercase fw-bold x-small mb-3 d-block ps-2">Informasi Publik</small>
+        <small class="text-white text-uppercase fw-bold mb-3 d-block ps-2" style="font-size: 11.5px; letter-spacing: 0.8px; opacity: 0.9;">Informasi Publik</small>
         <ul class="nav flex-column gap-1 mb-4">
             <li class="nav-item"><a href="{{ url('/operator/berita') }}" class="nav-link py-2 px-3 text-white rounded-3 d-flex align-items-center {{ request()->is('operator/berita*') ? 'active-glass shadow-sm' : 'bg-hover-glass' }}"><i data-lucide="newspaper" class="me-3 icon-sm"></i> <span>Berita</span></a></li>
             <li class="nav-item"><a href="{{ url('/operator/galeri') }}" class="nav-link py-2 px-3 text-white rounded-3 d-flex align-items-center {{ request()->is('operator/galeri*') ? 'active-glass shadow-sm' : 'bg-hover-glass' }}"><i data-lucide="image" class="me-3 icon-sm"></i> <span>Galeri</span></a></li>
@@ -75,14 +75,14 @@
             </li>
         </ul>
 
-        <small class="text-white text-opacity-25 text-uppercase fw-bold x-small mb-3 d-block ps-2">Data & Transparansi</small>
+        <small class="text-white text-uppercase fw-bold mb-3 d-block ps-2" style="font-size: 11.5px; letter-spacing: 0.8px; opacity: 0.9;">Data & Transparansi</small>
         <ul class="nav flex-column gap-1 mb-4">
             <li class="nav-item"><a href="{{ url('/operator/statistik') }}" class="nav-link py-2 px-3 text-white rounded-3 d-flex align-items-center {{ request()->is('operator/statistik*') ? 'active-glass shadow-sm' : 'bg-hover-glass' }}"><i data-lucide="bar-chart-3" class="me-3 icon-sm"></i> <span>Statistik</span></a></li>
             <li class="nav-item"><a href="{{ url('/operator/apbdes') }}" class="nav-link py-2 px-3 text-white rounded-3 d-flex align-items-center {{ request()->is('operator/apbdes*') ? 'active-glass shadow-sm' : 'bg-hover-glass' }}"><i data-lucide="file-text" class="me-3 icon-sm"></i> <span>APBDes</span></a></li>
             <li class="nav-item"><a href="{{ url('/operator/polling') }}" class="nav-link py-2 px-3 text-white rounded-3 d-flex align-items-center {{ request()->is('operator/polling*') ? 'active-glass shadow-sm' : 'bg-hover-glass' }}"><i data-lucide="pie-chart" class="me-3 icon-sm"></i> <span>Jajak Pendapat</span></a></li>
         </ul>
 
-        <small class="text-white text-opacity-25 text-uppercase fw-bold x-small mb-3 d-block ps-2">Komunikasi</small>
+        <small class="text-white text-uppercase fw-bold mb-3 d-block ps-2" style="font-size: 11.5px; letter-spacing: 0.8px; opacity: 0.9;">Komunikasi</small>
         <ul class="nav flex-column gap-1 mb-4">
             <li class="nav-item"><a href="{{ url('/operator/widget') }}" class="nav-link py-2 px-3 text-white rounded-3 d-flex align-items-center {{ request()->is('operator/widget*') ? 'active-glass shadow-sm' : 'bg-hover-glass' }}"><i data-lucide="layout-template" class="me-3 icon-sm"></i> <span>Widget Profil</span></a></li>
             <li class="nav-item"><a href="{{ url('/operator/pesan') }}" class="nav-link py-2 px-3 text-white rounded-3 d-flex align-items-center {{ request()->is('operator/pesan*') ? 'active-glass shadow-sm' : 'bg-hover-glass' }}"><i data-lucide="mail" class="me-3 icon-sm"></i> <span>Pesan Masuk</span></a></li>
