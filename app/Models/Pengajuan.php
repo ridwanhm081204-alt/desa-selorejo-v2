@@ -24,10 +24,36 @@ class Pengajuan extends Model
     {
         parent::boot();
         static::creating(function ($model) {
-            $year = date('Y');
-            // Safe count not relying on whereYear database native support
-            $count = static::where('created_at', '>=', "$year-01-01 00:00:00")->count() + 1;
-            $model->no_tiket = 'DES-' . $year . '-' . str_pad($count, 5, '0', STR_PAD_LEFT);
+            $jenis = $model->jenis_layanan;
+            
+            // AA
+            $aa = '00';
+            if ($jenis === 'akta_kelahiran') {
+                $aa = '01';
+            } elseif ($jenis === 'akta_kematian') {
+                $aa = '02';
+            } elseif (str_starts_with($jenis, 'kk_')) {
+                $aa = '03';
+            } elseif (str_starts_with($jenis, 'ktp_')) {
+                $aa = '04';
+            }
+
+            // BB
+            $bb = '00';
+            if ($jenis === 'kk_baru') $bb = '01';
+            elseif ($jenis === 'kk_tambah_anggota') $bb = '02';
+            elseif ($jenis === 'kk_ubah_data') $bb = '03';
+            elseif ($jenis === 'kk_pisah') $bb = '04';
+            elseif ($jenis === 'ktp_baru') $bb = '01';
+            elseif ($jenis === 'ktp_hilang') $bb = '02';
+            elseif ($jenis === 'ktp_rusak') $bb = '03';
+            elseif ($jenis === 'ktp_ubah_data') $bb = '04';
+
+            // CCC
+            $count = static::where('jenis_layanan', $jenis)->count() + 1;
+            $ccc = str_pad($count, 3, '0', STR_PAD_LEFT);
+
+            $model->no_tiket = $aa . $bb . $ccc;
         });
     }
 

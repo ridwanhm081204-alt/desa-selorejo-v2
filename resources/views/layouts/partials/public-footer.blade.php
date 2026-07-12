@@ -12,7 +12,7 @@
                 </div>
                 <p style="font-family: var(--font-body); font-size: var(--text-sm); color: rgba(255,255,255,0.85); line-height: 1.8;" class="d-flex align-items-start gap-2 mt-2">
                     <i data-lucide="map-pin" class="mt-1" style="width:16px; min-width:16px;"></i> 
-                    <span>{{\App\Models\Setting::get('alamat', '')}}</span>
+                    <a href="https://maps.app.goo.gl/wP2HTRTZ219oB9TM8" target="_blank" class="footer-link">{{\App\Models\Setting::get('alamat', '')}}</a>
                 </p>
                 <p style="font-family: var(--font-body); font-size: var(--text-sm); color: rgba(255,255,255,0.85); line-height: 1.8;" class="mb-2">
                     <a href="tel:{{\App\Models\Setting::get('telepon', '')}}" class="footer-link d-flex align-items-center gap-2">
@@ -30,13 +30,13 @@
                     </a>
                 </p>
                 <div class="mt-4">
-                    <a href="#" class="footer-social-icon">
+                    <a href="{{\App\Models\Setting::get('facebook', '#')}}" target="_blank" class="footer-social-icon">
                         <i data-lucide="facebook" style="width:16px;"></i>
                     </a>
-                    <a href="#" class="footer-social-icon">
+                    <a href="{{\App\Models\Setting::get('instagram', '#')}}" target="_blank" class="footer-social-icon">
                         <i data-lucide="instagram" style="width:16px;"></i>
                     </a>
-                    <a href="#" class="footer-social-icon">
+                    <a href="{{\App\Models\Setting::get('youtube', '#')}}" target="_blank" class="footer-social-icon">
                         <i data-lucide="youtube" style="width:16px;"></i>
                     </a>
                 </div>
@@ -96,6 +96,6 @@
     </div>
     
     <div class="py-3 text-center" style="background: var(--primary-dark); padding: 12px 0; margin-top: 40px; border-top: 1px solid rgba(255,255,255,0.1);">
-        <small style="font-family: var(--font-body); font-size: var(--text-xs); color: rgba(255,255,255,0.6); text-align: center;">Copyright &copy; {{ date('Y') }} Pemerintah {{\App\Models\Setting::get('nama_desa', 'Desa Selorejo')}}. All Rights Reserved.</small>
+        <small style="font-family: var(--font-body); font-size: var(--text-xs); color: rgba(255,255,255,0.6); text-align: center;">Hak Cipta &copy; {{ date('Y') }} Pemerintah {{\App\Models\Setting::get('nama_desa', 'Desa Selorejo')}}, Kecamatan Dau, Kabupaten Malang</small>
     </div>
 </footer>

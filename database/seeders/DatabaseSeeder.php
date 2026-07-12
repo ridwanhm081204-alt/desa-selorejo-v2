@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder {
             InteractiveStatsSeeder::class,
             ProdukReviewSeeder::class,
             ProdukTransaksiSeeder::class,
+            LayananSeeder::class,
         ]);
     }
 }

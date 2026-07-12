@@ -92,7 +92,7 @@
                                 <input type="text" name="no_surat_kehilangan" id="no_surat_kehilangan" class="form-control rounded-3 py-2 border-0 bg-light shadow-none" value="{{ old('no_surat_kehilangan') }}" placeholder="Contoh: LP/H/123/X/2026/Polres">
                                 @error('no_surat_kehilangan') <small class="text-danger mt-1 d-block">{{ $message }}</small> @enderror
                             </div>
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                                 <label class="form-label fw-bold text-muted small">Rencana Kedatangan untuk Perekaman/Pengambilan Sidik Jari (Opsional)</label>
                                 <input type="datetime-local" name="jadwal_perekaman" id="jadwal_perekaman" class="form-control rounded-3 py-2 border-0 bg-light shadow-none" value="{{ old('jadwal_perekaman') }}">
                                 <small class="text-muted d-block mt-1" style="font-size: 0.7rem;">Pilih hari kerja (Senin - Jumat, jam 08.00 - 14.00) agar admin bisa menjadwalkan kedatangan Anda.</small>

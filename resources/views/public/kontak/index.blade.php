@@ -21,7 +21,9 @@
                     <div class="text-white p-2 rounded-circle me-3" style="background-color: var(--color-forest) !important;"><i data-lucide="map-pin"></i></div>
                     <div>
                         <h6 class="fw-bold mb-1" style="font-family: var(--font-heading);">Alamat</h6>
-                        <p class="text-muted small">{{\App\Models\Setting::get('alamat', 'Jl. Selorejo, Kec. Dau')}}</p>
+                        <p class="text-muted small mb-0">
+                            <a href="https://maps.app.goo.gl/wP2HTRTZ219oB9TM8" target="_blank" class="text-decoration-none text-muted hover-accent">{{\App\Models\Setting::get('alamat', 'Desa Selorejo, Kecamatan Dau - 61515, Kabupaten Malang, Jawa Timur')}}</a>
+                        </p>
                     </div>
                 </div>
                 
@@ -29,8 +31,12 @@
                     <div class="text-white p-2 rounded-circle me-3" style="background-color: var(--color-forest) !important;"><i data-lucide="phone"></i></div>
                     <div>
                         <h6 class="fw-bold mb-1" style="font-family: var(--font-heading);">Telepon / WhatsApp</h6>
-                        <p class="text-muted small mb-0">{{\App\Models\Setting::get('telepon')}}</p>
-                        <p class="text-muted small">DAU: {{\App\Models\Setting::get('whatsapp')}}</p>
+                        <p class="text-muted small mb-0">
+                            <a href="https://wa.me/6281331635678" target="_blank" class="text-decoration-none text-muted hover-accent">{{\App\Models\Setting::get('telepon')}}</a>
+                        </p>
+                        <p class="text-muted small mb-0">
+                            <a href="tel:{{ preg_replace('/[^0-9]/', '', \App\Models\Setting::get('whatsapp')) }}" class="text-decoration-none text-muted hover-accent">DAU: {{\App\Models\Setting::get('whatsapp')}}</a>
+                        </p>
                     </div>
                 </div>
                 
@@ -38,7 +44,9 @@
                     <div class="text-white p-2 rounded-circle me-3" style="background-color: var(--color-forest) !important;"><i data-lucide="mail"></i></div>
                     <div>
                         <h6 class="fw-bold mb-1" style="font-family: var(--font-heading);">Email</h6>
-                        <p class="text-muted small">{{\App\Models\Setting::get('email')}}</p>
+                        <p class="text-muted small mb-0">
+                            <a href="mailto:{{\App\Models\Setting::get('email')}}" class="text-decoration-none text-muted hover-accent">{{\App\Models\Setting::get('email')}}</a>
+                        </p>
                     </div>
                 </div>
                 
@@ -47,6 +55,21 @@
                     <div>
                         <h6 class="fw-bold mb-1 text-white" style="font-family: var(--font-heading);">Jam Pelayanan</h6>
                         <p class="mb-0 small text-white" style="color: #ffffff !important;">{{\App\Models\Setting::get('jam_kerja')}}</p>
+                    </div>
+                </div>
+
+                <div class="mt-4 pt-4 border-top" style="border-top-color: rgba(26,92,56,0.15) !important;">
+                    <h6 class="fw-bold mb-3" style="font-family: var(--font-heading); color: var(--color-forest);">Media Sosial Resmi</h6>
+                    <div class="d-flex gap-2">
+                        <a href="{{\App\Models\Setting::get('facebook', '#')}}" target="_blank" class="btn btn-outline-success rounded-circle p-0 d-flex align-items-center justify-content-center hover-lift" style="width: 40px; height: 40px; border-color: var(--color-forest)33; color: var(--color-forest);">
+                            <i data-lucide="facebook" style="width: 18px; height: 18px;"></i>
+                        </a>
+                        <a href="{{\App\Models\Setting::get('instagram', '#')}}" target="_blank" class="btn btn-outline-success rounded-circle p-0 d-flex align-items-center justify-content-center hover-lift" style="width: 40px; height: 40px; border-color: var(--color-forest)33; color: var(--color-forest);">
+                            <i data-lucide="instagram" style="width: 18px; height: 18px;"></i>
+                        </a>
+                        <a href="{{\App\Models\Setting::get('youtube', '#')}}" target="_blank" class="btn btn-outline-success rounded-circle p-0 d-flex align-items-center justify-content-center hover-lift" style="width: 40px; height: 40px; border-color: var(--color-forest)33; color: var(--color-forest);">
+                            <i data-lucide="youtube" style="width: 18px; height: 18px;"></i>
+                        </a>
                     </div>
                 </div>
             </div>

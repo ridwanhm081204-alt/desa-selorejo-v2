@@ -161,11 +161,37 @@
     }
 
     function copyToClipboard(text, platform) {
-        navigator.clipboard.writeText(text).then(function() {
-            alert('Link Berita berhasil disalin! Silakan tempelkan di ' + platform + ' Anda.');
-        }, function(err) {
-            console.error('Could not copy text: ', err);
-        });
+        if (navigator.clipboard && window.isSecureContext) {
+            navigator.clipboard.writeText(text).then(function() {
+                alert('Link Berita berhasil disalin! Silakan tempelkan di ' + platform + ' Anda.');
+            }, function(err) {
+                fallbackCopyToClipboard(text, platform);
+            });
+        } else {
+            fallbackCopyToClipboard(text, platform);
+        }
+    }
+
+    function fallbackCopyToClipboard(text, platform) {
+        const textArea = document.createElement("textarea");
+        textArea.value = text;
+        textArea.style.top = "0";
+        textArea.style.left = "0";
+        textArea.style.position = "fixed";
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        try {
+            const successful = document.execCommand('copy');
+            if (successful) {
+                alert('Link Berita berhasil disalin! Silakan tempelkan di ' + platform + ' Anda.');
+            } else {
+                alert('Gagal menyalin link.');
+            }
+        } catch (err) {
+            alert('Gagal menyalin link: ' + err);
+        }
+        document.body.removeChild(textArea);
     }
 
     document.querySelectorAll('.share-btn').forEach(btn => {

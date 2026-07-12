@@ -55,23 +55,23 @@
                 <table class="table table-hover align-middle mb-0" style="border: 2px solid #111; border-collapse: collapse;">
                     <thead>
                         <tr style="background-color: var(--color-forest);">
-                            <th class="py-3 fw-bold" style="color: #fff !important; border: 2px solid #111;">Jenis</th>
-                            <th class="py-3 fw-bold" style="color: #fff !important; border: 2px solid #111;">Bidang / Sumber</th>
-                            <th class="py-3 fw-bold text-end" style="color: #fff !important; border: 2px solid #111;">Nominal</th>
+                            <th class="py-3 fw-bold text-center" style="color: #fff !important; border: 2px solid #111;">Jenis</th>
+                            <th class="py-3 fw-bold text-center" style="color: #fff !important; border: 2px solid #111;">Bidang / Sumber</th>
+                            <th class="py-3 fw-bold text-center" style="color: #fff !important; border: 2px solid #111;">Nominal</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach($apbdes as $a)
                         <tr>
-                            <td style="border: 1.5px solid #333;">
+                            <td class="text-center" style="border: 1.5px solid #333;">
                                 @if($a->jenis == 'pendapatan')
                                     <span class="badge px-2 py-1" style="background-color: rgba(26,92,56,0.1) !important; color: var(--color-forest) !important; border: 1px solid rgba(26,92,56,0.2) !important;"><i data-lucide="download" class="icon-xs me-1"></i> Pendapatan</span>
                                 @else
                                     <span class="badge px-2 py-1" style="background-color: rgba(245,124,0,0.1) !important; color: var(--accent-orange) !important; border: 1px solid rgba(245,124,0,0.2) !important;"><i data-lucide="upload" class="icon-xs me-1"></i> Belanja</span>
                                 @endif
                             </td>
-                            <td class="fw-medium text-dark" style="border: 1.5px solid #333;">{{ $a->bidang }}</td>
-                            <td class="text-end fw-bold text-dark" style="border: 1.5px solid #333;">Rp {{ number_format($a->nominal, 0, ',', '.') }}</td>
+                            <td class="text-center fw-medium text-dark" style="border: 1.5px solid #333;">{{ $a->bidang }}</td>
+                            <td class="text-center fw-bold text-dark" style="border: 1.5px solid #333;">Rp {{ number_format($a->nominal, 0, ',', '.') }}</td>
                         </tr>
                         @endforeach
                     </tbody>

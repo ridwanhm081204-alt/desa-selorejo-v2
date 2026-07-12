@@ -152,14 +152,36 @@
 
                         @if($detail->data_lama)
                             <div class="col-md-6">
-                                <small class="text-muted d-block small">Data Lama</small>
-                                <pre class="bg-light p-2 rounded small text-dark mb-0">{{ json_encode($detail->data_lama, JSON_PRETTY_PRINT) }}</pre>
+                                <small class="text-muted d-block small mb-2">Data Lama</small>
+                                <div class="bg-light p-3 rounded-3 border">
+                                    <ul class="list-unstyled mb-0 small text-dark">
+                                        @foreach($detail->data_lama as $key => $val)
+                                            @php
+                                                $keyLabel = ucwords(str_replace('_', ' ', $key));
+                                                if ($key === 'alamat') $keyLabel = 'Alamat';
+                                                elseif ($key === 'jumlah_anggota') $keyLabel = 'Jumlah Anggota';
+                                            @endphp
+                                            <li class="mb-1"><strong>{{ $keyLabel }}:</strong> {{ is_array($val) ? implode(', ', $val) : $val }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
                             </div>
                         @endif
                         @if($detail->data_baru)
                             <div class="col-md-6">
-                                <small class="text-muted d-block small">Data Baru</small>
-                                <pre class="bg-light p-2 rounded small text-dark mb-0">{{ json_encode($detail->data_baru, JSON_PRETTY_PRINT) }}</pre>
+                                <small class="text-muted d-block small mb-2">Data Baru</small>
+                                <div class="bg-light p-3 rounded-3 border">
+                                    <ul class="list-unstyled mb-0 small text-dark">
+                                        @foreach($detail->data_baru as $key => $val)
+                                            @php
+                                                $keyLabel = ucwords(str_replace('_', ' ', $key));
+                                                if ($key === 'alamat') $keyLabel = 'Alamat';
+                                                elseif ($key === 'jumlah_anggota') $keyLabel = 'Jumlah Anggota';
+                                            @endphp
+                                            <li class="mb-1"><strong>{{ $keyLabel }}:</strong> {{ is_array($val) ? implode(', ', $val) : $val }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
                             </div>
                         @endif
                         @if($detail->anggota_terlibat)

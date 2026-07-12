@@ -59,7 +59,30 @@
                                 <div>
                                     <div class="fw-bold text-dark">{{ $t->nama_pemesan }}</div>
                                     @if($t->telepon)
-                                        <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $t->telepon) }}" target="_blank" class="badge bg-success bg-opacity-10 text-success text-decoration-none rounded-pill px-2 py-1 mt-1 hover-lift d-inline-flex align-items-center">
+                                        @php
+                                            $phone = preg_replace('/[^0-9]/', '', $t->telepon);
+                                            if (str_starts_with($phone, '0')) {
+                                                $phone = '62' . substr($phone, 1);
+                                            }
+                                            
+                                            $productName = $t->produk ? $t->produk->nama : 'Produk Dihapus';
+                                            $qty = $t->jumlah;
+                                            $total = number_format($t->total_harga, 0, ',', '.');
+                                            $status = $t->status;
+                                            $address = $t->alamat . ', Desa ' . ($t->kelurahan ?? 'Selorejo') . ', Kec. ' . ($t->kecamatan ?? 'Dau') . ', ' . ($t->kabupaten ?? 'Malang');
+                                            
+                                            $message = "Halo *" . $t->nama_pemesan . "*,\n\n"
+                                                     . "Kami dari *Pemerintah Desa Selorejo* menginformasikan mengenai detail transaksi pembelian Anda:\n\n"
+                                                     . "📌 *ID Transaksi*: #" . $t->id . "\n"
+                                                     . "📦 *Produk*: " . $productName . " (" . $qty . "x)\n"
+                                                     . "💰 *Total Bayar*: Rp " . $total . "\n"
+                                                     . "📍 *Alamat Kirim*: " . $address . "\n"
+                                                     . "🔄 *Status Pesanan*: " . $status . "\n\n"
+                                                     . "Terima kasih atas pesanan Anda!";
+                                                     
+                                            $waUrl = "https://wa.me/" . $phone . "?text=" . urlencode($message);
+                                        @endphp
+                                        <a href="{{ $waUrl }}" target="_blank" class="badge bg-success bg-opacity-10 text-success text-decoration-none rounded-pill px-2 py-1 mt-1 hover-lift d-inline-flex align-items-center">
                                             <i data-lucide="phone" class="icon-xs me-1"></i> Hubungi WA
                                         </a>
                                     @else
@@ -114,13 +137,18 @@
 
                         <!-- Aksi -->
                         <td class="pe-4 py-4 text-end">
-                            <button type="button" class="btn btn-sm btn-white border shadow-sm rounded-pill px-3 py-2 hover-lift" 
-                                    data-bs-toggle="popover" 
-                                    data-bs-trigger="focus"
-                                    title="Detail Alamat" 
-                                    data-bs-content="{{ $t->alamat }}, Desa {{ $t->kelurahan ?? 'Selorejo' }}, Kec. {{ $t->kecamatan ?? 'Dau' }}, {{ $t->kabupaten ?? 'Malang' }}, CP: {{ $t->telepon ?? '-' }}">
+                            @php
+                                $gmapsQuery = urlencode($t->alamat . ', Desa ' . ($t->kelurahan ?? 'Selorejo') . ', Kec. ' . ($t->kecamatan ?? 'Dau') . ', ' . ($t->kabupaten ?? 'Malang'));
+                            @endphp
+                            <a href="https://www.google.com/maps/search/?api=1&query={{ $gmapsQuery }}" 
+                               target="_blank" 
+                               class="btn btn-sm btn-white border shadow-sm rounded-pill px-3 py-2 hover-lift text-decoration-none d-inline-flex align-items-center"
+                               data-bs-toggle="popover" 
+                               data-bs-trigger="hover"
+                               title="Detail Alamat" 
+                               data-bs-content="{{ $t->alamat }}, Desa {{ $t->kelurahan ?? 'Selorejo' }}, Kec. {{ $t->kecamatan ?? 'Dau' }}, {{ $t->kabupaten ?? 'Malang' }}, CP: {{ $t->telepon ?? '-' }}">
                                 <i data-lucide="map-pin" class="icon-xs text-danger me-1"></i> Lokasi
-                            </button>
+                            </a>
                         </td>
                     </tr>
                     @empty

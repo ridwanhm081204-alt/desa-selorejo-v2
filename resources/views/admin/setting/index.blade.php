@@ -60,7 +60,7 @@
                         <label class="form-label fw-bold text-muted small text-uppercase">ALAMAT LENGKAP KANTOR DESA</label>
                         <div class="input-group bg-light rounded-3 overflow-hidden border">
                             <span class="input-group-text bg-transparent border-0"><i data-lucide="map-pin" class="icon-xs text-muted"></i></span>
-                            <input type="text" name="alamat" class="form-control border-0 bg-transparent shadow-none py-2" value="{{ $settings['alamat'] ?? '' }}" placeholder="Jl. Raya Selorejo No. 1...">
+                            <input type="text" name="alamat" class="form-control border-0 bg-transparent shadow-none py-2" value="{{ $settings['alamat'] ?? '' }}" placeholder="Desa Selorejo, Kecamatan Dau - 61515, Kabupaten Malang, Jawa Timur...">
                         </div>
                     </div>
                     

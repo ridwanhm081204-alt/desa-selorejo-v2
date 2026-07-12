@@ -1,25 +1,15 @@
-<!-- TOP BAR -->
-<div class="py-2 text-white" style="background: var(--color-forest); color: #fff; font-family: var(--font-body); font-size: var(--text-xs);">
-    <div class="container d-flex justify-content-between align-items-center flex-wrap">
-        <div>
-            <span class="me-3"><i data-lucide="map-pin" class="icon-xs me-1"></i> Desa Selorejo, Dau, Malang</span>
-            <span class="d-none d-sm-inline"><i data-lucide="mail" class="icon-xs me-1"></i> info@selorejo.desa.id</span>
-        </div>
-        <div class="d-flex align-items-center">
-            <i data-lucide="calendar" class="me-1" style="width:12px;"></i>
-            <span id="realtime-clock">Memuat waktu...</span>
-        </div>
-    </div>
-</div>
-
 <!-- HEADER (posisi sticky/fixed-top dengan Bootstrap) -->
-<nav class="navbar navbar-expand-lg navbar-light sticky-top" style="background: #fff; border-bottom: 3px solid var(--accent);" id="mainNavbarWrapper">
+<nav class="navbar navbar-expand-lg navbar-dark sticky-top" style="background: var(--color-forest); border-bottom: 3px solid var(--accent);" id="mainNavbarWrapper">
     <div class="container">
         <a class="navbar-brand d-flex align-items-center" href="{{ url('/') }}">
-            <img src="{{ asset('images/logo_desa.png') }}" alt="Logo Selorejo" class="me-3 shadow-sm" style="background: var(--color-forest); border-radius: var(--radius-sm); padding: 7px; width: 45px; height: 45px; object-fit: contain;">
+            <img src="{{ asset('images/logo_desa.png') }}" alt="Logo Selorejo" class="me-3 shadow-sm" style="background: #fff; border-radius: var(--radius-sm); padding: 5px; width: 45px; height: 45px; object-fit: contain;">
             <div>
-                <strong class="d-block" style="font-family: var(--font-display); font-size: 1.1rem; letter-spacing: 0.04em; color: #1a1a1a;">Pemerintah Desa Selorejo</strong>
-                <small class="d-none d-md-block" style="font-family: var(--font-body); font-size: var(--text-xs); color: #4a4a4a;">Kec. Dau, Kab. Malang, Prov. Jawa Timur</small>
+                <strong class="d-block text-white" style="font-family: var(--font-display); font-size: 1.1rem; letter-spacing: 0.04em;">Pemerintah Desa Selorejo</strong>
+                <small class="d-none d-md-block text-white-50" style="font-family: var(--font-body); font-size: var(--text-xs); margin-bottom: 2px; color: rgba(255,255,255,0.85) !important;">Kec. Dau, Kab. Malang, Prov. Jawa Timur</small>
+                <small class="d-block text-white-50" style="font-family: var(--font-body); font-size: var(--text-xs); font-weight: 500; color: rgba(255,255,255,0.85) !important;">
+                    <i data-lucide="calendar" class="me-1" style="width: 12px; height: 12px; vertical-align: middle; color: rgba(255,255,255,0.85) !important;"></i>
+                    <span id="realtime-clock" style="vertical-align: middle;">Memuat waktu...</span>
+                </small>
             </div>
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar">

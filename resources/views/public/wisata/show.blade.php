@@ -139,7 +139,7 @@
                     <div class="card h-100 border-0 shadow-sm card-hover rounded-4 overflow-hidden bg-white">
                         <img src="{{ $wl->gambar }}" onerror="this.src='{{ asset('images/wisata_jeruk.png') }}'" class="card-img-top img-cover" style="height: 180px;">
                         <div class="card-body p-4">
-                            <span class="badge mb-2 rounded-pill px-3" style="background-color: rgba(26,92,56,0.1) !important; color: var(--color-forest) !important; font-family: var(--font-body);">
+                            <span class="badge mb-2 rounded-pill px-3" style="background-color: rgba(26,92,56,0.1); color: var(--color-forest); font-family: var(--font-body);">
                                 {{ $wl->kategori ?? 'Wisata Desa' }}
                             </span>
                             <h6 class="fw-bold text-dark mb-2" style="font-family: var(--font-heading);">{{ $wl->judul }}</h6>
@@ -220,11 +220,37 @@
     }
 
     function copyToClipboard(text, platform) {
-        navigator.clipboard.writeText(text).then(function() {
-            alert('Link Wisata berhasil disalin! Silakan tempelkan di ' + platform + ' Anda.');
-        }, function(err) {
-            console.error('Could not copy text: ', err);
-        });
+        if (navigator.clipboard && window.isSecureContext) {
+            navigator.clipboard.writeText(text).then(function() {
+                alert('Link Wisata berhasil disalin! Silakan tempelkan di ' + platform + ' Anda.');
+            }, function(err) {
+                fallbackCopyToClipboard(text, platform);
+            });
+        } else {
+            fallbackCopyToClipboard(text, platform);
+        }
+    }
+
+    function fallbackCopyToClipboard(text, platform) {
+        const textArea = document.createElement("textarea");
+        textArea.value = text;
+        textArea.style.top = "0";
+        textArea.style.left = "0";
+        textArea.style.position = "fixed";
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        try {
+            const successful = document.execCommand('copy');
+            if (successful) {
+                alert('Link Wisata berhasil disalin! Silakan tempelkan di ' + platform + ' Anda.');
+            } else {
+                alert('Gagal menyalin link.');
+            }
+        } catch (err) {
+            alert('Gagal menyalin link: ' + err);
+        }
+        document.body.removeChild(textArea);
     }
 
     document.querySelectorAll('.share-btn').forEach(btn => {

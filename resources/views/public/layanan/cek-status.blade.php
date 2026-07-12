@@ -27,8 +27,8 @@
                     <form action="{{ route('layanan.hasil-status') }}" method="GET">
                         <div class="mb-4">
                             <label class="form-label fw-bold text-muted small">NOMOR TIKET ATAU NIK PEMOHON</label>
-                            <input type="text" name="query_status" class="form-control form-control-lg rounded-pill px-4 border bg-light shadow-none text-center fw-bold text-success" placeholder="DES-2026-XXXXX / 3507xxxxxxxxxxxx" required value="{{ request('query_status') }}">
-                            <small class="text-muted d-block mt-2 text-center" style="font-size: 0.75rem;">Contoh tiket: <strong>DES-2026-00001</strong></small>
+                            <input type="text" name="query_status" class="form-control form-control-lg rounded-pill px-4 border bg-light shadow-none text-center fw-bold text-success" placeholder="AABBCCC (contoh: 0100001) / 3507xxxxxxxxxxxx" required value="{{ request('query_status') }}">
+                            <small class="text-muted d-block mt-2 text-center" style="font-size: 0.75rem;">Contoh tiket: <strong>0100001</strong></small>
                         </div>
                         <button type="submit" class="btn btn-success w-100 rounded-pill py-3 fw-bold shadow-sm hover-lift border-0 text-white" style="font-family: var(--font-heading);">
                             <i data-lucide="search" class="icon-sm me-1"></i> LACAK PENGIRIMAN

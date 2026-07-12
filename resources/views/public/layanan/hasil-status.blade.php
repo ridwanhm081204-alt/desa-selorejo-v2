@@ -22,7 +22,7 @@
                         <i data-lucide="info" style="width: 32px; height: 32px;"></i>
                     </div>
                     <h4 class="fw-bold mb-2 text-dark" style="font-family: var(--font-heading);">Pengajuan Tidak Ditemukan</h4>
-                    <p class="text-muted mb-4 small" style="font-family: var(--font-body);">Pastikan nomor tiket (contoh: DES-2026-00001) atau NIK Pemohon yang Anda masukkan sudah benar.</p>
+                    <p class="text-muted mb-4 small" style="font-family: var(--font-body);">Pastikan nomor tiket (contoh: 0100001) atau NIK Pemohon yang Anda masukkan sudah benar.</p>
                     <div>
                         <a href="{{ route('layanan.cek-status') }}" class="btn btn-success rounded-pill px-4 fw-bold hover-lift border-0 text-white" style="font-family: var(--font-heading);">Coba Lagi</a>
                     </div>

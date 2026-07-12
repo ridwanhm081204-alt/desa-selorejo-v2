@@ -5,6 +5,6 @@
             @if(isset($icon)) <i data-lucide="{{ $icon }}" class="me-2" style="color: var(--accent); vertical-align: middle; width: 36px; height: 36px;"></i> @endif
             {{ $title }}
         </h1>
-        <p class="lead mb-0 text-white-50" style="font-family: var(--font-body); font-size: var(--text-sm); font-weight: 500;">{{ $subtitle ?? '' }}</p>
+        <p class="lead mb-0 text-white" style="font-family: var(--font-body); font-size: var(--text-lg); font-weight: 500;">{{ $subtitle ?? '' }}</p>
     </div>
 </div>
