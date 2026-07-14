@@ -12,7 +12,7 @@
 ])
 
 <div class="container mb-5 pb-5">
-    <div class="row g-4">
+    <div class="row g-4 justify-content-center">
         @forelse($lembaga as $l)
         <div class="col-lg-6">
             <div class="glass-card card-hover bg-white p-4 p-md-5 rounded-4 border shadow-sm h-100 d-flex flex-column" style="border-color: var(--color-forest)33 !important;">
@@ -34,8 +34,8 @@
                         @endif
                     </div>
                     <div>
-                        <small class="text-muted d-block lh-1 mb-2 fw-bold" style="font-family: var(--font-body);">Ketua Lembaga</small>
-                        <strong class="text-dark fs-5" style="font-family: var(--font-heading);">{{ $l->ketua ?: 'Belum ditentukan' }}</strong>
+                        <small class="text-dark d-block lh-1 mb-2 fw-bold" style="font-family: var(--font-body); color: #000 !important;">Ketua Lembaga</small>
+                        <strong class="text-dark fs-5" style="font-family: var(--font-heading); color: #000 !important;">{{ $l->ketua ?: 'Belum ditentukan' }}</strong>
                     </div>
                 </div>
             </div>
