@@ -47,6 +47,7 @@ class LayananController extends Controller
             'no_hp_pemohon' => ['required', 'string', 'max:15', 'regex:/^\+?[0-9]{8,14}$/'],
             'email_pemohon' => 'nullable|email|max:100',
             'jenis_layanan' => 'required|string',
+            'file_pengantar_rt_rw' => 'required|file|mimes:pdf,jpg,png|max:2048',
         ];
 
         // Custom validation based on type
@@ -189,6 +190,9 @@ class LayananController extends Controller
                     ]);
                 }
             };
+
+            // Upload Pengantar RT/RW for all layanans
+            $uploadFile('file_pengantar_rt_rw', 'pengantar_rt_rw');
 
             // 2. Save detail based on type
             if ($jenisLayanan === 'akta_kelahiran') {

@@ -75,6 +75,12 @@
                                     <input type="email" name="email_pemohon" class="form-control rounded-3 py-2 border-0 bg-light shadow-none" value="{{ old('email_pemohon') }}" placeholder="email@domain.com">
                                     @error('email_pemohon') <small class="text-danger mt-1 d-block">{{ $message }}</small> @enderror
                                 </div>
+                                <div class="col-md-12">
+                                    <label class="form-label fw-bold text-muted small">SURAT PENGANTAR RT/RW <span class="text-danger">*</span></label>
+                                    <input type="file" name="file_pengantar_rt_rw" class="form-control rounded-pill border-0 shadow-sm bg-white" accept="image/*,application/pdf" required>
+                                    <small class="text-muted d-block mt-1" style="font-size: 0.7rem;">Surat pengantar dari RT/RW setempat (Wajib untuk semua jenis pengajuan KK). Format: PDF, JPG, PNG (Max 2MB)</small>
+                                    @error('file_pengantar_rt_rw') <small class="text-danger mt-1 d-block">{{ $message }}</small> @enderror
+                                </div>
                             </div>
                         </div>
 

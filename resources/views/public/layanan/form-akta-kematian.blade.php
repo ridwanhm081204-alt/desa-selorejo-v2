@@ -150,6 +150,12 @@
                         </h5>
                         <div class="row g-4 mb-5">
                             <div class="col-md-6">
+                                <label class="form-label fw-bold text-muted small">SURAT PENGANTAR RT/RW <span class="text-danger">*</span></label>
+                                <input type="file" name="file_pengantar_rt_rw" class="form-control rounded-pill border-0 shadow-sm bg-white" accept="image/*,application/pdf" required>
+                                <small class="text-muted d-block mt-1" style="font-size: 0.7rem;">Surat pengantar dari RT/RW setempat. Format: PDF, JPG, PNG (Max 2MB)</small>
+                                @error('file_pengantar_rt_rw') <small class="text-danger mt-1 d-block">{{ $message }}</small> @enderror
+                            </div>
+                            <div class="col-md-6">
                                 <label class="form-label fw-bold text-muted small">SURAT KEMATIAN <span class="text-danger">*</span></label>
                                 <input type="file" name="file_surat_kematian" class="form-control rounded-pill border-0 shadow-sm bg-white" accept="image/*,application/pdf" required>
                                 <small class="text-muted d-block mt-1" style="font-size: 0.7rem;">Dari dokter/puskesmas/kepala desa. Format: PDF, JPG, PNG (Max 2MB)</small>
