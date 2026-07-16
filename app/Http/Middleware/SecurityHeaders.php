@@ -46,17 +46,18 @@ class SecurityHeaders
 
         // HSTS (HTTP Strict Transport Security)
         // Paksa browser menggunakan HTTPS selama 1 tahun.
-        // Catatan: header ini hanya efektif saat website sudah berjalan di HTTPS.
-        // Untuk development lokal (HTTP), header ini diabaikan oleh browser.
-        $response->headers->set(
-            'Strict-Transport-Security',
-            'max-age=31536000; includeSubDomains'
-        );
+        // Catatan: hanya aktifkan jika request menggunakan HTTPS atau di production
+        if ($request->isSecure() || app()->environment('production')) {
+            $response->headers->set(
+                'Strict-Transport-Security',
+                'max-age=31536000; includeSubDomains'
+            );
+        }
 
         // Content Security Policy
         // Mengizinkan: self, font Google, CDN yang digunakan project ini
         // connect-src mencakup CDN untuk AJAX/fetch dari library eksternal
-        $csp = implode('; ', [
+        $cspDirections = [
             "default-src 'self'",
             "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://unpkg.com https://www.google.com https://www.gstatic.com",
             "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net https://unpkg.com",
@@ -68,8 +69,13 @@ class SecurityHeaders
             "object-src 'none'",
             "base-uri 'self'",
             "form-action 'self'",
-            "upgrade-insecure-requests",
-        ]);
+        ];
+
+        if ($request->isSecure() || app()->environment('production')) {
+            $cspDirections[] = "upgrade-insecure-requests";
+        }
+
+        $csp = implode('; ', $cspDirections);
         $response->headers->set('Content-Security-Policy', $csp);
 
         // Hapus header yang mengungkap teknologi server
