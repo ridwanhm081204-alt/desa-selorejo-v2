@@ -36,6 +36,9 @@ class BpdController extends Controller
         $validated = $request->validate([
             'nama' => 'required', 
             'jabatan' => 'required',
+            'dusun' => 'nullable|string|max:100',
+            'nomor_rt' => 'nullable|integer',
+            'nomor_rw' => 'nullable|integer',
             'foto' => 'nullable|image|mimes:jpg,jpeg,png,svg|max:2048'
         ]);
         if ($request->hasFile('foto')) {
@@ -51,6 +54,9 @@ class BpdController extends Controller
         $validated = $request->validate([
             'nama' => 'required', 
             'jabatan' => 'required',
+            'dusun' => 'nullable|string|max:100',
+            'nomor_rt' => 'nullable|integer',
+            'nomor_rw' => 'nullable|integer',
             'foto' => 'nullable|image|mimes:jpg,jpeg,png,svg|max:2048'
         ]);
         if ($request->hasFile('foto')) {

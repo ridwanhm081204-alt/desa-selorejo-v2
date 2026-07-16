@@ -13,4 +13,9 @@ class StrukturOrganisasi extends Model
         'foto',
         'urutan',
     ];
+
+    public function getNamaPejabatAttribute($value): string
+    {
+        return \Illuminate\Support\Str::title($value);
+    }
 }

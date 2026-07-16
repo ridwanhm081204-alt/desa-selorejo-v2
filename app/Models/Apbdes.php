@@ -10,7 +10,10 @@ class Apbdes extends Model
         'tahun',
         'jenis',
         'bidang',
+        'kategori_bidang',
         'nominal',
+        'nominal_semula',
+        'nominal_perubahan',
         'dokumen_pdf',
     ];
 }

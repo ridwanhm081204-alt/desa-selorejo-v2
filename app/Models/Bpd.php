@@ -10,6 +10,14 @@ class Bpd extends Model
     protected $fillable = [
         'nama',
         'jabatan',
+        'dusun',
+        'nomor_rt',
+        'nomor_rw',
         'foto',
     ];
+
+    public function getNamaAttribute($value): string
+    {
+        return \Illuminate\Support\Str::title($value);
+    }
 }

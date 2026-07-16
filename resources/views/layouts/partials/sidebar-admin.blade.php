@@ -1,7 +1,7 @@
 <div class="sidebar vh-100 position-fixed overflow-auto py-4 px-3" style="width: 260px; left: 0; top: 0; background: linear-gradient(180deg, var(--primary-dark) 0%, var(--primary) 100%); z-index: 1050; border-right: 1px solid rgba(255,255,255,0.05);">
     <div class="text-center mb-5 px-3">
         <div class="d-inline-flex align-items-center justify-content-center bg-white bg-opacity-10 rounded-circle mb-3 shadow-sm border border-white border-opacity-10" style="width: 70px; height: 70px; overflow: hidden;">
-            <img src="{{ asset('images/logo_desa.png') }}" alt="Logo Desa" style="width: 45px; height: 45px; object-fit: contain;">
+            <img src="{{ asset('images/logo_desa.png') }}?v={{ file_exists(public_path('images/logo_desa.png')) ? filemtime(public_path('images/logo_desa.png')) : '1' }}" alt="Logo Desa" style="width: 45px; height: 45px; object-fit: contain;">
         </div>
         <h6 class="mt-2 text-white fw-bold mb-0" style="font-family: var(--font-heading);">Admin Panel</h6>
         <div class="mt-1"><span class="badge rounded-pill px-2 py-1" style="background: var(--accent) !important; color: var(--text-on-accent) !important; font-size:0.65rem; font-weight:700; letter-spacing:0.5px; border: none;">SUPER ADMIN</span></div>

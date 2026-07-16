@@ -10,7 +10,7 @@
         <div class="card-body p-4 p-md-5 text-center" style="font-family: var(--font-body);">
             <div class="mb-5">
                 <div class="d-inline-flex align-items-center justify-content-center bg-white shadow-sm rounded-circle p-3 mb-3 border border-light" style="width: 100px; height: 100px;">
-                    <img src="{{ asset('images/logo_desa.png') }}" alt="Logo Selorejo" style="width: 60px; height: 60px; object-fit: contain;">
+                    <img src="{{ asset('images/logo_desa.png') }}?v={{ file_exists(public_path('images/logo_desa.png')) ? filemtime(public_path('images/logo_desa.png')) : '1' }}" alt="Logo Selorejo" style="width: 60px; height: 60px; object-fit: contain;">
                 </div>
                 <h4 class="fw-bold text-dark mb-1" style="font-family: var(--font-heading);">E-Government Selorejo</h4>
                 <p class="text-muted small">Silakan masuk untuk mengelola portal desa</p>

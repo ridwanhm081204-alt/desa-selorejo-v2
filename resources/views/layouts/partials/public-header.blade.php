@@ -2,7 +2,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark sticky-top" style="background: var(--color-forest); border-bottom: 3px solid var(--accent);" id="mainNavbarWrapper">
     <div class="container">
         <a class="navbar-brand d-flex align-items-center" href="{{ url('/') }}">
-            <img src="{{ asset('images/logo_desa.png') }}" alt="Logo Selorejo" class="me-3 shadow-sm" style="background: #fff; border-radius: var(--radius-sm); padding: 5px; width: 45px; height: 45px; object-fit: contain;">
+            <img src="{{ asset('images/logo_desa.png') }}?v={{ file_exists(public_path('images/logo_desa.png')) ? filemtime(public_path('images/logo_desa.png')) : '1' }}" alt="Logo Selorejo" class="me-3 shadow-sm" style="background: #fff; border-radius: var(--radius-sm); padding: 5px; width: 45px; height: 45px; object-fit: contain;">
             <div>
                 <strong class="d-block text-white" style="font-family: var(--font-display); font-size: 1.1rem; letter-spacing: 0.04em;">Pemerintah Desa Selorejo</strong>
                 <small class="d-none d-md-block text-white-50" style="font-family: var(--font-body); font-size: var(--text-xs); margin-bottom: 2px; color: rgba(255,255,255,0.85) !important;">Kec. Dau, Kab. Malang, Prov. Jawa Timur</small>
@@ -36,6 +36,8 @@
                         <li><a class="dropdown-item" href="{{ route('pemerintahan.struktur') }}">Struktur Organisasi</a></li>
                         <li><a class="dropdown-item" href="{{ route('pemerintahan.bpd') }}">BPD</a></li>
                         <li><a class="dropdown-item" href="{{ route('pemerintahan.lembaga') }}">Lembaga Desa</a></li>
+                        <li><a class="dropdown-item" href="{{ route('pemerintahan.perangkat-rt-rw') }}">Perangkat RT & RW</a></li>
+                        <li><a class="dropdown-item" href="{{ url('/pemerintahan/produkhukum') }}">Produk Hukum</a></li>
                     </ul>
                 </li>
 

@@ -4,7 +4,7 @@
             <!-- Kolom 1 -->
             <div class="col-md-3">
                 <div class="d-flex align-items-center mb-4">
-                    <img src="{{ asset('images/logo_desa.png') }}" alt="Logo Selorejo" class="me-3 shadow-sm" style="background: var(--color-white); border-radius: var(--radius-sm); padding: 5px; width: 45px; height: 45px; object-fit: contain;">
+                    <img src="{{ asset('images/logo_desa.png') }}?v={{ file_exists(public_path('images/logo_desa.png')) ? filemtime(public_path('images/logo_desa.png')) : '1' }}" alt="Logo Selorejo" class="me-3 shadow-sm" style="background: var(--color-white); border-radius: var(--radius-sm); padding: 5px; width: 45px; height: 45px; object-fit: contain;">
                     <div>
                         <strong class="d-block text-white" style="font-family: var(--font-display); font-size: 1.1rem; letter-spacing: 0.04em; color: var(--accent);">Pemerintah Desa Selorejo</strong>
                         <small class="d-block" style="font-family: var(--font-body); font-size: var(--text-xs); color: rgba(255,255,255,0.85);">Kec. Dau, Kab. Malang, Prov. Jawa Timur</small>
@@ -25,7 +25,13 @@
                     </a>
                 </p>
                 <p style="font-family: var(--font-body); font-size: var(--text-sm); color: rgba(255,255,255,0.85); line-height: 1.8;" class="mb-2">
-                    <a href="https://wa.me/{{\App\Models\Setting::get('whatsapp', '')}}" target="_blank" class="footer-link d-flex align-items-center gap-2">
+                    @php
+                        $waNum = preg_replace('/[^0-9]/', '', \App\Models\Setting::get('whatsapp', ''));
+                        if (str_starts_with($waNum, '0')) {
+                            $waNum = '62' . substr($waNum, 1);
+                        }
+                    @endphp
+                    <a href="https://wa.me/{{ $waNum }}" target="_blank" class="footer-link d-flex align-items-center gap-2">
                         <i data-lucide="message-circle" style="width:16px;"></i> WhatsApp: {{\App\Models\Setting::get('whatsapp', '')}}
                     </a>
                 </p>

@@ -15,6 +15,8 @@ Route::get('/profil/peta', [\App\Http\Controllers\Public\ProfilController::class
 Route::get('/pemerintahan/struktur', [\App\Http\Controllers\Public\PemerintahanController::class, 'struktur'])->name('pemerintahan.struktur');
 Route::get('/pemerintahan/bpd', [\App\Http\Controllers\Public\PemerintahanController::class, 'bpd'])->name('pemerintahan.bpd');
 Route::get('/pemerintahan/lembaga', [\App\Http\Controllers\Public\PemerintahanController::class, 'lembaga'])->name('pemerintahan.lembaga');
+Route::get('/pemerintahan/perangkat-rt-rw', [\App\Http\Controllers\Public\PemerintahanController::class, 'perangkatRtRw'])->name('pemerintahan.perangkat-rt-rw');
+Route::get('/pemerintahan/produkhukum', [\App\Http\Controllers\Public\PemerintahanController::class, 'produkHukum'])->name('pemerintahan.produk-hukum');
 
 // Wisata & Produk
 Route::get('/wisata', [\App\Http\Controllers\Public\WisataController::class, 'index'])->name('wisata.index');
@@ -80,6 +82,10 @@ Route::middleware(['auth', 'role:operator,admin'])->prefix('operator')->name('op
     Route::resource('bpd', \App\Http\Controllers\Operator\BpdController::class)->except(['show']);
     Route::post('lembaga/hero', [\App\Http\Controllers\Operator\LembagaController::class, 'updateHero']);
     Route::resource('lembaga', \App\Http\Controllers\Operator\LembagaController::class)->except(['show']);
+    Route::post('perangkat-rt-rw/hero', [\App\Http\Controllers\Operator\PerangkatRtRwController::class, 'updateHero'])->name('perangkat-rt-rw.hero');
+    Route::resource('perangkat-rt-rw', \App\Http\Controllers\Operator\PerangkatRtRwController::class)->except(['show']);
+    Route::post('produkhukum/hero', [\App\Http\Controllers\Operator\ProdukHukumController::class, 'updateHero']);
+    Route::resource('produkhukum', \App\Http\Controllers\Operator\ProdukHukumController::class)->except(['show']);
     
     // Wisata
     Route::post('wisata/hero', [\App\Http\Controllers\Operator\WisataController::class, 'updateHero']);

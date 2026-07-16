@@ -1,7 +1,7 @@
 <div class="sidebar vh-100 position-fixed overflow-auto py-4 px-3" style="width: 260px; left: 0; top: 0; background: linear-gradient(180deg, var(--primary-dark) 0%, var(--primary) 100%); z-index: 1050; border-right: 1px solid rgba(255,255,255,0.05);">
     <div class="text-center mb-5 px-3">
         <div class="d-inline-flex align-items-center justify-content-center bg-white bg-opacity-10 rounded-circle mb-3 shadow-sm border border-white border-opacity-10" style="width: 70px; height: 70px; overflow: hidden;">
-            <img src="{{ asset('images/logo_desa.png') }}" alt="Logo Desa" style="width: 45px; height: 45px; object-fit: contain;">
+            <img src="{{ asset('images/logo_desa.png') }}?v={{ file_exists(public_path('images/logo_desa.png')) ? filemtime(public_path('images/logo_desa.png')) : '1' }}" alt="Logo Desa" style="width: 45px; height: 45px; object-fit: contain;">
         </div>
         <h6 class="mt-2 text-white fw-bold mb-0">Operator Panel</h6>
         <small class="text-white text-opacity-50 small">{{\App\Models\Setting::get('nama_desa', 'Desa Selorejo')}}</small>
@@ -23,19 +23,22 @@
             </li>
             
             <li class="nav-item">
-                <a href="#pemerintahanCollapse" data-bs-toggle="collapse" class="nav-link py-2 px-3 text-white rounded-3 d-flex align-items-center justify-content-between {{ request()->is('operator/struktur*') || request()->is('operator/bpd*') || request()->is('operator/lembaga*') ? 'bg-white bg-opacity-10' : 'bg-hover-glass' }}">
+                <a href="#pemerintahanCollapse" data-bs-toggle="collapse" class="nav-link py-2 px-3 text-white rounded-3 d-flex align-items-center justify-content-between {{ request()->is('operator/struktur*') || request()->is('operator/bpd*') || request()->is('operator/lembaga*') || request()->is('operator/perangkat-rt-rw*') || request()->is('operator/produkhukum*') ? 'bg-white bg-opacity-10' : 'bg-hover-glass' }}">
                     <div class="d-flex align-items-center">
                         <i data-lucide="users-2" class="me-3 icon-sm"></i> <span>Pemerintahan</span>
                     </div>
                     <i data-lucide="chevron-down" class="icon-xs opacity-50"></i>
                 </a>
-                <div class="collapse {{ request()->is('operator/struktur*') || request()->is('operator/bpd*') || request()->is('operator/lembaga*') ? 'show' : '' }}" id="pemerintahanCollapse">
+                <div class="collapse {{ request()->is('operator/struktur*') || request()->is('operator/bpd*') || request()->is('operator/lembaga*') || request()->is('operator/perangkat-rt-rw*') || request()->is('operator/produkhukum*') ? 'show' : '' }}" id="pemerintahanCollapse">
                     <ul class="nav flex-column ms-4 mt-2 mb-2 gap-1 border-start border-white border-opacity-10 ps-3">
                         <li><a href="{{ url('/operator/struktur') }}" class="nav-link py-1 text-white text-opacity-75 small {{ request()->is('operator/struktur*') ? 'text-white fw-bold opacity-100' : 'hover-opacity' }}">Struktur Organisasi</a></li>
                         <li><a href="{{ url('/operator/bpd') }}" class="nav-link py-1 text-white text-opacity-75 small {{ request()->is('operator/bpd*') ? 'text-white fw-bold opacity-100' : 'hover-opacity' }}">BPD</a></li>
                         <li><a href="{{ url('/operator/lembaga') }}" class="nav-link py-1 text-white text-opacity-75 small {{ request()->is('operator/lembaga*') ? 'text-white fw-bold opacity-100' : 'hover-opacity' }}">Lembaga Desa</a></li>
+                        <li><a href="{{ url('/operator/perangkat-rt-rw') }}" class="nav-link py-1 text-white text-opacity-75 small {{ request()->is('operator/perangkat-rt-rw*') ? 'text-white fw-bold opacity-100' : 'hover-opacity' }}">Perangkat RT & RW</a></li>
+                        <li><a href="{{ url('/operator/produkhukum') }}" class="nav-link py-1 text-white text-opacity-75 small {{ request()->is('operator/produkhukum*') ? 'text-white fw-bold opacity-100' : 'hover-opacity' }}">Produk Hukum</a></li>
                     </ul>
                 </div>
+
             </li>
         </ul>
 

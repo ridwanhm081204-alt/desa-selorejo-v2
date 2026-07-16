@@ -31,8 +31,14 @@
                     <div class="text-white p-2 rounded-circle me-3" style="background-color: var(--color-forest) !important;"><i data-lucide="phone"></i></div>
                     <div>
                         <h6 class="fw-bold mb-1" style="font-family: var(--font-heading);">Telepon / WhatsApp</h6>
+                        @php
+                            $waTelp = preg_replace('/[^0-9]/', '', \App\Models\Setting::get('telepon', ''));
+                            if (str_starts_with($waTelp, '0')) {
+                                $waTelp = '62' . substr($waTelp, 1);
+                            }
+                        @endphp
                         <p class="text-muted small mb-0">
-                            <a href="https://wa.me/6281331635678" target="_blank" class="text-decoration-none text-muted hover-accent">{{\App\Models\Setting::get('telepon')}}</a>
+                            <a href="https://wa.me/{{ $waTelp }}" target="_blank" class="text-decoration-none text-muted hover-accent">{{\App\Models\Setting::get('telepon')}}</a>
                         </p>
                         <p class="text-muted small mb-0">
                             <a href="tel:{{ preg_replace('/[^0-9]/', '', \App\Models\Setting::get('whatsapp')) }}" class="text-decoration-none text-muted hover-accent">DAU: {{\App\Models\Setting::get('whatsapp')}}</a>

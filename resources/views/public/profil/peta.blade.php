@@ -113,9 +113,9 @@
         <div class="row g-4 mt-2">
             @php 
                 $dusuns = $profile->dusun_info ?? [
-                    ['nama' => 'Dusun Krajan', 'peta_desc' => 'Berlokasi di bagian tengah hingga timur desa. Merupakan kawasan terluas, terpadat, and menjadi pusat aktivitas utama penduduk.', 'admin_rw' => 'RW I - RW IV', 'admin_rt' => '12 RT (RT.01 - RT.12)', 'color_theme' => 'success'],
+                    ['nama' => 'Dusun Krajan', 'peta_desc' => 'Berlokasi di bagian tengah hingga timur desa. Merupakan kawasan terluas, terpadat, dan menjadi pusat aktivitas utama penduduk.', 'admin_rw' => 'RW I - RW IV', 'admin_rt' => '12 RT (RT.01 - RT.12)', 'color_theme' => 'success'],
                     ['nama' => 'Dusun Selokerto', 'peta_desc' => 'Berlokasi di sisi barat/kiri dari peta desa. Cukup padat, terutama berkonsentrasi di sektor utara dan tengah wilayah dusun.', 'admin_rw' => 'RW V - RW VI (Sebagian)', 'admin_rt' => '7 RT (RT.13 - RT.19)', 'color_theme' => 'warning'],
-                    ['nama' => 'Dusun Gumuk', 'peta_desc' => 'Berlokasi merapat di bagian barat daya. Relatif memiliki sebaran bangunan pemukiman yang lebih sedikit dibanding dua dusun lainnya.', 'admin_rw' => 'RW VI (Sebagian)', 'admin_rt' => '1 RT (RT.20)', 'color_theme' => 'primary']
+                    ['nama' => 'Dusun Gumuk', 'peta_desc' => 'Berlokasi merapat di bagian barat daya. Memiliki sebaran bangunan pemukiman yang berkembang di wilayah RW VI dan RW VII.', 'admin_rw' => 'RW VI - RW VII', 'admin_rt' => '2 RT (RT.20 - RT.21)', 'color_theme' => 'primary']
                 ];
             @endphp
             @foreach(array_slice($dusuns, 0, 3) as $dsn)

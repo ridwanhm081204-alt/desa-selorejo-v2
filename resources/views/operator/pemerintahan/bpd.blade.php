@@ -56,7 +56,12 @@
                 <tbody>
                     @forelse($data as $item)
                     <tr>
-                        <td class="ps-4 py-3 fw-bold text-dark">{{ $item->nama }}</td>
+                        <td class="ps-4 py-3 fw-bold text-dark">
+                            {{ $item->nama }}
+                            @if($item->dusun)
+                                <div class="text-muted small fw-normal">{{ $item->dusun }} @if($item->nomor_rt) RT.{{ str_pad($item->nomor_rt, 2, '0', STR_PAD_LEFT) }} @endif @if($item->nomor_rw) RW.{{ str_pad($item->nomor_rw, 2, '0', STR_PAD_LEFT) }} @endif</div>
+                            @endif
+                        </td>
                         <td class="py-3 fw-medium text-success">{{ $item->jabatan }}</td>
                         <td class="py-3 text-center">
                             @if($item->foto)
@@ -114,6 +119,25 @@
             <label class="small fw-bold text-muted mb-1">Jabatan BPD</label>
             <input type="text" name="jabatan" class="form-control rounded-3" value="{{ $item->jabatan }}" required>
         </div>
+        <div class="row g-2 mb-3">
+            <div class="col-md-6">
+                <label class="small fw-bold text-muted mb-1">Dusun (Perwakilan)</label>
+                <select name="dusun" class="form-select rounded-3">
+                    <option value="">-- Pilih Dusun (Opsional) --</option>
+                    <option value="Dsn. Krajan" {{ $item->dusun=='Dsn. Krajan'?'selected':'' }}>Dsn. Krajan</option>
+                    <option value="Dsn. Selokerto" {{ $item->dusun=='Dsn. Selokerto'?'selected':'' }}>Dsn. Selokerto</option>
+                    <option value="Dsn. Gumuk" {{ $item->dusun=='Dsn. Gumuk'?'selected':'' }}>Dsn. Gumuk</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label class="small fw-bold text-muted mb-1">RT</label>
+                <input type="number" name="nomor_rt" class="form-control rounded-3" value="{{ $item->nomor_rt }}" min="1">
+            </div>
+            <div class="col-md-3">
+                <label class="small fw-bold text-muted mb-1">RW</label>
+                <input type="number" name="nomor_rw" class="form-control rounded-3" value="{{ $item->nomor_rw }}" min="1">
+            </div>
+        </div>
         <div class="mb-0 text-start">
             <label class="small fw-bold text-muted mb-1 d-block">Ganti Foto Profil (Opsional)</label>
             <input type="file" name="foto" class="form-control rounded-3">
@@ -145,6 +169,25 @@
         <div class="mb-3">
             <label class="small fw-bold text-muted mb-1">Jabatan</label>
             <input type="text" name="jabatan" class="form-control rounded-3" placeholder="Contoh: Ketua BPD" required>
+        </div>
+        <div class="row g-2 mb-3">
+            <div class="col-md-6">
+                <label class="small fw-bold text-muted mb-1">Dusun (Perwakilan)</label>
+                <select name="dusun" class="form-select rounded-3">
+                    <option value="">-- Pilih Dusun (Opsional) --</option>
+                    <option value="Dsn. Krajan">Dsn. Krajan</option>
+                    <option value="Dsn. Selokerto">Dsn. Selokerto</option>
+                    <option value="Dsn. Gumuk">Dsn. Gumuk</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label class="small fw-bold text-muted mb-1">RT</label>
+                <input type="number" name="nomor_rt" class="form-control rounded-3" placeholder="RT" min="1">
+            </div>
+            <div class="col-md-3">
+                <label class="small fw-bold text-muted mb-1">RW</label>
+                <input type="number" name="nomor_rw" class="form-control rounded-3" placeholder="RW" min="1">
+            </div>
         </div>
         <div class="mb-0 text-start">
             <label class="small fw-bold text-muted mb-1 d-block">Foto Profil</label>

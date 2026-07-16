@@ -93,6 +93,9 @@ class ProdukController extends Controller
             $produk->save();
             
             $whatsappNumber = preg_replace('/[^0-9]/', '', $produk->whatsapp ?: \App\Models\Setting::get('whatsapp', ''));
+            if (str_starts_with($whatsappNumber, '0')) {
+                $whatsappNumber = '62' . substr($whatsappNumber, 1);
+            }
             return response()->json([
                 'success' => true,
                 'message' => 'Pesanan Anda telah dicatat!',

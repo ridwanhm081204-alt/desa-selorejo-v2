@@ -52,13 +52,13 @@
 
                     <div class="mt-5 pt-4 border-top" style="border-top-color: var(--color-forest) !important;">
                         <h5 class="fw-bold text-dark mb-4 text-center" style="font-family: var(--font-heading);">Pembagian Wilayah Administratif</h5>
-                        <p class="text-center text-dark mb-4" style="font-family: var(--font-body);">Secara administratif, wilayah pemukiman Desa Selorejo terbagi menjadi 3 (tiga) Dusun utama dengan total 6 Rukun Warga (RW) dan 20 Rukun Tetangga (RT):</p>
+                        <p class="text-center text-dark mb-4" style="font-family: var(--font-body);">Secara administratif, wilayah pemukiman Desa Selorejo terbagi menjadi 3 (tiga) Dusun utama dengan total {{ \App\Models\PerangkatRtRw::where('jenis', 'RW')->count() ?: 7 }} Rukun Warga (RW) dan {{ \App\Models\PerangkatRtRw::where('jenis', 'RT')->count() ?: 21 }} Rukun Tetangga (RT):</p>
                         <div class="row g-4 justify-content-center">
                             @php 
                                 $dusuns = $profile->dusun_info ?? [
                                     ['nama' => 'Dusun Krajan', 'geografi_desc' => 'Dusun terluas dan terpadat permukimannya, meliputi RW I hingga RW IV (12 RT).'],
-                                    ['nama' => 'Dusun Selokerto', 'geografi_desc' => 'Berlokasi di sisi barat desa yang cukup padat, meliputi sebagian RW V dan RW VI (7 RT).'],
-                                    ['nama' => 'Dusun Gumuk', 'geografi_desc' => 'Berlokasi di selatan-barat desa, meliputi satu lingkungan spesifik di RW VI (1 RT).']
+                                    ['nama' => 'Dusun Selokerto', 'geografi_desc' => 'Berlokasi di sisi barat desa yang cukup padat, meliputi RW V dan RW VI (Sebagian) (7 RT).'],
+                                    ['nama' => 'Dusun Gumuk', 'geografi_desc' => 'Berlokasi di selatan-barat desa, meliputi RW VI (sebagian) dan RW VII (2 RT).']
                                 ];
                             @endphp
                             @foreach(array_slice($dusuns, 0, 3) as $dsn)

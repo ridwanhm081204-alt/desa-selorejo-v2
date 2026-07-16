@@ -95,7 +95,13 @@
                         </li>
                     </ul>
                     
-                    <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $wisata->whatsapp ?: \App\Models\Setting::get('whatsapp', '')) }}?text={{ urlencode("Halo Pengelola Wisata Desa Selorejo,\n\nSaya tertarik untuk berkunjung ke: " . $wisata->judul . "\n\nBisakah saya mendapatkan informasi lebih lanjut mengenai akses dan ketersediaan kuota untuk kunjungan dalam waktu dekat?\n\nTerima kasih.") }}" target="_blank" class="btn w-100 mt-4 rounded-pill fw-bold hover-lift" style="background-color: var(--color-forest) !important; color: #fff !important; font-family: var(--font-heading); border: none;">
+                    @php
+                        $wisataWa = preg_replace('/[^0-9]/', '', $wisata->whatsapp ?: \App\Models\Setting::get('whatsapp', ''));
+                        if (str_starts_with($wisataWa, '0')) {
+                            $wisataWa = '62' . substr($wisataWa, 1);
+                        }
+                    @endphp
+                    <a href="https://wa.me/{{ $wisataWa }}?text={{ urlencode("Halo Pengelola Wisata Desa Selorejo,\n\nSaya tertarik untuk berkunjung ke: " . $wisata->judul . "\n\nBisakah saya mendapatkan informasi lebih lanjut mengenai akses dan ketersediaan kuota untuk kunjungan dalam waktu dekat?\n\nTerima kasih.") }}" target="_blank" class="btn w-100 mt-4 rounded-pill fw-bold hover-lift" style="background-color: var(--color-forest) !important; color: #fff !important; font-family: var(--font-heading); border: none;">
                         <i data-lucide="message-circle" class="me-2 icon-sm"></i> Hubungi Pengelola
                     </a>
                 </div>

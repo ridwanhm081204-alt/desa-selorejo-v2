@@ -47,11 +47,13 @@
             <table class="table table-hover align-middle mb-0 text-center">
                 <thead class="bg-light text-uppercase">
                     <tr>
-                        <th class="ps-4 py-3 small fw-bold text-muted text-start" style="width: 10%">Tahun</th>
+                        <th class="ps-4 py-3 small fw-bold text-muted text-start" style="width: 8%">Tahun</th>
                         <th class="py-3 small fw-bold text-muted" style="width: 15%">Tipe Anggaran</th>
                         <th class="py-3 small fw-bold text-muted text-start">Bidang Kegiatan</th>
-                        <th class="py-3 small fw-bold text-muted text-start" style="width: 20%">Nominal</th>
-                        <th class="text-end pe-4 py-3 small fw-bold text-muted" style="width: 15%">Aksi</th>
+                        <th class="py-3 small fw-bold text-muted text-end" style="width: 12%">Semula</th>
+                        <th class="py-3 small fw-bold text-muted text-end" style="width: 12%">Perubahan</th>
+                        <th class="py-3 small fw-bold text-muted text-end" style="width: 15%">Akhir</th>
+                        <th class="text-end pe-4 py-3 small fw-bold text-muted" style="width: 12%">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -61,12 +63,22 @@
                         <td class="py-3">
                             @if($a->jenis == 'pendapatan')
                                 <span class="badge bg-success bg-opacity-10 text-success rounded-pill px-3 py-1">Pendapatan</span>
-                            @else
+                            @elseif($a->jenis == 'belanja')
                                 <span class="badge bg-danger bg-opacity-10 text-danger rounded-pill px-3 py-1">Belanja</span>
+                            @elseif($a->jenis == 'pembiayaan_penerimaan')
+                                <span class="badge bg-primary bg-opacity-10 text-primary rounded-pill px-3 py-1">Penerimaan Pembiayaan</span>
+                            @elseif($a->jenis == 'pembiayaan_pengeluaran')
+                                <span class="badge bg-info bg-opacity-10 text-info rounded-pill px-3 py-1">Pengeluaran Pembiayaan</span>
+                            @else
+                                <span class="badge bg-secondary bg-opacity-10 text-secondary rounded-pill px-3 py-1">{{ $a->jenis }}</span>
                             @endif
                         </td>
                         <td class="py-3 text-start text-dark small fw-medium">{{ $a->bidang }}</td>
-                        <td class="py-3 text-start fw-bold text-primary">Rp {{ number_format($a->nominal, 0, ',', '.') }}</td>
+                        <td class="py-3 text-end fw-bold text-muted">Rp {{ number_format($a->nominal_semula, 0, ',', '.') }}</td>
+                        <td class="py-3 text-end fw-bold {{ $a->nominal_perubahan >= 0 ? 'text-success' : 'text-danger' }}">
+                            {{ $a->nominal_perubahan >= 0 ? '+' : '' }}Rp {{ number_format($a->nominal_perubahan, 0, ',', '.') }}
+                        </td>
+                        <td class="py-3 text-end fw-bold text-primary">Rp {{ number_format($a->nominal, 0, ',', '.') }}</td>
                         <td class="text-end pe-4">
                             <div class="d-flex justify-content-end gap-2">
                                 @if($a->dokumen_pdf)

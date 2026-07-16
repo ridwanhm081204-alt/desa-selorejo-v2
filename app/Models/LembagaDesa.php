@@ -14,4 +14,9 @@ class LembagaDesa extends Model
         'deskripsi',
         'foto',
     ];
+
+    public function getKetuaAttribute($value): string
+    {
+        return \Illuminate\Support\Str::title($value);
+    }
 }

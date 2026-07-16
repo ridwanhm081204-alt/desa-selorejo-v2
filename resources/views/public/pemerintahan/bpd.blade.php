@@ -33,7 +33,13 @@
                     </div>
                     <div>
                         <h5 class="fw-bold text-dark mb-1" style="font-family: var(--font-heading);">{{ $b->nama }}</h5>
-                        <span class="text-muted" style="font-family: var(--font-body);"><i data-lucide="tag" class="icon-sm me-1"></i> {{ $b->jabatan }}</span>
+                        <div class="d-flex flex-wrap align-items-center gap-1 gap-md-2 text-muted small" style="font-family: var(--font-body);">
+                            <span class="text-success fw-semibold"><i data-lucide="tag" class="icon-xs me-1"></i>{{ $b->jabatan }}</span>
+                            @if($b->dusun)
+                                <span class="d-none d-md-inline">•</span>
+                                <span><i data-lucide="map-pin" class="icon-xs me-1"></i>{{ $b->dusun }} @if($b->nomor_rt) RT.{{ str_pad($b->nomor_rt,2,'0',STR_PAD_LEFT) }} @endif @if($b->nomor_rw) RW.{{ str_pad($b->nomor_rw,2,'0',STR_PAD_LEFT) }} @endif</span>
+                            @endif
+                        </div>
                     </div>
                 </div>
             </div>

@@ -37,6 +37,8 @@
                             <select name="jenis" class="form-select rounded-3 py-2 fw-bold text-success border-2 border-success border-opacity-10 shadow-none bg-light" required>
                                 <option value="pendapatan" {{ (old('jenis', $apbdes->jenis ?? '') == 'pendapatan') ? 'selected' : '' }}>Pendapatan Desa</option>
                                 <option value="belanja" {{ (old('jenis', $apbdes->jenis ?? '') == 'belanja') ? 'selected' : '' }}>Belanja / Pengeluaran</option>
+                                <option value="pembiayaan_penerimaan" {{ (old('jenis', $apbdes->jenis ?? '') == 'pembiayaan_penerimaan') ? 'selected' : '' }}>Penerimaan Pembiayaan</option>
+                                <option value="pembiayaan_pengeluaran" {{ (old('jenis', $apbdes->jenis ?? '') == 'pembiayaan_pengeluaran') ? 'selected' : '' }}>Pengeluaran Pembiayaan</option>
                             </select>
                         </div>
                         <div class="col-md-6">
@@ -46,15 +48,29 @@
                     </div>
 
                     <div class="row g-4 mb-5 text-start">
-                        <div class="col-md-6">
-                            <label class="form-label fw-bold text-muted small">NOMINAL ANGGARAN (RP)</label>
+                        <div class="col-md-4">
+                            <label class="form-label fw-bold text-muted small">NOMINAL SEMULA (RP)</label>
                             <div class="input-group bg-light rounded-3 overflow-hidden border">
                                 <span class="input-group-text bg-transparent border-0 fw-bold text-success">Rp</span>
-                                <input type="number" name="nominal" class="form-control border-0 bg-transparent shadow-none py-2 fw-bold" value="{{ old('nominal', $apbdes->nominal ?? '') }}" placeholder="0" required>
+                                <input type="number" name="nominal_semula" id="nominal_semula" class="form-control border-0 bg-transparent shadow-none py-2 fw-bold" value="{{ old('nominal_semula', $apbdes->nominal_semula ?? '') }}" placeholder="0" required>
                             </div>
-                            <small class="text-muted italic small">Masukkan angka saja tanpa titik/koma.</small>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
+                            <label class="form-label fw-bold text-muted small">BERTAMBAH / (BERKURANG) (RP)</label>
+                            <div class="input-group bg-light rounded-3 overflow-hidden border">
+                                <span class="input-group-text bg-transparent border-0 fw-bold text-success">Rp</span>
+                                <input type="number" name="nominal_perubahan" id="nominal_perubahan" class="form-control border-0 bg-transparent shadow-none py-2 fw-bold" value="{{ old('nominal_perubahan', $apbdes->nominal_perubahan ?? '') }}" placeholder="0" required>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label fw-bold text-muted small">SETELAH PERUBAHAN (RP)</label>
+                            <div class="input-group bg-light rounded-3 overflow-hidden border">
+                                <span class="input-group-text bg-transparent border-0 fw-bold text-success">Rp</span>
+                                <input type="number" name="nominal" id="nominal" class="form-control border-0 bg-transparent shadow-none py-2 fw-bold" value="{{ old('nominal', $apbdes->nominal ?? '') }}" placeholder="0" required readonly>
+                            </div>
+                            <small class="text-muted italic small">Dihitung otomatis (Semula + Perubahan).</small>
+                        </div>
+                        <div class="col-12">
                             <label class="form-label fw-bold text-muted small">SALINAN DOKUMEN (PDF)</label>
                             @if(isset($apbdes) && $apbdes->dokumen_pdf)
                                 <div class="mb-2">
@@ -89,3 +105,24 @@
     </div>
 </div>
 @endsection
+
+@push('scripts')
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const semulaInput = document.getElementById('nominal_semula');
+        const perubahanInput = document.getElementById('nominal_perubahan');
+        const akhirInput = document.getElementById('nominal');
+
+        function updateAkhir() {
+            const semula = parseFloat(semulaInput.value) || 0;
+            const perubahan = parseFloat(perubahanInput.value) || 0;
+            akhirInput.value = semula + perubahan;
+        }
+
+        if(semulaInput && perubahanInput) {
+            semulaInput.addEventListener('input', updateAkhir);
+            perubahanInput.addEventListener('input', updateAkhir);
+        }
+    });
+</script>
+@endpush

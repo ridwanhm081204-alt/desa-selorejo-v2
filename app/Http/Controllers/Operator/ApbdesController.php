@@ -36,9 +36,11 @@ class ApbdesController extends Controller
     public function store(\Illuminate\Http\Request $request) {
         $data = $request->validate([
             'tahun' => 'required|integer',
-            'jenis' => 'required|in:pendapatan,belanja',
+            'jenis' => 'required|in:pendapatan,belanja,pembiayaan_penerimaan,pembiayaan_pengeluaran',
             'bidang' => 'required|string',
             'nominal' => 'required|numeric',
+            'nominal_semula' => 'required|numeric',
+            'nominal_perubahan' => 'required|numeric',
             'dokumen_pdf' => 'nullable|file|mimes:pdf|max:5120'
         ]);
         if($request->hasFile('dokumen_pdf')) {
@@ -55,9 +57,11 @@ class ApbdesController extends Controller
         $apbdes = \App\Models\Apbdes::findOrFail($id);
         $data = $request->validate([
             'tahun' => 'required|integer',
-            'jenis' => 'required|in:pendapatan,belanja',
+            'jenis' => 'required|in:pendapatan,belanja,pembiayaan_penerimaan,pembiayaan_pengeluaran',
             'bidang' => 'required|string',
             'nominal' => 'required|numeric',
+            'nominal_semula' => 'required|numeric',
+            'nominal_perubahan' => 'required|numeric',
             'dokumen_pdf' => 'nullable|file|mimes:pdf|max:5120'
         ]);
         if($request->hasFile('dokumen_pdf')) {

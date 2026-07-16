@@ -79,7 +79,7 @@ class ProfileSeeder extends Seeder
                 ],
                 [
                     'nama' => 'Dusun Selokerto',
-                    'geografi_desc' => 'Berlokasi di sisi barat desa yang cukup padat, meliputi sebagian RW V dan RW VI (7 RT).',
+                    'geografi_desc' => 'Berlokasi di sisi barat desa yang cukup padat, meliputi RW V dan RW VI (Sebagian) (7 RT).',
                     'peta_desc' => 'Berlokasi di sisi barat/kiri dari peta desa. Cukup padat, terutama berkonsentrasi di sektor utara dan tengah wilayah dusun.',
                     'admin_rw' => 'RW V - RW VI (Sebagian)',
                     'admin_rt' => '7 RT (RT.13 - RT.19)',
@@ -87,10 +87,10 @@ class ProfileSeeder extends Seeder
                 ],
                 [
                     'nama' => 'Dusun Gumuk',
-                    'geografi_desc' => 'Berlokasi di selatan-barat desa, meliputi satu lingkungan spesifik di RW VI (1 RT).',
-                    'peta_desc' => 'Berlokasi merapat di bagian barat daya. Relatif memiliki sebaran bangunan pemukiman yang lebih sedikit dibanding dua dusun lainnya.',
-                    'admin_rw' => 'RW VI (Sebagian)',
-                    'admin_rt' => '1 RT (RT.20)',
+                    'geografi_desc' => 'Berlokasi di selatan-barat desa, meliputi RW VI (sebagian) dan RW VII (2 RT).',
+                    'peta_desc' => 'Berlokasi merapat di bagian barat daya. Memiliki sebaran bangunan pemukiman yang berkembang di wilayah RW VI dan RW VII.',
+                    'admin_rw' => 'RW VI - RW VII',
+                    'admin_rt' => '2 RT (RT.20 - RT.21)',
                     'color_theme' => 'primary'
                 ],
             ],
