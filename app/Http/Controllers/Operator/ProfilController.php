@@ -21,9 +21,26 @@ class ProfilController extends Controller
             'geografi' => 'nullable|string',
             'geografi_stats' => 'nullable|array',
             'batas_wilayah_json' => 'nullable|array',
-            'peta_embed' => 'nullable|string',
-            'peta_rute_pribadi' => 'nullable|string',
-            'peta_rute_umum' => 'nullable|string',
+            'peta_embed' => [
+                'nullable',
+                'string',
+                'max:2000',
+                // Hanya izinkan iframe dari Google Maps — cegah stored XSS via embed
+                function ($attribute, $value, $fail) {
+                    if (!$value) return;
+                    $trimmed = trim($value);
+                    if (!str_starts_with($trimmed, '<iframe')) {
+                        $fail('Kode peta harus berupa tag iframe Google Maps yang valid.');
+                        return;
+                    }
+                    if (!preg_match('#src=["\']https://(?:www\.)?google\.com/maps#i', $trimmed) &&
+                        !preg_match('#src=["\']https://maps\.google\.com#i', $trimmed)) {
+                        $fail('Kode peta hanya diperbolehkan dari Google Maps.');
+                    }
+                }
+            ],
+            'peta_rute_pribadi' => 'nullable|string|max:2000',
+            'peta_rute_umum' => 'nullable|string|max:2000',
             // V2 Fields
             'hero_sejarah' => 'nullable|array',
             'hero_visimisi' => 'nullable|array',
@@ -37,6 +54,13 @@ class ProfilController extends Controller
             'peta_narasi_legenda' => 'nullable|string',
             'peta_fasilitas' => 'nullable|array',
         ]);
+
+        // Sanitasi extra: pastikan peta_embed hanya berisi tag iframe (strip semua selain iframe)
+        if ($request->filled('peta_embed')) {
+            $request->merge([
+                'peta_embed' => strip_tags(trim($request->peta_embed), '<iframe>')
+            ]);
+        }
 
         $profil = \App\Models\Profile::first();
         if(!$profil) $profil = new \App\Models\Profile();

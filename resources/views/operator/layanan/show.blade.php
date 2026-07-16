@@ -225,7 +225,7 @@
                                 </div>
                                 <div class="flex-grow-1 overflow-hidden">
                                     <span class="fw-bold text-dark small d-block text-truncate" title="{{ $doc->jenis_dokumen_label }}">{{ $doc->jenis_dokumen_label }}</span>
-                                    <small class="text-muted text-truncate d-block" style="font-size: 0.75rem;">{{ $doc->nama_file }}</small>
+                                    <small class="text-muted text-truncate d-block" style="font-size: 0.75rem;">{{ $doc->safe_nama_file }}</small>
                                 </div>
                                 <a href="{{ $doc->file_url }}" target="_blank" class="btn btn-sm btn-white border rounded-circle shadow-xs ms-2 p-1" title="Lihat/Download Berkas">
                                     <i data-lucide="external-link" style="width: 16px; height: 16px;"></i>

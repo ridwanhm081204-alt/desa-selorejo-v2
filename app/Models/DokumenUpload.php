@@ -25,6 +25,21 @@ class DokumenUpload extends Model
         return asset('storage/' . $this->path_file);
     }
 
+    /**
+     * Accessor: nama_file yang sudah dibersihkan dari karakter berbahaya.
+     * Gunakan $dokumen->safe_nama_file saat menampilkan nama file ke UI.
+     */
+    public function getSafeNamaFileAttribute(): string
+    {
+        $nama = $this->nama_file ?? '';
+        // Strip null bytes dan path traversal characters
+        $nama = str_replace(["\0", '../', '..\\', './', '.\\'], '', $nama);
+        $nama = basename($nama); // hanya ambil nama file, bukan path
+        // Hapus karakter berbahaya lainnya
+        $nama = preg_replace('/[<>:"\\/\\\\|?*\x00-\x1F]/', '', $nama);
+        return $nama ?: 'dokumen';
+    }
+
     public function getJenisDokumenLabelAttribute()
     {
         $labels = [

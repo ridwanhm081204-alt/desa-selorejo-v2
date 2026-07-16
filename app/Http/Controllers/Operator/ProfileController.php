@@ -32,6 +32,14 @@ class ProfileController extends Controller
 
         $user->update(['password' => Hash::make($request->password_baru)]);
 
+        // Audit trail: catat aksi ganti password di log aktivitas
+        \App\Models\ActivityLog::create([
+            'user_id'    => auth()->id(),
+            'action'     => 'Ganti Password Akun',
+            'ip_address' => request()->ip(),
+            'user_agent' => request()->userAgent(),
+        ]);
+
         return redirect()->route('operator.settings.password')->with('success', 'Password berhasil diubah. Silakan login kembali jika diperlukan.');
     }
 }

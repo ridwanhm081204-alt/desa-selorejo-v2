@@ -35,14 +35,27 @@ class SecurityHeaders
         // Referrer Policy: kirim origin saja ke external sites
         $response->headers->set('Referrer-Policy', 'strict-origin-when-cross-origin');
 
+        // Cegah Flash/Silverlight cross-domain policy abuse
+        $response->headers->set('X-Permitted-Cross-Domain-Policies', 'none');
+
         // Permissions Policy: batasi akses fitur browser sensitif
         $response->headers->set(
             'Permissions-Policy',
             'camera=(), microphone=(), geolocation=(), payment=(), usb=(), magnetometer=(), accelerometer=()'
         );
 
+        // HSTS (HTTP Strict Transport Security)
+        // Paksa browser menggunakan HTTPS selama 1 tahun.
+        // Catatan: header ini hanya efektif saat website sudah berjalan di HTTPS.
+        // Untuk development lokal (HTTP), header ini diabaikan oleh browser.
+        $response->headers->set(
+            'Strict-Transport-Security',
+            'max-age=31536000; includeSubDomains'
+        );
+
         // Content Security Policy
         // Mengizinkan: self, font Google, CDN yang digunakan project ini
+        // connect-src mencakup CDN untuk AJAX/fetch dari library eksternal
         $csp = implode('; ', [
             "default-src 'self'",
             "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://unpkg.com https://www.google.com https://www.gstatic.com",
@@ -50,11 +63,12 @@ class SecurityHeaders
             "font-src 'self' https://fonts.gstatic.com https://cdn.jsdelivr.net data:",
             "img-src 'self' data: blob: https: http:",
             "media-src 'self' https: http:",
-            "frame-src 'self' https://www.google.com https://www.youtube.com https://maps.google.com",
-            "connect-src 'self'",
+            "frame-src 'self' https://www.google.com https://www.youtube.com https://maps.google.com https://www.google.com/maps",
+            "connect-src 'self' https://cdn.jsdelivr.net https://unpkg.com",
             "object-src 'none'",
             "base-uri 'self'",
             "form-action 'self'",
+            "upgrade-insecure-requests",
         ]);
         $response->headers->set('Content-Security-Policy', $csp);
 

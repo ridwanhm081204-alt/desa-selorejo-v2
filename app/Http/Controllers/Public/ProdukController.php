@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Public;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\RateLimiter;
 
 class ProdukController extends Controller
 {
@@ -113,6 +114,14 @@ class ProdukController extends Controller
     public function storeReview(Request $request, $id)
     {
         $produk = \App\Models\Produk::findOrFail($id);
+
+        // Rate limiting: maks 3 review per 10 menit per IP — cegah spam review
+        $rateLimitKey = 'produk_review_' . $request->ip();
+        if (RateLimiter::tooManyAttempts($rateLimitKey, 3)) {
+            $seconds = RateLimiter::availableIn($rateLimitKey);
+            return back()->withErrors(['saran' => "Terlalu banyak ulasan. Silakan tunggu {$seconds} detik."]);
+        }
+        RateLimiter::hit($rateLimitKey, 600); // 10 menit
         
         $request->validate([
             'nama_lengkap' => 'required|string|max:255',

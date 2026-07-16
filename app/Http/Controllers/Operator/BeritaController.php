@@ -73,6 +73,9 @@ class BeritaController extends Controller
         ]);
         $data['slug'] = \Illuminate\Support\Str::slug($data['judul']);
         $data['penulis'] = auth()->user()->name;
+        // Sanitasi konten HTML: hanya izinkan tag yang aman, cegah script/iframe injection
+        $allowedTags = '<p><br><b><i><strong><em><u><s><ul><ol><li><h2><h3><h4><h5><h6><a><img><blockquote><pre><code><table><thead><tbody><tr><th><td><span><div>';
+        $data['konten'] = strip_tags($data['konten'], $allowedTags);
         $data['gambar'] = $request->file('gambar')->store('berita', 'public');
         
         \App\Models\Berita::create($data);
@@ -94,6 +97,9 @@ class BeritaController extends Controller
             'gambar' => 'nullable|image|max:2048'
         ]);
         $data['slug'] = \Illuminate\Support\Str::slug($data['judul']);
+        // Sanitasi konten HTML: hanya izinkan tag yang aman, cegah script/iframe injection
+        $allowedTags = '<p><br><b><i><strong><em><u><s><ul><ol><li><h2><h3><h4><h5><h6><a><img><blockquote><pre><code><table><thead><tbody><tr><th><td><span><div>';
+        $data['konten'] = strip_tags($data['konten'], $allowedTags);
         if($request->hasFile('gambar')) {
             // Hapus gambar lama dari storage
             if ($berita->gambar) {

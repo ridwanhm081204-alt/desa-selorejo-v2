@@ -7,6 +7,8 @@ use App\Models\Pengajuan;
 use App\Models\LogStatus;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Storage;
 
 class LayananController extends Controller
@@ -38,6 +40,16 @@ class LayananController extends Controller
 
     public function store(Request $request)
     {
+        // Rate limiting: maks 3 pengajuan per 10 menit per IP — cegah spam/DoS
+        $rateLimitKey = 'layanan_store_' . $request->ip();
+        if (RateLimiter::tooManyAttempts($rateLimitKey, 3)) {
+            $seconds = RateLimiter::availableIn($rateLimitKey);
+            return back()->withInput()->withErrors([
+                'nik_pemohon' => "Terlalu banyak pengajuan. Silakan tunggu {$seconds} detik sebelum mencoba lagi."
+            ]);
+        }
+        RateLimiter::hit($rateLimitKey, 600); // 10 menit
+
         $jenisLayanan = $request->input('jenis_layanan');
 
         // Common validation
@@ -183,9 +195,15 @@ class LayananController extends Controller
                 if ($request->hasFile($fileKey)) {
                     $file = $request->file($fileKey);
                     $path = $file->store('pengajuan/' . $pengajuan->no_tiket, 'public');
+
+                    // Sanitasi nama file asli: hapus path traversal chars & null bytes
+                    $namaFileAsli = $file->getClientOriginalName();
+                    $namaFileSanitized = preg_replace('/[\x00-\x1F\x7F\/\\\\:*?"<>|\.](?!\w+$)/', '', basename($namaFileAsli));
+                    $namaFileSanitized = mb_substr($namaFileSanitized, 0, 200); // maks 200 karakter
+
                     $pengajuan->dokumenUploads()->create([
                         'jenis_dokumen' => $jenisDokumen,
-                        'nama_file' => $file->getClientOriginalName(),
+                        'nama_file' => $namaFileSanitized ?: 'dokumen_' . $jenisDokumen,
                         'path_file' => $path,
                     ]);
                 }
@@ -320,7 +338,15 @@ class LayananController extends Controller
             return redirect('/layanan/sukses?no_tiket=' . $pengajuan->no_tiket);
         } catch (\Exception $e) {
             DB::rollBack();
-            return back()->withInput()->with('error', 'Terjadi kesalahan sistem: ' . $e->getMessage());
+            // Log detail error ke server, tampilkan pesan generik ke user
+            Log::error('Layanan store gagal.', [
+                'ip'      => $request->ip(),
+                'nik'     => $request->input('nik_pemohon'),
+                'jenis'   => $jenisLayanan,
+                'error'   => $e->getMessage(),
+                'trace'   => $e->getTraceAsString(),
+            ]);
+            return back()->withInput()->with('error', 'Terjadi kesalahan sistem. Silakan coba lagi atau hubungi kantor desa.');
         }
     }
 

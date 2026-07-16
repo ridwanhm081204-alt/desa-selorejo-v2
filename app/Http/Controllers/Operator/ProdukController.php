@@ -81,6 +81,9 @@ class ProdukController extends Controller
             'link_marketplace_lainnya' => 'nullable|url|max:500',
             'gambar' => 'required|image|max:2048'
         ]);
+        // Sanitasi deskripsi HTML: hapus tag berbahaya (script, iframe, dll)
+        $allowedTags = '<p><br><b><i><strong><em><u><s><ul><ol><li><h2><h3><h4><h5><h6><a><img><blockquote><span><div>';
+        $data['deskripsi'] = strip_tags($data['deskripsi'], $allowedTags);
         $data['gambar'] = $request->file('gambar')->store('produk', 'public');
         \App\Models\Produk::create($data);
         \App\Models\ActivityLog::create(['user_id' => auth()->id(), 'action' => 'Menambahkan Produk: '.$data['nama']]);
@@ -103,6 +106,9 @@ class ProdukController extends Controller
             'link_marketplace_lainnya' => 'nullable|url|max:500',
             'gambar' => 'nullable|image|max:2048'
         ]);
+        // Sanitasi deskripsi HTML: hapus tag berbahaya (script, iframe, dll)
+        $allowedTags = '<p><br><b><i><strong><em><u><s><ul><ol><li><h2><h3><h4><h5><h6><a><img><blockquote><span><div>';
+        $data['deskripsi'] = strip_tags($data['deskripsi'], $allowedTags);
         if($request->hasFile('gambar')) {
             if ($produk->gambar) {
                 Storage::disk('public')->delete($produk->gambar);
