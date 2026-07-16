@@ -23,21 +23,21 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link nav-link-custom dropdown-toggle {{ request()->is('profil*') ? 'active' : '' }}" href="#" data-bs-toggle="dropdown"><i data-lucide="info" class="icon-sm me-1"></i> Profil Desa</a>
                     <ul class="dropdown-menu border-0 shadow">
-                        <li><a class="dropdown-item" href="{{ route('profil.sejarah') }}">Sejarah</a></li>
-                        <li><a class="dropdown-item" href="{{ route('profil.visi-misi') }}">Visi & Misi</a></li>
                         <li><a class="dropdown-item" href="{{ route('profil.geografis') }}">Geografis</a></li>
                         <li><a class="dropdown-item" href="{{ route('profil.peta') }}">Peta</a></li>
+                        <li><a class="dropdown-item" href="{{ route('profil.sejarah') }}">Sejarah</a></li>
+                        <li><a class="dropdown-item" href="{{ route('profil.visi-misi') }}">Visi & Misi</a></li>
                     </ul>
                 </li>
 
                 <li class="nav-item dropdown">
                     <a class="nav-link nav-link-custom dropdown-toggle {{ request()->is('pemerintahan*') ? 'active' : '' }}" href="#" data-bs-toggle="dropdown"><i data-lucide="users" class="icon-sm me-1"></i> Pemerintahan</a>
                     <ul class="dropdown-menu border-0 shadow">
-                        <li><a class="dropdown-item" href="{{ route('pemerintahan.struktur') }}">Struktur Organisasi</a></li>
                         <li><a class="dropdown-item" href="{{ route('pemerintahan.bpd') }}">BPD</a></li>
                         <li><a class="dropdown-item" href="{{ route('pemerintahan.lembaga') }}">Lembaga Desa</a></li>
                         <li><a class="dropdown-item" href="{{ route('pemerintahan.perangkat-rt-rw') }}">Perangkat RT & RW</a></li>
                         <li><a class="dropdown-item" href="{{ url('/pemerintahan/produkhukum') }}">Produk Hukum</a></li>
+                        <li><a class="dropdown-item" href="{{ route('pemerintahan.struktur') }}">Struktur Organisasi</a></li>
                     </ul>
                 </li>
 
@@ -52,8 +52,8 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link nav-link-custom dropdown-toggle {{ request()->is('layanan*') ? 'active' : '' }}" href="#" data-bs-toggle="dropdown"><i data-lucide="file-text" class="icon-sm me-1"></i> Pelayanan</a>
                     <ul class="dropdown-menu border-0 shadow">
-                        <li><a class="dropdown-item" href="{{ route('layanan.index') }}"><i data-lucide="file-text" class="icon-sm me-2"></i>Pengajuan Dokumen</a></li>
                         <li><a class="dropdown-item" href="{{ route('layanan.cek-status') }}"><i data-lucide="search" class="icon-sm me-2"></i>Cek Status Berkas</a></li>
+                        <li><a class="dropdown-item" href="{{ route('layanan.index') }}"><i data-lucide="file-text" class="icon-sm me-2"></i>Pengajuan Dokumen</a></li>
                     </ul>
                 </li>
 
