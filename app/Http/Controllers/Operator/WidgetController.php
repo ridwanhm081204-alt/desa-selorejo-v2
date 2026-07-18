@@ -38,13 +38,14 @@ class WidgetController extends Controller
             'facebook' => 'nullable|string|url|max:255',
             'instagram' => 'nullable|string|url|max:255',
             'youtube' => 'nullable|string|url|max:255',
+            'tiktok' => 'nullable|string|url|max:255',
             'jam_kerja' => 'nullable|string|max:255',
             'telepon' => 'nullable|string|max:16|regex:/^\+?[0-9]{8,15}$/',
             'whatsapp' => 'nullable|string|max:16|regex:/^\+?[0-9]{8,15}$/',
             'email' => 'nullable|email|max:255',
         ]);
 
-        $allowed_keys = ['facebook', 'instagram', 'youtube', 'jam_kerja', 'telepon', 'whatsapp', 'email'];
+        $allowed_keys = ['facebook', 'instagram', 'youtube', 'tiktok', 'jam_kerja', 'telepon', 'whatsapp', 'email'];
         foreach ($allowed_keys as $key) {
             if ($request->has($key)) {
                 Setting::updateOrCreate(['key' => $key], ['value' => $request->input($key)]);

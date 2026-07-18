@@ -36,14 +36,17 @@
                     </a>
                 </p>
                 <div class="mt-4">
-                    <a href="{{\App\Models\Setting::get('facebook', '#')}}" target="_blank" class="footer-social-icon">
+                    <a href="{{\App\Models\Setting::get('facebook', '#')}}" target="_blank" class="footer-social-icon" title="Facebook">
                         <i data-lucide="facebook" style="width:16px;"></i>
                     </a>
-                    <a href="{{\App\Models\Setting::get('instagram', '#')}}" target="_blank" class="footer-social-icon">
+                    <a href="{{\App\Models\Setting::get('instagram', '#')}}" target="_blank" class="footer-social-icon" title="Instagram">
                         <i data-lucide="instagram" style="width:16px;"></i>
                     </a>
-                    <a href="{{\App\Models\Setting::get('youtube', '#')}}" target="_blank" class="footer-social-icon">
+                    <a href="{{\App\Models\Setting::get('youtube', '#')}}" target="_blank" class="footer-social-icon" title="YouTube">
                         <i data-lucide="youtube" style="width:16px;"></i>
+                    </a>
+                    <a href="{{\App\Models\Setting::get('tiktok', '#')}}" target="_blank" class="footer-social-icon" title="TikTok">
+                        <i data-lucide="tiktok" style="width:16px;"></i>
                     </a>
                 </div>
             </div>

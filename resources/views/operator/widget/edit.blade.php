@@ -106,11 +106,18 @@
                                 <input type="url" name="instagram" class="form-control border-0 bg-light" value="{{ $settings['instagram'] ?? '' }}" placeholder="https://instagram.com/...">
                             </div>
                         </div>
-                        <div class="mb-3">
+                        <div class="mb-4">
                             <label class="form-label fw-bold text-muted small">YouTube Channel URL</label>
                             <div class="input-group">
                                 <span class="input-group-text bg-light border-0"><i data-lucide="youtube" class="icon-xs text-danger"></i></span>
                                 <input type="url" name="youtube" class="form-control border-0 bg-light" value="{{ $settings['youtube'] ?? '' }}" placeholder="https://youtube.com/...">
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold text-muted small">TikTok Profile URL</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light border-0"><i data-lucide="tiktok" class="icon-xs text-dark"></i></span>
+                                <input type="url" name="tiktok" class="form-control border-0 bg-light" value="{{ $settings['tiktok'] ?? '' }}" placeholder="https://tiktok.com/@...">
                             </div>
                         </div>
                     </div>

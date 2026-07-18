@@ -19,6 +19,7 @@ class SettingSeeder extends Seeder {
             ['key'=>'facebook','value'=>'https://facebook.com/desaselorejo'],
             ['key'=>'instagram','value'=>'https://instagram.com/desaselorejo'],
             ['key'=>'youtube','value'=>''],
+            ['key'=>'tiktok','value'=>'https://tiktok.com/@desaselorejo'],
             ['key'=>'kode_pos','value'=>'61515'],
             ['key'=>'jumlah_penduduk','value'=>'3.640'],
             ['key'=>'jumlah_kk','value'=>'1.024'],

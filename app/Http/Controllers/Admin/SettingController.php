@@ -28,6 +28,7 @@ class SettingController extends Controller
         'instagram',
         'youtube',
         'twitter',
+        'tiktok',
         // Media & Tampilan
         'logo',
         'favicon',

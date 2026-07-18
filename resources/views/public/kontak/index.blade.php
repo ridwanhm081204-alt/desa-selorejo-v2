@@ -67,14 +67,17 @@
                 <div class="mt-4 pt-4 border-top" style="border-top-color: rgba(26,92,56,0.15) !important;">
                     <h6 class="fw-bold mb-3" style="font-family: var(--font-heading); color: var(--color-forest);">Media Sosial Resmi</h6>
                     <div class="d-flex gap-2">
-                        <a href="{{\App\Models\Setting::get('facebook', '#')}}" target="_blank" class="btn btn-outline-success rounded-circle p-0 d-flex align-items-center justify-content-center hover-lift" style="width: 40px; height: 40px; border-color: var(--color-forest)33; color: var(--color-forest);">
+                        <a href="{{\App\Models\Setting::get('facebook', '#')}}" target="_blank" class="btn btn-outline-success rounded-circle p-0 d-flex align-items-center justify-content-center hover-lift" style="width: 40px; height: 40px; border-color: var(--color-forest)33; color: var(--color-forest);" title="Facebook">
                             <i data-lucide="facebook" style="width: 18px; height: 18px;"></i>
                         </a>
-                        <a href="{{\App\Models\Setting::get('instagram', '#')}}" target="_blank" class="btn btn-outline-success rounded-circle p-0 d-flex align-items-center justify-content-center hover-lift" style="width: 40px; height: 40px; border-color: var(--color-forest)33; color: var(--color-forest);">
+                        <a href="{{\App\Models\Setting::get('instagram', '#')}}" target="_blank" class="btn btn-outline-success rounded-circle p-0 d-flex align-items-center justify-content-center hover-lift" style="width: 40px; height: 40px; border-color: var(--color-forest)33; color: var(--color-forest);" title="Instagram">
                             <i data-lucide="instagram" style="width: 18px; height: 18px;"></i>
                         </a>
-                        <a href="{{\App\Models\Setting::get('youtube', '#')}}" target="_blank" class="btn btn-outline-success rounded-circle p-0 d-flex align-items-center justify-content-center hover-lift" style="width: 40px; height: 40px; border-color: var(--color-forest)33; color: var(--color-forest);">
+                        <a href="{{\App\Models\Setting::get('youtube', '#')}}" target="_blank" class="btn btn-outline-success rounded-circle p-0 d-flex align-items-center justify-content-center hover-lift" style="width: 40px; height: 40px; border-color: var(--color-forest)33; color: var(--color-forest);" title="YouTube">
                             <i data-lucide="youtube" style="width: 18px; height: 18px;"></i>
+                        </a>
+                        <a href="{{\App\Models\Setting::get('tiktok', '#')}}" target="_blank" class="btn btn-outline-success rounded-circle p-0 d-flex align-items-center justify-content-center hover-lift" style="width: 40px; height: 40px; border-color: var(--color-forest)33; color: var(--color-forest);" title="TikTok">
+                            <i data-lucide="tiktok" style="width: 18px; height: 18px;"></i>
                         </a>
                     </div>
                 </div>
