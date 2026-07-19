@@ -57,6 +57,9 @@ Route::prefix('layanan')->name('layanan.')->group(function() {
     Route::get('/cek-status/hasil', [\App\Http\Controllers\Public\LayananController::class, 'hasilStatus'])->name('hasil-status');
 });
 
+// KKN UNS 178 Profil
+Route::get('/kkn-uns-178', [\App\Http\Controllers\Public\KknController::class, 'index'])->name('kkn.profil');
+
 Route::get('/login', [\App\Http\Controllers\Auth\LoginController::class, 'showLoginForm'])->name('login')->middleware('guest');
 Route::post('/login', [\App\Http\Controllers\Auth\LoginController::class, 'login'])->middleware('guest');
 Route::post('/logout', [\App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout')->middleware('auth');

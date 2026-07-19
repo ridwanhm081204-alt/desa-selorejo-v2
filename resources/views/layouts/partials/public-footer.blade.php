@@ -95,7 +95,10 @@
                 </h5>
                 <p style="font-family: var(--font-body); font-size: var(--text-sm); color: rgba(255,255,255,0.85); line-height: 1.8;" class="mb-3">Website resmi {{\App\Models\Setting::get('nama_desa', 'Desa Selorejo')}} dikelola oleh Pemerintah Desa untuk mewujudkan transparansi publik dan mempromosikan potensi agrowisata petik jeruk ke khalayak luas secara digital.</p>
                 
-                <div class="mt-4">
+                <div class="mt-4 d-flex flex-column align-items-start gap-2">
+                    <a href="{{ route('kkn.profil') }}" class="btn btn-outline-light btn-sm rounded-pill d-inline-flex align-items-center hover-accent">
+                        <i data-lucide="graduation-cap" class="me-2" style="width:14px;"></i> Tentang KKN UNS 178
+                    </a>
                     <a href="{{ url('/login') }}" class="btn btn-outline-light btn-sm rounded-pill d-inline-flex align-items-center hover-accent">
                         <i data-lucide="log-in" class="me-2" style="width:14px;"></i> Portal Admin
                     </a>
