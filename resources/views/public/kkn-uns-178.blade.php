@@ -227,6 +227,11 @@
 ══════════════════════════════════════════════════════════════ --}}
 <section class="kkn-hero">
     <div class="container position-relative z-1 text-center text-white">
+        <!-- Logo KKN 178 -->
+        <div class="mb-4">
+            <img src="{{ asset('images/logo-kkn-178.png') }}" alt="Logo KKN 178 UNS" class="rounded-circle shadow-sm" style="width: 150px; height: 150px; object-fit: cover; border: 4px solid rgba(255,255,255,0.8); background-color: #fff;">
+        </div>
+
         <span class="badge rounded-pill px-4 py-2 mb-4 d-inline-block fw-bold"
               style="background:rgba(245,197,24,0.2); border:1px solid rgba(245,197,24,0.5); color:var(--color-sunshine); font-family:var(--font-heading); font-size:0.78rem; letter-spacing:1.5px;">
             KKN TEMATIK UNS — KELOMPOK 178
@@ -240,6 +245,20 @@
             Pemberdayaan Desa Selorejo Berbasis Digitalisasi, Inovasi Produk Lokal,<br class="d-none d-md-block">
             dan Penguatan UMKM Menuju Desa Wisata Berkelanjutan
         </p>
+
+        {{-- Social Media Buttons --}}
+        <div class="d-flex justify-content-center flex-wrap gap-3 mb-5">
+            <a href="https://www.instagram.com/raharjo.selorejo?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" class="btn btn-outline-light d-flex align-items-center gap-2" style="border-radius: 50px; padding: 0.6rem 1.8rem; border-color: rgba(255,255,255,0.5); font-weight: 500; letter-spacing: 0.5px; transition: all 0.3s ease;" onmouseover="this.style.backgroundColor='rgba(255,255,255,0.1)'; this.style.borderColor='rgba(255,255,255,0.8)';" onmouseout="this.style.backgroundColor='transparent'; this.style.borderColor='rgba(255,255,255,0.5)';">
+                <i data-lucide="instagram" style="width: 20px; height: 20px;"></i>
+                Instagram
+            </a>
+            <a href="https://www.tiktok.com/@raharjo.selorejo?is_from_webapp=1&sender_device=pc" target="_blank" class="btn btn-outline-light d-flex align-items-center gap-2" style="border-radius: 50px; padding: 0.6rem 1.8rem; border-color: rgba(255,255,255,0.5); font-weight: 500; letter-spacing: 0.5px; transition: all 0.3s ease;" onmouseover="this.style.backgroundColor='rgba(255,255,255,0.1)'; this.style.borderColor='rgba(255,255,255,0.8)';" onmouseout="this.style.backgroundColor='transparent'; this.style.borderColor='rgba(255,255,255,0.5)';">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 2.23-1.11 4.46-2.9 5.86-1.5 1.15-3.41 1.59-5.32 1.43-1.92-.15-3.69-1.07-4.96-2.45-1.28-1.38-1.89-3.32-1.63-5.22.25-1.9 1.34-3.56 2.87-4.63 1.53-1.06 3.44-1.41 5.28-1.01V15c-1.02-.2-2.11-.12-3.05.35-.94.47-1.64 1.34-1.95 2.33-.31.99-.18 2.11.35 3.01.52.9 1.42 1.52 2.45 1.71 1.03.18 2.1-.03 2.95-.57.85-.54 1.44-1.4 1.63-2.4.15-.81.1-1.65.1-2.47V0h3.83v.02z"/>
+                </svg>
+                TikTok
+            </a>
+        </div>
 
         {{-- Info badges --}}
         <div class="row g-3 justify-content-center mt-2">
