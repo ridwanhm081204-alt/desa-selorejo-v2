@@ -31,8 +31,12 @@
         html { scroll-behavior: smooth; }
     </style>
     @stack('styles')
+
+    </style>
 </head>
 <body class="d-flex flex-column min-vh-100">
+
+    @include('layouts.partials.page-loader')
 
     @include('layouts.partials.public-header')
 
@@ -73,5 +77,7 @@
         });
     </script>
     @stack('scripts')
+
+
 </body>
 </html>

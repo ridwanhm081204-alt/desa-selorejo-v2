@@ -314,6 +314,19 @@
                 <div class="tab-pane fade" id="peta" role="tabpanel">
                     <div class="card border-0 shadow-sm rounded-4 mb-4 overflow-hidden border-top border-4 border-success">
                         <div class="card-body p-4 p-md-5">
+                            
+                            <!-- Notice Banner -->
+                            <div class="alert alert-success d-flex align-items-center mb-5 border-0 shadow-sm rounded-4" style="background-color: var(--color-forest, #2e7d32); color: #fff;">
+                                <i data-lucide="shield-check" class="me-3" style="width: 32px; height: 32px;"></i>
+                                <div>
+                                    <h6 class="fw-bold mb-1 text-white">Integrasi Peta Resmi Desa (V2)</h6>
+                                    <p class="mb-0 small" style="color: rgba(255,255,255,0.9);">
+                                        Halaman Peta kini terintegrasi langsung dengan <strong>Peta Batas Desa Resmi (35.07.22.2005)</strong> yang mencakup 61 Titik Kartometrik secara statis. 
+                                        Pengaturan <em>gambar peta, legenda, narasi, dan fasilitas umum</em> kini di-handle secara otomatis (tersimpan aman di database namun tidak ditampilkan lagi di form ini). Anda hanya perlu mengelola informasi Akses & Rute.
+                                    </p>
+                                </div>
+                            </div>
+
                             <h5 class="fw-bold mb-4 d-flex align-items-center"><i data-lucide="image" class="text-success me-3"></i> Header Halaman Peta</h5>
                             <div class="row g-3 mb-5 p-3 bg-light rounded-4">
                                 <div class="col-md-4">
@@ -330,89 +343,32 @@
                                 </div>
                             </div>
 
-                            <h5 class="fw-bold mb-4 d-flex align-items-center"><i data-lucide="map-pin" class="text-success me-3"></i> Integrasi Peta Digital</h5>
+                            <h5 class="fw-bold mb-4 d-flex align-items-center"><i data-lucide="map-pin" class="text-success me-3"></i> Integrasi Google Maps</h5>
                             <div class="row g-4 mb-5 border-bottom pb-5">
-                                <div class="col-md-7">
+                                <div class="col-12">
                                     <label class="form-label text-muted small fw-bold">Link Iframe Google Maps (Embed HTML)</label>
                                     <textarea name="peta_embed" class="form-control rounded-4 shadow-none p-3 border-success border-opacity-10" rows="6" placeholder='<iframe src="https://google.com/maps/embed...'>{{ old('peta_embed', $profil->peta_embed) }}</textarea>
                                     <div class="text-muted small mt-3 fw-medium d-flex align-items-center">
                                         <i data-lucide="help-circle" class="icon-xs text-primary me-2"></i> Klik Bagikan > Sematkan pada Google Maps untuk mendapatkan kode ini.
                                     </div>
                                 </div>
-                                <div class="col-md-5">
-                                    <label class="form-label text-muted small fw-bold">Unggah Citra Peta Administratif</label>
-                                    <div class="p-3 border rounded-4 bg-light text-center">
-                                        @if($profil->peta_image)
-                                            <img src="{{ asset($profil->peta_image) }}" class="img-thumbnail rounded-4 shadow-sm mb-3" style="max-height: 200px; width: 100%; object-fit: contain;">
-                                        @else
-                                            <div class="bg-white rounded-4 border border-dashed py-5 mb-3">
-                                                <i data-lucide="image" class="text-muted opacity-25" style="width:48px;height:48px;"></i>
-                                            </div>
-                                        @endif
-                                        <input type="file" name="peta_image" class="form-control rounded-pill border-0 shadow-sm" accept="image/*">
-                                        <small class="text-muted mt-3 d-block italic fw-medium">Direkomendasikan rasio 16:9 (High Res)</small>
-                                    </div>
-                                </div>
                             </div>
                             
-                            <h5 class="fw-bold mb-4 d-flex align-items-center"><i data-lucide="info" class="text-success me-3"></i> Deskripsi & Legenda Wilayah</h5>
-                            <div class="row g-4 mb-5 border-bottom pb-5">
-                                <div class="col-md-6">
-                                    <label class="form-label text-muted small fw-bold">Keterangan Utama Peta Wilayah</label>
-                                    <textarea name="peta_narasi_utama" class="form-control rounded-4 p-3" rows="5" placeholder="Gambarkan luas dan pembagian dasarnya...">{{ old('peta_narasi_utama', $profil->peta_narasi_utama) }}</textarea>
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="form-label text-muted small fw-bold">Legenda / Klasifikasi Lahan</label>
-                                    <textarea name="peta_narasi_legenda" class="form-control rounded-4 p-3 border-success border-opacity-10" rows="5" placeholder="Misal: Kuning perumahan, Hijau perkebunan jeruk...">{{ old('peta_narasi_legenda', $profil->peta_narasi_legenda) }}</textarea>
-                                </div>
-                            </div>
-
                             <h5 class="fw-bold mb-4 d-flex align-items-center"><i data-lucide="route" class="text-success me-3"></i> Aksesibilitas Desa</h5>
-                            <div class="row g-4 mb-5">
+                            <div class="row g-4">
                                 <div class="col-md-6">
-                                    <div class="p-4 border shadow-sm rounded-4 bg-white border-start border-4 border-primary">
+                                    <div class="p-4 border shadow-sm rounded-4 bg-white border-start border-4 border-primary h-100">
                                         <label class="form-label small fw-bold text-primary mb-3"><i data-lucide="car-front" class="me-2 icon-sm"></i> JALUR KENDARAAN PRIBADI</label>
                                         <textarea name="peta_rute_pribadi" class="form-control border-0 bg-light rounded-3" rows="4">{{ old('peta_rute_pribadi', $profil->peta_rute_pribadi) }}</textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <div class="p-4 border shadow-sm rounded-4 bg-white border-start border-4 border-warning">
+                                    <div class="p-4 border shadow-sm rounded-4 bg-white border-start border-4 border-warning h-100">
                                         <label class="form-label small fw-bold text-warning mb-3"><i data-lucide="bus-front" class="me-2 icon-sm"></i> TRANSPORTASI UMUM</label>
                                         <textarea name="peta_rute_umum" class="form-control border-0 bg-light rounded-3" rows="4">{{ old('peta_rute_umum', $profil->peta_rute_umum) }}</textarea>
                                     </div>
                                 </div>
                             </div>
-
-                            <div class="d-flex justify-content-between align-items-center mb-4 pt-4 border-top">
-                                <h5 class="fw-bold mb-0 d-flex align-items-center"><i data-lucide="hospital-building" class="text-success me-3"></i> Objek Vital & Fasilitas Umum</h5>
-                                <button type="button" class="btn btn-sm btn-success rounded-pill px-4 shadow-sm border-0" onclick="addRow('fasilitas-container', 'fasilitas-template')">
-                                    <i data-lucide="plus" class="icon-sm me-1"></i> Tambah Lokasi
-                                </button>
-                            </div>
-
-                            <div id="fasilitas-container" class="row">
-                                @php $fasilitas = collect($profil->peta_fasilitas ?? [])->pad(1, ['icon' => 'check-circle', 'text' => '']); @endphp
-                                @foreach($fasilitas as $index => $item)
-                                <div class="col-md-6 mb-3 fasilitas-item-row">
-                                    <div class="p-4 border shadow-sm rounded-4 bg-light border-success border-opacity-10 position-relative">
-                                        <div class="row g-3">
-                                            <div class="col-3">
-                                                <label class="small fw-bold text-muted mb-1">Ikon</label>
-                                                <input type="text" name="peta_fasilitas[{{ $index }}][icon]" class="form-control text-center rounded-3 bg-white" value="{{ $item['icon'] }}" placeholder="building">
-                                            </div>
-                                            <div class="col-7">
-                                                <label class="small fw-bold text-muted mb-1">Nama Fasilitas</label>
-                                                <input type="text" name="peta_fasilitas[{{ $index }}][text]" class="form-control rounded-3 border-0 shadow-sm" value="{{ $item['text'] }}" placeholder="Kantor Desa, Masjid...">
-                                            </div>
-                                            <div class="col-2 d-flex align-items-end text-end">
-                                                <button type="button" class="btn btn-sm btn-white border shadow-sm text-danger h-100 w-100 rounded-3 hover-lift" onclick="this.closest('.fasilitas-item-row').remove()"><i data-lucide="trash-2" class="icon-sm"></i></button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                @endforeach
-                            </div>
-
                         </div>
                     </div>
                 </div>

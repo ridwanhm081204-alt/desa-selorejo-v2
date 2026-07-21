@@ -91,6 +91,7 @@
 </head>
 <body>
 
+    @include('layouts.partials.page-loader')
     @if(Auth::check())
         @if(Auth::user()->role == 'operator')
             @include('layouts.partials.sidebar-operator')
