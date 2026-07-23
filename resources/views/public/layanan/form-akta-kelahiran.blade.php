@@ -198,43 +198,20 @@
                         <h5 class="fw-bold mb-3 border-bottom pb-2 text-dark" style="font-family: var(--font-heading); color: #2AABE2 !important;">
                             <i data-lucide="upload-cloud" class="icon-sm me-2"></i>5. Upload Dokumen Pendukung
                         </h5>
-                        <div class="row g-4 mb-5">
-                            <div class="col-md-6">
-                                <label class="form-label fw-bold text-muted small">SURAT PENGANTAR RT/RW <span class="text-danger">*</span></label>
-                                <input type="file" name="file_pengantar_rt_rw" class="form-control rounded-pill border-0 shadow-sm bg-white" accept="image/*,application/pdf" required>
-                                <small class="text-muted d-block mt-1" style="font-size: 0.7rem;">Surat pengantar dari RT/RW setempat. Format: PDF, JPG, PNG (Max 2MB)</small>
-                                @error('file_pengantar_rt_rw') <small class="text-danger mt-1 d-block">{{ $message }}</small> @enderror
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label fw-bold text-muted small">SURAT KETERANGAN LAHIR <span class="text-danger">*</span></label>
-                                <input type="file" name="file_surat_lahir" class="form-control rounded-pill border-0 shadow-sm bg-white" accept="image/*,application/pdf" required>
-                                <small class="text-muted d-block mt-1" style="font-size: 0.7rem;">Dari RS/Puskesmas/Bidan/Desa. Format: PDF, JPG, PNG (Max 2MB)</small>
-                                @error('file_surat_lahir') <small class="text-danger mt-1 d-block">{{ $message }}</small> @enderror
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label fw-bold text-muted small">SCAN KK ORANG TUA <span class="text-danger">*</span></label>
-                                <input type="file" name="file_kk_ortu" class="form-control rounded-pill border-0 shadow-sm bg-white" accept="image/*,application/pdf" required>
-                                <small class="text-muted d-block mt-1" style="font-size: 0.7rem;">Kartu Keluarga asli orang tua. Format: PDF, JPG, PNG (Max 2MB)</small>
-                                @error('file_kk_ortu') <small class="text-danger mt-1 d-block">{{ $message }}</small> @enderror
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label fw-bold text-muted small">SCAN KTP ORANG TUA (JADI SATU FILE) <span class="text-danger">*</span></label>
-                                <input type="file" name="file_ktp_ortu" class="form-control rounded-pill border-0 shadow-sm bg-white" accept="image/*,application/pdf" required>
-                                <small class="text-muted d-block mt-1" style="font-size: 0.7rem;">Scan KTP asli Ayah & Ibu dijadikan satu. Format: PDF, JPG, PNG (Max 2MB)</small>
-                                @error('file_ktp_ortu') <small class="text-danger mt-1 d-block">{{ $message }}</small> @enderror
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label fw-bold text-muted small">SCAN AKTA NIKAH ORANG TUA / SPTJM <span class="text-danger">*</span></label>
-                                <input type="file" name="file_akta_nikah" class="form-control rounded-pill border-0 shadow-sm bg-white" accept="image/*,application/pdf" required>
-                                <small class="text-muted d-block mt-1" style="font-size: 0.7rem;">Akta nikah resmi / surat pernyataan tanggung jawab mutlak. Format: PDF, JPG, PNG (Max 2MB)</small>
-                                @error('file_akta_nikah') <small class="text-danger mt-1 d-block">{{ $message }}</small> @enderror
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label fw-bold text-muted small">SCAN KTP 2 SAKSI (JADI SATU FILE) <span class="text-danger">*</span></label>
-                                <input type="file" name="file_ktp_saksi" class="form-control rounded-pill border-0 shadow-sm bg-white" accept="image/*,application/pdf" required>
-                                <small class="text-muted d-block mt-1" style="font-size: 0.7rem;">Scan KTP asli saksi 1 & saksi 2 dijadikan satu. Format: PDF, JPG, PNG (Max 2MB)</small>
-                                @error('file_ktp_saksi') <small class="text-danger mt-1 d-block">{{ $message }}</small> @enderror
-                            </div>
+                            @if(isset($layanan) && $layanan->syarat)
+                                @foreach($layanan->syarat as $syarat)
+                                    <div class="col-md-6">
+                                        <label class="form-label fw-bold text-muted small">{{ $syarat->nama_syarat }} {!! $syarat->is_required ? '<span class="text-danger">*</span>' : '' !!}</label>
+                                        <input type="file" name="{{ $syarat->kode_syarat }}" class="form-control rounded-pill border-0 shadow-sm bg-white" accept="image/*,application/pdf" {{ $syarat->is_required ? 'required' : '' }}>
+                                        @if($syarat->keterangan)
+                                            <small class="text-muted d-block mt-1" style="font-size: 0.7rem;">{{ $syarat->keterangan }}</small>
+                                        @endif
+                                        @error($syarat->kode_syarat) <small class="text-danger mt-1 d-block">{{ $message }}</small> @enderror
+                                    </div>
+                                @endforeach
+                            @else
+                                <div class="col-12"><div class="alert alert-warning">Data syarat dokumen belum tersedia.</div></div>
+                            @endif
                         </div>
 
                         <div class="pt-4 border-top d-flex justify-content-between">

@@ -73,10 +73,32 @@ Route::middleware(['auth', 'role:operator,admin'])->prefix('operator')->name('op
     Route::get('/layanan/{id}', [\App\Http\Controllers\Operator\LayananController::class, 'show'])->name('layanan.show');
     Route::post('/layanan/{id}/status', [\App\Http\Controllers\Operator\LayananController::class, 'updateStatus'])->name('layanan.status');
     Route::get('/layanan/{id}/notif', [\App\Http\Controllers\Operator\LayananController::class, 'kirimNotifikasi'])->name('layanan.notif');
+
+    // Konten Layanan (edit nama/deskripsi/ikon kartu layanan di halaman publik)
+    Route::get('/layanan-konten', [\App\Http\Controllers\Operator\LayananKontenController::class, 'index'])->name('layanan-konten.index');
+    Route::post('/layanan-konten/batch', [\App\Http\Controllers\Operator\LayananKontenController::class, 'updateBatch'])->name('layanan-konten.batch');
+    Route::put('/layanan-konten/{id}', [\App\Http\Controllers\Operator\LayananKontenController::class, 'update'])->name('layanan-konten.update');
+    Route::post('/layanan-konten/{id}/syarat', [\App\Http\Controllers\Operator\LayananKontenController::class, 'storeSyarat'])->name('layanan-konten.syarat.store');
+    Route::put('/layanan-konten/syarat/{syarat_id}', [\App\Http\Controllers\Operator\LayananKontenController::class, 'updateSyarat'])->name('layanan-konten.syarat.update');
+    Route::delete('/layanan-konten/syarat/{syarat_id}', [\App\Http\Controllers\Operator\LayananKontenController::class, 'destroySyarat'])->name('layanan-konten.syarat.destroy');
+
+    // KKN UNS 178
+    Route::get('/kkn', [\App\Http\Controllers\Operator\KknController::class, 'index'])->name('kkn.index');
+    Route::post('/kkn/settings', [\App\Http\Controllers\Operator\KknController::class, 'updateSettings'])->name('kkn.settings');
+    Route::post('/kkn/reorder', [\App\Http\Controllers\Operator\KknController::class, 'reorder'])->name('kkn.reorder');
+    Route::get('/kkn/create', [\App\Http\Controllers\Operator\KknController::class, 'create'])->name('kkn.create');
+    Route::post('/kkn', [\App\Http\Controllers\Operator\KknController::class, 'store'])->name('kkn.store');
+    Route::get('/kkn/{id}/edit', [\App\Http\Controllers\Operator\KknController::class, 'edit'])->name('kkn.edit');
+    Route::put('/kkn/{id}', [\App\Http\Controllers\Operator\KknController::class, 'update'])->name('kkn.update');
+    Route::delete('/kkn/{id}', [\App\Http\Controllers\Operator\KknController::class, 'destroy'])->name('kkn.destroy');
+    
     
     // Profil
-    Route::get('/profil', [\App\Http\Controllers\Operator\ProfilController::class, 'edit']);
-    Route::post('/profil', [\App\Http\Controllers\Operator\ProfilController::class, 'update']);
+    Route::get('/profil/sejarah', [\App\Http\Controllers\Operator\ProfilController::class, 'sejarah'])->name('profil.sejarah');
+    Route::get('/profil/visi-misi', [\App\Http\Controllers\Operator\ProfilController::class, 'visiMisi'])->name('profil.visi-misi');
+    Route::get('/profil/geografis', [\App\Http\Controllers\Operator\ProfilController::class, 'geografis'])->name('profil.geografis');
+    Route::get('/profil/peta', [\App\Http\Controllers\Operator\ProfilController::class, 'peta'])->name('profil.peta');
+    Route::post('/profil', [\App\Http\Controllers\Operator\ProfilController::class, 'update'])->name('profil.update');
     
     // Pemerintahan
     Route::post('struktur/hero', [\App\Http\Controllers\Operator\StrukturController::class, 'updateHero']);

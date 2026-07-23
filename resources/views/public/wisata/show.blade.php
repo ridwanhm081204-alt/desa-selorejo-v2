@@ -35,9 +35,7 @@
                     </h4>
                     
                     <div class="text-dark lh-lg mb-4" style="text-align: justify; font-size: 1.1rem; opacity: 0.9; font-family: var(--font-body);">
-                        @foreach(explode("\n\n", $wisata->deskripsi) as $paragraph)
-                            <p class="mb-3">{{ $paragraph }}</p>
-                        @endforeach
+                        {!! $wisata->deskripsi !!}
                     </div>
 
                     <!-- Reaksi Area -->
@@ -90,7 +88,7 @@
                             <i data-lucide="shield-alert" class="me-3 mt-1" style="color: var(--color-tomato) !important;"></i>
                             <div>
                                 <strong class="d-block mb-1">Syarat & Aturan Kunjungan</strong>
-                                <span class="text-muted lh-sm d-block">{!! nl2br(e($wisata->aturan)) !!}</span>
+                                <span class="text-muted lh-sm d-block">{!! $wisata->aturan !!}</span>
                             </div>
                         </li>
                     </ul>

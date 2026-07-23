@@ -347,14 +347,14 @@
                         <div class="rounded p-2 me-3 flex-shrink-0" style="background:rgba(255,255,255,0.15);"><i data-lucide="car" style="width:16px;height:16px;color:#fff;"></i></div>
                         <div>
                             <strong class="d-block mb-1" style="font-family:var(--font-heading); font-size:0.88rem; color:#fff!important;">Kendaraan Pribadi</strong>
-                            <p class="small mb-0" style="font-family:var(--font-body); color:rgba(255,255,255,0.88)!important; line-height:1.5;">{{ $profile->peta_rute_pribadi ?? '±30 menit dari Kota Malang ke arah Barat menuju Kota Batu, belok di jalur Kecamatan Dau.' }}</p>
+                            <div class="small mb-0" style="font-family:var(--font-body); color:rgba(255,255,255,0.88)!important; line-height:1.5;">{!! $profile->peta_rute_pribadi ?? '• 30 menit dari Kota Malang ke arah Barat menuju Kota Batu, belok di jalur Kecamatan Dau.' !!}</div>
                         </div>
                     </div>
                     <div class="d-flex align-items-start">
                         <div class="rounded p-2 me-3 flex-shrink-0" style="background:rgba(255,255,255,0.15);"><i data-lucide="bus" style="width:16px;height:16px;color:#fff;"></i></div>
                         <div>
                             <strong class="d-block mb-1 text-white" style="font-family:var(--font-heading); font-size:0.88rem;">Transportasi Umum</strong>
-                            <p class="small text-white mb-0" style="font-family:var(--font-body); opacity:0.88; line-height:1.5;">{{ $profile->peta_rute_umum ?? 'Angkutan pedesaan dari Terminal Landungsari menuju wilayah Kecamatan Dau.' }}</p>
+                            <div class="small text-white mb-0" style="font-family:var(--font-body); opacity:0.88; line-height:1.5;">{!! $profile->peta_rute_umum ?? 'Angkutan pedesaan dari Terminal Landungsari menuju wilayah Kecamatan Dau.' !!}</div>
                         </div>
                     </div>
                 </div>

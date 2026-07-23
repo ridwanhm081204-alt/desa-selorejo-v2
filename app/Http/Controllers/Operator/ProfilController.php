@@ -7,9 +7,24 @@ use Illuminate\Http\Request;
 
 class ProfilController extends Controller
 {
-    public function edit() {
+    public function sejarah() {
         $profil = \App\Models\Profile::first() ?? new \App\Models\Profile;
-        return view('operator.profil.edit', compact('profil'));
+        return view('operator.profil.sejarah', compact('profil'));
+    }
+
+    public function visiMisi() {
+        $profil = \App\Models\Profile::first() ?? new \App\Models\Profile;
+        return view('operator.profil.visi-misi', compact('profil'));
+    }
+
+    public function geografis() {
+        $profil = \App\Models\Profile::first() ?? new \App\Models\Profile;
+        return view('operator.profil.geografis', compact('profil'));
+    }
+
+    public function peta() {
+        $profil = \App\Models\Profile::first() ?? new \App\Models\Profile;
+        return view('operator.profil.peta', compact('profil'));
     }
 
     public function update(\Illuminate\Http\Request $request) {
@@ -81,6 +96,17 @@ class ProfilController extends Controller
         $profil->save();
         
         \App\Models\ActivityLog::create(['user_id' => auth()->id(), 'action' => 'Update Profil Desa (V2)']);
-        return back()->with('success', 'Profil Desa berhasil diperbarui!');
+        
+        // Redirect back to the specific tab origin if provided
+        $tab = $request->input('origin_tab', 'sejarah');
+        $routeMap = [
+            'sejarah' => 'operator.profil.sejarah',
+            'visi-misi' => 'operator.profil.visi-misi',
+            'geografis' => 'operator.profil.geografis',
+            'peta' => 'operator.profil.peta',
+        ];
+        
+        $targetRoute = $routeMap[$tab] ?? 'operator.profil.sejarah';
+        return redirect()->route($targetRoute)->with('success', 'Profil Desa berhasil diperbarui!');
     }
 }

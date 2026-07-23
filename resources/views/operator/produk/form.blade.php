@@ -117,7 +117,7 @@
 
                     <div class="mb-4 text-start">
                         <label class="form-label fw-bold text-muted small">DESKRIPSI PRODUK <span class="text-danger">*</span></label>
-                        <textarea name="deskripsi" class="form-control rounded-4 p-3 border-0 bg-light shadow-none" rows="6" placeholder="Jelaskan kualitas, rasa, atau spesifikasi produk ini..." required>{{ old('deskripsi', $produk->deskripsi ?? '') }}</textarea>
+                        <textarea name="deskripsi" class="form-control rounded-4 p-3 border-0 bg-light shadow-none rich-text" rows="6" placeholder="Jelaskan kualitas, rasa, atau spesifikasi produk ini..." required>{{ old('deskripsi', $produk->deskripsi ?? '') }}</textarea>
                     </div>
 
                     <div class="mb-5 p-4 bg-light rounded-4 text-start">

@@ -41,7 +41,7 @@
 
                     <div class="mb-4">
                         <label class="form-label fw-bold text-muted small">ISI KONTEN BERITA</label>
-                        <textarea name="konten" class="form-control rounded-4 p-4 shadow-none" rows="12" placeholder="Tuliskan berita secara lengkap di sini..." required>{{ old('konten', $berita->konten ?? '') }}</textarea>
+                        <textarea name="konten" class="form-control rounded-4 p-4 shadow-none rich-text" rows="12" placeholder="Tuliskan berita secara lengkap di sini..." required>{{ old('konten', $berita->konten ?? '') }}</textarea>
                         <div class="mt-2 d-flex align-items-center text-muted small">
                             <i data-lucide="info" class="icon-xs me-1"></i> Tips: Gunakan paragraf yang jelas untuk memudahkan pembaca.
                         </div>

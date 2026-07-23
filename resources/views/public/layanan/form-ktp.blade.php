@@ -106,24 +106,23 @@
                             <i data-lucide="upload-cloud" class="icon-sm me-2"></i>3. Upload Dokumen Pendukung
                         </h5>
                         <div class="row g-4 mb-5">
-                            <div class="col-md-6">
-                                <label class="form-label fw-bold text-muted small">SURAT PENGANTAR RT/RW <span class="text-danger">*</span></label>
-                                <input type="file" name="file_pengantar_rt_rw" class="form-control rounded-pill border-0 shadow-sm bg-white" accept="image/*,application/pdf" required>
-                                <small class="text-muted d-block mt-1" style="font-size: 0.7rem;">Surat pengantar dari RT/RW setempat. Format: PDF, JPG, PNG (Max 2MB)</small>
-                                @error('file_pengantar_rt_rw') <small class="text-danger mt-1 d-block">{{ $message }}</small> @enderror
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label fw-bold text-muted small">SCAN KARTU KELUARGA (KK) <span class="text-danger">*</span></label>
-                                <input type="file" name="file_kk_pemohon" class="form-control rounded-pill border-0 shadow-sm bg-white" accept="image/*,application/pdf" required>
-                                <small class="text-muted d-block mt-1" style="font-size: 0.7rem;">Scan KK asli pemohon. Format: PDF, JPG, PNG (Max 2MB)</small>
-                                @error('file_kk_pemohon') <small class="text-danger mt-1 d-block">{{ $message }}</small> @enderror
-                            </div>
-                            <div class="col-md-6 d-none animate-fade-in" id="surat_kehilangan_file_container">
-                                <label class="form-label fw-bold text-muted small">SCAN SURAT KEHILANGAN DARI KEPOLISIAN <span class="text-danger">*</span></label>
-                                <input type="file" name="file_surat_kehilangan" id="file_surat_kehilangan" class="form-control rounded-pill border-0 shadow-sm bg-white" accept="image/*,application/pdf">
-                                <small class="text-muted d-block mt-1" style="font-size: 0.7rem;">Scan surat laporan kehilangan asli. Format: PDF, JPG, PNG (Max 2MB)</small>
-                                @error('file_surat_kehilangan') <small class="text-danger mt-1 d-block">{{ $message }}</small> @enderror
-                            </div>
+                            @if(isset($layanan) && $layanan->syarat)
+                                @foreach($layanan->syarat as $syarat)
+                                    @php
+                                        $isHilang = $syarat->kode_syarat === 'file_surat_kehilangan';
+                                    @endphp
+                                    <div class="{{ $isHilang ? 'col-md-6 d-none animate-fade-in' : 'col-md-6' }}" {!! $isHilang ? 'id="surat_kehilangan_file_container"' : '' !!}>
+                                        <label class="form-label fw-bold text-muted small">{{ $syarat->nama_syarat }} {!! $syarat->is_required ? '<span class="text-danger">*</span>' : '' !!}</label>
+                                        <input type="file" name="{{ $syarat->kode_syarat }}" {!! $isHilang ? 'id="file_surat_kehilangan"' : '' !!} class="form-control rounded-pill border-0 shadow-sm bg-white" accept="image/*,application/pdf" {{ $syarat->is_required ? 'required' : '' }}>
+                                        @if($syarat->keterangan)
+                                            <small class="text-muted d-block mt-1" style="font-size: 0.7rem;">{{ $syarat->keterangan }}</small>
+                                        @endif
+                                        @error($syarat->kode_syarat) <small class="text-danger mt-1 d-block">{{ $message }}</small> @enderror
+                                    </div>
+                                @endforeach
+                            @else
+                                <div class="col-12"><div class="alert alert-warning">Data syarat dokumen belum tersedia.</div></div>
+                            @endif
                         </div>
 
                         <div class="pt-4 border-top d-flex justify-content-between">

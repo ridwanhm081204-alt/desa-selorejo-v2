@@ -149,42 +149,23 @@
                             <i data-lucide="upload-cloud" class="icon-sm me-2"></i>4. Upload Dokumen Pendukung
                         </h5>
                         <div class="row g-4 mb-5">
-                            <div class="col-md-6">
-                                <label class="form-label fw-bold text-muted small">SURAT PENGANTAR RT/RW <span class="text-danger">*</span></label>
-                                <input type="file" name="file_pengantar_rt_rw" class="form-control rounded-pill border-0 shadow-sm bg-white" accept="image/*,application/pdf" required>
-                                <small class="text-muted d-block mt-1" style="font-size: 0.7rem;">Surat pengantar dari RT/RW setempat. Format: PDF, JPG, PNG (Max 2MB)</small>
-                                @error('file_pengantar_rt_rw') <small class="text-danger mt-1 d-block">{{ $message }}</small> @enderror
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label fw-bold text-muted small">SURAT KEMATIAN <span class="text-danger">*</span></label>
-                                <input type="file" name="file_surat_kematian" class="form-control rounded-pill border-0 shadow-sm bg-white" accept="image/*,application/pdf" required>
-                                <small class="text-muted d-block mt-1" style="font-size: 0.7rem;">Dari dokter/puskesmas/kepala desa. Format: PDF, JPG, PNG (Max 2MB)</small>
-                                @error('file_surat_kematian') <small class="text-danger mt-1 d-block">{{ $message }}</small> @enderror
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label fw-bold text-muted small">SCAN KK ALMARHUM / KELUARGA <span class="text-danger">*</span></label>
-                                <input type="file" name="file_kk" class="form-control rounded-pill border-0 shadow-sm bg-white" accept="image/*,application/pdf" required>
-                                <small class="text-muted d-block mt-1" style="font-size: 0.7rem;">Kartu Keluarga almarhum/pelapor. Format: PDF, JPG, PNG (Max 2MB)</small>
-                                @error('file_kk') <small class="text-danger mt-1 d-block">{{ $message }}</small> @enderror
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label fw-bold text-muted small">SCAN KTP PELAPOR <span class="text-danger">*</span></label>
-                                <input type="file" name="file_ktp_pelapor" class="form-control rounded-pill border-0 shadow-sm bg-white" accept="image/*,application/pdf" required>
-                                <small class="text-muted d-block mt-1" style="font-size: 0.7rem;">KTP asli pelapor yang mengajukan. Format: PDF, JPG, PNG (Max 2MB)</small>
-                                @error('file_ktp_pelapor') <small class="text-danger mt-1 d-block">{{ $message }}</small> @enderror
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label fw-bold text-muted small">SCAN KTP ALMARHUM (JIKA ADA)</label>
-                                <input type="file" name="file_ktp_almarhum" class="form-control rounded-pill border-0 shadow-sm bg-white" accept="image/*,application/pdf">
-                                <small class="text-muted d-block mt-1" style="font-size: 0.7rem;">KTP asli almarhum. Format: PDF, JPG, PNG (Max 2MB)</small>
-                                @error('file_ktp_almarhum') <small class="text-danger mt-1 d-block">{{ $message }}</small> @enderror
-                            </div>
-                            <div class="col-md-12 d-none animate-fade-in" id="file_polisi_container">
-                                <label class="form-label fw-bold text-muted small">SCAN SURAT KETERANGAN KEPOLISIAN <span class="text-danger">*</span></label>
-                                <input type="file" name="file_surat_kepolisian" id="file_surat_kepolisian" class="form-control rounded-pill border-0 shadow-sm bg-white" accept="image/*,application/pdf">
-                                <small class="text-muted d-block mt-1" style="font-size: 0.7rem;">Wajib jika identitas jenazah tidak diketahui/tidak jelas. Format: PDF, JPG, PNG (Max 2MB)</small>
-                                @error('file_surat_kepolisian') <small class="text-danger mt-1 d-block">{{ $message }}</small> @enderror
-                            </div>
+                            @if(isset($layanan) && $layanan->syarat)
+                                @foreach($layanan->syarat as $syarat)
+                                    @php
+                                        $isPolisi = $syarat->kode_syarat === 'file_surat_kepolisian';
+                                    @endphp
+                                    <div class="{{ $isPolisi ? 'col-md-12 d-none animate-fade-in' : 'col-md-6' }}" {!! $isPolisi ? 'id="file_polisi_container"' : '' !!}>
+                                        <label class="form-label fw-bold text-muted small">{{ $syarat->nama_syarat }} {!! $syarat->is_required ? '<span class="text-danger">*</span>' : '' !!}</label>
+                                        <input type="file" name="{{ $syarat->kode_syarat }}" {!! $isPolisi ? 'id="file_surat_kepolisian"' : '' !!} class="form-control rounded-pill border-0 shadow-sm bg-white" accept="image/*,application/pdf" {{ $syarat->is_required ? 'required' : '' }}>
+                                        @if($syarat->keterangan)
+                                            <small class="text-muted d-block mt-1" style="font-size: 0.7rem;">{{ $syarat->keterangan }}</small>
+                                        @endif
+                                        @error($syarat->kode_syarat) <small class="text-danger mt-1 d-block">{{ $message }}</small> @enderror
+                                    </div>
+                                @endforeach
+                            @else
+                                <div class="col-12"><div class="alert alert-warning">Data syarat dokumen belum tersedia.</div></div>
+                            @endif
                         </div>
 
                         <div class="pt-4 border-top d-flex justify-content-between">

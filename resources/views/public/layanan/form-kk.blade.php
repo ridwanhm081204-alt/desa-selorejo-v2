@@ -130,18 +130,6 @@
                                     <label class="form-label fw-bold text-muted small">SCAN BUKU NIKAH / AKTA PERKAWINAN <span class="text-danger">*</span></label>
                                     <input type="file" name="file_akta_nikah_perkawinan" id="file_nikah_baru" class="form-control rounded-pill border-0 shadow-sm bg-white" accept="image/*,application/pdf">
                                     <small class="text-muted d-block mt-1" style="font-size: 0.7rem;">Format: PDF, JPG, PNG (Max 2MB)</small>
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="form-label fw-bold text-muted small">SCAN KTP KEDUA MEMPELAI (JADI SATU) <span class="text-danger">*</span></label>
-                                    <input type="file" name="file_ktp_mempelai" id="file_ktp_mempelai" class="form-control rounded-pill border-0 shadow-sm bg-white" accept="image/*,application/pdf">
-                                    <small class="text-muted d-block mt-1" style="font-size: 0.7rem;">Format: PDF, JPG, PNG (Max 2MB)</small>
-                                </div>
-                                <div class="col-md-12">
-                                    <label class="form-label fw-bold text-muted small">SCAN KK ASAL KEDUA BELAH PIHAK (JADI SATU) <span class="text-danger">*</span></label>
-                                    <input type="file" name="file_kk_asal" id="file_kk_asal" class="form-control rounded-pill border-0 shadow-sm bg-white" accept="image/*,application/pdf">
-                                    <small class="text-muted d-block mt-1" style="font-size: 0.7rem;">Format: PDF, JPG, PNG (Max 2MB)</small>
-                                </div>
-                            </div>
                         </div>
 
                         <!-- SUB-FORM B: TAMBAH ANGGOTA (KELAHIRAN) -->
@@ -172,19 +160,6 @@
                                 </div>
                             </div>
 
-                            <h5 class="fw-bold mb-3 border-bottom pb-2 text-dark" style="font-family: var(--font-heading); color: var(--color-forest) !important;">
-                                <i data-lucide="upload-cloud" class="icon-sm me-2"></i>3. Upload Dokumen Pendukung
-                            </h5>
-                            <div class="row g-4 mb-5">
-                                <div class="col-md-6">
-                                    <label class="form-label fw-bold text-muted small">SCAN AKTA KELAHIRAN ANAK <span class="text-danger">*</span></label>
-                                    <input type="file" name="file_akta_lahir_anak" id="file_akta_lahir_anak" class="form-control rounded-pill border-0 shadow-sm bg-white" accept="image/*,application/pdf">
-                                    <small class="text-muted d-block mt-1" style="font-size: 0.7rem;">Format: PDF, JPG, PNG (Max 2MB)</small>
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="form-label fw-bold text-muted small">SCAN KK LAMA <span class="text-danger">*</span></label>
-                                    <input type="file" name="file_kk_lama" id="file_kk_lama_tambah" class="form-control rounded-pill border-0 shadow-sm bg-white" accept="image/*,application/pdf">
-                                    <small class="text-muted d-block mt-1" style="font-size: 0.7rem;">Format: PDF, JPG, PNG (Max 2MB)</small>
                                 </div>
                             </div>
                         </div>
@@ -229,19 +204,6 @@
                                 </div>
                             </div>
 
-                            <h5 class="fw-bold mb-3 border-bottom pb-2 text-dark" style="font-family: var(--font-heading); color: var(--color-forest) !important;">
-                                <i data-lucide="upload-cloud" class="icon-sm me-2"></i>3. Upload Dokumen Pendukung
-                            </h5>
-                            <div class="row g-4 mb-5">
-                                <div class="col-md-6">
-                                    <label class="form-label fw-bold text-muted small">SCAN KK LAMA <span class="text-danger">*</span></label>
-                                    <input type="file" name="file_kk_lama" id="file_kk_lama_ubah" class="form-control rounded-pill border-0 shadow-sm bg-white" accept="image/*,application/pdf">
-                                    <small class="text-muted d-block mt-1" style="font-size: 0.7rem;">Format: PDF, JPG, PNG (Max 2MB)</small>
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="form-label fw-bold text-muted small">SCAN DOKUMEN PENDUKUNG (SURAT NIKAH/IJAZAH/dll) <span class="text-danger">*</span></label>
-                                    <input type="file" name="file_dokumen_pendukung_perubahan" id="file_pendukung_ubah" class="form-control rounded-pill border-0 shadow-sm bg-white" accept="image/*,application/pdf">
-                                    <small class="text-muted d-block mt-1" style="font-size: 0.7rem;">Format: PDF, JPG, PNG (Max 2MB)</small>
                                 </div>
                             </div>
                         </div>
@@ -270,25 +232,30 @@
                                 </div>
                             </div>
 
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- DYNAMIC UPLOAD SECTION -->
+                        <div class="d-none animate-fade-in mt-4" id="section_dokumen_dinamis">
                             <h5 class="fw-bold mb-3 border-bottom pb-2 text-dark" style="font-family: var(--font-heading); color: var(--color-forest) !important;">
-                                <i data-lucide="upload-cloud" class="icon-sm me-2"></i>3. Upload Dokumen Pendukung
+                                <i data-lucide="upload-cloud" class="icon-sm me-2"></i>Upload Dokumen Pendukung
                             </h5>
                             <div class="row g-4 mb-5">
-                                <div class="col-md-4">
-                                    <label class="form-label fw-bold text-muted small">SCAN KK ASAL <span class="text-danger">*</span></label>
-                                    <input type="file" name="file_kk_lama" id="file_kk_lama_pisah" class="form-control rounded-pill border-0 shadow-sm bg-white" accept="image/*,application/pdf">
-                                    <small class="text-muted d-block mt-1" style="font-size: 0.7rem;">Format: PDF, JPG, PNG (Max 2MB)</small>
-                                </div>
-                                <div class="col-md-4">
-                                    <label class="form-label fw-bold text-muted small">SCAN KTP ANGGOTA YANG PINDAH <span class="text-danger">*</span></label>
-                                    <input type="file" name="file_ktp_anggota" id="file_ktp_anggota_pisah" class="form-control rounded-pill border-0 shadow-sm bg-white" accept="image/*,application/pdf">
-                                    <small class="text-muted d-block mt-1" style="font-size: 0.7rem;">Format: PDF, JPG, PNG (Max 2MB)</small>
-                                </div>
-                                <div class="col-md-4">
-                                    <label class="form-label fw-bold text-muted small">SCAN SURAT PERSETUJUAN PISAH KK (JIKA KAWIN) <span class="text-danger">*</span></label>
-                                    <input type="file" name="file_surat_persetujuan_pisah" id="file_persetujuan_pisah" class="form-control rounded-pill border-0 shadow-sm bg-white" accept="image/*,application/pdf">
-                                    <small class="text-muted d-block mt-1" style="font-size: 0.7rem;">Format: PDF, JPG, PNG (Max 2MB)</small>
-                                </div>
+                                @if(isset($layanan) && $layanan->syarat)
+                                    @foreach($layanan->syarat as $syarat)
+                                        <div class="col-md-6">
+                                            <label class="form-label fw-bold text-muted small">{{ $syarat->nama_syarat }} {!! $syarat->is_required ? '<span class="text-danger">*</span>' : '' !!}</label>
+                                            <input type="file" name="{{ $syarat->kode_syarat }}" class="form-control rounded-pill border-0 shadow-sm bg-white" accept="image/*,application/pdf" {{ $syarat->is_required ? 'required' : '' }}>
+                                            @if($syarat->keterangan)
+                                                <small class="text-muted d-block mt-1" style="font-size: 0.7rem;">{{ $syarat->keterangan }}</small>
+                                            @endif
+                                            @error($syarat->kode_syarat) <small class="text-danger mt-1 d-block">{{ $message }}</small> @enderror
+                                        </div>
+                                    @endforeach
+                                @else
+                                    <div class="col-12"><div class="alert alert-warning">Data syarat dokumen belum tersedia.</div></div>
+                                @endif
                             </div>
                         </div>
 
@@ -323,34 +290,24 @@
                 {id: 'input_nik_istri', req: true},
                 {id: 'input_nama_istri', req: true},
                 {id: 'input_kk_asal_baru', req: true},
-                {id: 'input_alamat_baru_kk', req: true},
-                {id: 'file_nikah_baru', req: true},
-                {id: 'file_ktp_mempelai', req: true},
-                {id: 'file_kk_asal', req: true}
+                {id: 'input_alamat_baru_kk', req: true}
             ],
             kk_tambah_anggota: [
                 {id: 'input_kk_asal_tambah', req: true},
                 {id: 'input_nama_anak', req: true},
-                {id: 'input_akta_lahir', req: true},
-                {id: 'file_akta_lahir_anak', req: true},
-                {id: 'file_kk_lama_tambah', req: true}
+                {id: 'input_akta_lahir', req: true}
             ],
             kk_ubah_data: [
                 {id: 'input_kk_asal_ubah', req: true},
                 {id: 'input_anggota_ubah', req: true},
                 {id: 'select_jenis_perubahan', req: true},
                 {id: 'input_nilai_lama', req: true},
-                {id: 'input_nilai_baru', req: true},
-                {id: 'file_kk_lama_ubah', req: true},
-                {id: 'file_pendukung_ubah', req: true}
+                {id: 'input_nilai_baru', req: true}
             ],
             kk_pisah: [
                 {id: 'input_kk_asal_pisah', req: true},
                 {id: 'input_anggota_pisah', req: true},
-                {id: 'input_alamat_baru_pisah', req: true},
-                {id: 'file_kk_lama_pisah', req: true},
-                {id: 'file_ktp_anggota_pisah', req: true},
-                {id: 'file_persetujuan_pisah', req: true}
+                {id: 'input_alamat_baru_pisah', req: true}
             ]
         };
 
@@ -382,6 +339,8 @@
                 const val = select.value;
                 commonSec.classList.remove('d-none');
                 buttons.classList.remove('d-none');
+                const secDin = document.getElementById('section_dokumen_dinamis');
+                if(secDin) secDin.classList.remove('d-none');
 
                 secBaru.classList.add('d-none');
                 secTambah.classList.add('d-none');

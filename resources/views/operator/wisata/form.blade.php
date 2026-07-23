@@ -51,7 +51,7 @@
 
                     <div class="mb-4 text-start">
                         <label class="form-label small fw-bold text-muted">DESKRIPSI LENGKAP <span class="text-danger">*</span></label>
-                        <textarea name="deskripsi" class="form-control rounded-4 p-3 border-0 bg-light shadow-none @error('deskripsi') is-invalid @enderror" 
+                        <textarea name="deskripsi" class="form-control rounded-4 p-3 border-0 bg-light shadow-none rich-text @error('deskripsi') is-invalid @enderror" 
                                   rows="8" required placeholder="Gambarkan keunikan dan daya tarik utama tempat ini...">{{ old('deskripsi', $wisata->deskripsi ?? '') }}</textarea>
                         @error('deskripsi') <div class="invalid-feedback d-block mt-1">{{ $message }}</div> @enderror
                     </div>
@@ -90,7 +90,7 @@
 
                     <div class="mb-4 text-start text-start">
                         <label class="form-label small fw-bold text-muted">ATURAN PENGUNJUNG (OPSIONAL)</label>
-                        <textarea name="aturan" class="form-control rounded-3 p-3 border-0 bg-light shadow-none @error('aturan') is-invalid @enderror" 
+                        <textarea name="aturan" class="form-control rounded-3 p-3 border-0 bg-light shadow-none rich-text @error('aturan') is-invalid @enderror" 
                                   rows="3" placeholder="Contoh: Dilarang memetik buah tanpa izin, wajib menjaga kebersihan...">{{ old('aturan', $wisata->aturan ?? '') }}</textarea>
                         @error('aturan') <div class="invalid-feedback d-block mt-1">{{ $message }}</div> @enderror
                     </div>

@@ -30,7 +30,7 @@
                 <!-- Konten Teks Materi -->
                 <div class="p-4 p-md-5">
                     <div class="lh-lg text-dark" style="text-align: justify; font-size: 1.05rem;">
-                        {!! nl2br(e($profile->sejarah ?? '')) !!}
+                        {!! $profile->sejarah ?? '' !!}
                     </div>
                 </div>
             </div>

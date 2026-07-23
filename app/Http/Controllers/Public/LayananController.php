@@ -10,32 +10,38 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Storage;
+use App\Models\LayananKonten;
 
 class LayananController extends Controller
 {
     public function index()
     {
-        return view('public.layanan.index');
+        $layananKonten = LayananKonten::orderBy('urutan', 'asc')->get();
+        return view('public.layanan.index', compact('layananKonten'));
     }
 
     public function formAktaKelahiran()
     {
-        return view('public.layanan.form-akta-kelahiran');
+        $layanan = LayananKonten::where('kode', 'akta_kelahiran')->with('syarat')->first();
+        return view('public.layanan.form-akta-kelahiran', compact('layanan'));
     }
 
     public function formAktaKematian()
     {
-        return view('public.layanan.form-akta-kematian');
+        $layanan = LayananKonten::where('kode', 'akta_kematian')->with('syarat')->first();
+        return view('public.layanan.form-akta-kematian', compact('layanan'));
     }
 
     public function formKk()
     {
-        return view('public.layanan.form-kk');
+        $layanan = LayananKonten::where('kode', 'kk')->with('syarat')->first();
+        return view('public.layanan.form-kk', compact('layanan'));
     }
 
     public function formKtp()
     {
-        return view('public.layanan.form-ktp');
+        $layanan = LayananKonten::where('kode', 'ktp')->with('syarat')->first();
+        return view('public.layanan.form-ktp', compact('layanan'));
     }
 
     public function store(Request $request)
@@ -51,6 +57,14 @@ class LayananController extends Controller
         RateLimiter::hit($rateLimitKey, 600); // 10 menit
 
         $jenisLayanan = $request->input('jenis_layanan');
+        
+        // Map jenis_layanan to kode for LayananKonten
+        $kodeLayanan = $jenisLayanan;
+        if (str_starts_with($jenisLayanan, 'kk_')) $kodeLayanan = 'kk';
+        if (str_starts_with($jenisLayanan, 'ktp_')) $kodeLayanan = 'ktp';
+        
+        $layananKonten = LayananKonten::where('kode', $kodeLayanan)->with('syarat')->first();
+        $syaratDokumen = $layananKonten ? $layananKonten->syarat : collect([]);
 
         // Common validation
         $rules = [
@@ -59,8 +73,13 @@ class LayananController extends Controller
             'no_hp_pemohon' => ['required', 'string', 'max:15', 'regex:/^\+?[0-9]{8,14}$/'],
             'email_pemohon' => 'nullable|email|max:100',
             'jenis_layanan' => 'required|string',
-            'file_pengantar_rt_rw' => 'required|file|mimes:pdf,jpg,png|max:2048',
         ];
+
+        // Dynamic file validation
+        foreach ($syaratDokumen as $syarat) {
+            $rule = $syarat->is_required ? 'required' : 'nullable';
+            $rules[$syarat->kode_syarat] = "$rule|file|mimes:pdf,jpg,png|max:2048";
+        }
 
         // Custom validation based on type
         if ($jenisLayanan === 'akta_kelahiran') {
@@ -83,12 +102,6 @@ class LayananController extends Controller
                 'nama_saksi2' => 'required|string|max:100',
                 'nik_saksi2' => 'required|numeric|digits:16',
                 'tempat_penerbit_surat_lahir' => 'required|in:rs,puskesmas,bidan,kepala_desa',
-                // Files
-                'file_surat_lahir' => 'required|file|mimes:pdf,jpg,png|max:2048',
-                'file_kk_ortu' => 'required|file|mimes:pdf,jpg,png|max:2048',
-                'file_ktp_ortu' => 'required|file|mimes:pdf,jpg,png|max:2048',
-                'file_akta_nikah' => 'required|file|mimes:pdf,jpg,png|max:2048',
-                'file_ktp_saksi' => 'required|file|mimes:pdf,jpg,png|max:2048',
             ]);
         } elseif ($jenisLayanan === 'akta_kematian') {
             $rules = array_merge($rules, [
@@ -103,12 +116,6 @@ class LayananController extends Controller
                 'nik_pelapor' => 'required|numeric|digits:16',
                 'hubungan_pelapor' => 'required|string|max:50',
                 'identitas_jelas' => 'nullable|boolean',
-                // Files
-                'file_surat_kematian' => 'required|file|mimes:pdf,jpg,png|max:2048',
-                'file_ktp_almarhum' => 'nullable|file|mimes:pdf,jpg,png|max:2048',
-                'file_kk' => 'required|file|mimes:pdf,jpg,png|max:2048',
-                'file_ktp_pelapor' => 'required|file|mimes:pdf,jpg,png|max:2048',
-                'file_surat_kepolisian' => 'nullable|file|mimes:pdf,jpg,png|max:2048',
             ]);
         } elseif (str_starts_with($jenisLayanan, 'kk_')) {
             $rules = array_merge($rules, [
@@ -130,15 +137,6 @@ class LayananController extends Controller
                 'nilai_baru' => 'nullable|string',
                 // For Pisah KK
                 'anggota_terlibat' => 'nullable|array',
-                // Files
-                'file_kk_lama' => 'nullable|file|mimes:pdf,jpg,png|max:2048',
-                'file_ktp_anggota' => 'nullable|file|mimes:pdf,jpg,png|max:2048',
-                'file_akta_nikah_perkawinan' => 'nullable|file|mimes:pdf,jpg,png|max:2048',
-                'file_ktp_mempelai' => 'nullable|file|mimes:pdf,jpg,png|max:2048',
-                'file_kk_asal' => 'nullable|file|mimes:pdf,jpg,png|max:2048',
-                'file_akta_lahir_anak' => 'nullable|file|mimes:pdf,jpg,png|max:2048',
-                'file_dokumen_pendukung_perubahan' => 'nullable|file|mimes:pdf,jpg,png|max:2048',
-                'file_surat_persetujuan_pisah' => 'nullable|file|mimes:pdf,jpg,png|max:2048',
             ]);
         } elseif (str_starts_with($jenisLayanan, 'ktp_')) {
             $rules = array_merge($rules, [
@@ -161,9 +159,6 @@ class LayananController extends Controller
                         }
                     }
                 ],
-                // Files
-                'file_kk_pemohon' => 'required|file|mimes:pdf,jpg,png|max:2048',
-                'file_surat_kehilangan' => 'nullable|required_if:jenis_pengajuan_ktp,hilang|file|mimes:pdf,jpg,png|max:2048',
             ]);
         }
 
@@ -234,14 +229,6 @@ class LayananController extends Controller
                     'nik_saksi2' => $validated['nik_saksi2'],
                     'tempat_penerbit_surat_lahir' => $validated['tempat_penerbit_surat_lahir'],
                 ]);
-
-                // Upload required files
-                $uploadFile('file_surat_lahir', 'surat_lahir');
-                $uploadFile('file_kk_ortu', 'kk_ortu');
-                $uploadFile('file_ktp_ortu', 'ktp_ortu');
-                $uploadFile('file_akta_nikah', 'akta_nikah');
-                $uploadFile('file_ktp_saksi', 'ktp_saksi');
-
             } elseif ($jenisLayanan === 'akta_kematian') {
                 $pengajuan->detailAktaKematian()->create([
                     'nik_almarhum' => $validated['nik_almarhum'],
@@ -256,14 +243,6 @@ class LayananController extends Controller
                     'hubungan_pelapor' => $validated['hubungan_pelapor'],
                     'identitas_jelas' => $request->has('identitas_jelas'),
                 ]);
-
-                // Upload files
-                $uploadFile('file_surat_kematian', 'surat_kematian');
-                $uploadFile('file_ktp_almarhum', 'ktp_almarhum');
-                $uploadFile('file_kk', 'kk_almarhum');
-                $uploadFile('file_ktp_pelapor', 'ktp_pelapor');
-                $uploadFile('file_surat_kepolisian', 'surat_kepolisian');
-
             } elseif (str_starts_with($jenisLayanan, 'kk_')) {
                 // Determine jenis_perubahan enum based on jenis_layanan
                 $jenisPerubahan = 'ubah_elemen_data';
@@ -310,27 +289,12 @@ class LayananController extends Controller
                     'data_baru' => $dataBaru,
                     'anggota_terlibat' => $anggotaTerlibat,
                 ]);
-
-                // Upload files
-                $uploadFile('file_kk_lama', 'kk_lama');
-                $uploadFile('file_ktp_anggota', 'ktp_anggota');
-                $uploadFile('file_akta_nikah_perkawinan', 'akta_nikah_perkawinan');
-                $uploadFile('file_ktp_mempelai', 'ktp_mempelai');
-                $uploadFile('file_kk_asal', 'kk_asal');
-                $uploadFile('file_akta_lahir_anak', 'akta_lahir_anak');
-                $uploadFile('file_dokumen_pendukung_perubahan', 'dokumen_pendukung_perubahan');
-                $uploadFile('file_surat_persetujuan_pisah', 'surat_persetujuan_pisah');
-
             } elseif (str_starts_with($jenisLayanan, 'ktp_')) {
                 $pengajuan->detailKtp()->create([
                     'jenis_pengajuan' => $validated['jenis_pengajuan_ktp'],
                     'no_surat_kehilangan' => $validated['no_surat_kehilangan'] ?? null,
                     'jadwal_perekaman' => $validated['jadwal_perekaman'] ?? null,
                 ]);
-
-                // Upload files
-                $uploadFile('file_kk_pemohon', 'kk_pemohon');
-                $uploadFile('file_surat_kehilangan', 'surat_kehilangan');
             }
 
             DB::commit();

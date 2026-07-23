@@ -24,7 +24,7 @@
                     <span class="badge px-3 py-2 rounded-pill fw-bold mb-3 shadow-sm border" style="background-color: var(--accent) !important; border-color: var(--accent) !important; color: var(--text-on-accent) !important;">VISI KAMI</span>
                     <h5 class="fw-bold mb-2" style="letter-spacing: 2px; color: var(--color-forest) !important; font-family: var(--font-heading);">{{ $profile->motto ?? 'SATATA GAMA KARTA RAHARJA' }}</h5>
                     <h2 class="fw-bold lh-base text-dark display-6 mt-2" style="text-shadow: 0 1px 2px rgba(0,0,0,0.05); font-size: 2.2rem; font-family: var(--font-body);">
-                        {{ $profile->visi ?? '"Terwujudnya Tatanan Kehidupan Masyarakat Desa Selorejo yang Agamis, Demokratis, Mandiri, Bersih, Indah dan Aman"' }}
+                        {!! $profile->visi ?? '"Terwujudnya Tatanan Kehidupan Masyarakat Desa Selorejo yang Agamis, Demokratis, Mandiri, Bersih, Indah dan Aman"' !!}
                     </h2>
                 </div>
             </div>

@@ -47,7 +47,7 @@
                     </div>
                     
                     <div class="text-dark lh-lg mb-5" style="text-align: justify; font-size: 1.05rem; font-family: var(--font-body);">
-                        {!! nl2br(e($profile->geografi ?? '')) !!}
+                        {!! $profile->geografi ?? '' !!}
                     </div>
 
                     <div class="mt-5 pt-4 border-top" style="border-top-color: var(--color-forest) !important;">
