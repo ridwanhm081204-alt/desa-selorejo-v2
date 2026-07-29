@@ -45,6 +45,7 @@
                     <a class="nav-link nav-link-custom dropdown-toggle {{ request()->is('wisata*') || request()->is('produk*') ? 'active' : '' }}" href="#" data-bs-toggle="dropdown"><i data-lucide="map-pin" class="icon-sm me-1"></i> Wisata & Produk</a>
                     <ul class="dropdown-menu border-0 shadow">
                         <li><a class="dropdown-item" href="{{ url('/wisata') }}"><i data-lucide="map-pin" class="icon-sm me-2"></i>Destinasi Wisata</a></li>
+                        <li><a class="dropdown-item" href="{{ route('wisata.umkm') }}"><i data-lucide="store" class="icon-sm me-2"></i>Direktori UMKM</a></li>
                         <li><a class="dropdown-item" href="{{ route('produk.index') }}"><i data-lucide="shopping-bag" class="icon-sm me-2"></i>Produk Unggulan</a></li>
                     </ul>
                 </li>

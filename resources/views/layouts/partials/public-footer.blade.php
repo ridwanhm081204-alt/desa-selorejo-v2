@@ -96,7 +96,34 @@
                 <p style="font-family: var(--font-body); font-size: var(--text-sm); color: rgba(255,255,255,0.85); line-height: 1.8;" class="mb-3">Website resmi {{\App\Models\Setting::get('nama_desa', 'Desa Selorejo')}} dikelola oleh Pemerintah Desa untuk mewujudkan transparansi publik dan mempromosikan potensi agrowisata petik jeruk ke khalayak luas secara digital.</p>
                 
                 <div class="mt-4 d-flex flex-column align-items-start gap-2">
-                    <a href="{{ route('kkn.profil') }}" class="btn btn-outline-light btn-sm rounded-pill d-inline-flex align-items-center hover-accent">
+                    <style>
+                        @keyframes neon-blink {
+                            0%, 100% {
+                                box-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px var(--accent), 0 0 20px var(--accent);
+                                border-color: var(--accent);
+                                color: var(--text-on-accent) !important;
+                                background-color: var(--accent) !important;
+                            }
+                            50% {
+                                box-shadow: none;
+                                border-color: rgba(255,255,255,0.5);
+                                color: #fff !important;
+                                background-color: transparent !important;
+                            }
+                        }
+                        .btn-kkn-neon {
+                            animation: neon-blink 2s infinite;
+                            transition: all 0.3s ease;
+                        }
+                        .btn-kkn-neon:hover {
+                            animation: none;
+                            box-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px var(--accent), 0 0 40px var(--accent);
+                            background-color: var(--accent) !important;
+                            color: var(--text-on-accent) !important;
+                            border-color: var(--accent) !important;
+                        }
+                    </style>
+                    <a href="{{ route('kkn.profil') }}" class="btn btn-outline-light btn-sm rounded-pill d-inline-flex align-items-center btn-kkn-neon">
                         <i data-lucide="graduation-cap" class="me-2" style="width:14px;"></i> Tentang KKN UNS 178
                     </a>
                     <a href="{{ url('/login') }}" class="btn btn-outline-light btn-sm rounded-pill d-inline-flex align-items-center hover-accent">

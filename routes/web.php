@@ -20,6 +20,7 @@ Route::get('/pemerintahan/produkhukum', [\App\Http\Controllers\Public\Pemerintah
 
 // Wisata & Produk
 Route::get('/wisata', [\App\Http\Controllers\Public\WisataController::class, 'index'])->name('wisata.index');
+Route::get('/wisata/umkm', [\App\Http\Controllers\Public\UmkmController::class, 'index'])->name('wisata.umkm');
 Route::get('/wisata/{id}', [\App\Http\Controllers\Public\WisataController::class, 'show'])->name('wisata.show');
 Route::post('/wisata/share/{id}', [\App\Http\Controllers\Public\WisataController::class, 'share'])->name('wisata.share');
 Route::post('/wisata/react/{id}', [\App\Http\Controllers\Public\WisataController::class, 'react'])->name('wisata.react');
@@ -115,6 +116,9 @@ Route::middleware(['auth', 'role:operator,admin'])->prefix('operator')->name('op
     // Wisata
     Route::post('wisata/hero', [\App\Http\Controllers\Operator\WisataController::class, 'updateHero']);
     Route::resource('wisata', \App\Http\Controllers\Operator\WisataController::class)->except(['show']);
+    
+    // UMKM
+    Route::resource('umkm', \App\Http\Controllers\Operator\UmkmController::class)->except(['show']);
     
     // Produk
     Route::post('produk/hero', [\App\Http\Controllers\Operator\ProdukController::class, 'updateHero']);

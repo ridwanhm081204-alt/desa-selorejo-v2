@@ -86,16 +86,17 @@
             </li>
 
             <li class="nav-item">
-                <a href="#produkCollapse" data-bs-toggle="collapse" class="nav-link py-2 px-3 text-white rounded-3 d-flex align-items-center justify-content-between {{ request()->is('operator/produk*') ? 'bg-white bg-opacity-10' : 'bg-hover-glass' }}">
+                <a href="#produkCollapse" data-bs-toggle="collapse" class="nav-link py-2 px-3 text-white rounded-3 d-flex align-items-center justify-content-between {{ request()->is('operator/produk*') || request()->is('operator/umkm*') ? 'bg-white bg-opacity-10' : 'bg-hover-glass' }}">
                     <div class="d-flex align-items-center">
                         <i data-lucide="shopping-bag" class="me-3 icon-sm"></i> <span>Ekonomi & Produk</span>
                     </div>
                     <i data-lucide="chevron-down" class="icon-xs opacity-50"></i>
                 </a>
-                <div class="collapse {{ request()->is('operator/produk*') ? 'show' : '' }}" id="produkCollapse">
+                <div class="collapse {{ request()->is('operator/produk*') || request()->is('operator/umkm*') ? 'show' : '' }}" id="produkCollapse">
                     <ul class="nav flex-column ms-4 mt-2 mb-2 gap-1 border-start border-white border-opacity-10 ps-3">
                         <li><a href="{{ url('/operator/produk') }}" class="nav-link py-1 text-white text-opacity-75 small {{ request()->is('operator/produk') || request()->is('operator/produk/create') || request()->is('operator/produk/*/edit') ? 'text-white fw-bold opacity-100' : 'hover-opacity' }}">Manajemen Produk</a></li>
                         <li><a href="{{ url('/operator/produk/transaksi') }}" class="nav-link py-1 text-white text-opacity-75 small {{ request()->is('operator/produk/transaksi') ? 'text-white fw-bold opacity-100' : 'hover-opacity' }}">Riwayat Transaksi</a></li>
+                        <li><a href="{{ url('/operator/umkm') }}" class="nav-link py-1 text-white text-opacity-75 small {{ request()->is('operator/umkm*') ? 'text-white fw-bold opacity-100' : 'hover-opacity' }}">Direktori UMKM</a></li>
                     </ul>
                 </div>
             </li>
