@@ -17,25 +17,19 @@
 ═══════════════════════════════════════════════════════════════════════════ --}}
 <div class="container mb-5">
     <div class="row g-3 justify-content-center">
-        <div class="col-6 col-md-3">
+        <div class="col-4 col-md-4">
             <div class="text-center py-3 px-2 rounded-4 border bg-white shadow-sm hover-lift">
                 <div class="fw-bold mb-0" style="font-size:2rem; color:var(--color-forest); font-family:var(--font-heading);">{{ $totalUmkm }}</div>
                 <small class="text-muted" style="font-family:var(--font-body);">Total UMKM</small>
             </div>
         </div>
-        <div class="col-6 col-md-3">
-            <div class="text-center py-3 px-2 rounded-4 border bg-white shadow-sm hover-lift">
-                <div class="fw-bold mb-0" style="font-size:2rem; color:var(--color-forest); font-family:var(--font-heading);">{{ $totalVerifikasi }}</div>
-                <small class="text-muted" style="font-family:var(--font-body);">Terverifikasi di Peta</small>
-            </div>
-        </div>
-        <div class="col-6 col-md-3">
+        <div class="col-4 col-md-4">
             <div class="text-center py-3 px-2 rounded-4 border bg-white shadow-sm hover-lift">
                 <div class="fw-bold mb-0" style="font-size:2rem; color:var(--color-forest); font-family:var(--font-heading);">3</div>
                 <small class="text-muted" style="font-family:var(--font-body);">Dusun</small>
             </div>
         </div>
-        <div class="col-6 col-md-3">
+        <div class="col-4 col-md-4">
             <div class="text-center py-3 px-2 rounded-4 border bg-white shadow-sm hover-lift">
                 <div class="fw-bold mb-0" style="font-size:2rem; color:var(--color-forest); font-family:var(--font-heading);">12</div>
                 <small class="text-muted" style="font-family:var(--font-body);">Kategori Usaha</small>
@@ -163,11 +157,13 @@
 
                 {{-- Gambar Tampilan Depan Usaha / Streetview --}}
                 <div class="position-relative overflow-hidden" style="height:160px;">
-                    <img src="{{ $u->foto_url }}" class="w-100 h-100" style="object-fit:cover;" alt="{{ $u->nama_usaha }}" loading="lazy">
-                    <div class="position-absolute top-0 start-0 w-100 h-100" style="background:linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.4) 100%);"></div>
+                    <a href="{{ route('wisata.umkm.show', $u->id) }}" class="d-block w-100 h-100">
+                        <img src="{{ $u->foto_url }}" class="w-100 h-100" style="object-fit:cover; transition:transform .3s ease;" alt="{{ $u->nama_usaha }}" loading="lazy">
+                        <div class="position-absolute top-0 start-0 w-100 h-100" style="background:linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.4) 100%);"></div>
+                    </a>
                     
                     {{-- Badge Dusun --}}
-                    <div class="position-absolute bottom-0 start-0 m-2 z-1">
+                    <div class="position-absolute bottom-0 start-0 m-2 z-1 pointer-events-none">
                         <span class="badge rounded-pill px-2.5 py-1 shadow-sm fw-bold"
                               style="font-size:0.68rem;background:var(--color-forest)!important;color:#fff;font-family:var(--font-body);">
                             <i data-lucide="map-pin" class="icon-xs me-1"></i>{{ $u->dusun }}
@@ -178,7 +174,9 @@
                 <div class="card-body p-3 d-flex flex-column">
                     {{-- Nama Usaha --}}
                     <h6 class="fw-bold text-dark mb-1 lh-sm" style="font-family:var(--font-heading);font-size:0.95rem;">
-                        {{ $u->nama_usaha }}
+                        <a href="{{ route('wisata.umkm.show', $u->id) }}" class="text-decoration-none text-dark hover-forest">
+                            {{ $u->nama_usaha }}
+                        </a>
                         @if($u->nama_toko_gmaps && $u->nama_toko_gmaps !== $u->nama_usaha)
                             <small class="text-muted fw-normal d-block" style="font-size:0.7rem;">({{ $u->nama_toko_gmaps }})</small>
                         @endif
@@ -210,24 +208,25 @@
 
                     {{-- Tombol Aksi --}}
                     <div class="mt-auto pt-2 d-flex flex-wrap gap-2">
+                        <a href="{{ route('wisata.umkm.show', $u->id) }}"
+                           class="btn btn-sm rounded-pill px-3 fw-bold flex-fill text-white shadow-sm"
+                           style="background:var(--color-forest);border:none;font-family:var(--font-heading);font-size:0.75rem;">
+                            <i data-lucide="eye" class="icon-xs me-1"></i>Detail Usaha
+                        </a>
+
                         @if($u->whatsappLink())
                         <a href="{{ $u->whatsappLink() }}" target="_blank" rel="noopener"
-                           class="btn btn-sm rounded-pill px-3 fw-bold flex-fill"
-                           style="background:#25D366;color:#fff;border:none;font-family:var(--font-body);font-size:0.75rem;">
-                            <i data-lucide="message-circle" class="icon-xs me-1"></i>WhatsApp
-                        </a>
-                        @elseif($u->no_telepon)
-                        <a href="tel:{{ $u->no_telepon }}" class="btn btn-sm rounded-pill px-3 fw-bold flex-fill"
-                           style="background:var(--color-forest);color:#fff;border:none;font-family:var(--font-body);font-size:0.75rem;">
-                            <i data-lucide="phone" class="icon-xs me-1"></i>Telepon
+                           class="btn btn-sm rounded-pill px-2 fw-bold" title="WhatsApp"
+                           style="background:#25D366;color:#fff;border:none;font-size:0.75rem;">
+                            <i data-lucide="message-circle" class="icon-xs"></i>
                         </a>
                         @endif
 
                         @if($u->hasGmaps())
                         <a href="{{ $u->link_gmaps }}" target="_blank" rel="noopener"
-                           class="btn btn-sm rounded-pill px-3 fw-bold flex-fill"
-                           style="background:#4285F4;color:#fff;border:none;font-family:var(--font-body);font-size:0.75rem;">
-                            <i data-lucide="map" class="icon-xs me-1"></i>Google Maps
+                           class="btn btn-sm rounded-pill px-2 fw-bold" title="Google Maps"
+                           style="background:#4285F4;color:#fff;border:none;font-size:0.75rem;">
+                            <i data-lucide="map" class="icon-xs"></i>
                         </a>
                         @endif
 
@@ -430,6 +429,8 @@ function renderMarkers(data) {
             ? `<a href="${umkm.link_gmaps}" target="_blank" rel="noopener" style="display:inline-block;padding:4px 10px;background:#4285F4;color:#fff;border-radius:20px;font-size:0.72rem;text-decoration:none;font-weight:600;">🗺 Google Maps</a>`
             : '';
 
+        const detailBtn = `<a href="/wisata/umkm/${umkm.id}" style="display:block;margin-top:6px;padding:5px 10px;background:#2d6a4f;color:#fff;border-radius:20px;font-size:0.72rem;text-align:center;text-decoration:none;font-weight:700;">👁 Lihat Detail Usaha &rarr;</a>`;
+
         const popupContent = `
             <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;min-width:200px;max-width:240px;padding:2px;">
                 <div style="font-weight:700;font-size:0.9rem;color:#1b4332;border-bottom:1px solid #e9ecef;padding-bottom:5px;margin-bottom:6px;">${umkm.nama_usaha}</div>
@@ -438,6 +439,7 @@ function renderMarkers(data) {
                 <div style="font-size:0.75rem;color:#444;margin-bottom:${umkm.no_telepon ? '3' : '8'}px;">📍 Dusun ${umkm.dusun}${umkm.alamat_rt_rw ? ' · RT/RW ' + umkm.alamat_rt_rw : ''}</div>
                 ${umkm.no_telepon ? `<div style="font-size:0.75rem;color:#444;margin-bottom:8px;">📞 ${umkm.no_telepon}</div>` : ''}
                 <div style="margin-top:6px;">${waBtn}${mapsBtn}</div>
+                ${detailBtn}
             </div>`;
 
         const marker = L.marker([lat, lng], { icon })

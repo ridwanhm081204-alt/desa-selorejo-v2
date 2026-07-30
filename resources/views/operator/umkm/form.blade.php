@@ -72,6 +72,33 @@
                         </div>
                     </div>
 
+                    <div class="row mb-3 g-3">
+                        <div class="col-md-6">
+                            <label class="form-label small fw-bold text-muted">PRODUK / LAYANAN UNGGULAN</label>
+                            <input type="text" name="produk_unggulan"
+                                   class="form-control rounded-3 py-2 border-0 bg-light shadow-none @error('produk_unggulan') is-invalid @enderror"
+                                   value="{{ old('produk_unggulan', $umkm->produk_unggulan ?? '') }}"
+                                   placeholder="Contoh: Jeruk Siam Fresh, Bakso Beranak, Kopi Dampit">
+                            @error('produk_unggulan') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label small fw-bold text-muted">JAM OPERASIONAL</label>
+                            <input type="text" name="jam_operasional"
+                                   class="form-control rounded-3 py-2 border-0 bg-light shadow-none @error('jam_operasional') is-invalid @enderror"
+                                   value="{{ old('jam_operasional', $umkm->jam_operasional ?? '') }}"
+                                   placeholder="Contoh: Senin - Minggu (08.00 - 20.00 WIB)">
+                            @error('jam_operasional') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold text-muted">DESKRIPSI LENGKAP USAHA</label>
+                        <textarea name="deskripsi" rows="4"
+                                  class="form-control rounded-3 py-2 border-0 bg-light shadow-none @error('deskripsi') is-invalid @enderror"
+                                  placeholder="Tuliskan deskripsi lengkap mengenai sejarah singkat usaha, produk yang dijual, keunggulan, atau cara pemesanan...">{{ old('deskripsi', $umkm->deskripsi ?? '') }}</textarea>
+                        @error('deskripsi') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                    </div>
+
                     {{-- ─── Informasi Pemilik ───────────────────────────────────────────── --}}
                     <h6 class="fw-bold text-muted text-uppercase small mb-3 border-bottom pb-2 mt-4">
                         <i data-lucide="user" class="icon-xs me-1"></i>Informasi Pemilik

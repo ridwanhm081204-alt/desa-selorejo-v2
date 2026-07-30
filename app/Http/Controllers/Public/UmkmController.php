@@ -96,4 +96,26 @@ class UmkmController extends Controller
             'totalBelum'
         ));
     }
+
+    public function show($id)
+    {
+        $umkm = Umkm::findOrFail($id);
+
+        // Fetch related UMKMs (same dusun or same kategori)
+        $relatedUmkms = Umkm::where('id', '!=', $umkm->id)
+            ->where(function ($q) use ($umkm) {
+                $q->where('dusun', $umkm->dusun)
+                  ->orWhere('kategori', $umkm->kategori);
+            })
+            ->inRandomOrder()
+            ->take(4)
+            ->get();
+
+        // Custom pre-filled WhatsApp message
+        $waBase = $umkm->whatsappLink();
+        $waMessage = rawurlencode("Halo " . ($umkm->nama_pemilik ?: $umkm->nama_usaha) . ", saya melihat informasi usaha " . $umkm->nama_usaha . " di Portal Resmi Desa Selorejo. Saya ingin bertanya mengenai produk / layanan Anda.");
+        $waLink = $waBase ? $waBase . "?text=" . $waMessage : null;
+
+        return view('public.wisata.umkm-show', compact('umkm', 'relatedUmkms', 'waLink'));
+    }
 }

@@ -15,6 +15,9 @@ class Umkm extends Model
         'nama_usaha',
         'jenis_usaha',
         'kategori',
+        'deskripsi',
+        'jam_operasional',
+        'produk_unggulan',
         'no_telepon',
         'username_sosmed',
         'alamat_rt_rw',
@@ -113,6 +116,9 @@ class Umkm extends Model
             if (Str::startsWith($this->foto, ['http://', 'https://'])) {
                 return $this->foto;
             }
+            if (Str::startsWith($this->foto, ['images/', 'storage/'])) {
+                return asset($this->foto);
+            }
             return asset('storage/' . $this->foto);
         }
 
@@ -198,12 +204,12 @@ class Umkm extends Model
         }
 
         // Toko obat tanaman & pupuk
-        if (str_contains($jenis, 'obat tanaman') || str_contains($jenis, 'pupuk')) {
+        if (str_contains($jenis, 'obat tanaman') || str_contains($jenis, 'pupuk') || str_contains($jenis, 'pertanian')) {
             return 'Toko Obat Tanaman & Pupuk';
         }
 
         // Warung makan
-        if (str_contains($jenis, 'warung') || str_contains($jenis, 'makan') || str_contains($jenis, 'bakso') || str_contains($jenis, 'mie ayam') || str_contains($jenis, 'kopi')) {
+        if (str_contains($jenis, 'warung') || str_contains($jenis, 'makan') || str_contains($jenis, 'bakso') || str_contains($jenis, 'mie ayam') || str_contains($jenis, 'kopi') || str_contains($jenis, 'cafe') || str_contains($jenis, 'kafe') || str_contains($jenis, 'kedai')) {
             return 'Warung Makan';
         }
 
@@ -213,12 +219,12 @@ class Umkm extends Model
         }
 
         // Fashion & kebutuhan rumah tangga
-        if (str_contains($jenis, 'plastik') || str_contains($jenis, 'baju') || str_contains($jenis, 'fashion')) {
+        if (str_contains($jenis, 'plastik') || str_contains($jenis, 'baju') || str_contains($jenis, 'fashion') || str_contains($jenis, 'toserba') || str_contains($jenis, 'pakaian')) {
             return 'Fashion & Kebutuhan Rumah Tangga';
         }
 
         // Jasa & persewaan
-        if (str_contains($jenis, 'atk') || str_contains($jenis, 'brilink') || str_contains($jenis, 'fotocopy') || str_contains($jenis, 'fc') || str_contains($jenis, 'persewaan') || str_contains($jenis, 'jasa')) {
+        if (str_contains($jenis, 'atk') || str_contains($jenis, 'brilink') || str_contains($jenis, 'fotocopy') || str_contains($jenis, 'fc') || str_contains($jenis, 'persewaan') || str_contains($jenis, 'jasa') || str_contains($jenis, 'bengkel') || str_contains($jenis, 'laundry') || str_contains($jenis, 'landry') || str_contains($jenis, 'servis')) {
             return 'Jasa & Persewaan';
         }
 
@@ -228,17 +234,17 @@ class Umkm extends Model
         }
 
         // Sembako & hewan/perabot
-        if (str_contains($jenis, 'hewan') || str_contains($jenis, 'perabot')) {
+        if (str_contains($jenis, 'hewan') || str_contains($jenis, 'perabot') || str_contains($jenis, 'kambing')) {
             return 'Sembako & Hewan/Perabot';
         }
 
         // Kuliner ringan & jajanan
-        if (str_contains($jenis, 'jajan') || str_contains($jenis, 'seblak') || str_contains($jenis, 'ringan') || str_contains($jenis, 'krispi')) {
+        if (str_contains($jenis, 'jajan') || str_contains($jenis, 'seblak') || str_contains($jenis, 'ringan') || str_contains($jenis, 'krispi') || str_contains($jenis, 'snack')) {
             return 'Kuliner Ringan & Jajanan';
         }
 
         // Dagang buah lain
-        if (str_contains($jenis, 'strawberry') || str_contains($jenis, 'dagang') && str_contains($jenis, 'buah')) {
+        if (str_contains($jenis, 'strawberry') || (str_contains($jenis, 'dagang') && str_contains($jenis, 'buah'))) {
             return 'Dagang Buah Lain';
         }
 

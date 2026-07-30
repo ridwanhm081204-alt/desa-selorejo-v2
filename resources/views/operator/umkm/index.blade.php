@@ -159,6 +159,10 @@
                         </td>
                         <td class="text-end pe-4">
                             <div class="d-flex justify-content-end gap-2">
+                                <a href="{{ route('wisata.umkm.show', $item->id) }}" target="_blank"
+                                   class="btn btn-sm btn-white border shadow-sm hover-lift" title="Lihat Halaman Publik">
+                                    <i data-lucide="external-link" class="icon-xs text-success"></i>
+                                </a>
                                 <a href="{{ route('operator.umkm.edit', $item->id) }}"
                                    class="btn btn-sm btn-white border shadow-sm hover-lift" title="Edit">
                                     <i data-lucide="edit-3" class="icon-xs text-primary"></i>

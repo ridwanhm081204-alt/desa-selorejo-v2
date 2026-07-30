@@ -21,6 +21,7 @@ Route::get('/pemerintahan/produkhukum', [\App\Http\Controllers\Public\Pemerintah
 // Wisata & Produk
 Route::get('/wisata', [\App\Http\Controllers\Public\WisataController::class, 'index'])->name('wisata.index');
 Route::get('/wisata/umkm', [\App\Http\Controllers\Public\UmkmController::class, 'index'])->name('wisata.umkm');
+Route::get('/wisata/umkm/{id}', [\App\Http\Controllers\Public\UmkmController::class, 'show'])->name('wisata.umkm.show');
 Route::get('/wisata/{id}', [\App\Http\Controllers\Public\WisataController::class, 'show'])->name('wisata.show');
 Route::post('/wisata/share/{id}', [\App\Http\Controllers\Public\WisataController::class, 'share'])->name('wisata.share');
 Route::post('/wisata/react/{id}', [\App\Http\Controllers\Public\WisataController::class, 'react'])->name('wisata.react');
