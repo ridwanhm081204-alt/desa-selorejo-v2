@@ -146,7 +146,8 @@
                         Peta Lokasi Usaha
                     </h5>
                     @if($umkm->hasCoordinates())
-                    <span class="badge rounded-pill bg-success bg-opacity-10 text-success px-3 py-1 font-monospace" style="font-size:0.78rem;">
+                    <span class="badge rounded-pill px-3 py-1 font-monospace"
+                          style="font-size:0.78rem;background:#f8f9fa;color:#1b4332;border:1px solid #dee2e6;">
                         {{ number_format($umkm->latitude, 5) }}, {{ number_format($umkm->longitude, 5) }}
                     </span>
                     @endif
@@ -414,16 +415,66 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function shareUmkm() {
+    const url   = window.location.href;
+    const title = @json($umkm->nama_usaha);
+    const text  = 'Lihat profil UMKM ' + title + ' di Desa Selorejo: ' + url;
+
+    // 1️⃣ Web Share API (mobile / modern browser)
     if (navigator.share) {
-        navigator.share({
-            title: @json($umkm->nama_usaha),
-            text: 'Lihat profil UMKM ' + @json($umkm->nama_usaha) + ' di Desa Selorejo:',
-            url: window.location.href,
-        }).catch(() => {});
-    } else {
-        navigator.clipboard.writeText(window.location.href);
-        alert('Link halaman UMKM berhasil disalin ke clipboard!');
+        navigator.share({ title, text, url }).catch(() => {});
+        return;
     }
+
+    // 2️⃣ Clipboard API (HTTPS / localhost)
+    if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(url).then(() => {
+            showShareToast('✅ Link berhasil disalin ke clipboard!');
+        }).catch(() => fallbackCopy(url));
+        return;
+    }
+
+    // 3️⃣ execCommand fallback (HTTP, semua browser lama)
+    fallbackCopy(url);
+}
+
+function fallbackCopy(text) {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.cssText = 'position:fixed;top:-9999px;left:-9999px;opacity:0;';
+    document.body.appendChild(ta);
+    ta.focus();
+    ta.select();
+    try {
+        const ok = document.execCommand('copy');
+        showShareToast(ok ? '✅ Link berhasil disalin ke clipboard!' : '⚠️ Gagal menyalin. Salin manual: ' + text);
+    } catch (e) {
+        showShareToast('⚠️ Gagal menyalin. Salin manual: ' + text);
+    }
+    document.body.removeChild(ta);
+}
+
+function showShareToast(msg) {
+    // Hapus toast lama jika ada
+    const old = document.getElementById('share-toast');
+    if (old) old.remove();
+
+    const toast = document.createElement('div');
+    toast.id = 'share-toast';
+    toast.textContent = msg;
+    toast.style.cssText = [
+        'position:fixed', 'bottom:24px', 'left:50%', 'transform:translateX(-50%)',
+        'background:#1b4332', 'color:#fff', 'padding:12px 24px', 'border-radius:50px',
+        'font-family:var(--font-body,sans-serif)', 'font-size:0.9rem', 'font-weight:600',
+        'box-shadow:0 8px 24px rgba(0,0,0,0.25)', 'z-index:9999',
+        'opacity:0', 'transition:opacity 0.3s ease', 'white-space:nowrap',
+    ].join(';');
+
+    document.body.appendChild(toast);
+    requestAnimationFrame(() => { toast.style.opacity = '1'; });
+    setTimeout(() => {
+        toast.style.opacity = '0';
+        setTimeout(() => toast.remove(), 350);
+    }, 3000);
 }
 </script>
 @endpush
