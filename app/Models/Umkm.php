@@ -199,7 +199,7 @@ class Umkm extends Model
         }
 
         // Jual jeruk & bibit
-        if (str_contains($jenis, 'jual jeruk') || str_contains($jenis, 'grosir') || str_contains($jenis, 'ecer jeruk') || str_contains($jenis, 'jeruk & bibit') || str_contains($jenis, 'penjual jeruk') || str_contains($jenis, 'bensin ecer')) {
+        if (str_contains($jenis, 'jual jeruk') || str_contains($jenis, 'jual buah jeruk') || str_contains($jenis, 'grosir') || str_contains($jenis, 'ecer jeruk') || str_contains($jenis, 'jeruk & bibit') || str_contains($jenis, 'penjual jeruk') || str_contains($jenis, 'bensin ecer') || str_contains($jenis, 'jeruk')) {
             return 'Jual Jeruk & Bibit';
         }
 

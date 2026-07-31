@@ -55,12 +55,12 @@
                             <option value="Gumuk"     {{ request('dusun') == 'Gumuk'     ? 'selected' : '' }}>Gumuk</option>
                         </select>
                     </div>
-                    <div class="col-md-2">
-                        <select name="status" class="form-select form-select-sm border-0 bg-light rounded-pill px-2 shadow-none" onchange="this.form.submit()">
-                            <option value="semua" {{ request('status', 'semua') == 'semua' ? 'selected' : '' }}>Semua Status</option>
-                            <option value="terverifikasi"  {{ request('status') == 'terverifikasi'  ? 'selected' : '' }}>Terverifikasi</option>
-                            <option value="perlu_dicek"    {{ request('status') == 'perlu_dicek'    ? 'selected' : '' }}>Perlu Dicek</option>
-                            <option value="belum_terdaftar"{{ request('status') == 'belum_terdaftar'? 'selected' : '' }}>Belum Terdaftar</option>
+                    <div class="col-md-3">
+                        <select name="kategori" class="form-select form-select-sm border-0 bg-light rounded-pill px-2 shadow-none" onchange="this.form.submit()">
+                            <option value="semua" {{ request('kategori', 'semua') == 'semua' ? 'selected' : '' }}>Semua Kategori</option>
+                            @foreach(\App\Models\Umkm::KATEGORI_LIST as $kat)
+                                <option value="{{ $kat }}" {{ request('kategori') == $kat ? 'selected' : '' }}>{{ $kat }}</option>
+                            @endforeach
                         </select>
                     </div>
                     <div class="col-auto d-flex gap-2">
