@@ -162,9 +162,17 @@
                         Alamat: Dusun {{ $umkm->dusun }} {{ $umkm->alamat_rt_rw ? 'RT/RW '.$umkm->alamat_rt_rw : '' }}, Desa Selorejo, Kec. Dau, Kab. Malang.
                     </div>
                     @if($umkm->hasGmaps())
-                    <a href="{{ $umkm->link_gmaps }}" target="_blank" rel="noopener" class="btn btn-sm rounded-pill btn-primary px-3 fw-bold shadow-sm">
+                    <a href="{{ $umkm->link_gmaps }}" target="_blank" rel="noopener"
+                       class="btn btn-sm rounded-pill btn-primary px-3 fw-bold shadow-sm">
                         <i data-lucide="external-link" class="icon-xs me-1"></i> Petunjuk Arah (Google Maps)
                     </a>
+                    @else
+                    <button type="button" disabled
+                            class="btn btn-sm rounded-pill px-3 fw-bold"
+                            style="background:#d1d5db;color:#9ca3af;border:none;cursor:not-allowed;"
+                            title="Link Google Maps belum tersedia untuk usaha ini">
+                        <i data-lucide="external-link" class="icon-xs me-1"></i> Petunjuk Arah (Google Maps)
+                    </button>
                     @endif
                 </div>
             </div>
@@ -253,9 +261,16 @@
                 <div class="d-grid gap-2 mt-4">
                     @if($waLink)
                     <a href="{{ $waLink }}" target="_blank" rel="noopener"
-                       class="btn btn-success rounded-pill py-2.5 fw-bold shadow-sm hover-lift text-white border-0">
-                        <i data-lucide="message-circle" class="icon-sm me-1"></i> Hubungi Pemilik Usaha (WA)
+                       class="btn btn-success rounded-pill py-2 fw-bold shadow-sm hover-lift text-white border-0">
+                        <i data-lucide="message-circle" class="icon-sm me-1"></i> Chat Via WhatsApp
                     </a>
+                    @else
+                    <button type="button" disabled
+                            class="btn rounded-pill py-2 fw-bold border-0"
+                            style="background:#d1d5db;color:#9ca3af;cursor:not-allowed;"
+                            title="Nomor WhatsApp belum tersedia untuk usaha ini">
+                        <i data-lucide="message-circle" class="icon-sm me-1"></i> Chat Via WhatsApp
+                    </button>
                     @endif
 
                     <button type="button" onclick="shareUmkm()" class="btn btn-outline-forest rounded-pill py-2 fw-bold hover-lift">
