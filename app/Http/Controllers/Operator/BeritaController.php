@@ -3,129 +3,258 @@
 namespace App\Http\Controllers\Operator;
 
 use App\Http\Controllers\Controller;
+use App\Models\ActivityLog;
+use App\Models\Berita;
+use App\Models\BeritaFoto;
+use App\Models\Setting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class BeritaController extends Controller
 {
-    public function index(Request $request) {
-        $query = \App\Models\Berita::query();
+    public function index(Request $request)
+    {
+        $query = Berita::query();
 
-        // Filter: Kategori
         if ($request->has('kategori') && $request->kategori != 'semua') {
             $query->where('kategori', $request->kategori);
         }
 
-        // Search
         if ($request->filled('search')) {
             $query->where('judul', 'like', '%' . $request->search . '%')
                   ->orWhere('konten', 'like', '%' . $request->search . '%');
         }
 
-        // Sorting
         $sort = $request->get('sort', 'terbaru');
-        if ($sort == 'terbaru') {
-            $query->orderBy('tanggal', 'desc');
-        } elseif ($sort == 'terlama') {
-            $query->orderBy('tanggal', 'asc');
-        } elseif ($sort == 'judul_asc') {
-            $query->orderBy('judul', 'asc');
-        } elseif ($sort == 'judul_desc') {
-            $query->orderBy('judul', 'desc');
-        } else {
-            $query->orderBy('tanggal', 'desc');
-        }
+        match($sort) {
+            'terlama'    => $query->orderBy('tanggal', 'asc'),
+            'judul_asc'  => $query->orderBy('judul', 'asc'),
+            'judul_desc' => $query->orderBy('judul', 'desc'),
+            default      => $query->orderBy('tanggal', 'desc'),
+        };
 
         $berita = $query->paginate(10)->withQueryString();
-        
-        $heroValue = \App\Models\Setting::where('key', 'hero_berita')->value('value');
-        $hero = $heroValue ? json_decode($heroValue, true) : ['title' => 'Kabar Desa', 'subtitle' => 'Informasi, pengumuman, dan liputan terkini dari Desa Selorejo', 'icon' => 'newspaper'];
+
+        $heroValue = Setting::where('key', 'hero_berita')->value('value');
+        $hero = $heroValue
+            ? json_decode($heroValue, true)
+            : ['title' => 'Kabar Desa', 'subtitle' => 'Informasi, pengumuman, dan liputan terkini dari Desa Selorejo', 'icon' => 'newspaper'];
 
         return view('operator.berita.index', compact('berita', 'hero'));
     }
 
-    public function updateHero(Request $request) {
+    public function updateHero(Request $request)
+    {
         $request->validate([
-            'title' => 'required|string',
+            'title'    => 'required|string',
             'subtitle' => 'required|string',
-            'icon' => 'required|string',
+            'icon'     => 'required|string',
         ]);
-        
-        \App\Models\Setting::updateOrCreate(
+
+        Setting::updateOrCreate(
             ['key' => 'hero_berita'],
             ['value' => json_encode($request->only('title', 'subtitle', 'icon'))]
         );
-        
-        \App\Models\ActivityLog::create(['user_id' => auth()->id(), 'action' => 'Update Settings Header Berita']);
+
+        ActivityLog::create(['user_id' => auth()->id(), 'action' => 'Update Settings Header Berita']);
         return back()->with('success', 'Banner header Berita berhasil diperbarui!');
     }
-    public function create() {
+
+    public function create()
+    {
         return view('operator.berita.create');
     }
-    public function store(\Illuminate\Http\Request $request) {
+
+    public function store(Request $request)
+    {
         $data = $request->validate([
-            'judul' => 'required|string|max:200|unique:berita,judul',
-            'konten' => 'required',
-            'kategori' => 'required',
-            'tanggal' => 'required|date',
+            'judul'          => 'required|string|max:200|unique:berita,judul',
+            'konten'         => 'required',
+            'kategori'       => 'required',
+            'tanggal'        => 'required|date',
             'status_publish' => 'required',
-            'gambar' => 'required|image|max:2048'
+            'fotos'          => 'required|array|min:1|max:10',
+            'fotos.*'        => 'image|max:2048',
         ]);
-        $data['slug'] = \Illuminate\Support\Str::slug($data['judul']);
+
+        $data['slug']    = Str::slug($data['judul']);
         $data['penulis'] = auth()->user()->name;
-        // Sanitasi konten HTML: hanya izinkan tag yang aman, cegah script/iframe injection
+
+        // Sanitasi konten HTML
         $allowedTags = '<p><br><b><i><strong><em><u><s><ul><ol><li><h2><h3><h4><h5><h6><a><img><blockquote><pre><code><table><thead><tbody><tr><th><td><span><div>';
         $data['konten'] = strip_tags($data['konten'], $allowedTags);
-        $data['gambar'] = $request->file('gambar')->store('berita', 'public');
-        
-        \App\Models\Berita::create($data);
-        \App\Models\ActivityLog::create(['user_id' => auth()->id(), 'action' => 'Upload Berita: ' . $data['judul']]);
+
+        // Ambil file-file yang diupload
+        $uploadedFiles = $request->file('fotos');
+
+        // Simpan foto pertama sebagai cover (kolom gambar)
+        $data['gambar'] = $uploadedFiles[0]->store('berita', 'public');
+
+        // Hapus key fotos sebelum create (bukan kolom DB)
+        unset($data['fotos']);
+
+        $berita = Berita::create($data);
+
+        // Simpan foto pertama ke tabel berita_foto (sudah di-store, gunakan path yang sama)
+        BeritaFoto::create([
+            'berita_id' => $berita->id,
+            'path'      => $data['gambar'],
+            'urutan'    => 0,
+        ]);
+
+        // Simpan foto-foto berikutnya
+        foreach ($uploadedFiles as $index => $file) {
+            if ($index === 0) continue; // sudah disimpan di atas
+
+            $path = $file->store('berita', 'public');
+            BeritaFoto::create([
+                'berita_id' => $berita->id,
+                'path'      => $path,
+                'urutan'    => $index,
+            ]);
+        }
+
+        ActivityLog::create(['user_id' => auth()->id(), 'action' => 'Upload Berita: ' . $data['judul']]);
         return redirect('/operator/berita')->with('success', 'Berita berhasil dibuat!');
     }
+
     public function show() {}
-    public function edit($id) {
-        return view('operator.berita.edit', ['berita' => \App\Models\Berita::findOrFail($id)]);
+
+    public function edit($id)
+    {
+        $berita = Berita::findOrFail($id);
+        return view('operator.berita.edit', compact('berita'));
     }
-    public function update(\Illuminate\Http\Request $request, $id) {
-        $berita = \App\Models\Berita::findOrFail($id);
+
+    public function update(Request $request, $id)
+    {
+        $berita = Berita::findOrFail($id);
+
         $data = $request->validate([
-            'judul' => 'required|string|max:200|unique:berita,judul,'.$id,
-            'konten' => 'required',
-            'kategori' => 'required',
-            'tanggal' => 'required|date',
+            'judul'          => 'required|string|max:200|unique:berita,judul,' . $id,
+            'konten'         => 'required',
+            'kategori'       => 'required',
+            'tanggal'        => 'required|date',
             'status_publish' => 'required',
-            'gambar' => 'nullable|image|max:2048'
+            'fotos'          => 'nullable|array|max:10',
+            'fotos.*'        => 'image|max:2048',
+            'hapus_foto'     => 'nullable|array',
+            'hapus_foto.*'   => 'integer',
         ]);
-        $data['slug'] = \Illuminate\Support\Str::slug($data['judul']);
-        // Sanitasi konten HTML: hanya izinkan tag yang aman, cegah script/iframe injection
+
+        $data['slug'] = Str::slug($data['judul']);
+
+        // Sanitasi konten HTML
         $allowedTags = '<p><br><b><i><strong><em><u><s><ul><ol><li><h2><h3><h4><h5><h6><a><img><blockquote><pre><code><table><thead><tbody><tr><th><td><span><div>';
         $data['konten'] = strip_tags($data['konten'], $allowedTags);
-        if($request->hasFile('gambar')) {
-            // Hapus gambar lama dari storage
-            if ($berita->gambar) {
-                Storage::disk('public')->delete($berita->gambar);
+
+        // 1) Hapus foto yang dipilih user untuk dihapus
+        if (!empty($data['hapus_foto'])) {
+            // Pastikan tidak hapus jika hanya ada 1 foto & tidak ada foto baru
+            $newFilesCount = $request->hasFile('fotos') ? count($request->file('fotos')) : 0;
+            $remainingAfterDelete = $berita->fotos()->count() - count($data['hapus_foto']) + $newFilesCount;
+
+            if ($remainingAfterDelete < 1) {
+                return back()->withInput()->with('error', 'Berita harus memiliki minimal 1 foto!');
             }
-            $data['gambar'] = $request->file('gambar')->store('berita', 'public');
+
+            foreach ($data['hapus_foto'] as $fotoId) {
+                $foto = BeritaFoto::where('id', $fotoId)->where('berita_id', $berita->id)->first();
+                if ($foto) {
+                    Storage::disk('public')->delete($foto->path);
+                    $foto->delete();
+                }
+            }
         }
+
+        // 2) Upload foto baru jika ada
+        if ($request->hasFile('fotos')) {
+            $existingCount = $berita->fotos()->count();
+            $maxBaru = 10 - $existingCount;
+
+            foreach (array_slice($request->file('fotos'), 0, $maxBaru) as $file) {
+                $path = $file->store('berita', 'public');
+                BeritaFoto::create([
+                    'berita_id' => $berita->id,
+                    'path'      => $path,
+                    'urutan'    => $existingCount++,
+                ]);
+            }
+        }
+
+        // 3) Re-order urutan foto setelah perubahan
+        $berita->fotos()->orderBy('id')->get()->each(function ($foto, $index) {
+            $foto->update(['urutan' => $index]);
+        });
+
+        // 4) Update cover (kolom gambar) dari foto pertama yang tersisa
+        $firstFoto = $berita->fotos()->orderBy('urutan')->first();
+        if ($firstFoto) {
+            $data['gambar'] = $firstFoto->path;
+        }
+
+        // 5) Bersihkan key yang bukan kolom DB sebelum update
+        unset($data['fotos'], $data['hapus_foto']);
+
         $berita->update($data);
-        \App\Models\ActivityLog::create(['user_id' => auth()->id(), 'action' => 'Update Berita: ' . $data['judul']]);
+
+        ActivityLog::create(['user_id' => auth()->id(), 'action' => 'Update Berita: ' . $data['judul']]);
         return redirect('/operator/berita')->with('success', 'Berita berhasil diupdate!');
     }
-    public function destroy($id) {
-        $berita = \App\Models\Berita::findOrFail($id);
 
-        // Hapus file gambar fisik dari storage
-        if ($berita->gambar) {
+    public function destroy($id)
+    {
+        $berita = Berita::findOrFail($id);
+
+        // Hapus semua foto dari storage
+        foreach ($berita->fotos as $foto) {
+            Storage::disk('public')->delete($foto->path);
+        }
+        $berita->fotos()->delete();
+
+        // Hapus cover lama jika ada (untuk berita lama yang belum punya berita_foto)
+        if ($berita->gambar && !$berita->fotos()->exists()) {
             Storage::disk('public')->delete($berita->gambar);
         }
 
         $berita->delete();
-        \App\Models\ActivityLog::create([
+
+        ActivityLog::create([
             'user_id'    => auth()->id(),
             'action'     => 'Hapus Berita',
             'ip_address' => request()->ip(),
             'user_agent' => request()->userAgent(),
         ]);
         return redirect('/operator/berita')->with('success', 'Berita berhasil dihapus!');
+    }
+
+    /**
+     * Hapus satu foto dari berita (direct delete via route, bisa dipakai masa depan).
+     */
+    public function destroyFoto($beritaId, $fotoId)
+    {
+        $berita = Berita::findOrFail($beritaId);
+        $foto   = BeritaFoto::where('id', $fotoId)->where('berita_id', $berita->id)->firstOrFail();
+
+        // Jangan hapus jika hanya tinggal 1 foto
+        if ($berita->fotos()->count() <= 1) {
+            return back()->with('error', 'Berita harus memiliki minimal 1 foto!');
+        }
+
+        Storage::disk('public')->delete($foto->path);
+        $foto->delete();
+
+        // Re-order dan update cover
+        $berita->fotos()->orderBy('id')->get()->each(function ($f, $index) {
+            $f->update(['urutan' => $index]);
+        });
+
+        $firstFoto = $berita->fotos()->orderBy('urutan')->first();
+        if ($firstFoto) {
+            $berita->update(['gambar' => $firstFoto->path]);
+        }
+
+        return back()->with('success', 'Foto berhasil dihapus!');
     }
 }

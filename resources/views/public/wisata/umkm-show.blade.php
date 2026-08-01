@@ -44,11 +44,11 @@
                         </span>
                         @if($umkm->isVerified())
                         <span class="badge rounded-pill px-3 py-1 fw-bold bg-success text-white" style="font-size:0.75rem;">
-                            <i data-lucide="check-circle" class="icon-xs me-1"></i>Terverifikasi di Peta Desa
+                            <i data-lucide="check-circle" class="icon-xs me-1"></i>Usaha Terverifikasi
                         </span>
                         @else
                         <span class="badge rounded-pill px-3 py-1 fw-bold bg-warning text-dark" style="font-size:0.75rem;">
-                            <i data-lucide="clock" class="icon-xs me-1"></i>Status Lokasi: {{ ucfirst(str_replace('_', ' ', $umkm->status_lokasi)) }}
+                            <i data-lucide="clock" class="icon-xs me-1"></i>Status: {{ ucfirst(str_replace('_', ' ', $umkm->status_lokasi)) }}
                         </span>
                         @endif
                     </div>
@@ -59,7 +59,7 @@
 
                     @if($umkm->nama_toko_gmaps && $umkm->nama_toko_gmaps !== $umkm->nama_usaha)
                     <p class="text-white opacity-75 mb-2 font-monospace" style="font-size:0.9rem;">
-                        <i data-lucide="map" class="icon-xs me-1"></i>Google Maps Name: "{{ $umkm->nama_toko_gmaps }}"
+                        <i data-lucide="map" class="icon-xs me-1"></i>Nama Google Maps: "{{ $umkm->nama_toko_gmaps }}"
                     </p>
                     @endif
 
@@ -86,11 +86,11 @@
 </div>
 
 {{-- ═══════════════════════════════════════════════════════════════════════════
-     KONTEN UTAMA: DETAIL USAHA & PETA
+     KONTEN UTAMA: DETAIL USAHA & KONTAK
 ═══════════════════════════════════════════════════════════════════════════ --}}
 <div class="container mb-5">
     <div class="row g-4">
-        {{-- Sisi Kiri (Deskripsi, Informasi Operasional, Peta) --}}
+        {{-- Sisi Kiri (Deskripsi & Informasi Operasional) --}}
         <div class="col-lg-8">
 
             {{-- Card Deskripsi --}}
@@ -138,46 +138,6 @@
                 </div>
             </div>
 
-            {{-- Card Peta Lokasi Interaktif --}}
-            <div class="card border-0 shadow-sm rounded-4 overflow-hidden mb-4 bg-white">
-                <div class="card-header bg-white py-3 px-4 border-bottom d-flex align-items-center justify-content-between">
-                    <h5 class="fw-bold mb-0 d-flex align-items-center" style="font-family:var(--font-heading); color:var(--color-forest);">
-                        <i data-lucide="map-pin" class="icon-md me-2" style="color:var(--color-forest);"></i>
-                        Peta Lokasi Usaha
-                    </h5>
-                    @if($umkm->hasCoordinates())
-                    <span class="badge rounded-pill px-3 py-1 font-monospace"
-                          style="font-size:0.78rem;background:#f8f9fa;color:#1b4332;border:1px solid #dee2e6;">
-                        {{ number_format($umkm->latitude, 5) }}, {{ number_format($umkm->longitude, 5) }}
-                    </span>
-                    @endif
-                </div>
-
-                <div class="card-body p-0">
-                    <div id="umkm-detail-map" style="height:350px; width:100%; z-index:1;"></div>
-                </div>
-
-                <div class="card-footer bg-light p-3 px-4 d-flex flex-wrap align-items-center justify-content-between gap-2">
-                    <div class="small text-muted" style="font-family:var(--font-body);">
-                        <i data-lucide="navigation-2" class="icon-xs me-1 text-primary"></i>
-                        Alamat: Dusun {{ $umkm->dusun }} {{ $umkm->alamat_rt_rw ? 'RT/RW '.$umkm->alamat_rt_rw : '' }}, Desa Selorejo, Kec. Dau, Kab. Malang.
-                    </div>
-                    @if($umkm->hasGmaps())
-                    <a href="{{ $umkm->link_gmaps }}" target="_blank" rel="noopener"
-                       class="btn btn-sm rounded-pill btn-primary px-3 fw-bold shadow-sm">
-                        <i data-lucide="external-link" class="icon-xs me-1"></i> Petunjuk Arah (Google Maps)
-                    </a>
-                    @else
-                    <button type="button" disabled
-                            class="btn btn-sm rounded-pill px-3 fw-bold"
-                            style="background:#d1d5db;color:#9ca3af;border:none;cursor:not-allowed;"
-                            title="Link Google Maps belum tersedia untuk usaha ini">
-                        <i data-lucide="external-link" class="icon-xs me-1"></i> Petunjuk Arah (Google Maps)
-                    </button>
-                    @endif
-                </div>
-            </div>
-
         </div>
 
         {{-- Sisi Kanan (Informasi Kontak & Sosmed) --}}
@@ -208,7 +168,7 @@
                             <i data-lucide="home" class="icon-sm" style="color:var(--color-forest);"></i>
                         </div>
                         <div>
-                            <small class="text-muted d-block" style="font-size:0.75rem;">LOKASI DUSUN</small>
+                            <small class="text-muted d-block" style="font-size:0.75rem;">LOKASI ALAMAT</small>
                             <span class="fw-bold text-dark" style="font-size:0.95rem;">Dusun {{ $umkm->dusun }}</span>
                             @if($umkm->alamat_rt_rw)
                                 <small class="text-muted d-block">RT/RW {{ $umkm->alamat_rt_rw }}</small>
@@ -260,36 +220,39 @@
 
                 {{-- Action Buttons --}}
                 <div class="d-grid gap-2 mt-4">
+                    {{-- Button Petunjuk Arah (Google Maps) --}}
+                    @if($umkm->hasGmaps())
+                    <a href="{{ $umkm->link_gmaps }}" target="_blank" rel="noopener"
+                       class="btn btn-primary rounded-pill py-2.5 fw-bold shadow-sm hover-lift text-white border-0" style="background:#4285F4!important;">
+                        <i data-lucide="map-pin" class="icon-sm me-1"></i> Petunjuk Arah (Google Maps)
+                    </a>
+                    @else
+                    <button type="button" disabled
+                            class="btn rounded-pill py-2.5 fw-bold border-0"
+                            style="background:#d1d5db;color:#9ca3af;cursor:not-allowed;"
+                            title="Link Google Maps belum tersedia untuk usaha ini">
+                        <i data-lucide="map-pin" class="icon-sm me-1"></i> Petunjuk Arah (Google Maps)
+                    </button>
+                    @endif
+
                     @if($waLink)
                     <a href="{{ $waLink }}" target="_blank" rel="noopener"
-                       class="btn btn-success rounded-pill py-2 fw-bold shadow-sm hover-lift text-white border-0">
+                       class="btn btn-success rounded-pill py-2.5 fw-bold shadow-sm hover-lift text-white border-0">
                         <i data-lucide="message-circle" class="icon-sm me-1"></i> Chat Via WhatsApp
                     </a>
                     @else
                     <button type="button" disabled
-                            class="btn rounded-pill py-2 fw-bold border-0"
+                            class="btn rounded-pill py-2.5 fw-bold border-0"
                             style="background:#d1d5db;color:#9ca3af;cursor:not-allowed;"
                             title="Nomor WhatsApp belum tersedia untuk usaha ini">
                         <i data-lucide="message-circle" class="icon-sm me-1"></i> Chat Via WhatsApp
                     </button>
                     @endif
 
-                    <button type="button" onclick="shareUmkm()" class="btn btn-outline-forest rounded-pill py-2 fw-bold hover-lift">
+                    <button type="button" onclick="shareUmkm()" class="btn btn-outline-forest rounded-pill py-2.5 fw-bold hover-lift">
                         <i data-lucide="share-2" class="icon-xs me-1"></i> Bagikan Halaman Usaha Ini
                     </button>
                 </div>
-            </div>
-
-            {{-- Kartu Info Pengelola / Pembaruan Data --}}
-            <div class="card border-0 shadow-sm rounded-4 p-4 bg-light text-center">
-                <i data-lucide="shield-check" class="icon-lg mx-auto mb-2 text-forest" style="width:40px;height:40px;color:var(--color-forest);"></i>
-                <h6 class="fw-bold mb-1 text-dark" style="font-family:var(--font-heading);">Informasi Terverifikasi Desa</h6>
-                <p class="small text-muted mb-3" style="font-family:var(--font-body); font-size:0.8rem;">
-                    Data UMKM ini dikelola langsung oleh Pemerintah Desa Selorejo melalui Operator Desa.
-                </p>
-                <a href="{{ route('kontak.index') }}" class="btn btn-sm btn-white border rounded-pill px-3 fw-bold text-muted">
-                    <i data-lucide="help-circle" class="icon-xs me-1"></i> Laporkan / Perbarui Data Usaha
-                </a>
             </div>
 
         </div>
@@ -357,11 +320,7 @@
 @endsection
 
 @push('styles')
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css"/>
 <style>
-    #umkm-detail-map {
-        background-color: #e5e3df !important;
-    }
     .hover-forest:hover {
         color: var(--color-forest) !important;
     }
@@ -369,51 +328,7 @@
 @endpush
 
 @push('scripts')
-<script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    const lat = {{ $umkm->latitude ?? -7.937 }};
-    const lng = {{ $umkm->longitude ?? 112.528 }};
-    const namaUsaha = @json($umkm->nama_usaha);
-    const dusun = @json($umkm->dusun);
-    const pemilik = @json($umkm->nama_pemilik);
-
-    const map = L.map('umkm-detail-map', {
-        center: [lat, lng],
-        zoom: 16,
-        scrollWheelZoom: false,
-    });
-
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-        maxZoom: 19,
-    }).addTo(map);
-
-    const svgIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
-        <circle cx="12" cy="12" r="10" fill="#2d6a4f" stroke="#ffffff" stroke-width="3"/>
-    </svg>`;
-
-    const customIcon = L.divIcon({
-        html: svgIcon,
-        className: 'leaflet-custom-pin',
-        iconSize: [32, 32],
-        iconAnchor: [16, 16],
-        popupAnchor: [0, -16],
-    });
-
-    const popupContent = `
-        <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;padding:2px;">
-            <div style="font-weight:700;font-size:0.92rem;color:#1b4332;margin-bottom:4px;">${namaUsaha}</div>
-            <div style="font-size:0.78rem;color:#555;">📍 Dusun ${dusun}</div>
-            <div style="font-size:0.78rem;color:#555;">👤 Pemilik: ${pemilik}</div>
-        </div>`;
-
-    const marker = L.marker([lat, lng], { icon: customIcon }).addTo(map);
-    marker.bindPopup(popupContent).openPopup();
-
-    setTimeout(() => { if (map) map.invalidateSize(); }, 300);
-});
-
 function shareUmkm() {
     const url   = window.location.href;
     const title = @json($umkm->nama_usaha);
@@ -454,7 +369,6 @@ function fallbackCopy(text) {
 }
 
 function showShareToast(msg) {
-    // Hapus toast lama jika ada
     const old = document.getElementById('share-toast');
     if (old) old.remove();
 

@@ -136,6 +136,7 @@ Route::middleware(['auth', 'role:operator,admin'])->prefix('operator')->name('op
     
     // Berita
     Route::post('berita/hero', [\App\Http\Controllers\Operator\BeritaController::class, 'updateHero']);
+    Route::delete('berita/{berita}/foto/{foto}', [\App\Http\Controllers\Operator\BeritaController::class, 'destroyFoto'])->name('berita.foto.destroy');
     Route::resource('berita', \App\Http\Controllers\Operator\BeritaController::class);
     
     // Galeri

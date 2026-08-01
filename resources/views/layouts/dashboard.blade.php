@@ -156,17 +156,52 @@
     <!-- TinyMCE Rich Text Editor -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/6.8.2/tinymce.min.js"></script>
     <script>
-        tinymce.init({
-            selector: 'textarea.rich-text',
-            menubar: false,
-            plugins: 'lists link',
-            toolbar: 'undo redo | bold italic underline | bullist numlist | link | removeformat',
-            height: 300,
-            branding: false,
-            promotion: false,
-            skin: 'oxide',
-            content_style: 'body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; font-size: 14px; }'
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof tinymce !== 'undefined') {
+                tinymce.init({
+                    selector: 'textarea.rich-text',
+                    menubar: false,
+                    plugins: 'lists link code',
+                    toolbar: 'undo redo | bold italic underline strikethrough | bullist numlist | link | removeformat code',
+                    height: 360,
+                    branding: false,
+                    promotion: false,
+                    skin: 'oxide',
+                    setup: function (editor) {
+                        editor.on('change keyup blur', function () {
+                            editor.save();
+                        });
+                    },
+                    content_style: 'body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; font-size: 14px; line-height: 1.6; }'
+                });
+            } else {
+                // Fallback Simple Rich Text Toolbar if TinyMCE CDN fails to load
+                document.querySelectorAll('textarea.rich-text').forEach(function(textarea) {
+                    const toolbar = document.createElement('div');
+                    toolbar.className = 'btn-group btn-group-sm mb-2 shadow-sm border rounded-3 p-1 bg-white';
+                    toolbar.innerHTML = `
+                        <button type="button" class="btn btn-light border-0 fw-bold me-1" title="Bold" onclick="applyFormat('${textarea.name || textarea.id}', 'b')"><b>B</b></button>
+                        <button type="button" class="btn btn-light border-0 fst-italic me-1" title="Italic" onclick="applyFormat('${textarea.name || textarea.id}', 'i')"><i>I</i></button>
+                        <button type="button" class="btn btn-light border-0 text-decoration-underline me-1" title="Underline" onclick="applyFormat('${textarea.name || textarea.id}', 'u')"><u>U</u></button>
+                        <button type="button" class="btn btn-light border-0 text-decoration-line-through me-1" title="Coret / Strikethrough" onclick="applyFormat('${textarea.name || textarea.id}', 's')"><s>S</s></button>
+                    `;
+                    textarea.parentNode.insertBefore(toolbar, textarea);
+                });
+            }
         });
+
+        function applyFormat(textareaName, tag) {
+            const textarea = document.querySelector(`textarea[name="${textareaName}"]`) || document.getElementById(textareaName);
+            if (!textarea) return;
+            const start = textarea.selectionStart;
+            const end = textarea.selectionEnd;
+            const text = textarea.value;
+            const selected = text.substring(start, end) || 'Teks';
+            const replacement = `<${tag}>${selected}</${tag}>`;
+            textarea.value = text.substring(0, start) + replacement + text.substring(end);
+            textarea.focus();
+            textarea.setSelectionRange(start + tag.length + 2, start + tag.length + 2 + selected.length);
+        }
     </script>
     <script>
         if (window.lucide && window.lucide.icons) {
