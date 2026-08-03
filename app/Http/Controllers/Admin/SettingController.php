@@ -61,9 +61,6 @@ class SettingController extends Controller
         $request->validate([
             'telepon' => 'nullable|string|max:16|regex:/^\+?[0-9]{8,15}$/',
             'whatsapp' => 'nullable|string|max:16|regex:/^\+?[0-9]{8,15}$/',
-            'logo' => 'nullable|mimes:jpg,jpeg,png,svg,webp,ico,heic,heif|max:10240',
-            'favicon' => 'nullable|mimes:jpg,jpeg,png,svg,webp,ico,heic,heif|max:10240',
-            'hero_gambar' => 'nullable|mimes:jpg,jpeg,png,svg,webp,ico,heic,heif|max:10240',
         ]);
 
         $data = $request->except(['_token', '_method']);

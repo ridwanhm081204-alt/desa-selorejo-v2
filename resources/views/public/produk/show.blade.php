@@ -157,7 +157,7 @@
                     </div>
                     <div class="mb-4">
                         <label class="form-label small fw-bold" style="font-family: var(--font-body);">Foto Produk (Wajib)</label>
-                        <input type="file" name="foto_produk" class="form-control form-control-sm rounded-pill" style="font-family: var(--font-body);" accept="image/*,.heic,.heif" required>
+                        <input type="file" name="foto_produk" class="form-control form-control-sm rounded-pill" style="font-family: var(--font-body);" accept="image/*" required>
                     </div>
                     <button type="submit" class="btn w-100 rounded-pill fw-bold" style="background-color: var(--color-forest) !important; color: #fff !important; font-family: var(--font-heading); border: none;">Kirim Ulasan</button>
                 </form>

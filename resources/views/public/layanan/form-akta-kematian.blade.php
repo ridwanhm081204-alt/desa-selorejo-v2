@@ -156,7 +156,7 @@
                                     @endphp
                                     <div class="{{ $isPolisi ? 'col-md-12 d-none animate-fade-in' : 'col-md-6' }}" {!! $isPolisi ? 'id="file_polisi_container"' : '' !!}>
                                         <label class="form-label fw-bold text-muted small">{{ $syarat->nama_syarat }} {!! $syarat->is_required ? '<span class="text-danger">*</span>' : '' !!}</label>
-                                        <input type="file" name="{{ $syarat->kode_syarat }}" {!! $isPolisi ? 'id="file_surat_kepolisian"' : '' !!} class="form-control rounded-pill border-0 shadow-sm bg-white" accept="image/*,.heic,.heif,application/pdf" {{ $syarat->is_required ? 'required' : '' }}>
+                                        <input type="file" name="{{ $syarat->kode_syarat }}" {!! $isPolisi ? 'id="file_surat_kepolisian"' : '' !!} class="form-control rounded-pill border-0 shadow-sm bg-white" accept="image/*,application/pdf" {{ $syarat->is_required ? 'required' : '' }}>
                                         @if($syarat->keterangan)
                                             <small class="text-muted d-block mt-1" style="font-size: 0.7rem;">{{ $syarat->keterangan }}</small>
                                         @endif

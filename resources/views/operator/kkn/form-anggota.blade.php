@@ -91,8 +91,8 @@
                                          onerror="this.src='{{ asset('images/default-avatar.png') }}'">
                                 @endif
                                 <div class="flex-grow-1">
-                                    <input type="file" name="foto" class="form-control rounded-3" accept="image/*,.heic,.heif">
-                                    <small class="text-muted d-block mt-2">Format: JPG, PNG, WebP, HEIC. Maks 10MB. Foto akan ditampilkan berbentuk bulat.</small>
+                                    <input type="file" name="foto" class="form-control rounded-3" accept="image/*">
+                                    <small class="text-muted d-block mt-2">Format: JPG, PNG, WebP. Maks 2MB. Foto akan ditampilkan berbentuk bulat.</small>
                                     @if(isset($anggota) && $anggota->foto)
                                         <small class="text-muted d-block">Kosongkan jika tidak ingin mengganti foto.</small>
                                     @endif

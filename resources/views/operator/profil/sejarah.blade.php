@@ -56,8 +56,8 @@
                                         <i data-lucide="image" class="text-muted opacity-25" style="width:48px;height:48px;"></i>
                                     </div>
                                 @endif
-                                <input type="file" name="sejarah_image" class="form-control rounded-pill border-0 shadow-sm" accept="image/*,.heic,.heif">
-                                <small class="text-muted mt-3 d-block italic fw-medium">Format: JPG, PNG, WEBP, HEIC (Maks 10MB)</small>
+                                <input type="file" name="sejarah_image" class="form-control rounded-pill border-0 shadow-sm" accept="image/*">
+                                <small class="text-muted mt-3 d-block italic fw-medium">Direkomendasikan gambar dengan resolusi tinggi (Maks 2MB)</small>
                             </div>
                         </div>
                     </div>

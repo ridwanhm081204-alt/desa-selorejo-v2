@@ -37,7 +37,7 @@ class StrukturController extends Controller
             'jabatan' => 'required',
             'nama_pejabat' => 'required',
             'urutan' => 'required|integer',
-            'foto' => 'nullable|mimes:jpg,jpeg,png,svg,webp,heic,heif|max:10240'
+            'foto' => 'nullable|image|mimes:jpg,jpeg,png,svg|max:2048'
         ]);
 
         if ($request->hasFile('foto')) {
@@ -55,7 +55,7 @@ class StrukturController extends Controller
             'jabatan' => 'required',
             'nama_pejabat' => 'required',
             'urutan' => 'required|integer',
-            'foto' => 'nullable|mimes:jpg,jpeg,png,svg,webp,heic,heif|max:10240'
+            'foto' => 'nullable|image|mimes:jpg,jpeg,png,svg|max:2048'
         ]);
 
         if ($request->hasFile('foto')) {

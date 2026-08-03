@@ -78,7 +78,7 @@ class LayananController extends Controller
         // Dynamic file validation
         foreach ($syaratDokumen as $syarat) {
             $rule = $syarat->is_required ? 'required' : 'nullable';
-            $rules[$syarat->kode_syarat] = "$rule|file|mimes:pdf,jpg,jpeg,png,webp,heic,heif|max:10240";
+            $rules[$syarat->kode_syarat] = "$rule|file|mimes:pdf,jpg,png|max:2048";
         }
 
         // Custom validation based on type

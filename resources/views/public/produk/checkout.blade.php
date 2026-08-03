@@ -117,7 +117,7 @@
                             </div>
                             <div class="col-md-6 mt-4">
                                 <label class="form-label fw-bold text-dark"><i data-lucide="image" class="me-1"></i> Upload Bukti Pembayaran (Maks 5MB)</label>
-                                <input type="file" name="bukti_pembayaran" id="buktiInput" class="form-control rounded-3 text-dark border-dark" accept="image/*,.heic,.heif" required>
+                                <input type="file" name="bukti_pembayaran" id="buktiInput" class="form-control rounded-3 text-dark border-dark" accept="image/*" required>
                                 <div id="fileError" class="text-danger small mt-1 d-none">File harus berupa gambar dan maksimal 5MB!</div>
                             </div>
 

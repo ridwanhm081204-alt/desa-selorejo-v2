@@ -38,7 +38,7 @@ class LembagaController extends Controller
             'jenis' => 'required', 
             'ketua' => 'required', 
             'deskripsi' => 'nullable',
-            'foto' => 'nullable|mimes:jpg,jpeg,png,svg,webp,heic,heif|max:10240'
+            'foto' => 'nullable|image|mimes:jpg,jpeg,png,svg|max:2048'
         ]);
         if ($request->hasFile('foto')) {
             $validated['foto'] = $request->file('foto')->store('lembaga', 'public');
@@ -54,7 +54,7 @@ class LembagaController extends Controller
             'jenis' => 'required', 
             'ketua' => 'required', 
             'deskripsi' => 'nullable',
-            'foto' => 'nullable|mimes:jpg,jpeg,png,svg,webp,heic,heif|max:10240'
+            'foto' => 'nullable|image|mimes:jpg,jpeg,png,svg|max:2048'
         ]);
         if ($request->hasFile('foto')) {
             if ($lembaga->foto) {

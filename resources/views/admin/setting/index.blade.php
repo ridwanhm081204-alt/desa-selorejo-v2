@@ -42,8 +42,8 @@
                                         <img src="{{ asset('storage/'.$settings['logo']) }}" class="img-fluid rounded shadow-sm bg-white p-2" style="max-height:80px;" alt="Logo Desa">
                                     </div>
                                 @endif
-                                <input type="file" name="logo" class="form-control bg-white rounded-pill border-0 shadow-sm" accept="image/*,.heic,.heif,.ico">
-                                <small class="text-muted d-block mt-2">Format disarankan: PNG, JPG, WEBP, HEIC. Maks 10MB.</small>
+                                <input type="file" name="logo" class="form-control bg-white rounded-pill border-0 shadow-sm" accept="image/png, image/jpeg">
+                                <small class="text-muted d-block mt-2">Format disarankan: PNG Transparan atau JPG resolusi tinggi.</small>
                             </div>
                         </div>
                     </div>

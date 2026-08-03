@@ -61,7 +61,7 @@ class GaleriController extends Controller
         ]);
         
         if ($data['tipe'] == 'foto') {
-            $request->validate(['file_foto' => 'required|mimes:jpg,jpeg,png,webp,gif,heic,heif|max:10240']);
+            $request->validate(['file_foto' => 'required|image|max:2048']);
             $data['url'] = $request->file('file_foto')->store('galeri', 'public');
         } else {
             $request->validate(['url_video' => 'required|url']);
@@ -89,7 +89,7 @@ class GaleriController extends Controller
 
         if ($data['tipe'] == 'foto') {
             if($request->hasFile('file_foto')) {
-                $request->validate(['file_foto' => 'mimes:jpg,jpeg,png,webp,gif,heic,heif|max:10240']);
+                $request->validate(['file_foto' => 'image|max:2048']);
                 // Hapus foto lama jika ada
                 if ($galeri->tipe === 'foto' && $galeri->url) {
                     Storage::disk('public')->delete($galeri->url);

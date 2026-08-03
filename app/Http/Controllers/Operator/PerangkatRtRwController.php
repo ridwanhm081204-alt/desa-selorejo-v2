@@ -46,7 +46,7 @@ class PerangkatRtRwController extends Controller
             'nomor_rt'  => 'nullable|integer|min:1',
             'nomor_rw'  => 'required|integer|min:1',
             'urutan'    => 'required|integer|min:0',
-            'foto'      => 'nullable|mimes:jpg,jpeg,png,svg,webp,heic,heif|max:10240',
+            'foto'      => 'nullable|image|mimes:jpg,jpeg,png,svg|max:2048',
         ]);
 
         // RT wajib punya nomor_rt
@@ -75,7 +75,7 @@ class PerangkatRtRwController extends Controller
             'nomor_rt'  => 'nullable|integer|min:1',
             'nomor_rw'  => 'required|integer|min:1',
             'urutan'    => 'required|integer|min:0',
-            'foto'      => 'nullable|mimes:jpg,jpeg,png,svg,webp,heic,heif|max:10240',
+            'foto'      => 'nullable|image|mimes:jpg,jpeg,png,svg|max:2048',
         ]);
 
         if ($validated['jenis'] === 'RW') {

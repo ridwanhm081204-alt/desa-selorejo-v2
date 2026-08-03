@@ -41,7 +41,7 @@ class KknController extends Controller
             'nim'      => 'nullable|string|max:20',
             'prodi'    => 'nullable|string|max:200',
             'fakultas' => 'nullable|string|max:100',
-            'foto'     => 'nullable|mimes:jpg,jpeg,png,webp,gif,heic,heif|max:10240',
+            'foto'     => 'nullable|image|max:2048',
             'badge'    => 'nullable|in:ketua,developer',
             'proker'   => 'nullable|string|max:1000',
             'sdg'      => 'nullable|array',
@@ -76,7 +76,7 @@ class KknController extends Controller
             'nim'      => 'nullable|string|max:20',
             'prodi'    => 'nullable|string|max:200',
             'fakultas' => 'nullable|string|max:100',
-            'foto'     => 'nullable|mimes:jpg,jpeg,png,webp,gif,heic,heif|max:10240',
+            'foto'     => 'nullable|image|max:2048',
             'badge'    => 'nullable|in:ketua,developer',
             'proker'   => 'nullable|string|max:1000',
             'sdg'      => 'nullable|array',
@@ -133,8 +133,8 @@ class KknController extends Controller
             'dpl_nama'           => 'nullable|string|max:200',
             'dpl_jabatan'        => 'nullable|string|max:200',
             'dpl_institusi'      => 'nullable|string|max:200',
-            'dpl_foto'           => 'nullable|mimes:jpg,jpeg,png,webp,gif,heic,heif|max:10240',
-            'logo'               => 'nullable|mimes:jpg,jpeg,png,webp,gif,heic,heif|max:10240',
+            'dpl_foto'           => 'nullable|image|max:2048',
+            'logo'               => 'nullable|image|max:2048',
         ]);
 
         $stringKeys = ['judul_utama', 'subjudul', 'kelompok_label', 'tagline',

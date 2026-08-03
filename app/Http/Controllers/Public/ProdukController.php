@@ -129,7 +129,7 @@ class ProdukController extends Controller
             'rating' => 'required|integer|min:1|max:5',
             'saran' => 'required|string',
             'kritik' => 'required|string',
-            'foto_produk' => 'required|mimes:jpg,jpeg,png,webp,heic,heif|max:10240'
+            'foto_produk' => 'required|image|max:2048'
         ]);
 
         $fotoPath = null;

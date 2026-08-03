@@ -79,7 +79,7 @@ class ProdukController extends Controller
             'link_shopee' => 'nullable|url|max:500',
             'link_tokopedia' => 'nullable|url|max:500',
             'link_marketplace_lainnya' => 'nullable|url|max:500',
-            'gambar' => 'required|mimes:jpg,jpeg,png,webp,gif,heic,heif|max:10240'
+            'gambar' => 'required|image|max:2048'
         ]);
         // Sanitasi deskripsi HTML: hapus tag berbahaya (script, iframe, dll)
         $allowedTags = '<p><br><b><i><strong><em><u><s><ul><ol><li><h2><h3><h4><h5><h6><a><img><blockquote><span><div>';
@@ -104,7 +104,7 @@ class ProdukController extends Controller
             'link_shopee' => 'nullable|url|max:500',
             'link_tokopedia' => 'nullable|url|max:500',
             'link_marketplace_lainnya' => 'nullable|url|max:500',
-            'gambar' => 'nullable|mimes:jpg,jpeg,png,webp,gif,heic,heif|max:10240'
+            'gambar' => 'nullable|image|max:2048'
         ]);
         // Sanitasi deskripsi HTML: hapus tag berbahaya (script, iframe, dll)
         $allowedTags = '<p><br><b><i><strong><em><u><s><ul><ol><li><h2><h3><h4><h5><h6><a><img><blockquote><span><div>';

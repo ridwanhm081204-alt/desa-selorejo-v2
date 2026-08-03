@@ -163,7 +163,7 @@
                 @if($item->foto)
                     <img src="{{ asset('storage/'.$item->foto) }}" class="rounded-3 mb-2 border" style="width:50px; height:50px; object-fit:cover;">
                 @endif
-                <input type="file" name="foto" class="form-control rounded-3" accept="image/*,.heic,.heif">
+                <input type="file" name="foto" class="form-control rounded-3">
             </div>
         </div>
       </div>
@@ -224,7 +224,7 @@
             </div>
             <div class="col-12">
                 <label class="small fw-bold text-muted mb-1 d-block">Foto Profil (Opsional)</label>
-                <input type="file" name="foto" class="form-control rounded-3" accept="image/*,.heic,.heif">
+                <input type="file" name="foto" class="form-control rounded-3">
             </div>
         </div>
       </div>

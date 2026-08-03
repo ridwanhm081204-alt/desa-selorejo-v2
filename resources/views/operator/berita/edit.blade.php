@@ -213,9 +213,9 @@
                             <div class="foto-upload-zone" id="upload-zone-edit" onclick="document.getElementById('foto-input-edit').click()">
                                 <i data-lucide="image-plus" style="width:28px;height:28px;color:#94a3b8;"></i>
                                 <div class="mt-1 fw-semibold text-muted small">Klik atau seret foto ke sini</div>
-                                <div class="text-muted" style="font-size:11px;">JPG, PNG, WEBP, HEIC &bull; Maks 10MB per foto</div>
+                                <div class="text-muted" style="font-size:11px;">JPG, PNG, WEBP &bull; Maks 2MB per foto</div>
                             </div>
-                            <input type="file" id="foto-input-edit" accept="image/*,.heic,.heif" multiple style="display:none;">
+                            <input type="file" id="foto-input-edit" accept="image/*" multiple style="display:none;">
                             <div class="foto-preview-grid d-none mt-2" id="foto-preview-grid-edit"></div>
                         </div>
 
@@ -244,7 +244,7 @@
                         <a href="{{ url('/operator/berita') }}" class="btn btn-light rounded-pill px-4 fw-bold">
                             <i data-lucide="arrow-left" class="icon-sm me-1"></i> BATAL
                         </a>
-                        <button type="submit" class="btn btn-success rounded-pill px-5 py-2 fw-bold shadow-sm hover-lift border-0">
+                        <button type="submit" id="btn-submit-edit" class="btn btn-success rounded-pill px-5 py-2 fw-bold shadow-sm hover-lift border-0">
                             <i data-lucide="save" class="icon-sm me-1"></i> SIMPAN PERUBAHAN
                         </button>
                     </div>
@@ -318,36 +318,28 @@
         grid.innerHTML = '';
         grid.classList.toggle('d-none', newFiles.length === 0);
 
-    function isImageFile(f) {
-        if (!f) return false;
-        if (f.type && f.type.startsWith('image/')) return true;
-        const ext = (f.name || '').split('.').pop().toLowerCase();
-        return ['jpg', 'jpeg', 'png', 'gif', 'webp', 'heic', 'heif', 'bmp', 'svg'].includes(ext);
-    }
-
-    newFiles.forEach((file, i) => {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            const div = document.createElement('div');
-            div.className = 'foto-item';
-            const fallbackSvg = `data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 24 24' fill='none' stroke='%23166534' stroke-width='2'><rect x='3' y='3' width='18' height='18' rx='2'/><circle cx='8.5' cy='8.5' r='1.5'/><polyline points='21 15 16 10 5 21'/></svg>`;
-            div.innerHTML = `
-                <img src="${e.target.result}" alt="baru ${i+1}" onerror="this.onerror=null; this.src='${fallbackSvg}';">
-                <button type="button" class="remove-btn" data-new-idx="${i}" title="Hapus">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-                </button>
-            `;
-            div.querySelector('.remove-btn').addEventListener('click', function() {
-                const idx = parseInt(this.dataset.newIdx);
-                newFiles.splice(idx, 1);
-                renderNewPreviews();
-                updateTotal();
-            });
-            grid.appendChild(div);
-        };
-        reader.readAsDataURL(file);
-    });
-    updateTotal();
+        newFiles.forEach((file, i) => {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const div = document.createElement('div');
+                div.className = 'foto-item';
+                div.innerHTML = `
+                    <img src="${e.target.result}" alt="baru ${i+1}">
+                    <button type="button" class="remove-btn" data-new-idx="${i}" title="Hapus">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                    </button>
+                `;
+                div.querySelector('.remove-btn').addEventListener('click', function() {
+                    const idx = parseInt(this.dataset.newIdx);
+                    newFiles.splice(idx, 1);
+                    renderNewPreviews();
+                    updateTotal();
+                });
+                grid.appendChild(div);
+            };
+            reader.readAsDataURL(file);
+        });
+        updateTotal();
     }
 
     /* -------- Add new files -------- */
@@ -358,11 +350,7 @@
             alert('Sudah mencapai batas maksimal 10 foto!');
             return;
         }
-        const filtered = Array.from(incoming).filter(isImageFile);
-        if (filtered.length === 0) {
-            alert('File yang dipilih bukan gambar yang didukung! Silakan pilih foto (JPG, PNG, WEBP, HEIC).');
-            return;
-        }
+        const filtered = Array.from(incoming).filter(f => f.type.startsWith('image/'));
         const toAdd    = filtered.slice(0, remaining);
         if (filtered.length > remaining) {
             alert(`Hanya ${remaining} foto yang bisa ditambahkan.`);
@@ -373,7 +361,8 @@
 
     /* -------- File picker -------- */
     filePickerInput.addEventListener('change', function() {
-        if (this.files && this.files.length > 0) addNewFiles(this.files);
+        if (this.files.length > 0) addNewFiles(this.files);
+        // Safe to clear: we already copied files into newFiles array
         this.value = '';
     });
 
@@ -383,9 +372,7 @@
     zone.addEventListener('drop', e => {
         e.preventDefault();
         zone.classList.remove('drag-over');
-        if (e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files.length > 0) {
-            addNewFiles(e.dataTransfer.files);
-        }
+        addNewFiles(e.dataTransfer.files);
     });
 
     /* -------- Form submit: inject new files via hidden input -------- */
@@ -408,6 +395,12 @@
             hiddenInput.style.display = 'none';
             hiddenInput.files    = dt.files;
             container.appendChild(hiddenInput);
+        }
+
+        const btnSubmit = document.getElementById('btn-submit-edit');
+        if (btnSubmit) {
+            btnSubmit.disabled = true;
+            btnSubmit.innerHTML = `<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span> Menyimpan Perubahan...`;
         }
     });
 
