@@ -213,9 +213,9 @@
                             <div class="foto-upload-zone" id="upload-zone-edit" onclick="document.getElementById('foto-input-edit').click()">
                                 <i data-lucide="image-plus" style="width:28px;height:28px;color:#94a3b8;"></i>
                                 <div class="mt-1 fw-semibold text-muted small">Klik atau seret foto ke sini</div>
-                                <div class="text-muted" style="font-size:11px;">JPG, PNG, WEBP &bull; Maks 2MB per foto</div>
+                                <div class="text-muted" style="font-size:11px;">JPG, PNG, WEBP, HEIC &bull; Maks 10MB per foto</div>
                             </div>
-                            <input type="file" id="foto-input-edit" accept="image/*" multiple style="display:none;">
+                            <input type="file" id="foto-input-edit" accept="image/*,.heic,.heif" multiple style="display:none;">
                             <div class="foto-preview-grid d-none mt-2" id="foto-preview-grid-edit"></div>
                         </div>
 

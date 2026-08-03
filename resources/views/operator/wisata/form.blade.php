@@ -105,8 +105,8 @@
                             </div>
                         @endif
                         <input type="file" name="gambar" class="form-control rounded-pill border-0 shadow-sm bg-white" 
-                               accept="image/*" {{ isset($wisata) ? '' : 'required' }}>
-                        <small class="text-muted d-block mt-3 font-italic"><i data-lucide="image" class="icon-xs me-1"></i> Rasio ideal 3:2 atau 16:9. Maksimum 2MB.</small>
+                               accept="image/*,.heic,.heif" {{ isset($wisata) ? '' : 'required' }}>
+                        <small class="text-muted d-block mt-3 font-italic"><i data-lucide="image" class="icon-xs me-1"></i> Format: JPG, PNG, WEBP, HEIC. Maksimum 10MB.</small>
                         @error('gambar') <div class="invalid-feedback d-block mt-1">{{ $message }}</div> @enderror
                     </div>
 

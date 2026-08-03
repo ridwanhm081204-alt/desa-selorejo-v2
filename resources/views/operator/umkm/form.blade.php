@@ -215,8 +215,8 @@
                             <img src="{{ $umkm->foto_url }}" class="rounded-3 shadow-sm border" style="max-height:180px;width:100%;object-fit:cover;">
                         </div>
                         @endif
-                        <input type="file" name="foto" class="form-control rounded-pill border-0 shadow-sm bg-white" accept="image/*">
-                        <small class="text-muted d-block mt-2"><i data-lucide="image" class="icon-xs me-1"></i>Foto produk atau tampak depan usaha. Maks 2MB.</small>
+                        <input type="file" name="foto" class="form-control rounded-pill border-0 shadow-sm bg-white" accept="image/*,.heic,.heif">
+                        <small class="text-muted d-block mt-2"><i data-lucide="image" class="icon-xs me-1"></i>Foto produk atau tampak depan usaha (JPG, PNG, WEBP, HEIC). Maks 10MB.</small>
                         @error('foto') <div class="text-danger small mt-1">{{ $message }}</div> @enderror
                     </div>
 

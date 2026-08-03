@@ -14,8 +14,8 @@
             </div>
             
             <div class="mb-4" id="inputFoto">
-                <label class="form-label fw-bold">Upload File (Max 2MB)</label>
-                <input type="file" name="file_foto" class="form-control" accept="image/*">
+                <label class="form-label fw-bold">Upload File (JPG, PNG, WEBP, HEIC - Max 10MB)</label>
+                <input type="file" name="file_foto" class="form-control" accept="image/*,.heic,.heif">
             </div>
             
             <div class="mb-4" id="inputVideo" style="display:none;">

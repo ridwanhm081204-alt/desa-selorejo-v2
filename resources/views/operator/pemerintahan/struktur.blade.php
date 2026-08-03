@@ -123,7 +123,7 @@
         </div>
         <div class="mb-0">
             <label class="small fw-bold text-muted mb-1">Ganti Foto Profil</label>
-            <input type="file" name="foto" class="form-control rounded-3">
+            <input type="file" name="foto" class="form-control rounded-3" accept="image/*,.heic,.heif">
         </div>
       </div>
       <div class="modal-footer border-0 p-4 pt-0">
@@ -159,7 +159,7 @@
         </div>
         <div class="mb-0">
             <label class="small fw-bold text-muted mb-1">Foto Profil</label>
-            <input type="file" name="foto" class="form-control rounded-3">
+            <input type="file" name="foto" class="form-control rounded-3" accept="image/*,.heic,.heif">
         </div>
       </div>
       <div class="modal-footer border-0 p-4 pt-0">

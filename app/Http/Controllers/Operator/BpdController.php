@@ -39,7 +39,7 @@ class BpdController extends Controller
             'dusun' => 'nullable|string|max:100',
             'nomor_rt' => 'nullable|integer',
             'nomor_rw' => 'nullable|integer',
-            'foto' => 'nullable|image|mimes:jpg,jpeg,png,svg|max:2048'
+            'foto' => 'nullable|mimes:jpg,jpeg,png,svg,webp,heic,heif|max:10240'
         ]);
         if ($request->hasFile('foto')) {
             $validated['foto'] = $request->file('foto')->store('aparat', 'public');
@@ -57,7 +57,7 @@ class BpdController extends Controller
             'dusun' => 'nullable|string|max:100',
             'nomor_rt' => 'nullable|integer',
             'nomor_rw' => 'nullable|integer',
-            'foto' => 'nullable|image|mimes:jpg,jpeg,png,svg|max:2048'
+            'foto' => 'nullable|mimes:jpg,jpeg,png,svg,webp,heic,heif|max:10240'
         ]);
         if ($request->hasFile('foto')) {
             if ($bpd->foto) {

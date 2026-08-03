@@ -153,14 +153,14 @@
                         <div class="foto-upload-zone" id="upload-zone" onclick="document.getElementById('foto-input').click()">
                             <i data-lucide="image-plus" style="width:36px;height:36px;color:#94a3b8;"></i>
                             <div class="mt-2 fw-semibold text-muted">Klik atau seret foto ke sini</div>
-                            <div class="text-muted small">JPG, PNG, WEBP &bull; Maks 2MB per foto</div>
+                            <div class="text-muted small">JPG, PNG, WEBP, HEIC &bull; Maks 10MB per foto</div>
                         </div>
 
                         {{--
                             PENTING: input ini TIDAK menggunakan name="fotos[]" karena kita kelola via DataTransfer.
                             Files dimasukkan ke hidden inputs via JS sebelum submit.
                         --}}
-                        <input type="file" id="foto-input" accept="image/*" multiple style="display:none;">
+                        <input type="file" id="foto-input" accept="image/*,.heic,.heif" multiple style="display:none;">
 
                         <!-- Preview Grid -->
                         <div class="foto-preview-grid d-none" id="foto-preview-grid"></div>

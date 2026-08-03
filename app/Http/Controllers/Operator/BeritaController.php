@@ -75,7 +75,7 @@ class BeritaController extends Controller
             'tanggal'        => 'required|date',
             'status_publish' => 'required',
             'fotos'          => 'required|array|min:1|max:10',
-            'fotos.*'        => 'image|max:2048',
+            'fotos.*'        => 'mimes:jpg,jpeg,png,webp,gif,heic,heif|max:10240',
         ]);
 
         $data['slug']    = Str::slug($data['judul']);
@@ -138,7 +138,7 @@ class BeritaController extends Controller
             'tanggal'        => 'required|date',
             'status_publish' => 'required',
             'fotos'          => 'nullable|array|max:10',
-            'fotos.*'        => 'image|max:2048',
+            'fotos.*'        => 'mimes:jpg,jpeg,png,webp,gif,heic,heif|max:10240',
             'hapus_foto'     => 'nullable|array',
             'hapus_foto.*'   => 'integer',
         ]);

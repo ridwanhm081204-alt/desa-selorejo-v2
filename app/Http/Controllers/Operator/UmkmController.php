@@ -80,7 +80,7 @@ class UmkmController extends Controller
             'gmail_usaha'     => 'nullable|email|max:100',
             'link_gmaps'      => 'nullable|url|max:300',
             'nama_toko_gmaps' => 'nullable|string|max:200',
-            'foto'            => 'nullable|image|max:2048',
+            'foto'            => 'nullable|mimes:jpg,jpeg,png,webp,gif,heic,heif|max:10240',
         ]);
 
         if ($request->hasFile('foto')) {
@@ -135,7 +135,7 @@ class UmkmController extends Controller
             'gmail_usaha'     => 'nullable|email|max:100',
             'link_gmaps'      => 'nullable|url|max:300',
             'nama_toko_gmaps' => 'nullable|string|max:200',
-            'foto'            => 'nullable|image|max:2048',
+            'foto'            => 'nullable|mimes:jpg,jpeg,png,webp,gif,heic,heif|max:10240',
         ]);
 
         $oldLinkGmaps = $umkm->link_gmaps;

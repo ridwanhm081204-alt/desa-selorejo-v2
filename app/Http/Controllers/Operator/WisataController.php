@@ -63,7 +63,7 @@ class WisataController extends Controller
             'jadwal' => 'nullable',
             'aturan' => 'nullable',
             'whatsapp' => ['nullable', 'string', 'max:16', 'regex:/^\+?[0-9]{8,15}$/'],
-            'gambar' => 'required|image|max:2048'
+            'gambar' => 'required|mimes:jpg,jpeg,png,webp,gif,heic,heif|max:10240'
         ]);
 
         if ($request->hasFile('gambar')) {
@@ -90,7 +90,7 @@ class WisataController extends Controller
             'jadwal' => 'nullable',
             'aturan' => 'nullable',
             'whatsapp' => ['nullable', 'string', 'max:16', 'regex:/^\+?[0-9]{8,15}$/'],
-            'gambar' => 'nullable|image|max:2048'
+            'gambar' => 'nullable|mimes:jpg,jpeg,png,webp,gif,heic,heif|max:10240'
         ]);
 
         if ($request->hasFile('gambar')) {

@@ -45,8 +45,8 @@
                                 <img src="{{ asset('storage/'.$galeri->url) }}" class="rounded-3 shadow-sm border" style="max-height: 180px; width: 100%; object-fit: cover;">
                             </div>
                         @endif
-                        <input type="file" name="file_foto" class="form-control rounded-3 bg-white" accept="image/*">
-                        <small class="text-muted d-block mt-2 font-italic"><i data-lucide="info" class="icon-xs me-1"></i> JPG, PNG, WEBP (Max: 2MB). Gunakan rasio terbaik.</small>
+                        <input type="file" name="file_foto" class="form-control rounded-3 bg-white" accept="image/*,.heic,.heif">
+                        <small class="text-muted d-block mt-2 font-italic"><i data-lucide="info" class="icon-xs me-1"></i> JPG, PNG, WEBP, HEIC (Max: 10MB). Gunakan rasio terbaik.</small>
                         @error('file_foto') <div class="invalid-feedback d-block mt-1">{{ $message }}</div> @enderror
                     </div>
                     

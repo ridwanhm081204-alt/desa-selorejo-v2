@@ -77,8 +77,8 @@
                                 </div>
                                 <div class="col-md-12">
                                     <label class="form-label fw-bold text-muted small">SURAT PENGANTAR RT/RW <span class="text-danger">*</span></label>
-                                    <input type="file" name="file_pengantar_rt_rw" class="form-control rounded-pill border-0 shadow-sm bg-white" accept="image/*,application/pdf" required>
-                                    <small class="text-muted d-block mt-1" style="font-size: 0.7rem;">Surat pengantar dari RT/RW setempat (Wajib untuk semua jenis pengajuan KK). Format: PDF, JPG, PNG (Max 2MB)</small>
+                                    <input type="file" name="file_pengantar_rt_rw" class="form-control rounded-pill border-0 shadow-sm bg-white" accept="image/*,.heic,.heif,application/pdf" required>
+                                    <small class="text-muted d-block mt-1" style="font-size: 0.7rem;">Surat pengantar dari RT/RW setempat (Wajib untuk semua jenis pengajuan KK). Format: PDF, JPG, PNG, HEIC (Max 10MB)</small>
                                     @error('file_pengantar_rt_rw') <small class="text-danger mt-1 d-block">{{ $message }}</small> @enderror
                                 </div>
                             </div>
@@ -128,8 +128,8 @@
                             <div class="row g-4 mb-5">
                                 <div class="col-md-6">
                                     <label class="form-label fw-bold text-muted small">SCAN BUKU NIKAH / AKTA PERKAWINAN <span class="text-danger">*</span></label>
-                                    <input type="file" name="file_akta_nikah_perkawinan" id="file_nikah_baru" class="form-control rounded-pill border-0 shadow-sm bg-white" accept="image/*,application/pdf">
-                                    <small class="text-muted d-block mt-1" style="font-size: 0.7rem;">Format: PDF, JPG, PNG (Max 2MB)</small>
+                                    <input type="file" name="file_akta_nikah_perkawinan" id="file_nikah_baru" class="form-control rounded-pill border-0 shadow-sm bg-white" accept="image/*,.heic,.heif,application/pdf">
+                                    <small class="text-muted d-block mt-1" style="font-size: 0.7rem;">Format: PDF, JPG, PNG, HEIC (Max 10MB)</small>
                         </div>
 
                         <!-- SUB-FORM B: TAMBAH ANGGOTA (KELAHIRAN) -->
@@ -246,7 +246,7 @@
                                     @foreach($layanan->syarat as $syarat)
                                         <div class="col-md-6">
                                             <label class="form-label fw-bold text-muted small">{{ $syarat->nama_syarat }} {!! $syarat->is_required ? '<span class="text-danger">*</span>' : '' !!}</label>
-                                            <input type="file" name="{{ $syarat->kode_syarat }}" class="form-control rounded-pill border-0 shadow-sm bg-white" accept="image/*,application/pdf" {{ $syarat->is_required ? 'required' : '' }}>
+                                            <input type="file" name="{{ $syarat->kode_syarat }}" class="form-control rounded-pill border-0 shadow-sm bg-white" accept="image/*,.heic,.heif,application/pdf" {{ $syarat->is_required ? 'required' : '' }}>
                                             @if($syarat->keterangan)
                                                 <small class="text-muted d-block mt-1" style="font-size: 0.7rem;">{{ $syarat->keterangan }}</small>
                                             @endif

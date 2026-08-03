@@ -128,8 +128,8 @@
                                 <img src="{{ asset('storage/'.$produk->gambar) }}" class="rounded-3 shadow-sm" style="max-height: 180px; width: auto; max-width: 100%; object-fit: contain;">
                             </div>
                         @endif
-                        <input type="file" name="gambar" class="form-control rounded-pill border-0 shadow-sm bg-white" accept="image/*" {{ isset($produk) ? '' : 'required' }}>
-                        <small class="text-muted d-block mt-3 font-italic"><i data-lucide="info" class="icon-xs me-1"></i> Gunakan latar belakang yang rapi. Max: 2MB.</small>
+                        <input type="file" name="gambar" class="form-control rounded-pill border-0 shadow-sm bg-white" accept="image/*,.heic,.heif" {{ isset($produk) ? '' : 'required' }}>
+                        <small class="text-muted d-block mt-3 font-italic"><i data-lucide="info" class="icon-xs me-1"></i> Format: JPG, PNG, WEBP, HEIC. Max: 10MB.</small>
                     </div>
 
                     <div class="pt-4 border-top d-flex justify-content-between">

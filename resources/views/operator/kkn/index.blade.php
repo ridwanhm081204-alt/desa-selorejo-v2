@@ -185,8 +185,8 @@
                                             $logoUrl  = str_starts_with($logoPath, 'images/') ? asset($logoPath) : asset('storage/' . $logoPath);
                                         @endphp
                                         <img src="{{ $logoUrl }}" class="rounded-circle mb-3 border" style="width:80px;height:80px;object-fit:cover;" onerror="this.style.display='none'">
-                                        <input type="file" name="logo" class="form-control rounded-pill border-0 shadow-sm" accept="image/*">
-                                        <small class="text-muted d-block mt-2">Maks 2MB. Foto akan ditampilkan bulat.</small>
+                                        <input type="file" name="logo" class="form-control rounded-pill border-0 shadow-sm" accept="image/*,.heic,.heif">
+                                        <small class="text-muted d-block mt-2">Maks 10MB. Foto akan ditampilkan bulat.</small>
                                     </div>
                                 </div>
                             </div>
@@ -279,8 +279,8 @@
                                             $dplFotoUrl = str_starts_with($dplFoto, 'images/') ? asset($dplFoto) : asset('storage/' . $dplFoto);
                                         @endphp
                                         <img src="{{ $dplFotoUrl }}" class="rounded-circle mb-3 border" style="width:100px;height:100px;object-fit:cover;object-position:top;" onerror="this.style.display='none'">
-                                        <input type="file" name="dpl_foto" class="form-control rounded-pill border-0 shadow-sm" accept="image/*">
-                                        <small class="text-muted d-block mt-2">Maks 2MB</small>
+                                        <input type="file" name="dpl_foto" class="form-control rounded-pill border-0 shadow-sm" accept="image/*,.heic,.heif">
+                                        <small class="text-muted d-block mt-2">Maks 10MB</small>
                                     </div>
                                 </div>
                                 <div class="col-md-8">
