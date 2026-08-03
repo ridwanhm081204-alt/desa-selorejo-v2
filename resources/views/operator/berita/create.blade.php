@@ -222,6 +222,13 @@
         grid.classList.toggle('d-none', n === 0);
     }
 
+    function isImageFile(f) {
+        if (!f) return false;
+        if (f.type && f.type.startsWith('image/')) return true;
+        const ext = (f.name || '').split('.').pop().toLowerCase();
+        return ['jpg', 'jpeg', 'png', 'gif', 'webp', 'heic', 'heif', 'bmp', 'svg'].includes(ext);
+    }
+
     function renderPreviews() {
         grid.innerHTML = '';
         selectedFiles.forEach((file, i) => {
@@ -230,8 +237,9 @@
                 const div = document.createElement('div');
                 div.className = 'foto-preview-item';
                 div.dataset.index = i;
+                const fallbackSvg = `data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 24 24' fill='none' stroke='%23166534' stroke-width='2'><rect x='3' y='3' width='18' height='18' rx='2'/><circle cx='8.5' cy='8.5' r='1.5'/><polyline points='21 15 16 10 5 21'/></svg>`;
                 div.innerHTML = `
-                    <img src="${e.target.result}" alt="foto ${i+1}">
+                    <img src="${e.target.result}" alt="foto ${i+1}" onerror="this.onerror=null; this.src='${fallbackSvg}';">
                     ${i === 0 ? '<span class="cover-badge">COVER</span>' : ''}
                     <button type="button" class="remove-btn" data-idx="${i}" title="Hapus foto ini">
                         <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
@@ -258,11 +266,15 @@
             alert('Maksimal 10 foto per berita!');
             return;
         }
-        const toAdd = Array.from(newFiles)
-            .filter(f => f.type.startsWith('image/'))
-            .slice(0, remaining);
+        const validFiles = Array.from(newFiles).filter(isImageFile);
+        if (validFiles.length === 0) {
+            alert('File yang dipilih bukan gambar yang didukung! Silakan pilih foto (JPG, PNG, WEBP, HEIC).');
+            return;
+        }
 
-        if (Array.from(newFiles).filter(f => f.type.startsWith('image/')).length > remaining) {
+        const toAdd = validFiles.slice(0, remaining);
+
+        if (validFiles.length > remaining) {
             alert(`Hanya ${remaining} foto yang bisa ditambahkan (maks 10).`);
         }
 
@@ -272,11 +284,9 @@
 
     /* -------- File picker -------- */
     filePickerInput.addEventListener('change', function() {
-        if (this.files.length > 0) {
+        if (this.files && this.files.length > 0) {
             addFiles(this.files);
         }
-        // Reset value agar bisa pilih file yang sama lagi
-        // (Ini AMAN karena kita tidak pakai this.files saat submit)
         this.value = '';
     });
 
@@ -286,7 +296,9 @@
     zone.addEventListener('drop', e => {
         e.preventDefault();
         zone.classList.remove('drag-over');
-        addFiles(e.dataTransfer.files);
+        if (e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+            addFiles(e.dataTransfer.files);
+        }
     });
 
     /* -------- Form Submit: inject files via DataTransfer -------- */
