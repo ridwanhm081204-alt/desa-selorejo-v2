@@ -289,8 +289,55 @@
         addFiles(e.dataTransfer.files);
     });
 
-    /* -------- Form Submit: inject files via DataTransfer -------- */
-    form.addEventListener('submit', function(e) {
+    /* -------- Image Compression Helper -------- */
+    function compressImage(file, maxSide = 1920, quality = 0.82) {
+        return new Promise((resolve) => {
+            if (!file.type || !file.type.startsWith('image/')) {
+                resolve(file);
+                return;
+            }
+            const img = new Image();
+            const url = URL.createObjectURL(file);
+            img.onload = () => {
+                URL.revokeObjectURL(url);
+                let w = img.width;
+                let h = img.height;
+                if (w > maxSide || h > maxSide) {
+                    if (w > h) {
+                        h = Math.round((h * maxSide) / w);
+                        w = maxSide;
+                    } else {
+                        w = Math.round((w * maxSide) / h);
+                        h = maxSide;
+                    }
+                }
+                const canvas = document.createElement('canvas');
+                canvas.width = w;
+                canvas.height = h;
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(img, 0, 0, w, h);
+                canvas.toBlob((blob) => {
+                    if (!blob || blob.size >= file.size) {
+                        resolve(file);
+                    } else {
+                        const compressedFile = new File([blob], file.name.replace(/\.[^/.]+$/, "") + ".jpg", {
+                            type: 'image/jpeg',
+                            lastModified: Date.now()
+                        });
+                        resolve(compressedFile);
+                    }
+                }, 'image/jpeg', quality);
+            };
+            img.onerror = () => resolve(file);
+            img.src = url;
+        });
+    }
+
+    /* -------- Form Submit: compress and inject files -------- */
+    let isSubmitting = false;
+    form.addEventListener('submit', async function(e) {
+        if (isSubmitting) return;
+        
         if (typeof tinymce !== 'undefined') {
             tinymce.triggerSave();
         }
@@ -301,26 +348,42 @@
             return;
         }
 
-        // Buat satu <input type="file"> tersembunyi dengan semua file via DataTransfer
-        const container = document.getElementById('foto-files-container');
-        container.innerHTML = ''; // Clear sebelumnya
+        e.preventDefault();
+        isSubmitting = true;
 
-        const dt = new DataTransfer();
-        selectedFiles.forEach(f => dt.items.add(f));
-
-        const hiddenInput = document.createElement('input');
-        hiddenInput.type     = 'file';
-        hiddenInput.name     = 'fotos[]';
-        hiddenInput.multiple = true;
-        hiddenInput.style.display = 'none';
-        hiddenInput.files    = dt.files;
-        container.appendChild(hiddenInput);
-
-        // Tampilkan indikator loading agar pengguna mengetahui status upload
         const btnSubmit = document.getElementById('btn-submit');
         if (btnSubmit) {
             btnSubmit.disabled = true;
-            btnSubmit.innerHTML = `<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span> Mengunggah ${selectedFiles.length} Foto & Menyimpan...`;
+            btnSubmit.innerHTML = `<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span> Mengompres ${selectedFiles.length} foto & mengunggah...`;
+        }
+
+        try {
+            // Compress all photos client-side to prevent HTTP 413 Payload Too Large
+            const compressedFiles = await Promise.all(selectedFiles.map(f => compressImage(f)));
+
+            const container = document.getElementById('foto-files-container');
+            container.innerHTML = '';
+
+            const dt = new DataTransfer();
+            compressedFiles.forEach(f => dt.items.add(f));
+
+            const hiddenInput = document.createElement('input');
+            hiddenInput.type     = 'file';
+            hiddenInput.name     = 'fotos[]';
+            hiddenInput.multiple = true;
+            hiddenInput.style.display = 'none';
+            hiddenInput.files    = dt.files;
+            container.appendChild(hiddenInput);
+
+            form.submit();
+        } catch (err) {
+            console.error('Compression error:', err);
+            isSubmitting = false;
+            if (btnSubmit) {
+                btnSubmit.disabled = false;
+                btnSubmit.innerHTML = `<i data-lucide="save" class="icon-sm me-1"></i> SIMPAN BERITA`;
+            }
+            alert('Terjadi kesalahan saat memproses gambar.');
         }
     });
 })();

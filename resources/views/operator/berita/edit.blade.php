@@ -375,32 +375,95 @@
         addNewFiles(e.dataTransfer.files);
     });
 
-    /* -------- Form submit: inject new files via hidden input -------- */
-    form.addEventListener('submit', function() {
+    /* -------- Image Compression Helper -------- */
+    function compressImage(file, maxSide = 1920, quality = 0.82) {
+        return new Promise((resolve) => {
+            if (!file.type || !file.type.startsWith('image/')) {
+                resolve(file);
+                return;
+            }
+            const img = new Image();
+            const url = URL.createObjectURL(file);
+            img.onload = () => {
+                URL.revokeObjectURL(url);
+                let w = img.width;
+                let h = img.height;
+                if (w > maxSide || h > maxSide) {
+                    if (w > h) {
+                        h = Math.round((h * maxSide) / w);
+                        w = maxSide;
+                    } else {
+                        w = Math.round((w * maxSide) / h);
+                        h = maxSide;
+                    }
+                }
+                const canvas = document.createElement('canvas');
+                canvas.width = w;
+                canvas.height = h;
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(img, 0, 0, w, h);
+                canvas.toBlob((blob) => {
+                    if (!blob || blob.size >= file.size) {
+                        resolve(file);
+                    } else {
+                        const compressedFile = new File([blob], file.name.replace(/\.[^/.]+$/, "") + ".jpg", {
+                            type: 'image/jpeg',
+                            lastModified: Date.now()
+                        });
+                        resolve(compressedFile);
+                    }
+                }, 'image/jpeg', quality);
+            };
+            img.onerror = () => resolve(file);
+            img.src = url;
+        });
+    }
+
+    /* -------- Form submit: compress & inject new files via hidden input -------- */
+    let isSubmitting = false;
+    form.addEventListener('submit', async function(e) {
+        if (isSubmitting) return;
+
         if (typeof tinymce !== 'undefined') {
             tinymce.triggerSave();
         }
 
-        const container = document.getElementById('new-foto-files-container');
-        container.innerHTML = '';
-
-        if (newFiles.length > 0) {
-            const dt = new DataTransfer();
-            newFiles.forEach(f => dt.items.add(f));
-
-            const hiddenInput    = document.createElement('input');
-            hiddenInput.type     = 'file';
-            hiddenInput.name     = 'fotos[]';
-            hiddenInput.multiple = true;
-            hiddenInput.style.display = 'none';
-            hiddenInput.files    = dt.files;
-            container.appendChild(hiddenInput);
-        }
+        e.preventDefault();
+        isSubmitting = true;
 
         const btnSubmit = document.getElementById('btn-submit-edit');
         if (btnSubmit) {
             btnSubmit.disabled = true;
-            btnSubmit.innerHTML = `<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span> Menyimpan Perubahan...`;
+            btnSubmit.innerHTML = `<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span> Memproses & menyimpannya...`;
+        }
+
+        try {
+            const container = document.getElementById('new-foto-files-container');
+            container.innerHTML = '';
+
+            if (newFiles.length > 0) {
+                const compressed = await Promise.all(newFiles.map(f => compressImage(f)));
+                const dt = new DataTransfer();
+                compressed.forEach(f => dt.items.add(f));
+
+                const hiddenInput    = document.createElement('input');
+                hiddenInput.type     = 'file';
+                hiddenInput.name     = 'fotos[]';
+                hiddenInput.multiple = true;
+                hiddenInput.style.display = 'none';
+                hiddenInput.files    = dt.files;
+                container.appendChild(hiddenInput);
+            }
+
+            form.submit();
+        } catch (err) {
+            console.error('Edit submit error:', err);
+            isSubmitting = false;
+            if (btnSubmit) {
+                btnSubmit.disabled = false;
+                btnSubmit.innerHTML = `<i data-lucide="save" class="icon-sm me-1"></i> SIMPAN PERUBAHAN`;
+            }
+            alert('Terjadi kesalahan saat memproses gambar.');
         }
     });
 
