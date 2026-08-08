@@ -121,6 +121,14 @@ Route::middleware(['auth', 'role:operator,admin'])->prefix('operator')->name('op
     // UMKM
     Route::resource('umkm', \App\Http\Controllers\Operator\UmkmController::class)->except(['show']);
     
+    // Peta Titik (titik-titik pada peta wisata & UMKM)
+    Route::post('peta-titik/{id}/toggle-unggulan', [\App\Http\Controllers\Operator\PetaTitikController::class, 'toggleUnggulan'])->name('peta-titik.toggle-unggulan');
+    Route::resource('peta-titik', \App\Http\Controllers\Operator\PetaTitikController::class)->except(['show']);
+    
+    // Peta Dokumen (metadata & file gambar peta)
+    Route::get('peta-dokumen', [\App\Http\Controllers\Operator\PetaDokumenController::class, 'index'])->name('peta-dokumen.index');
+    Route::put('peta-dokumen/{slug}', [\App\Http\Controllers\Operator\PetaDokumenController::class, 'update'])->name('peta-dokumen.update');
+    
     // Produk
     Route::post('produk/hero', [\App\Http\Controllers\Operator\ProdukController::class, 'updateHero']);
     Route::get('produk/transaksi', [\App\Http\Controllers\Operator\ProdukController::class, 'transaksi'])->name('produk.transaksi');

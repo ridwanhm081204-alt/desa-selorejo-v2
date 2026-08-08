@@ -12,6 +12,8 @@ class DatabaseSeeder extends Seeder {
             LembagaDesaSeeder::class,
             WisataSeeder::class,
             UmkmSeeder::class,
+            PetaDokumenSeeder::class,
+            PetaTitikSeeder::class,
             ProdukSeeder::class,
             GaleriSeeder::class,
             StatistikPendudukSeeder::class,

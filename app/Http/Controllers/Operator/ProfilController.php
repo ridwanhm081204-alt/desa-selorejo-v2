@@ -22,12 +22,38 @@ class ProfilController extends Controller
         return view('operator.profil.geografis', compact('profil'));
     }
 
-    public function peta() {
+    public function peta(Request $request) {
         $profil = \App\Models\Profile::first() ?? new \App\Models\Profile;
-        return view('operator.profil.peta', compact('profil'));
+        $petaDokumens = \App\Models\PetaDokumen::orderBy('urutan_tampil')->get()->keyBy('slug');
+        
+        $query = \App\Models\PetaTitik::query();
+
+        if ($request->filled('search')) {
+            $s = $request->search;
+            $query->where(function ($q) use ($s) {
+                $q->where('nama', 'like', "%{$s}%")
+                  ->orWhere('deskripsi', 'like', "%{$s}%");
+            });
+        }
+
+        if ($request->filled('kategori') && $request->kategori !== 'semua') {
+            $query->where('kategori', $request->kategori);
+        }
+
+        if ($request->filled('dusun') && $request->dusun !== 'semua') {
+            $query->where('dusun', $request->dusun);
+        }
+
+        $petaTitiks = $query->orderBy('urutan_tampil')->orderBy('nama')->paginate(15)->withQueryString();
+
+        $petaTitikStats = [
+            'total'    => \App\Models\PetaTitik::count(),
+            'unggulan' => \App\Models\PetaTitik::where('is_wisata_unggulan', true)->count(),
+        ];
+        return view('operator.profil.peta', compact('profil', 'petaDokumens', 'petaTitiks', 'petaTitikStats'));
     }
 
-    public function update(\Illuminate\Http\Request $request) {
+    public function update(Request $request) {
         $request->validate([
             'sejarah' => 'nullable|string',
             'sejarah_timeline' => 'nullable|array',
@@ -40,7 +66,6 @@ class ProfilController extends Controller
                 'nullable',
                 'string',
                 'max:2000',
-                // Hanya izinkan iframe dari Google Maps — cegah stored XSS via embed
                 function ($attribute, $value, $fail) {
                     if (!$value) return;
                     $trimmed = trim($value);
@@ -56,7 +81,6 @@ class ProfilController extends Controller
             ],
             'peta_rute_pribadi' => 'nullable|string|max:2000',
             'peta_rute_umum' => 'nullable|string|max:2000',
-            // V2 Fields
             'hero_sejarah' => 'nullable|array',
             'hero_visimisi' => 'nullable|array',
             'hero_geografi' => 'nullable|array',
@@ -70,7 +94,6 @@ class ProfilController extends Controller
             'peta_fasilitas' => 'nullable|array',
         ]);
 
-        // Sanitasi extra: pastikan peta_embed hanya berisi tag iframe (strip semua selain iframe)
         if ($request->filled('peta_embed')) {
             $request->merge([
                 'peta_embed' => strip_tags(trim($request->peta_embed), '<iframe>')
@@ -94,19 +117,7 @@ class ProfilController extends Controller
 
         $profil->fill($data);
         $profil->save();
-        
-        \App\Models\ActivityLog::create(['user_id' => auth()->id(), 'action' => 'Update Profil Desa (V2)']);
-        
-        // Redirect back to the specific tab origin if provided
-        $tab = $request->input('origin_tab', 'sejarah');
-        $routeMap = [
-            'sejarah' => 'operator.profil.sejarah',
-            'visi-misi' => 'operator.profil.visi-misi',
-            'geografis' => 'operator.profil.geografis',
-            'peta' => 'operator.profil.peta',
-        ];
-        
-        $targetRoute = $routeMap[$tab] ?? 'operator.profil.sejarah';
-        return redirect()->route($targetRoute)->with('success', 'Profil Desa berhasil diperbarui!');
+
+        return redirect()->back()->with('success', 'Data profil berhasil diperbarui!');
     }
 }
