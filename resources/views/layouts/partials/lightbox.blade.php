@@ -225,7 +225,7 @@
                 <button class="btn-lightbox btn-lightbox-close" onclick="closeLightbox()" title="Tutup"><i data-lucide="x"></i></button>
             </div>
             
-            <img id="lightboxImg" src="" alt="" style="max-width:100%; max-height:70vh; transition: transform 0.3s ease-out; box-shadow: 0 10px 50px rgba(0,0,0,0.5); border-radius: 12px;">
+            <img id="lightboxImg" src="" alt="" draggable="false" style="max-width:100%; max-height:70vh; box-shadow: 0 10px 50px rgba(0,0,0,0.5); border-radius: 12px; user-select: none; -webkit-user-drag: none; cursor: zoom-in;">
         </div>
 
         <button class="lightbox-nav lightbox-next" onclick="changeSlide(1)">&#10095;</button>
@@ -253,8 +253,29 @@
 
 <script>
     let currentScale = 1;
+    let panX = 0;
+    let panY = 0;
+    let isDragging = false;
+    let startX = 0;
+    let startY = 0;
     let currentGalleryIndex = 0;
     let galleryItems = [];
+
+    function applyTransform(animate = false) {
+        const img = document.getElementById('lightboxImg');
+        if (!img) return;
+        img.style.transition = animate ? 'transform 0.25s cubic-bezier(0.4, 0, 0.2, 1)' : 'none';
+        img.style.transform = `translate(${panX}px, ${panY}px) scale(${currentScale})`;
+        img.style.cursor = currentScale > 1 ? (isDragging ? 'grabbing' : 'grab') : 'zoom-in';
+    }
+
+    function resetZoomAndPan(animate = false) {
+        currentScale = 1;
+        panX = 0;
+        panY = 0;
+        isDragging = false;
+        applyTransform(animate);
+    }
 
     function initGalleryData() {
         galleryItems = [];
@@ -274,7 +295,7 @@
         if (trigger) {
             e.preventDefault();
             initGalleryData();
-            currentScale = 1;
+            resetZoomAndPan(false);
             const src = trigger.getAttribute('data-src');
             currentGalleryIndex = galleryItems.findIndex(item => item.src === src);
             if (currentGalleryIndex !== -1) {
@@ -348,7 +369,7 @@
             img.style.opacity = '0';
             img.src = item.src;
             img.onload = () => { img.style.opacity = '1'; };
-            img.style.transform = `scale(${currentScale})`;
+            applyTransform(false);
         }
         
         const captionEl = document.getElementById('lightboxCaption');
@@ -365,7 +386,6 @@
             try {
                 lucideLib.createIcons();
             } catch (err) {
-                // Caught safely: Vite-bundled Lucide might expect an 'icons' object, but it is harmless here
                 console.warn('Lucide icon refreshing bypassed:', err.message);
             }
         }
@@ -375,6 +395,7 @@
         const overlay = document.getElementById('lightboxOverlay');
         if (overlay) overlay.style.display = 'none';
         document.body.style.overflow = 'auto';
+        resetZoomAndPan(false);
     }
 
     const lightboxOverlayEl = document.getElementById('lightboxOverlay');
@@ -385,24 +406,26 @@
     }
 
     function changeSlide(direction) {
-        currentScale = 1;
+        resetZoomAndPan(false);
         currentGalleryIndex = (currentGalleryIndex + direction + galleryItems.length) % galleryItems.length;
         updateLightboxContent();
     }
 
     function zoomIn() {
-        if (currentScale < 3) {
-            currentScale += 0.25;
-            const img = document.getElementById('lightboxImg');
-            if (img) img.style.transform = `scale(${currentScale})`;
+        if (currentScale < 4) {
+            currentScale = Math.min(4, Math.round((currentScale + 0.35) * 100) / 100);
+            applyTransform(true);
         }
     }
 
     function zoomOut() {
-        if (currentScale > 0.5) {
-            currentScale -= 0.25;
-            const img = document.getElementById('lightboxImg');
-            if (img) img.style.transform = `scale(${currentScale})`;
+        if (currentScale > 0.6) {
+            currentScale = Math.max(0.6, Math.round((currentScale - 0.35) * 100) / 100);
+            if (currentScale <= 1) {
+                panX = 0;
+                panY = 0;
+            }
+            applyTransform(true);
         }
     }
 
@@ -416,6 +439,88 @@
         }
         if (videoModal && videoModal.style.display === 'flex') {
             if (e.key === 'Escape') closeVideoModal();
+        }
+    });
+
+    // Lightbox Drag, Pan & Wheel setup
+    document.addEventListener('DOMContentLoaded', function() {
+        const img = document.getElementById('lightboxImg');
+        if (!img) return;
+
+        img.addEventListener('dragstart', function(e) {
+            e.preventDefault();
+        });
+
+        img.addEventListener('mousedown', function(e) {
+            if (e.button !== 0) return;
+            e.preventDefault();
+            isDragging = true;
+            startX = e.clientX - panX;
+            startY = e.clientY - panY;
+            applyTransform(false);
+        });
+
+        document.addEventListener('mousemove', function(e) {
+            if (!isDragging) return;
+            e.preventDefault();
+            panX = e.clientX - startX;
+            panY = e.clientY - startY;
+            applyTransform(false);
+        });
+
+        document.addEventListener('mouseup', function() {
+            if (isDragging) {
+                isDragging = false;
+                applyTransform(false);
+            }
+        });
+
+        // Touch drag support
+        img.addEventListener('touchstart', function(e) {
+            if (e.touches.length === 1) {
+                isDragging = true;
+                startX = e.touches[0].clientX - panX;
+                startY = e.touches[0].clientY - panY;
+            }
+        }, { passive: true });
+
+        document.addEventListener('touchmove', function(e) {
+            if (!isDragging || e.touches.length !== 1) return;
+            panX = e.touches[0].clientX - startX;
+            panY = e.touches[0].clientY - startY;
+            applyTransform(false);
+        }, { passive: true });
+
+        document.addEventListener('touchend', function() {
+            if (isDragging) {
+                isDragging = false;
+                applyTransform(false);
+            }
+        });
+
+        // Double click to toggle zoom
+        img.addEventListener('dblclick', function(e) {
+            e.preventDefault();
+            if (currentScale > 1) {
+                resetZoomAndPan(true);
+            } else {
+                currentScale = 2.25;
+                applyTransform(true);
+            }
+        });
+
+        // Mouse wheel zoom
+        const overlay = document.getElementById('lightboxOverlay');
+        if (overlay) {
+            overlay.addEventListener('wheel', function(e) {
+                if (overlay.style.display !== 'flex') return;
+                e.preventDefault();
+                if (e.deltaY < 0) {
+                    zoomIn();
+                } else {
+                    zoomOut();
+                }
+            }, { passive: false });
         }
     });
 </script>

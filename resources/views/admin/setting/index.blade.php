@@ -104,7 +104,7 @@
                         </div>
                         <div class="col-md-4">
                             <label class="form-label fw-bold text-muted small text-uppercase">JUDUL HERO BERANDA</label>
-                            <input type="text" name="hero_beranda_title" class="form-control bg-light border-0 shadow-none py-2" value="{{ $settings['hero_beranda_title'] ?? 'Desa Wisata Petik Jeruk Selorejo' }}" placeholder="Desa Wisata Petik Jeruk Selorejo">
+                            <input type="text" name="hero_beranda_title" class="form-control bg-light border-0 shadow-none py-2" value="{{ $settings['hero_beranda_title'] ?? 'Desa Wisata Selorejo' }}" placeholder="Desa Wisata Selorejo">
                         </div>
                         <div class="col-md-4">
                             <label class="form-label fw-bold text-muted small text-uppercase">SUBTITLE HERO BERANDA</label>

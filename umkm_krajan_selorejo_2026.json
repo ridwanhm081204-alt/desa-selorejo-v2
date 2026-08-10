@@ -4,7 +4,7 @@
   "kecamatan": "Dau",
   "kabupaten": "Malang",
   "tahun": 2026,
-  "jumlah_umkm": 64,
+  "jumlah_umkm": 67,
   "data_umkm": [
     {
       "no": "1",
@@ -835,6 +835,45 @@
       "gmail_usaha": "-",
       "link_gmaps_usaha": "-",
       "nama_toko_di_gmaps": "-"
+    },
+    {
+      "no": "65",
+      "nama_pemilik_usaha": "Mas Vijay",
+      "nama_usaha": "Toko Faizur Rahma",
+      "jenis_usaha": "Toko Kelontong",
+      "nomor_telepon_usaha": "087777218034",
+      "username_marketplace": "-",
+      "alamat_usaha_rt_rw": "1/1 Krajan",
+      "gmail_usaha": "-",
+      "link_gmaps_usaha": "https://maps.app.goo.gl/YgMLg5noz6iCz8Gp9",
+      "nama_toko_di_gmaps": "Toko Faizur Rahma",
+      "foto": "images/umkm/Toko Faizur Rahma.jpeg"
+    },
+    {
+      "no": "66",
+      "nama_pemilik_usaha": "Mbak Puspita Sari",
+      "nama_usaha": "Toko Pakan Burung Khoirul",
+      "jenis_usaha": "Pakan Burung dan Hewan (Petshop)",
+      "nomor_telepon_usaha": "081252565233",
+      "username_marketplace": "-",
+      "alamat_usaha_rt_rw": "1/1 Krajan",
+      "gmail_usaha": "-",
+      "link_gmaps_usaha": "https://maps.app.goo.gl/XzS18AqP27iJSTJd8",
+      "nama_toko_di_gmaps": "Ak 2 petshop",
+      "foto": "images/umkm/Toko Pakan Burung Khoirul.jpeg"
+    },
+    {
+      "no": "67",
+      "nama_pemilik_usaha": "Ibu Wati",
+      "nama_usaha": "Nasi Campur & Lalapan Bu Mistun (STMJ Tidar SS)",
+      "jenis_usaha": "Warung Makan & Minuman",
+      "nomor_telepon_usaha": "082112066684",
+      "username_marketplace": "-",
+      "alamat_usaha_rt_rw": "1/1 Krajan",
+      "gmail_usaha": "-",
+      "link_gmaps_usaha": "https://maps.app.goo.gl/3D84tA1SYFFRPdoh8",
+      "nama_toko_di_gmaps": "Nasi Campur & Lalapan Bu Mistun",
+      "foto": "images/umkm/Nasi Campur & Lalapan Bu Mistun.jpeg"
     }
   ]
 }

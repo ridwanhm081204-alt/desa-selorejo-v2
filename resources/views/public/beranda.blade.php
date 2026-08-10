@@ -2,6 +2,44 @@
 
 @section('title', 'Beranda')
 
+@push('styles')
+<style>
+    /* Hero Title Container & Pure Solid White with Soft Yellow Glow on Hover */
+    .hero-title-white {
+        font-family: var(--font-display);
+        font-size: 3.8rem;
+        font-weight: 800;
+        color: #ffffff !important;
+        display: inline-block;
+        cursor: default;
+        transition: text-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1), transform 0.3s ease;
+        text-shadow: 0 4px 20px rgba(0, 0, 0, 0.8), 0 2px 5px rgba(0, 0, 0, 0.9);
+    }
+
+    /* Soft Thin Yellow Glow on Cursor Hover */
+    .hero-title-white:hover {
+        color: #ffffff !important;
+        text-shadow: 
+            0 0 10px rgba(255, 235, 156, 0.95),
+            0 0 22px rgba(255, 213, 79, 0.85),
+            0 0 35px rgba(255, 193, 7, 0.65),
+            0 4px 20px rgba(0, 0, 0, 0.9);
+        transform: translateY(-2px);
+    }
+
+    @media (max-width: 992px) {
+        .hero-title-white {
+            font-size: 3rem !important;
+        }
+    }
+    @media (max-width: 576px) {
+        .hero-title-white {
+            font-size: 2.2rem !important;
+        }
+    }
+</style>
+@endpush
+
 @section('content')
 
 <!-- A) HERO SECTION -->
@@ -34,19 +72,20 @@
 
     <div class="container position-relative z-1">
         <div class="row justify-content-center text-center">
-            <div class="col-lg-10 col-xl-9 text-white">
-@php
-                $berandaBadge = \App\Models\Setting::get('hero_beranda_badge', 'SUGENG RAWUH');
-                $berandaTitle = \App\Models\Setting::get('hero_beranda_title', 'Desa Wisata Petik Jeruk Selorejo');
-                $berandaSubtitle = \App\Models\Setting::get('hero_beranda_subtitle', 'Kecamatan Dau, Kabupaten Malang, Provinsi Jawa Timur');
-                $berandaTitleFormatted = str_replace(
-                    'Petik Jeruk',
-                    '<span style="color: var(--color-sunshine); text-shadow: 0 2px 15px rgba(0,0,0,0.7), 0 4px 30px rgba(0,0,0,0.5);">Petik Jeruk</span>',
-                    e($berandaTitle)
-                );
-            @endphp
-                <span class="badge bg-white mb-4 px-4 py-2 rounded-pill fw-bold shadow-sm" style="color: var(--color-forest) !important; font-family: var(--font-body); font-size: var(--text-sm); letter-spacing: 1px;">{{ $berandaBadge }}</span>
-                <h1 class="display-3 mb-4 lh-sm fw-bold" style="text-shadow: 0 2px 15px rgba(0,0,0,0.7), 0 4px 30px rgba(0,0,0,0.5); font-family: var(--font-display); color: #fff; font-size: 3.8rem;">{!! $berandaTitleFormatted !!}</h1>
+            <div class="col-lg-10 col-xl-9 text-white text-center">
+                @php
+                    $berandaBadge = \App\Models\Setting::get('hero_beranda_badge', 'SUGENG RAWUH');
+                    $rawTitle = \App\Models\Setting::get('hero_beranda_title', 'Desa Wisata Selorejo');
+                    $berandaTitle = trim(str_replace(['Petik Jeruk ', 'Petik Jeruk'], '', $rawTitle));
+                    if (empty($berandaTitle)) {
+                        $berandaTitle = 'Desa Wisata Selorejo';
+                    }
+                    $berandaSubtitle = \App\Models\Setting::get('hero_beranda_subtitle', 'Kecamatan Dau, Kabupaten Malang, Provinsi Jawa Timur');
+                @endphp
+                <div class="mb-3">
+                    <span class="badge bg-white px-4 py-2 rounded-pill fw-bold shadow-sm" style="color: var(--color-forest) !important; font-family: var(--font-body); font-size: var(--text-sm); letter-spacing: 1.5px;">{{ $berandaBadge }}</span>
+                </div>
+                <h1 class="display-3 mb-4 lh-sm fw-bold hero-title-white" data-text="{{ $berandaTitle }}">{{ $berandaTitle }}</h1>
                 <p class="lead mb-5 fw-medium text-white" style="font-family: var(--font-body); font-size: 1.35rem; text-shadow: 0 2px 12px rgba(0,0,0,0.8), 0 1px 5px rgba(0,0,0,0.8);">{{ $berandaSubtitle }}</p>
                 <div class="d-flex justify-content-center flex-wrap gap-3">
                     <a href="{{ url('/wisata') }}" class="btn px-5 py-3 shadow hover-lift" style="background: var(--accent); color: var(--text-on-accent); font-family: var(--font-heading); font-weight: 700; font-size: 1.1rem; border-radius: var(--radius-md); border: none;">Jelajahi Wisata</a>
