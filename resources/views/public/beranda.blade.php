@@ -8,10 +8,26 @@
 <div class="section-hero-gradient d-flex align-items-center position-relative" style="height: 640px; min-height: 640px;">
     <!-- Background Slideshow -->
     <div class="hero-slideshow">
-        <div class="hero-slide active" style="background-image: url('{{ asset('images/GapuraDesa.jpg') }}');"></div>
-        <div class="hero-slide" style="background-image: url('{{ asset('images/Taman-Wisata-Selorejo.webp') }}');"></div>
-        <div class="hero-slide" style="background-image: url('{{ asset('images/JerukSelorejo.jpg') }}');"></div>
+        @php
+            $slideshowRaw = \App\Models\Setting::where('key', 'beranda_slideshow')->value('value');
+            $customSlides = $slideshowRaw ? (json_decode($slideshowRaw, true) ?: []) : [];
+            $defaultSlides = [
+                asset('images/GapuraDesa.jpg'),
+                asset('images/Taman-Wisata-Selorejo.webp'),
+                asset('images/JerukSelorejo.jpg'),
+            ];
+        @endphp
+        @if(count($customSlides) > 0)
+            @foreach($customSlides as $i => $slide)
+                <div class="hero-slide {{ $i === 0 ? 'active' : '' }}" style="background-image: url('{{ asset('storage/'.$slide['path']) }}');"></div>
+            @endforeach
+        @else
+            @foreach($defaultSlides as $i => $src)
+                <div class="hero-slide {{ $i === 0 ? 'active' : '' }}" style="background-image: url('{{ $src }}');"></div>
+            @endforeach
+        @endif
     </div>
+
     
     <!-- Gradient Overlay -->
     <div class="hero-overlay" style="background: linear-gradient(to top, rgba(26,92,56,0.85) 0%, rgba(26,92,56,0.30) 70%, transparent 100%);"></div>
@@ -19,9 +35,19 @@
     <div class="container position-relative z-1">
         <div class="row justify-content-center text-center">
             <div class="col-lg-10 col-xl-9 text-white">
-                <span class="badge bg-white mb-4 px-4 py-2 rounded-pill fw-bold shadow-sm" style="color: var(--color-forest) !important; font-family: var(--font-body); font-size: var(--text-sm); letter-spacing: 1px;">SUGENG RAWUH</span>
-                <h1 class="display-3 mb-4 lh-sm fw-bold" style="text-shadow: 0 2px 15px rgba(0,0,0,0.7), 0 4px 30px rgba(0,0,0,0.5); font-family: var(--font-display); color: #fff; font-size: 3.8rem;">Desa Wisata <span style="color: var(--color-sunshine); text-shadow: 0 2px 15px rgba(0,0,0,0.7), 0 4px 30px rgba(0,0,0,0.5);">Petik Jeruk</span> Selorejo</h1>
-                <p class="lead mb-5 fw-medium text-white" style="font-family: var(--font-body); font-size: 1.35rem; text-shadow: 0 2px 12px rgba(0,0,0,0.8), 0 1px 5px rgba(0,0,0,0.8);">Kecamatan Dau, Kabupaten Malang, Provinsi Jawa Timur</p>
+@php
+                $berandaBadge = \App\Models\Setting::get('hero_beranda_badge', 'SUGENG RAWUH');
+                $berandaTitle = \App\Models\Setting::get('hero_beranda_title', 'Desa Wisata Petik Jeruk Selorejo');
+                $berandaSubtitle = \App\Models\Setting::get('hero_beranda_subtitle', 'Kecamatan Dau, Kabupaten Malang, Provinsi Jawa Timur');
+                $berandaTitleFormatted = str_replace(
+                    'Petik Jeruk',
+                    '<span style="color: var(--color-sunshine); text-shadow: 0 2px 15px rgba(0,0,0,0.7), 0 4px 30px rgba(0,0,0,0.5);">Petik Jeruk</span>',
+                    e($berandaTitle)
+                );
+            @endphp
+                <span class="badge bg-white mb-4 px-4 py-2 rounded-pill fw-bold shadow-sm" style="color: var(--color-forest) !important; font-family: var(--font-body); font-size: var(--text-sm); letter-spacing: 1px;">{{ $berandaBadge }}</span>
+                <h1 class="display-3 mb-4 lh-sm fw-bold" style="text-shadow: 0 2px 15px rgba(0,0,0,0.7), 0 4px 30px rgba(0,0,0,0.5); font-family: var(--font-display); color: #fff; font-size: 3.8rem;">{!! $berandaTitleFormatted !!}</h1>
+                <p class="lead mb-5 fw-medium text-white" style="font-family: var(--font-body); font-size: 1.35rem; text-shadow: 0 2px 12px rgba(0,0,0,0.8), 0 1px 5px rgba(0,0,0,0.8);">{{ $berandaSubtitle }}</p>
                 <div class="d-flex justify-content-center flex-wrap gap-3">
                     <a href="{{ url('/wisata') }}" class="btn px-5 py-3 shadow hover-lift" style="background: var(--accent); color: var(--text-on-accent); font-family: var(--font-heading); font-weight: 700; font-size: 1.1rem; border-radius: var(--radius-md); border: none;">Jelajahi Wisata</a>
                     <a href="{{ url('/profil/sejarah') }}" class="btn btn-outline-light px-5 py-3 shadow-sm fw-bold hover-lift" style="font-family: var(--font-heading); font-size: 1.1rem; border-radius: var(--radius-md);">Profil Desa</a>
@@ -60,7 +86,7 @@
             <div class="col-6 col-md-3">
                 <div class="glass-stat py-4 px-3 text-center bg-white rounded-4 shadow-sm border border-light">
                     <i data-lucide="layout" class="mb-2 icon-xl" style="color: var(--color-forest);"></i>
-                    <h3 class="stat-counter mb-0 fw-bold" style="font-family: var(--font-heading); color: var(--color-forest);">{{ \App\Models\Setting::get('jumlah_dusun', '2') }}</h3>
+                    <h3 class="stat-counter mb-0 fw-bold" style="font-family: var(--font-heading); color: var(--color-forest);">{{ \App\Models\Setting::get('jumlah_dusun', '3') }}</h3>
                     <span class="text-muted small fw-medium" style="font-family: var(--font-body);">Jumlah Dusun</span>
                 </div>
             </div>
@@ -129,16 +155,21 @@
 </div>
 
 <!-- E) POTENSI WISATA -->
+@php
+    $berandaWisataGambar = \App\Models\Setting::get('beranda_wisata_gambar');
+    $berandaWisataJudul  = \App\Models\Setting::get('beranda_wisata_judul', 'Wisata Petik Jeruk Keprok');
+    $berandaWisataGambarUrl = $berandaWisataGambar ? asset('storage/'.$berandaWisataGambar) : asset('images/wisata_jeruk.png');
+@endphp
 <div class="py-5 my-0 text-white position-relative" style="background: var(--color-forest);">
     <div class="container py-3">
         <div class="row align-items-center">
             <div class="col-md-6 mb-4 mb-md-0">
-                <img src="{{ asset('images/wisata_jeruk.png') }}" alt="Wisata Petik Jeruk" class="img-fluid rounded-4 shadow-lg h-100 object-fit-cover border border-white border-opacity-10">
+                <img src="{{ $berandaWisataGambarUrl }}" alt="{{ $berandaWisataJudul }}" class="img-fluid rounded-4 shadow-lg h-100 object-fit-cover border border-white border-opacity-10">
             </div>
             <div class="col-md-6 ps-md-5">
                 <div class="section-heading-wrapper mb-4">
                     <span class="section-label" style="color: var(--accent) !important;">DESTINASI UNGGULAN</span>
-                    <h2 class="section-title text-white">Wisata Petik Jeruk Keprok</h2>
+                    <h2 class="section-title text-white">{{ $berandaWisataJudul }}</h2>
                     <div class="section-divider"></div>
                 </div>
                 @if($wisata)

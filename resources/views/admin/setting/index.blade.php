@@ -51,6 +51,94 @@
             </div>
 
             <!-- Kontak Card -->
+            <div class="card border-0 shadow-sm rounded-4 mb-4 overflow-hidden">
+                <div class="card-header bg-white p-4 border-0 border-bottom">
+                    <h6 class="fw-bold mb-0">Statistik Beranda</h6>
+                    <small class="text-muted">Ditampilkan di bagian atas halaman utama website publik.</small>
+                </div>
+                <div class="card-body p-4 p-md-5">
+                    <div class="row g-4">
+                        <div class="col-md-3">
+                            <label class="form-label fw-bold text-muted small text-uppercase">JUMLAH PENDUDUK</label>
+                            <div class="input-group bg-light rounded-3 overflow-hidden border">
+                                <span class="input-group-text bg-transparent border-0"><i data-lucide="users" class="icon-xs text-muted"></i></span>
+                                <input type="text" name="jumlah_penduduk" class="form-control border-0 bg-transparent shadow-none py-2" value="{{ $settings['jumlah_penduduk'] ?? '3.640' }}" placeholder="3.640">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label fw-bold text-muted small text-uppercase">JUMLAH KK</label>
+                            <div class="input-group bg-light rounded-3 overflow-hidden border">
+                                <span class="input-group-text bg-transparent border-0"><i data-lucide="home" class="icon-xs text-muted"></i></span>
+                                <input type="text" name="jumlah_kk" class="form-control border-0 bg-transparent shadow-none py-2" value="{{ $settings['jumlah_kk'] ?? '1.024' }}" placeholder="1.024">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label fw-bold text-muted small text-uppercase">LUAS WILAYAH (Ha)</label>
+                            <div class="input-group bg-light rounded-3 overflow-hidden border">
+                                <span class="input-group-text bg-transparent border-0"><i data-lucide="map" class="icon-xs text-muted"></i></span>
+                                <input type="text" name="luas_wilayah" class="form-control border-0 bg-transparent shadow-none py-2" value="{{ $settings['luas_wilayah'] ?? '623' }}" placeholder="623">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label fw-bold text-muted small text-uppercase">JUMLAH DUSUN</label>
+                            <div class="input-group bg-light rounded-3 overflow-hidden border">
+                                <span class="input-group-text bg-transparent border-0"><i data-lucide="layout" class="icon-xs text-muted"></i></span>
+                                <input type="text" name="jumlah_dusun" class="form-control border-0 bg-transparent shadow-none py-2" value="{{ $settings['jumlah_dusun'] ?? '3' }}" placeholder="3">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hero Beranda & Konten Beranda Card -->
+            <div class="card border-0 shadow-sm rounded-4 mb-4 overflow-hidden">
+                <div class="card-header bg-white p-4 border-0 border-bottom">
+                    <h6 class="fw-bold mb-0">Konten Hero & Seksi Beranda</h6>
+                    <small class="text-muted">Teks hero beranda, seksi potensi wisata, deskripsi footer, dan URL Maps kontak.</small>
+                </div>
+                <div class="card-body p-4 p-md-5">
+                    <div class="row g-4">
+                        <div class="col-md-4">
+                            <label class="form-label fw-bold text-muted small text-uppercase">BADGE HERO (mis. SUGENG RAWUH)</label>
+                            <input type="text" name="hero_beranda_badge" class="form-control bg-light border-0 shadow-none py-2" value="{{ $settings['hero_beranda_badge'] ?? 'SUGENG RAWUH' }}" placeholder="SUGENG RAWUH">
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label fw-bold text-muted small text-uppercase">JUDUL HERO BERANDA</label>
+                            <input type="text" name="hero_beranda_title" class="form-control bg-light border-0 shadow-none py-2" value="{{ $settings['hero_beranda_title'] ?? 'Desa Wisata Petik Jeruk Selorejo' }}" placeholder="Desa Wisata Petik Jeruk Selorejo">
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label fw-bold text-muted small text-uppercase">SUBTITLE HERO BERANDA</label>
+                            <input type="text" name="hero_beranda_subtitle" class="form-control bg-light border-0 shadow-none py-2" value="{{ $settings['hero_beranda_subtitle'] ?? 'Kecamatan Dau, Kabupaten Malang, Provinsi Jawa Timur' }}" placeholder="Kecamatan Dau...">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold text-muted small text-uppercase">JUDUL SEKSI POTENSI WISATA</label>
+                            <input type="text" name="beranda_wisata_judul" class="form-control bg-light border-0 shadow-none py-2" value="{{ $settings['beranda_wisata_judul'] ?? 'Wisata Petik Jeruk Keprok' }}" placeholder="Wisata Petik Jeruk Keprok">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold text-muted small text-uppercase">URL MAPS HALAMAN KONTAK</label>
+                            <input type="url" name="kontak_maps_url" class="form-control bg-light border-0 shadow-none py-2" value="{{ $settings['kontak_maps_url'] ?? 'https://maps.app.goo.gl/wP2HTRTZ219oB9TM8' }}" placeholder="https://maps.app.goo.gl/...">
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label fw-bold text-muted small text-uppercase">DESKRIPSI FOOTER (Kolom Tentang Website)</label>
+                            <textarea name="footer_deskripsi" class="form-control bg-light border-0 shadow-none" rows="3" placeholder="Website resmi ... dikelola oleh Pemerintah Desa...">{{ $settings['footer_deskripsi'] ?? '' }}</textarea>
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label fw-bold text-muted small text-uppercase">GAMBAR SEKSI POTENSI WISATA (Gambar kiri beranda)</label>
+                            <div class="p-4 bg-light rounded-4 border text-center">
+                                @if(isset($settings['beranda_wisata_gambar']) && $settings['beranda_wisata_gambar'])
+                                    <div class="mb-3">
+                                        <img src="{{ asset('storage/'.$settings['beranda_wisata_gambar']) }}" class="img-fluid rounded shadow-sm" style="max-height:120px;object-fit:cover;" alt="Gambar Wisata">
+                                    </div>
+                                @endif
+                                <input type="file" name="beranda_wisata_gambar" class="form-control bg-white rounded-pill border-0 shadow-sm" accept="image/*">
+                                <small class="text-muted d-block mt-2">Jika dikosongkan, gambar default <code>wisata_jeruk.png</code> akan digunakan.</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
             <div class="card border-0 shadow-sm rounded-4 mb-5 overflow-hidden">
                 <div class="card-header bg-white p-4 border-0 border-bottom">
                     <h6 class="fw-bold mb-0">Informasi Kontak & Lokasi</h6>

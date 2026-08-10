@@ -93,7 +93,7 @@
                 <h5 class="mb-3 d-flex align-items-center gap-2" style="font-family: var(--font-display); font-size: 1.1rem; letter-spacing: 0.05em; color: var(--accent); margin-bottom: 16px; padding-bottom: 8px; border-bottom: 2px solid rgba(245,197,24,0.3);">
                     <i data-lucide="info" style="width:18px;"></i> Tentang Website
                 </h5>
-                <p style="font-family: var(--font-body); font-size: var(--text-sm); color: rgba(255,255,255,0.85); line-height: 1.8;" class="mb-3">Website resmi {{\App\Models\Setting::get('nama_desa', 'Desa Selorejo')}} dikelola oleh Pemerintah Desa untuk mewujudkan transparansi publik dan mempromosikan potensi agrowisata petik jeruk ke khalayak luas secara digital.</p>
+                <p style="font-family: var(--font-body); font-size: var(--text-sm); color: rgba(255,255,255,0.85); line-height: 1.8;" class="mb-3">{{ \App\Models\Setting::get('footer_deskripsi', 'Website resmi '.\App\Models\Setting::get('nama_desa', 'Desa Selorejo').' dikelola oleh Pemerintah Desa untuk mewujudkan transparansi publik dan mempromosikan potensi agrowisata petik jeruk ke khalayak luas secara digital.') }}</p>
                 
                 <div class="mt-4 d-flex flex-column align-items-start gap-2">
                     <style>

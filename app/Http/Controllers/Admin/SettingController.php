@@ -46,6 +46,20 @@ class SettingController extends Controller
         'hero_galeri',
         'hero_kontak',
         'hero_polling',
+        // Statistik Beranda
+        'jumlah_penduduk',
+        'jumlah_kk',
+        'luas_wilayah',
+        'jumlah_dusun',
+        // Konten Beranda
+        'hero_beranda_badge',
+        'hero_beranda_title',
+        'hero_beranda_subtitle',
+        'beranda_wisata_gambar',
+        'beranda_wisata_judul',
+        'beranda_slideshow',
+        'footer_deskripsi',
+        'kontak_maps_url',
         // Backup & System (read-only, diatur oleh sistem)
         'last_backup',
     ];

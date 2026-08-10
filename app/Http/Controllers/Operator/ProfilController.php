@@ -106,13 +106,21 @@ class ProfilController extends Controller
         $data = $request->except(['peta_image', 'sejarah_image']);
         
         if ($request->hasFile('peta_image')) {
-            $path = $request->file('peta_image')->store('public/profil');
-            $data['peta_image'] = str_replace('public/', 'storage/', $path);
+            if (!empty($profil->peta_image) && str_starts_with($profil->peta_image, 'storage/')) {
+                $oldPath = str_replace('storage/', '', $profil->peta_image);
+                \Illuminate\Support\Facades\Storage::disk('public')->delete($oldPath);
+            }
+            $path = $request->file('peta_image')->store('profil', 'public');
+            $data['peta_image'] = 'storage/' . $path;
         }
 
         if ($request->hasFile('sejarah_image')) {
-            $path = $request->file('sejarah_image')->store('public/profil');
-            $data['sejarah_image'] = str_replace('public/', 'storage/', $path);
+            if (!empty($profil->sejarah_image) && str_starts_with($profil->sejarah_image, 'storage/')) {
+                $oldPath = str_replace('storage/', '', $profil->sejarah_image);
+                \Illuminate\Support\Facades\Storage::disk('public')->delete($oldPath);
+            }
+            $path = $request->file('sejarah_image')->store('profil', 'public');
+            $data['sejarah_image'] = 'storage/' . $path;
         }
 
         $profil->fill($data);

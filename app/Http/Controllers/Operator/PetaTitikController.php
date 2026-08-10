@@ -41,7 +41,7 @@ class PetaTitikController extends Controller
             'unggulan' => PetaTitik::where('is_wisata_unggulan', true)->count(),
         ];
 
-        return view('operator.peta-titik.index', compact('data', 'stats'));
+        return redirect()->route('operator.profil.peta');
     }
 
     public function create()

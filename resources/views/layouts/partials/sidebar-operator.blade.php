@@ -124,12 +124,14 @@
                     </div>
                     <i data-lucide="chevron-down" class="icon-xs opacity-50"></i>
                 </a>
-                <div class="collapse {{ request()->is('operator/widget*') || request()->is('operator/pesan*') ? 'show' : '' }}" id="komunikasiCollapse">
+                <div class="collapse {{ request()->is('operator/widget*') || request()->is('operator/pesan*') || request()->is('operator/beranda*') ? 'show' : '' }}" id="komunikasiCollapse">
                     <ul class="nav flex-column ms-4 mt-2 mb-2 gap-1 border-start border-white border-opacity-10 ps-3">
+                        <li><a href="{{ url('/operator/beranda') }}" class="nav-link py-1 text-white text-opacity-75 small {{ request()->is('operator/beranda*') ? 'text-white fw-bold opacity-100' : 'hover-opacity' }}">CMS Beranda</a></li>
                         <li><a href="{{ url('/operator/widget') }}" class="nav-link py-1 text-white text-opacity-75 small {{ request()->is('operator/widget*') ? 'text-white fw-bold opacity-100' : 'hover-opacity' }}">Widget Profil</a></li>
                         <li><a href="{{ url('/operator/pesan') }}" class="nav-link py-1 text-white text-opacity-75 small {{ request()->is('operator/pesan*') ? 'text-white fw-bold opacity-100' : 'hover-opacity' }}">Pesan Masuk</a></li>
                     </ul>
                 </div>
+
             </li>
         </ul>
     </div>

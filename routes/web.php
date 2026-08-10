@@ -104,15 +104,15 @@ Route::middleware(['auth', 'role:operator,admin'])->prefix('operator')->name('op
     
     // Pemerintahan
     Route::post('struktur/hero', [\App\Http\Controllers\Operator\StrukturController::class, 'updateHero']);
-    Route::resource('struktur', \App\Http\Controllers\Operator\StrukturController::class)->except(['show']);
+    Route::resource('struktur', \App\Http\Controllers\Operator\StrukturController::class)->except(['show', 'create', 'edit']);
     Route::post('bpd/hero', [\App\Http\Controllers\Operator\BpdController::class, 'updateHero']);
-    Route::resource('bpd', \App\Http\Controllers\Operator\BpdController::class)->except(['show']);
+    Route::resource('bpd', \App\Http\Controllers\Operator\BpdController::class)->except(['show', 'create', 'edit']);
     Route::post('lembaga/hero', [\App\Http\Controllers\Operator\LembagaController::class, 'updateHero']);
-    Route::resource('lembaga', \App\Http\Controllers\Operator\LembagaController::class)->except(['show']);
+    Route::resource('lembaga', \App\Http\Controllers\Operator\LembagaController::class)->except(['show', 'create', 'edit']);
     Route::post('perangkat-rt-rw/hero', [\App\Http\Controllers\Operator\PerangkatRtRwController::class, 'updateHero'])->name('perangkat-rt-rw.hero');
-    Route::resource('perangkat-rt-rw', \App\Http\Controllers\Operator\PerangkatRtRwController::class)->except(['show']);
+    Route::resource('perangkat-rt-rw', \App\Http\Controllers\Operator\PerangkatRtRwController::class)->except(['show', 'create', 'edit']);
     Route::post('produkhukum/hero', [\App\Http\Controllers\Operator\ProdukHukumController::class, 'updateHero']);
-    Route::resource('produkhukum', \App\Http\Controllers\Operator\ProdukHukumController::class)->except(['show']);
+    Route::resource('produkhukum', \App\Http\Controllers\Operator\ProdukHukumController::class)->except(['show', 'create', 'edit']);
     
     // Wisata
     Route::post('wisata/hero', [\App\Http\Controllers\Operator\WisataController::class, 'updateHero']);
@@ -159,6 +159,14 @@ Route::middleware(['auth', 'role:operator,admin'])->prefix('operator')->name('op
     Route::post('/widget/hero', [\App\Http\Controllers\Operator\WidgetController::class, 'updateHero'])->name('widget.hero');
     Route::get('/widget', [\App\Http\Controllers\Operator\WidgetController::class, 'edit'])->name('widget.edit');
     Route::post('/widget', [\App\Http\Controllers\Operator\WidgetController::class, 'update'])->name('widget.update');
+    
+    // CMS Beranda (Slideshow Hero + Tautan Terkait)
+    Route::get('/beranda', [\App\Http\Controllers\Operator\BerandaController::class, 'index'])->name('beranda.index');
+    Route::post('/beranda/slide', [\App\Http\Controllers\Operator\BerandaController::class, 'storeSlide'])->name('beranda.slide.store');
+    Route::post('/beranda/slide/delete', [\App\Http\Controllers\Operator\BerandaController::class, 'deleteSlide'])->name('beranda.slide.delete');
+    Route::post('/beranda/tautan', [\App\Http\Controllers\Operator\BerandaController::class, 'storeTautan'])->name('beranda.tautan.store');
+    Route::put('/beranda/tautan/{id}', [\App\Http\Controllers\Operator\BerandaController::class, 'updateTautan'])->name('beranda.tautan.update');
+    Route::delete('/beranda/tautan/{id}', [\App\Http\Controllers\Operator\BerandaController::class, 'destroyTautan'])->name('beranda.tautan.destroy');
     
     // Pesan
     Route::get('/pesan', [\App\Http\Controllers\Operator\PesanController::class, 'index']);

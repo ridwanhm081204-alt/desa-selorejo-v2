@@ -22,7 +22,7 @@
                     <div>
                         <h6 class="fw-bold mb-1" style="font-family: var(--font-heading);">Alamat</h6>
                         <p class="text-muted small mb-0">
-                            <a href="https://maps.app.goo.gl/wP2HTRTZ219oB9TM8" target="_blank" class="text-decoration-none text-muted hover-accent">{{\App\Models\Setting::get('alamat', 'Desa Selorejo, Kecamatan Dau - 61515, Kabupaten Malang, Jawa Timur')}}</a>
+                            <a href="{{ \App\Models\Setting::get('kontak_maps_url', 'https://maps.app.goo.gl/wP2HTRTZ219oB9TM8') }}" target="_blank" class="text-decoration-none text-muted hover-accent">{{\App\Models\Setting::get('alamat', 'Desa Selorejo, Kecamatan Dau - 61515, Kabupaten Malang, Jawa Timur')}}</a>
                         </p>
                     </div>
                 </div>

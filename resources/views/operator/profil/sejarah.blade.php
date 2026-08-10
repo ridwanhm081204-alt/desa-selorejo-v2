@@ -49,7 +49,7 @@
                         <div class="col-md-5 text-start">
                             <label class="form-label text-muted small fw-bold">Unggah Gambar Sejarah</label>
                             <div class="p-3 border rounded-4 bg-light text-center">
-                                @if($profil->sejarah_image)
+                                @if(!empty($profil->sejarah_image))
                                     <img src="{{ asset($profil->sejarah_image) }}" class="img-thumbnail rounded-4 shadow-sm mb-3" style="max-height: 200px; width: 100%; object-fit: contain;">
                                 @else
                                     <div class="bg-white rounded-4 border border-dashed py-5 mb-3">
