@@ -794,15 +794,15 @@
             @endphp
             <div class="umkm-kategori-block mb-4" data-kategori="{{ $kSlug }}" id="kategori-block-{{ $kSlug }}">
                 <details class="rounded-4 overflow-hidden shadow-sm" style="border:1.5px solid {{ $kColor }}30;background:#fff;">
-                    <summary class="d-flex align-items-center justify-content-center position-relative px-4 py-3.5 text-center" style="cursor:pointer;list-style:none;background:{{ $kColor }}08;">
-                        <div class="d-inline-flex align-items-center gap-3">
+                    <summary class="d-flex align-items-center justify-content-center position-relative px-3 px-md-4 py-3.5 text-center" style="cursor:pointer;list-style:none;background:{{ $kColor }}08;">
+                        <div class="d-inline-flex align-items-center justify-content-center flex-wrap gap-2 gap-md-3 pe-4 pe-md-0">
                             <div class="rounded-circle p-2 shadow-sm d-flex align-items-center justify-content-center me-1" style="background:{{ $kColor }}15;color:{{ $kColor }};">
                                 <i data-lucide="{{ $kIcon }}" style="width:18px;height:18px;"></i>
                             </div>
-                            <span class="fw-bold me-2" style="font-family:var(--font-heading);font-size:1.05rem;color:{{ $kColor }};">{{ $kLabel }}</span>
-                            <span class="badge rounded-pill px-2.5 py-1" style="background:{{ $kColor }}18;color:{{ $kColor }};border:1px solid {{ $kColor }}35;font-size:0.75rem;font-family:var(--font-body);font-weight:700;">{{ $petaTitikGrouped[$kSlug]->count() }} titik terdata</span>
+                            <span class="fw-bold me-1 me-md-2" style="font-family:var(--font-heading);font-size:1rem;color:{{ $kColor }};">{{ $kLabel }}</span>
+                            <span class="badge rounded-pill px-2.5 py-1" style="background:{{ $kColor }}18;color:{{ $kColor }};border:1px solid {{ $kColor }}35;font-size:0.72rem;font-family:var(--font-body);font-weight:700;">{{ $petaTitikGrouped[$kSlug]->count() }} titik terdata</span>
                         </div>
-                        <i data-lucide="chevron-down" class="position-absolute end-0 me-4 summary-chevron" style="width:18px;height:18px;color:{{ $kColor }};flex-shrink:0;"></i>
+                        <i data-lucide="chevron-down" class="position-absolute end-0 me-3 me-md-4 summary-chevron" style="width:18px;height:18px;color:{{ $kColor }};flex-shrink:0;"></i>
                     </summary>
                     <div class="p-4 bg-light bg-opacity-50">
                         <div class="row g-4">
