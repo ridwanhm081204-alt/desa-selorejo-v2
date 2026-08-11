@@ -73,11 +73,11 @@
                                             
                                             $message = "Halo *" . $t->nama_pemesan . "*,\n\n"
                                                      . "Kami dari *Pemerintah Desa Selorejo* menginformasikan mengenai detail transaksi pembelian Anda:\n\n"
-                                                     . "📌 *ID Transaksi*: #" . $t->id . "\n"
-                                                     . "📦 *Produk*: " . $productName . " (" . $qty . "x)\n"
-                                                     . "💰 *Total Bayar*: Rp " . $total . "\n"
-                                                     . "📍 *Alamat Kirim*: " . $address . "\n"
-                                                     . "🔄 *Status Pesanan*: " . $status . "\n\n"
+                                                     . "*ID Transaksi*: #" . $t->id . "\n"
+                                                     . "*Produk*: " . $productName . " (" . $qty . "x)\n"
+                                                     . "*Total Bayar*: Rp " . $total . "\n"
+                                                     . "*Alamat Kirim*: " . $address . "\n"
+                                                     . "*Status Pesanan*: " . $status . "\n\n"
                                                      . "Terima kasih atas pesanan Anda!";
                                                      
                                             $waUrl = "https://wa.me/" . $phone . "?text=" . urlencode($message);

@@ -174,7 +174,9 @@
 
                         <!-- Foto Yang Sudah Ada -->
                         <div class="mb-3">
-                            <div class="small fw-bold text-muted mb-2">📸 Foto Tersimpan</div>
+                            <div class="small fw-bold text-muted mb-2 d-flex align-items-center gap-1">
+                                <i data-lucide="images" class="icon-xs text-success"></i> Foto Tersimpan
+                            </div>
 
                             @if($hasMultiFoto)
                                 <div class="foto-existing-grid" id="existing-grid">
@@ -209,7 +211,9 @@
 
                         <!-- Upload Foto Baru -->
                         <div class="mt-3">
-                            <div class="small fw-bold text-muted mb-2">➕ Tambah Foto Baru</div>
+                            <div class="small fw-bold text-muted mb-2 d-flex align-items-center gap-1">
+                                <i data-lucide="plus-circle" class="icon-xs text-primary"></i> Tambah Foto Baru
+                            </div>
                             <div class="foto-upload-zone" id="upload-zone-edit" onclick="document.getElementById('foto-input-edit').click()">
                                 <i data-lucide="image-plus" style="width:28px;height:28px;color:#94a3b8;"></i>
                                 <div class="mt-1 fw-semibold text-muted small">Klik atau seret foto ke sini</div>

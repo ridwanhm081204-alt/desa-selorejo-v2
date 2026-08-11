@@ -46,8 +46,8 @@
                             <label class="form-label small fw-bold text-muted">Badge / Peran Khusus</label>
                             <select name="badge" class="form-select rounded-3">
                                 <option value="">— Anggota Biasa —</option>
-                                <option value="ketua" {{ old('badge', $anggota->badge ?? '') === 'ketua' ? 'selected' : '' }}>⭐ Ketua Kelompok</option>
-                                <option value="developer" {{ old('badge', $anggota->badge ?? '') === 'developer' ? 'selected' : '' }}>💻 Pengembang Website</option>
+                                <option value="ketua" {{ old('badge', $anggota->badge ?? '') === 'ketua' ? 'selected' : '' }}>Ketua Kelompok</option>
+                                <option value="developer" {{ old('badge', $anggota->badge ?? '') === 'developer' ? 'selected' : '' }}>Pengembang Website</option>
                             </select>
                         </div>
                     </div>

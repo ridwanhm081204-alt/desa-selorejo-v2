@@ -54,6 +54,6 @@ class PetaDokumenSeeder extends Seeder
             PetaDokumen::create($item);
         }
 
-        $this->command->info('✓ ' . count($data) . ' data peta dokumen berhasil di-seed.');
+        $this->command->info('[OK] ' . count($data) . ' data peta dokumen berhasil di-seed.');
     }
 }

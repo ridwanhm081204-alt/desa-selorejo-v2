@@ -100,7 +100,7 @@ class LayananController extends Controller
         $statusLabel = $pengajuan->status_label;
         $catatan = $pengajuan->catatan_admin ?: 'Sedang diproses oleh petugas desa.';
         
-        $pesan = "Halo {$pengajuan->nama_pemohon},\n\nKami menginfokan update status pengajuan layanan desa Anda:\n\n📌 *Layanan:* {$pengajuan->jenis_layanan_label}\n🎫 *No. Tiket:* {$pengajuan->no_tiket}\n📈 *Status Baru:* {$statusLabel}\n📝 *Catatan:* {$catatan}\n\nAnda dapat mengecek progres pengajuan kapan saja di website resmi Desa Selorejo via menu Cek Status Layanan.\n\nTerima kasih atas kesabarannya!\n\n_Pemerintah Desa Selorejo_";
+        $pesan = "Halo {$pengajuan->nama_pemohon},\n\nKami menginfokan update status pengajuan layanan desa Anda:\n\n*Layanan:* {$pengajuan->jenis_layanan_label}\n*No. Tiket:* {$pengajuan->no_tiket}\n*Status Baru:* {$statusLabel}\n*Catatan:* {$catatan}\n\nAnda dapat mengecek progres pengajuan kapan saja di website resmi Desa Selorejo via menu Cek Status Layanan.\n\nTerima kasih atas kesabarannya!\n\n_Pemerintah Desa Selorejo_";
 
         $noHp = preg_replace('/[^0-9]/', '', $pengajuan->no_hp_pemohon);
         if (str_starts_with($noHp, '0')) {

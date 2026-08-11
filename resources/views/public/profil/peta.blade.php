@@ -356,8 +356,8 @@
                     </div>
                 </div>
                 <div class="pt-3 border-top border-white border-opacity-25 mt-3">
-                    <small class="text-white opacity-75" style="font-family:var(--font-body);font-size:0.78rem;">
-                        📍 Balai Desa Selorejo, Kec. Dau, Kab. Malang, Jawa Timur 65151
+                    <small class="text-white opacity-75 d-inline-flex align-items-center" style="font-family:var(--font-body);font-size:0.78rem;">
+                        <i data-lucide="map-pin" style="width:13px;height:13px;" class="me-1"></i> Balai Desa Selorejo, Kec. Dau, Kab. Malang, Jawa Timur 65151
                     </small>
                 </div>
             </div>
@@ -504,11 +504,11 @@
                         <img src="{{ $d->foto_url }}" alt="{{ $d->nama }}"
                              class="w-100 h-100 dest-img" style="object-fit:cover;transition:transform .4s ease;" loading="lazy">
                         <div class="position-absolute inset-0 w-100 h-100" style="background:linear-gradient(to bottom, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.68) 100%);"></div>
-                        <span class="badge rounded-pill position-absolute top-0 start-0 m-2.5 fw-bold" style="background:{{ $dColor }};color:#fff;font-size:0.68rem;font-family:var(--font-body);">
-                            {{ $d->kategori_icon }} {{ $d->kategori_label }}
+                        <span class="badge rounded-pill position-absolute top-0 start-0 m-2.5 fw-bold d-flex align-items-center gap-1" style="background:{{ $dColor }};color:#fff;font-size:0.68rem;font-family:var(--font-body);">
+                            <i data-lucide="{{ $d->kategori_icon }}" style="width:12px;height:12px;"></i> {{ $d->kategori_label }}
                         </span>
-                        <span class="badge rounded-pill position-absolute top-0 end-0 m-2.5 bg-white text-dark fw-bold shadow-sm" style="font-size:0.68rem;font-family:var(--font-body);">
-                            📍 {{ ucfirst($d->dusun) }}
+                        <span class="badge rounded-pill position-absolute top-0 end-0 m-2.5 bg-white text-dark fw-bold shadow-sm d-flex align-items-center gap-1" style="font-size:0.68rem;font-family:var(--font-body);">
+                            <i data-lucide="map-pin" style="width:11px;height:11px;color:var(--color-forest);"></i> {{ ucfirst($d->dusun) }}
                         </span>
                         <div class="position-absolute bottom-0 start-0 p-3">
                             <h6 class="fw-bold text-white mb-0 lh-sm" style="font-family:var(--font-heading);font-size:1rem;">{{ $d->nama }}</h6>
@@ -590,7 +590,7 @@
                     <div class="position-absolute inset-0 w-100 h-100" style="background:linear-gradient(to bottom, transparent 30%, rgba(0,0,0,0.75));"></div>
                     <button type="button" class="btn-close btn-close-white position-absolute top-0 end-0 m-3" data-bs-dismiss="modal"></button>
                     <div class="position-absolute bottom-0 start-0 p-4">
-                        <span class="badge rounded-pill mb-2 px-3" style="background:{{ $dColor }};font-size:0.72rem;font-family:var(--font-body);">{{ $d->kategori_icon }} {{ $d->kategori_label }}</span>
+                        <span class="badge rounded-pill mb-2 px-3 d-inline-flex align-items-center gap-1" style="background:{{ $dColor }};font-size:0.72rem;font-family:var(--font-body);"><i data-lucide="{{ $d->kategori_icon }}" style="width:12px;height:12px;"></i> {{ $d->kategori_label }}</span>
                         <h3 class="fw-bold text-white mb-0" style="font-family:var(--font-heading);">{{ $d->nama }}</h3>
                     </div>
                 </div>
@@ -766,15 +766,15 @@
             </div>
         </div>
         <div class="d-flex flex-wrap gap-2 pt-2" id="umkm-filter-chips">
-            <button type="button" class="btn btn-sm rounded-pill fw-semibold filter-chip-btn"
+            <button type="button" class="btn btn-sm rounded-pill fw-semibold filter-chip-btn d-inline-flex align-items-center gap-1.5"
                     data-filter="semua">
-                🗺️ Semua ({{ $allPointsCount }})
+                <i data-lucide="map" style="width:14px;height:14px;"></i> Semua ({{ $allPointsCount }})
             </button>
             @foreach($kategoriList as $kSlug => $kLabel)
                 @if(isset($petaTitikGrouped[$kSlug]) && $petaTitikGrouped[$kSlug]->isNotEmpty())
-                    <button type="button" class="btn btn-sm rounded-pill fw-semibold filter-chip-btn"
+                    <button type="button" class="btn btn-sm rounded-pill fw-semibold filter-chip-btn d-inline-flex align-items-center gap-1.5"
                             data-filter="{{ $kSlug }}">
-                        {{ $kategoriIcons[$kSlug] ?? '📍' }} {{ $kLabel }}
+                        <i data-lucide="{{ $kategoriIcons[$kSlug] ?? 'map-pin' }}" style="width:14px;height:14px;"></i> {{ $kLabel }}
                         <span class="badge rounded-pill ms-1" style="background:rgba(0,0,0,0.06);color:#555;font-size:0.68rem;">{{ $petaTitikGrouped[$kSlug]->count() }}</span>
                     </button>
                 @endif
@@ -788,12 +788,14 @@
             @if(isset($petaTitikGrouped[$kSlug]) && $petaTitikGrouped[$kSlug]->isNotEmpty())
             @php
                 $kColor = $kategoriColors[$kSlug] ?? '#1a5c38';
-                $kIcon  = $kategoriIcons[$kSlug] ?? '📍';
+                $kIcon  = $kategoriIcons[$kSlug] ?? 'map-pin';
             @endphp
             <div class="umkm-kategori-block mb-4" data-kategori="{{ $kSlug }}" id="kategori-block-{{ $kSlug }}">
                 <details class="rounded-4 overflow-hidden shadow-sm" style="border:1.5px solid {{ $kColor }}30;background:#fff;">
                     <summary class="d-flex align-items-center gap-3 px-4 py-3.5" style="cursor:pointer;list-style:none;background:{{ $kColor }}08;">
-                        <span style="font-size:1.3rem;">{{ $kIcon }}</span>
+                        <div class="rounded-circle p-2 shadow-sm d-flex align-items-center justify-content-center" style="background:{{ $kColor }}15;color:{{ $kColor }};">
+                            <i data-lucide="{{ $kIcon }}" style="width:18px;height:18px;"></i>
+                        </div>
                         <span class="fw-bold" style="font-family:var(--font-heading);font-size:1.05rem;color:{{ $kColor }};">{{ $kLabel }}</span>
                         <span class="badge rounded-pill" style="background:{{ $kColor }}18;color:{{ $kColor }};border:1px solid {{ $kColor }}35;font-size:0.75rem;font-family:var(--font-body);font-weight:700;">{{ $petaTitikGrouped[$kSlug]->count() }} titik terdata</span>
                         <i data-lucide="chevron-down" class="ms-auto summary-chevron" style="width:18px;height:18px;color:{{ $kColor }};flex-shrink:0;"></i>
@@ -813,11 +815,11 @@
                                         <img src="{{ $titik->foto_url }}" alt="{{ $titik->nama }}"
                                              class="w-100 h-100 titik-img" style="object-fit:cover;transition:transform .4s ease;" loading="lazy">
                                         <div class="position-absolute inset-0 w-100 h-100" style="background:linear-gradient(to bottom, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.55) 100%);"></div>
-                                        <span class="badge rounded-pill position-absolute top-0 end-0 m-2.5 bg-white text-dark fw-bold shadow-sm" style="font-size:0.68rem;font-family:var(--font-body);">
-                                            📍 Dusun {{ ucfirst($titik->dusun) }}
+                                        <span class="badge rounded-pill position-absolute top-0 end-0 m-2.5 bg-white text-dark fw-bold shadow-sm d-flex align-items-center gap-1" style="font-size:0.68rem;font-family:var(--font-body);">
+                                            <i data-lucide="map-pin" style="width:11px;height:11px;color:var(--color-forest);"></i> Dusun {{ ucfirst($titik->dusun) }}
                                         </span>
-                                        <span class="badge rounded-pill position-absolute top-0 start-0 m-2.5 fw-bold" style="background:{{ $kColor }};color:#fff;font-size:0.68rem;font-family:var(--font-body);">
-                                            {{ $kIcon }} {{ $kLabel }}
+                                        <span class="badge rounded-pill position-absolute top-0 start-0 m-2.5 fw-bold d-flex align-items-center gap-1" style="background:{{ $kColor }};color:#fff;font-size:0.68rem;font-family:var(--font-body);">
+                                            <i data-lucide="{{ $kIcon }}" style="width:12px;height:12px;"></i> {{ $kLabel }}
                                         </span>
                                         <div class="position-absolute bottom-0 start-0 p-3">
                                             <h6 class="fw-bold text-white mb-0 lh-sm" style="font-family:var(--font-heading);font-size:0.95rem;">{{ $titik->nama }}</h6>

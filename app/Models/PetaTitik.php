@@ -35,8 +35,7 @@ class PetaTitik extends Model
     // ─── Daftar Kategori (11 kategori Peta A §2.2) ──────────────────────────────
 
     public const KATEGORI_LIST = [
-        'mushola_masjid'         => 'Mushola/Masjid',
-        'gereja'                 => 'Gereja',
+        'tempat_ibadah'          => 'Tempat Ibadah',
         'klinik'                 => 'Klinik',
         'toko_kelontong_sembako' => 'Toko Kelontong & Sembako',
         'warung_makan'           => 'Warung Makan',
@@ -49,22 +48,20 @@ class PetaTitik extends Model
     ];
 
     public const KATEGORI_ICONS = [
-        'mushola_masjid'         => '🕌',
-        'gereja'                 => '⛪',
-        'klinik'                 => '🏥',
-        'toko_kelontong_sembako' => '🛒',
-        'warung_makan'           => '🍽️',
-        'toko_buah_wisata_jeruk' => '🍊',
-        'bengkel'                => '🔧',
-        'toko_berbagai_jenis'    => '🏪',
-        'cafe'                   => '☕',
-        'camping_ground'         => '⛺',
-        'fasilitas_desa'         => '🏛️',
+        'tempat_ibadah'          => 'building-2',
+        'klinik'                 => 'hospital',
+        'toko_kelontong_sembako' => 'shopping-bag',
+        'warung_makan'           => 'utensils',
+        'toko_buah_wisata_jeruk' => 'citrus',
+        'bengkel'                => 'wrench',
+        'toko_berbagai_jenis'    => 'store',
+        'cafe'                   => 'coffee',
+        'camping_ground'         => 'tent',
+        'fasilitas_desa'         => 'landmark',
     ];
 
     public const KATEGORI_COLORS = [
-        'mushola_masjid'         => '#4caf50',
-        'gereja'                 => '#9c27b0',
+        'tempat_ibadah'          => '#4caf50',
         'klinik'                 => '#2196f3',
         'toko_kelontong_sembako' => '#e91e63',
         'warung_makan'           => '#ffc107',
@@ -150,8 +147,7 @@ class PetaTitik extends Model
             'cafe'                   => 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=600&q=80',
             'warung_makan'           => 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=600&q=80',
             'toko_kelontong_sembako' => 'https://images.unsplash.com/photo-1604719312566-8912e9227c6a?w=600&q=80',
-            'mushola_masjid'         => 'https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?w=600&q=80',
-            'gereja'                 => 'https://images.unsplash.com/photo-1438032005730-c779502df39b?w=600&q=80',
+            'tempat_ibadah'          => 'https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?w=600&q=80',
             'klinik'                 => 'https://images.unsplash.com/photo-1516549655169-df83a0774514?w=600&q=80',
             'bengkel'                => 'https://images.unsplash.com/photo-1606577924006-27d39b132ae2?w=600&q=80',
             'toko_berbagai_jenis'    => 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=600&q=80',
@@ -240,7 +236,7 @@ class PetaTitik extends Model
 
     public function getKategoriIconAttribute(): string
     {
-        return self::KATEGORI_ICONS[$this->kategori] ?? '📍';
+        return self::KATEGORI_ICONS[$this->kategori] ?? 'map-pin';
     }
 
     public function getKategoriColorAttribute(): string

@@ -82,13 +82,13 @@
                                             <span class="badge rounded-pill" style="background:rgba(26,92,56,0.1); color:#1A5C38; font-size:0.7rem;">{{ $m->fakultas }}</span>
                                         </td>
                                         <td>
-                                            @if($m->badge === 'ketua')
-                                                <span class="badge rounded-pill bg-warning text-dark">⭐ Ketua</span>
-                                            @elseif($m->badge === 'developer')
-                                                <span class="badge rounded-pill bg-success text-white">💻 Developer</span>
-                                            @else
-                                                <span class="text-muted small">—</span>
-                                            @endif
+                                             @if($m->badge === 'ketua')
+                                                 <span class="badge rounded-pill bg-warning text-dark d-inline-flex align-items-center gap-1"><i data-lucide="star" class="icon-xs"></i> Ketua</span>
+                                             @elseif($m->badge === 'developer')
+                                                 <span class="badge rounded-pill bg-success text-white d-inline-flex align-items-center gap-1"><i data-lucide="code" class="icon-xs"></i> Developer</span>
+                                             @else
+                                                 <span class="text-muted small">—</span>
+                                             @endif
                                         </td>
                                         <td>
                                             <div class="small text-muted" style="max-width:280px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="{{ $m->proker }}">

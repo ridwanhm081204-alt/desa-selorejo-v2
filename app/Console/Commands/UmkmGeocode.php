@@ -65,7 +65,7 @@ class UmkmGeocode extends Command
 
         $bar->finish();
         $this->newLine(2);
-        $this->info("✓ Selesai: {$sukses} UMKM berhasil diverifikasi.");
+        $this->info("[OK] Selesai: {$sukses} UMKM berhasil diverifikasi.");
 
         // Tandai yang BELUM_TERDAFTAR juga dengan koordinat lokasi Dusun agar tetap muncul di peta
         $belumUmkms = Umkm::where('link_gmaps', 'BELUM_TERDAFTAR')->get();

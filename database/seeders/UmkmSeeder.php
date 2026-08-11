@@ -153,6 +153,6 @@ class UmkmSeeder extends Seeder
             $count++;
         }
 
-        $this->command->info("✓ {$count} data UMKM berhasil di-seed.");
+        $this->command->info("[OK] {$count} data UMKM berhasil di-seed.");
     }
 }

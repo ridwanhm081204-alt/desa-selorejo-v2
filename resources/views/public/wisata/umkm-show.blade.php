@@ -343,7 +343,7 @@ function shareUmkm() {
     // 2️⃣ Clipboard API (HTTPS / localhost)
     if (navigator.clipboard && window.isSecureContext) {
         navigator.clipboard.writeText(url).then(() => {
-            showShareToast('✅ Link berhasil disalin ke clipboard!');
+            showShareToast('Link berhasil disalin ke clipboard!');
         }).catch(() => fallbackCopy(url));
         return;
     }
@@ -361,9 +361,9 @@ function fallbackCopy(text) {
     ta.select();
     try {
         const ok = document.execCommand('copy');
-        showShareToast(ok ? '✅ Link berhasil disalin ke clipboard!' : '⚠️ Gagal menyalin. Salin manual: ' + text);
+        showShareToast(ok ? 'Link berhasil disalin ke clipboard!' : 'Gagal menyalin. Salin manual: ' + text);
     } catch (e) {
-        showShareToast('⚠️ Gagal menyalin. Salin manual: ' + text);
+        showShareToast('Gagal menyalin. Salin manual: ' + text);
     }
     document.body.removeChild(ta);
 }

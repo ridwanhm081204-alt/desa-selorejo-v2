@@ -29,12 +29,11 @@
                     
                     <!-- Notice Banner -->
                     <div class="alert alert-success d-flex align-items-center mb-5 border-0 shadow-sm rounded-4" style="background-color: var(--color-forest, #2e7d32); color: #fff;">
-                        <i data-lucide="shield-check" class="me-3" style="width: 32px; height: 32px;"></i>
+                        <i data-lucide="map" class="me-3 flex-shrink-0" style="width: 32px; height: 32px;"></i>
                         <div>
-                            <h6 class="fw-bold mb-1 text-white">Integrasi Peta Resmi Desa (V2)</h6>
-                            <p class="mb-0 small" style="color: rgba(255,255,255,0.9);">
-                                Halaman Peta kini terintegrasi langsung dengan <strong>Peta Batas Desa Resmi (35.07.22.2005)</strong> yang mencakup 61 Titik Kartometrik secara statis. 
-                                Pengaturan <em>gambar peta, legenda, narasi, dan fasilitas umum</em> kini di-handle secara otomatis (tersimpan aman di database namun tidak ditampilkan lagi di form ini). Anda hanya perlu mengelola informasi Akses &amp; Rute.
+                            <h6 class="fw-bold mb-1 text-white">Pusat Pengelolaan Peta &amp; Geospasial Desa Selorejo</h6>
+                            <p class="mb-0 small" style="color: rgba(255,255,255,0.95);">
+                                Kelola header halaman, Google Maps embed, rute aksesibilitas desa, serta update metadata 3 lembar peta resmi (Peta Batas Desa, Peta Destinasi Wisata, &amp; Peta Persebaran UMKM) beserta titik lokasinya secara real-time.
                             </p>
                         </div>
                     </div>
@@ -59,15 +58,15 @@
                     <div class="row g-4 mb-5 border-bottom pb-5">
                         <div class="col-12">
                             <label class="form-label text-muted small fw-bold">Link Iframe Google Maps (Embed HTML)</label>
-                            <textarea name="peta_embed" class="form-control rounded-4 shadow-none p-3 border-success border-opacity-10" rows="6" placeholder='<iframe src="https://google.com/maps/embed...'>{{ old('peta_embed', $profil->peta_embed) }}</textarea>
+                            <textarea name="peta_embed" class="form-control rounded-4 shadow-none p-3 border-success border-opacity-10" rows="5" placeholder='<iframe src="https://google.com/maps/embed...'>{{ old('peta_embed', $profil->peta_embed) }}</textarea>
                             <div class="text-muted small mt-3 fw-medium d-flex align-items-center">
-                                <i data-lucide="help-circle" class="icon-xs text-primary me-2"></i> Klik Bagikan > Sematkan pada Google Maps untuk mendapatkan kode ini.
+                                <i data-lucide="help-circle" class="icon-xs text-primary me-2"></i> Klik Bagikan &gt; Sematkan pada Google Maps untuk mendapatkan kode ini.
                             </div>
                         </div>
                     </div>
                     
                     <h5 class="fw-bold mb-4 d-flex align-items-center"><i data-lucide="route" class="text-success me-3"></i> Aksesibilitas Desa</h5>
-                    <div class="row g-4">
+                    <div class="row g-4 mb-4">
                         <div class="col-md-6">
                             <div class="p-4 border shadow-sm rounded-4 bg-white border-start border-4 border-primary h-100">
                                 <label class="form-label small fw-bold text-primary mb-3"><i data-lucide="car-front" class="me-2 icon-sm"></i> JALUR KENDARAAN PRIBADI</label>
@@ -81,20 +80,12 @@
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
 
-            <div class="card border-0 shadow-lg rounded-4 mb-5 mt-4 p-2 bg-success bg-opacity-10 header-gradient border-top border-4 border-success">
-                <div class="card-body p-4 p-md-5 text-center">
-                    <div class="bg-white d-inline-block p-4 rounded-circle mb-4 shadow-sm border border-success border-opacity-25">
-                        <i data-lucide="send" class="text-success" style="width:40px; height:40px;"></i>
+                    <div class="d-flex justify-content-end pt-3 border-top">
+                        <button type="submit" class="btn btn-success px-4 py-2.5 rounded-pill fw-bold hover-lift shadow-sm border-0">
+                            <i data-lucide="save" class="me-1.5"></i> Simpan Informas Header &amp; Aksesibilitas
+                        </button>
                     </div>
-                    <h4 class="fw-bold text-dark mb-3">Finalisasi Perubahan Profil</h4>
-                    <p class="text-muted mb-4 mx-auto" style="max-width: 600px;">Data profil Peta & Wilayah akan diperbarui secara real-time pada halaman publik Desa Selorejo.</p>
-                    
-                    <button type="submit" class="btn btn-success px-5 py-3 rounded-pill fw-bold hover-lift shadow border-0" style="font-size:1.1rem;">
-                        <i data-lucide="save" class="me-2"></i> SIMPAN & PUBLIKASIKAN
-                    </button>
                 </div>
             </div>
         </form>
@@ -528,14 +519,14 @@
                                 <tr>
                                     <td class="fw-semibold">{{ $t->nama }}</td>
                                     <td>
-                                        <span class="badge rounded-pill" style="background:{{ $t->kategori_color }}18;color:{{ $t->kategori_color }};border:1px solid {{ $t->kategori_color }}30;font-size:0.68rem;">
-                                            {{ $t->kategori_icon }} {{ $t->kategori_label }}
+                                        <span class="badge rounded-pill d-inline-flex align-items-center gap-1" style="background:{{ $t->kategori_color }}18;color:{{ $t->kategori_color }};border:1px solid {{ $t->kategori_color }}30;font-size:0.68rem;">
+                                            <i data-lucide="{{ $t->kategori_icon }}" style="width:11px;height:11px;"></i> {{ $t->kategori_label }}
                                         </span>
                                     </td>
                                     <td><small class="text-muted">{{ ucfirst($t->dusun) }}</small></td>
                                     <td>
                                         @if($t->is_wisata_unggulan)
-                                            <span class="badge rounded-pill" style="background:rgba(255,152,0,0.15);color:#e65100;font-size:0.68rem;">⭐ Unggulan</span>
+                                            <span class="badge rounded-pill d-inline-flex align-items-center gap-1" style="background:rgba(255,152,0,0.15);color:#e65100;font-size:0.68rem;"><i data-lucide="star" style="width:10px;height:10px;"></i> Unggulan</span>
                                         @else
                                             <span class="text-muted" style="font-size:0.72rem;">—</span>
                                         @endif
@@ -566,8 +557,8 @@
                     </div>
                     {{-- Pagination --}}
                     @if($petaTitiks->hasPages())
-                        <div class="mt-3">
-                            {{ $petaTitiks->withQueryString()->links() }}
+                        <div class="mt-3 d-flex justify-content-center">
+                            {{ $petaTitiks->withQueryString()->links('pagination::bootstrap-5') }}
                         </div>
                     @endif
                 @endif

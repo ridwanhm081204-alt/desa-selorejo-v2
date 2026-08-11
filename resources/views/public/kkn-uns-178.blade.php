@@ -419,11 +419,11 @@
                                 <i data-lucide="thumbs-up" style="width:18px;"></i> Faktor Pendukung
                             </h5>
                             <ul class="list-unstyled mb-0" style="font-family:var(--font-body); font-size:0.9rem; line-height:1.85; color:#444;">
-                                <li>✅ Potensi wisata petik jeruk sudah dikenal di Kec. Dau</li>
-                                <li>✅ Dukungan penuh perangkat desa (data &amp; fasilitas)</li>
-                                <li>✅ Kompetensi akademik mahasiswa di pengembangan web</li>
-                                <li>✅ Karang taruna melek teknologi sebagai calon operator</li>
-                                <li>✅ Jaringan internet yang memadai di desa</li>
+                                <li class="d-flex align-items-start gap-2 mb-1.5"><i data-lucide="check-circle-2" style="width:15px;height:15px;color:var(--color-forest);" class="mt-1 flex-shrink-0"></i> <span>Potensi wisata petik jeruk sudah dikenal di Kec. Dau</span></li>
+                                <li class="d-flex align-items-start gap-2 mb-1.5"><i data-lucide="check-circle-2" style="width:15px;height:15px;color:var(--color-forest);" class="mt-1 flex-shrink-0"></i> <span>Dukungan penuh perangkat desa (data &amp; fasilitas)</span></li>
+                                <li class="d-flex align-items-start gap-2 mb-1.5"><i data-lucide="check-circle-2" style="width:15px;height:15px;color:var(--color-forest);" class="mt-1 flex-shrink-0"></i> <span>Kompetensi akademik mahasiswa di pengembangan web</span></li>
+                                <li class="d-flex align-items-start gap-2 mb-1.5"><i data-lucide="check-circle-2" style="width:15px;height:15px;color:var(--color-forest);" class="mt-1 flex-shrink-0"></i> <span>Karang taruna melek teknologi sebagai calon operator</span></li>
+                                <li class="d-flex align-items-start gap-2 mb-1.5"><i data-lucide="check-circle-2" style="width:15px;height:15px;color:var(--color-forest);" class="mt-1 flex-shrink-0"></i> <span>Jaringan internet yang memadai di desa</span></li>
                             </ul>
                         </div>
                     </div>
@@ -433,9 +433,9 @@
                                 <i data-lucide="alert-triangle" style="width:18px;"></i> Faktor Penghambat
                             </h5>
                             <ul class="list-unstyled mb-0" style="font-family:var(--font-body); font-size:0.9rem; line-height:1.85; color:#444;">
-                                <li>⚠️ Keterbatasan pemahaman digital perangkat desa</li>
-                                <li>⚠️ Keterbatasan konten multimedia berkualitas tinggi</li>
-                                <li>⚠️ Waktu pelaksanaan KKN yang singkat</li>
+                                <li class="d-flex align-items-start gap-2 mb-1.5"><i data-lucide="alert-triangle" style="width:15px;height:15px;color:var(--color-tomato);" class="mt-1 flex-shrink-0"></i> <span>Keterbatasan pemahaman digital perangkat desa</span></li>
+                                <li class="d-flex align-items-start gap-2 mb-1.5"><i data-lucide="alert-triangle" style="width:15px;height:15px;color:var(--color-tomato);" class="mt-1 flex-shrink-0"></i> <span>Keterbatasan konten multimedia berkualitas tinggi</span></li>
+                                <li class="d-flex align-items-start gap-2 mb-1.5"><i data-lucide="alert-triangle" style="width:15px;height:15px;color:var(--color-tomato);" class="mt-1 flex-shrink-0"></i> <span>Waktu pelaksanaan KKN yang singkat</span></li>
                             </ul>
                         </div>
                     </div>
@@ -478,7 +478,7 @@
                                 onerror="this.src=''; this.style.display='none'; this.nextElementSibling.style.display='flex';"
                             >
                             <div class="dpl-photo d-none align-items-center justify-content-center"
-                                 style="background:rgba(255,255,255,0.15); font-size:2.5rem;">👩‍🏫</div>
+                                 style="background:rgba(255,255,255,0.15);"><i data-lucide="graduation-cap" style="width:36px;height:36px;color:#fff;"></i></div>
                         </div>
                         <div class="text-center text-sm-start">
                             <div style="font-size:0.7rem; letter-spacing:1.5px; text-transform:uppercase; opacity:0.65; font-family:var(--font-heading); margin-bottom:6px;">Dosen Pembimbing Lapangan</div>
@@ -571,7 +571,7 @@
                             >
                         </div>
                         @if($m['badge'] === 'developer')
-                            <span class="member-badge badge-developer mb-2 d-inline-block">💻 Pengembang Website</span>
+                            <span class="member-badge badge-developer mb-2 d-inline-flex align-items-center gap-1"><i data-lucide="code" style="width:12px;height:12px;"></i> Pengembang Website</span>
                         @endif
                         <h5 class="fw-bold mb-1" style="font-family:var(--font-heading); font-size:0.97rem; color:#1a1a1a;">{{ $m['nama'] }}</h5>
                         <div style="font-size:0.78rem; color:var(--color-forest); font-family:var(--font-heading); font-weight:600;">{{ $m['nim'] }}</div>

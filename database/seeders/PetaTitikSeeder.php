@@ -180,7 +180,7 @@ class PetaTitikSeeder extends Seeder
             ],
             [
                 'nama'        => 'Musholla Nurul Iman Krajan',
-                'kategori'    => 'mushola_masjid',
+                'kategori'    => 'tempat_ibadah',
                 'dusun'       => 'krajan',
                 'deskripsi'   => 'Musholla Nurul Iman berlokasi di Dusun Krajan, Desa Selorejo. Tempat peribadatan dan kegiatan keagamaan warga.',
                 'foto'        => 'images/tempat_penting/(Krajan) Musholla Nurul Iman.jpg',
@@ -189,7 +189,7 @@ class PetaTitikSeeder extends Seeder
             ],
             [
                 'nama'        => 'Musholla Miftahul Huda Krajan',
-                'kategori'    => 'mushola_masjid',
+                'kategori'    => 'tempat_ibadah',
                 'dusun'       => 'krajan',
                 'deskripsi'   => 'Musholla Miftahul Huda berlokasi di Dusun Krajan, Desa Selorejo.',
                 'gmaps_link'  => 'https://maps.app.goo.gl/282b8aTAKTfM77sbA',
@@ -197,7 +197,7 @@ class PetaTitikSeeder extends Seeder
             ],
             [
                 'nama'        => 'Musholla An Nur Krajan',
-                'kategori'    => 'mushola_masjid',
+                'kategori'    => 'tempat_ibadah',
                 'dusun'       => 'krajan',
                 'deskripsi'   => 'Musholla An Nur berlokasi di Dusun Krajan, Desa Selorejo.',
                 'foto'        => 'images/tempat_penting/(Krajan) Musholla An Nur.jpg',
@@ -206,7 +206,7 @@ class PetaTitikSeeder extends Seeder
             ],
             [
                 'nama'        => "Musholla Hidayatul Mu'minin Krajan",
-                'kategori'    => 'mushola_masjid',
+                'kategori'    => 'tempat_ibadah',
                 'dusun'       => 'krajan',
                 'deskripsi'   => "Musholla Hidayatul Mu'minin berlokasi di Dusun Krajan, Desa Selorejo.",
                 'gmaps_link'  => 'https://maps.app.goo.gl/3zCUya9mPgsdKFHT6',
@@ -214,7 +214,7 @@ class PetaTitikSeeder extends Seeder
             ],
             [
                 'nama'        => 'Masjid Miftakhul Jannah Krajan',
-                'kategori'    => 'mushola_masjid',
+                'kategori'    => 'tempat_ibadah',
                 'dusun'       => 'krajan',
                 'deskripsi'   => 'Masjid Miftakhul Jannah berlokasi di Dusun Krajan, Desa Selorejo. Masjid jami warga untuk kegiatan shalat berjamaah dan Peringatan Hari Besar Islam.',
                 'gmaps_link'  => 'https://maps.app.goo.gl/uEf3zbSauo8LTf2D9?g_st=aw',
@@ -222,7 +222,7 @@ class PetaTitikSeeder extends Seeder
             ],
             [
                 'nama'        => 'Mushola Al Hidayah Krajan',
-                'kategori'    => 'mushola_masjid',
+                'kategori'    => 'tempat_ibadah',
                 'dusun'       => 'krajan',
                 'deskripsi'   => 'Mushola Al Hidayah berlokasi di Dusun Krajan, Desa Selorejo.',
                 'foto'        => 'images/tempat_penting/(Krajan) Mushola Al Hidayah.jpg',
@@ -231,7 +231,7 @@ class PetaTitikSeeder extends Seeder
             ],
             [
                 'nama'        => 'Mushola Nurul Huda Krajan',
-                'kategori'    => 'mushola_masjid',
+                'kategori'    => 'tempat_ibadah',
                 'dusun'       => 'krajan',
                 'deskripsi'   => 'Mushola Nurul Huda berlokasi di Dusun Krajan, Desa Selorejo.',
                 'gmaps_link'  => 'https://maps.app.goo.gl/vrYVQNdeseH6bvF9A?g_st=ic',
@@ -239,7 +239,7 @@ class PetaTitikSeeder extends Seeder
             ],
             [
                 'nama'        => 'Musholla Nur Hidayah Krajan',
-                'kategori'    => 'mushola_masjid',
+                'kategori'    => 'tempat_ibadah',
                 'dusun'       => 'krajan',
                 'deskripsi'   => 'Musholla Nur Hidayah berlokasi di Dusun Krajan, Desa Selorejo.',
                 'foto'        => 'images/tempat_penting/(Krajan) Musholla Nur Hidayah.jpg',
@@ -248,7 +248,7 @@ class PetaTitikSeeder extends Seeder
             ],
             [
                 'nama'        => 'Musholla Baiturrahman Krajan',
-                'kategori'    => 'mushola_masjid',
+                'kategori'    => 'tempat_ibadah',
                 'dusun'       => 'krajan',
                 'deskripsi'   => 'Musholla Baiturrahman berlokasi di Dusun Krajan, Desa Selorejo.',
                 'foto'        => 'images/tempat_penting/(Krajan) Musholla Baiturrahman.jpg',
@@ -257,7 +257,7 @@ class PetaTitikSeeder extends Seeder
             ],
             [
                 'nama'        => 'Musholla Miftahul Jannah Krajan',
-                'kategori'    => 'mushola_masjid',
+                'kategori'    => 'tempat_ibadah',
                 'dusun'       => 'krajan',
                 'deskripsi'   => 'Musholla Miftahul Jannah berlokasi di Dusun Krajan, Desa Selorejo.',
                 'gmaps_link'  => 'https://maps.app.goo.gl/J8oiraBLJhpTQiSk7?g_st=ic',
@@ -265,7 +265,7 @@ class PetaTitikSeeder extends Seeder
             ],
             [
                 'nama'        => 'GKJW Jemaat Sengkaling Pepanthan Selorejo',
-                'kategori'    => 'gereja',
+                'kategori'    => 'tempat_ibadah',
                 'dusun'       => 'krajan',
                 'deskripsi'   => 'Gereja Kristen Jawi Wetan (GKJW) Jemaat Sengkaling Pepanthan Selorejo di Dusun Krajan. Tempat ibadah dan pembinaan iman jemaat Kristen setempat.',
                 'foto'        => 'images/tempat_penting/(Krajan) Gereja Kristen Jawi Wetan.jpg',
@@ -274,7 +274,7 @@ class PetaTitikSeeder extends Seeder
             ],
             [
                 'nama'        => 'Musholla Darul Muttaqin Krajan',
-                'kategori'    => 'mushola_masjid',
+                'kategori'    => 'tempat_ibadah',
                 'dusun'       => 'krajan',
                 'deskripsi'   => 'Musholla Darul Muttaqin berlokasi di Dusun Krajan, Desa Selorejo.',
                 'foto'        => 'images/tempat_penting/(Krajan) Musholla Darrul Muttaqin.PNG',
@@ -283,7 +283,7 @@ class PetaTitikSeeder extends Seeder
             ],
             [
                 'nama'        => 'Masjid Darussalam Gumuk',
-                'kategori'    => 'mushola_masjid',
+                'kategori'    => 'tempat_ibadah',
                 'dusun'       => 'gumuk',
                 'deskripsi'   => 'Masjid Darussalam Gumuk berlokasi di Dusun Gumuk, Desa Selorejo. Pusat peribadatan utama umat Islam di kawasan Dusun Gumuk.',
                 'foto'        => 'images/tempat_penting/(Gumuk) Masjid Darussalam Gumuk.jpg',
@@ -292,7 +292,7 @@ class PetaTitikSeeder extends Seeder
             ],
             [
                 'nama'        => 'GPdI Agape Gumuk Dau',
-                'kategori'    => 'gereja',
+                'kategori'    => 'tempat_ibadah',
                 'dusun'       => 'gumuk',
                 'deskripsi'   => 'Gereja Pantekosta di Indonesia (GPdI) Agape Gumuk Dau di Dusun Gumuk, Desa Selorejo. Tempat ibadah jemaat Pantekosta.',
                 'foto'        => 'images/tempat_penting/(Gumuk) Gereja Pantekosta di Indonesia (agape).jpeg',
@@ -301,7 +301,7 @@ class PetaTitikSeeder extends Seeder
             ],
             [
                 'nama'        => 'Gubuk Marhaen & Pelinggih Sanggah Hindu',
-                'kategori'    => 'fasilitas_desa',
+                'kategori'    => 'tempat_ibadah',
                 'dusun'       => 'gumuk',
                 'deskripsi'   => 'Gubuk Marhaen & Pelinggih Sanggah Hindu di Dusun Gumuk, Desa Selorejo. Tempat peribadatan Hindu dan ruang sosial kebudayaan.',
                 'foto'        => 'images/tempat_penting/(Gumuk) Gubuk Marhaen.jpg',
@@ -310,7 +310,7 @@ class PetaTitikSeeder extends Seeder
             ],
             [
                 'nama'        => 'Musholla Pondok Raudah Selokerto',
-                'kategori'    => 'mushola_masjid',
+                'kategori'    => 'tempat_ibadah',
                 'dusun'       => 'selokerto',
                 'deskripsi'   => 'Musholla Pondok Raudah berlokasi di Dusun Selokerto, Desa Selorejo.',
                 'foto'        => 'images/tempat_penting/(Selokerto) Musholla Pondok Raudah.jpg',
@@ -319,7 +319,7 @@ class PetaTitikSeeder extends Seeder
             ],
             [
                 'nama'        => 'Musholla Baiturrahman Selokerto',
-                'kategori'    => 'mushola_masjid',
+                'kategori'    => 'tempat_ibadah',
                 'dusun'       => 'selokerto',
                 'deskripsi'   => 'Musholla Baiturrahman berlokasi di Dusun Selokerto, Desa Selorejo.',
                 'foto'        => 'images/tempat_penting/(Selokerto) Musholla Baiturrahman.jpg',
@@ -328,7 +328,7 @@ class PetaTitikSeeder extends Seeder
             ],
             [
                 'nama'        => 'Mushola RA Sholikhin Selokerto',
-                'kategori'    => 'mushola_masjid',
+                'kategori'    => 'tempat_ibadah',
                 'dusun'       => 'selokerto',
                 'deskripsi'   => 'Mushola RA Sholikhin berlokasi di Dusun Selokerto, Desa Selorejo.',
                 'foto'        => 'images/tempat_penting/(Selokerto) Mushola RA Sholikhin.jpg',
@@ -337,7 +337,7 @@ class PetaTitikSeeder extends Seeder
             ],
             [
                 'nama'        => "Masjid Baitul Ma'mur Selokerto",
-                'kategori'    => 'mushola_masjid',
+                'kategori'    => 'tempat_ibadah',
                 'dusun'       => 'selokerto',
                 'deskripsi'   => "Masjid Baitul Ma'mur berlokasi di Dusun Selokerto, Desa Selorejo. Pusat shalat jumat dan ibadah umat Islam setempat.",
                 'foto'        => 'images/tempat_penting/(Selokerto) Masjid Baitul Ma’mur.jpg',
@@ -354,7 +354,7 @@ class PetaTitikSeeder extends Seeder
             ],
             [
                 'nama'        => 'Masjid Miftakhul Huda Selokerto',
-                'kategori'    => 'mushola_masjid',
+                'kategori'    => 'tempat_ibadah',
                 'dusun'       => 'selokerto',
                 'deskripsi'   => 'Masjid Miftakhul Huda berlokasi di Dusun Selokerto, Desa Selorejo.',
                 'foto'        => 'images/tempat_penting/(Selokerto) Masjid Miftakhul Huda_20260729_120244.jpg',
@@ -363,7 +363,7 @@ class PetaTitikSeeder extends Seeder
             ],
             [
                 'nama'        => 'Masjid Riyadlul Jannah Selokerto',
-                'kategori'    => 'mushola_masjid',
+                'kategori'    => 'tempat_ibadah',
                 'dusun'       => 'selokerto',
                 'deskripsi'   => 'Masjid Riyadlul Jannah berlokasi di Dusun Selokerto, Desa Selorejo.',
                 'foto'        => 'images/tempat_penting/(Selokerto) Masjid Riyadlul Jannah_20260729_154421.jpg',
@@ -377,14 +377,6 @@ class PetaTitikSeeder extends Seeder
                 'deskripsi'   => 'Wisata alam air terjun alami dengan suasana segar dan pemandangan lembah pegunungan di Desa Selorejo.',
                 'sumber_data' => 'Observasi Lapangan 2026',
                 'wisata_keyword' => 'Air Terjun Brues',
-            ],
-            [
-                'nama'        => 'Adventure Trail & Sirkuit ATV Selorejo',
-                'kategori'    => 'camping_ground',
-                'dusun'       => 'selokerto',
-                'deskripsi'   => 'Sirkuit petualangan trail dan persewaan ATV menyusuri perkebunan jeruk dan bukit Desa Selorejo.',
-                'sumber_data' => 'Observasi Lapangan 2026',
-                'wisata_keyword' => 'Adventure Trail',
             ],
         ];
 
@@ -409,6 +401,6 @@ class PetaTitikSeeder extends Seeder
         }
 
         $totalAll = PetaTitik::count();
-        $this->command->info("✓ Success Seeding PetaTitik: {$countFeatured} destinasi unggulan, {$countUmkm} entri UMKM terhubung, {$countFasilitas} fasilitas publik. Total: {$totalAll} titik.");
+        $this->command->info("[OK] Success Seeding PetaTitik: {$countFeatured} destinasi unggulan, {$countUmkm} entri UMKM terhubung, {$countFasilitas} fasilitas publik. Total: {$totalAll} titik.");
     }
 }
