@@ -765,17 +765,19 @@
                 </div>
             </div>
         </div>
-        <div class="d-flex flex-wrap gap-2 pt-2" id="umkm-filter-chips">
-            <button type="button" class="btn btn-sm rounded-pill fw-semibold filter-chip-btn d-inline-flex align-items-center gap-1.5"
+        <div class="d-flex flex-wrap justify-content-center gap-2 pt-2" id="umkm-filter-chips">
+            <button type="button" class="btn btn-sm rounded-pill fw-semibold filter-chip-btn d-inline-flex align-items-center gap-2 px-3 py-1.5"
                     data-filter="semua">
-                <i data-lucide="map" style="width:14px;height:14px;"></i> Semua ({{ $allPointsCount }})
+                <i data-lucide="map" style="width:15px;height:15px;" class="me-1"></i> <span>Semua</span>
+                <span class="badge rounded-pill ms-1" style="background:rgba(0,0,0,0.06);color:#555;font-size:0.68rem;">{{ $allPointsCount }}</span>
             </button>
             @foreach($kategoriList as $kSlug => $kLabel)
                 @if(isset($petaTitikGrouped[$kSlug]) && $petaTitikGrouped[$kSlug]->isNotEmpty())
-                    <button type="button" class="btn btn-sm rounded-pill fw-semibold filter-chip-btn d-inline-flex align-items-center gap-1.5"
+                    <button type="button" class="btn btn-sm rounded-pill fw-semibold filter-chip-btn d-inline-flex align-items-center gap-2 px-3 py-1.5"
                             data-filter="{{ $kSlug }}">
-                        <i data-lucide="{{ $kategoriIcons[$kSlug] ?? 'map-pin' }}" style="width:14px;height:14px;"></i> {{ $kLabel }}
-                        <span class="badge rounded-pill ms-1" style="background:rgba(0,0,0,0.06);color:#555;font-size:0.68rem;">{{ $petaTitikGrouped[$kSlug]->count() }}</span>
+                        <i data-lucide="{{ $kategoriIcons[$kSlug] ?? 'map-pin' }}" style="width:15px;height:15px;" class="me-1"></i>
+                        <span>{{ $kLabel }}</span>
+                        <span class="badge rounded-pill ms-1.5" style="background:rgba(0,0,0,0.06);color:#555;font-size:0.68rem;">{{ $petaTitikGrouped[$kSlug]->count() }}</span>
                     </button>
                 @endif
             @endforeach
@@ -792,13 +794,15 @@
             @endphp
             <div class="umkm-kategori-block mb-4" data-kategori="{{ $kSlug }}" id="kategori-block-{{ $kSlug }}">
                 <details class="rounded-4 overflow-hidden shadow-sm" style="border:1.5px solid {{ $kColor }}30;background:#fff;">
-                    <summary class="d-flex align-items-center gap-3 px-4 py-3.5" style="cursor:pointer;list-style:none;background:{{ $kColor }}08;">
-                        <div class="rounded-circle p-2 shadow-sm d-flex align-items-center justify-content-center" style="background:{{ $kColor }}15;color:{{ $kColor }};">
-                            <i data-lucide="{{ $kIcon }}" style="width:18px;height:18px;"></i>
+                    <summary class="d-flex align-items-center justify-content-center position-relative px-4 py-3.5 text-center" style="cursor:pointer;list-style:none;background:{{ $kColor }}08;">
+                        <div class="d-inline-flex align-items-center gap-3">
+                            <div class="rounded-circle p-2 shadow-sm d-flex align-items-center justify-content-center me-1" style="background:{{ $kColor }}15;color:{{ $kColor }};">
+                                <i data-lucide="{{ $kIcon }}" style="width:18px;height:18px;"></i>
+                            </div>
+                            <span class="fw-bold me-2" style="font-family:var(--font-heading);font-size:1.05rem;color:{{ $kColor }};">{{ $kLabel }}</span>
+                            <span class="badge rounded-pill px-2.5 py-1" style="background:{{ $kColor }}18;color:{{ $kColor }};border:1px solid {{ $kColor }}35;font-size:0.75rem;font-family:var(--font-body);font-weight:700;">{{ $petaTitikGrouped[$kSlug]->count() }} titik terdata</span>
                         </div>
-                        <span class="fw-bold" style="font-family:var(--font-heading);font-size:1.05rem;color:{{ $kColor }};">{{ $kLabel }}</span>
-                        <span class="badge rounded-pill" style="background:{{ $kColor }}18;color:{{ $kColor }};border:1px solid {{ $kColor }}35;font-size:0.75rem;font-family:var(--font-body);font-weight:700;">{{ $petaTitikGrouped[$kSlug]->count() }} titik terdata</span>
-                        <i data-lucide="chevron-down" class="ms-auto summary-chevron" style="width:18px;height:18px;color:{{ $kColor }};flex-shrink:0;"></i>
+                        <i data-lucide="chevron-down" class="position-absolute end-0 me-4 summary-chevron" style="width:18px;height:18px;color:{{ $kColor }};flex-shrink:0;"></i>
                     </summary>
                     <div class="p-4 bg-light bg-opacity-50">
                         <div class="row g-4">
