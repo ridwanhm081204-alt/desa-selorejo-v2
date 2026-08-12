@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=1280">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', 'Dashboard') - {{\App\Models\Setting::get('nama_desa', 'Kemendes')}}</title>
     
     <!-- Google Fonts loaded by custom CSS: Bebas Neue + Open Sans -->

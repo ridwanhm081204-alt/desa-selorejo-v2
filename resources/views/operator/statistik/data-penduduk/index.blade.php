@@ -609,9 +609,11 @@
         const fileInput = document.getElementById('inputFileExcel');
         if (!fileInput.files || !fileInput.files[0]) return;
 
+        const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '{{ csrf_token() }}';
+
         const formData = new FormData();
         formData.append('file', fileInput.files[0]);
-        formData.append('_token', '{{ csrf_token() }}');
+        formData.append('_token', csrfToken);
 
         document.getElementById('stepUpload').style.display = 'none';
         document.getElementById('previewLoading').style.display = 'block';
@@ -620,16 +622,30 @@
             method: 'POST',
             body: formData,
             headers: {
+                'X-CSRF-TOKEN': csrfToken,
                 'Accept': 'application/json'
             }
         })
-        .then(response => response.json())
+        .then(response => {
+            if (response.status === 419) {
+                alert('Sesi / Token keamanan telah berakhir karena halaman cukup lama terbuka. Halaman akan diperbarui otomatis.');
+                window.location.reload();
+                return null;
+            }
+            return response.json();
+        })
         .then(res => {
+            if (!res) return;
             document.getElementById('previewLoading').style.display = 'none';
             if (res.status === 'success') {
                 parsedDataState = res.data;
                 renderPreviewState(res.data);
             } else {
+                if (res.message && res.message.toLowerCase().includes('csrf')) {
+                    alert('Sesi / Token keamanan telah diperbarui. Halaman akan diperbarui otomatis.');
+                    window.location.reload();
+                    return;
+                }
                 alert('Gagal memproses file Excel: ' + (res.message || 'Format tidak valid.'));
                 document.getElementById('stepUpload').style.display = 'block';
             }
@@ -655,13 +671,13 @@
         // Render Failed Rows Section
         const failedSection = document.getElementById('failedSection');
         const failedBody = document.getElementById('failedTableBody');
-        failedBody.innerHTML = '';
 
         if (data.failed_count > 0) {
             failedSection.style.display = 'block';
             document.getElementById('countFailedText').textContent = data.failed_count;
+            let failedHtml = '';
             data.failed_details.forEach(item => {
-                failedBody.innerHTML += `
+                failedHtml += `
                     <tr>
                         <td class="fw-bold text-danger">Baris ${item.row}</td>
                         <td>NIK: ${item.nik} | ${item.nama}</td>
@@ -669,19 +685,24 @@
                     </tr>
                 `;
             });
+            failedBody.innerHTML = failedHtml;
         } else {
             failedSection.style.display = 'none';
+            failedBody.innerHTML = '';
         }
 
-        // Render Valid Rows
+        // Render Valid Rows (preview sample up to 100 rows for instant rendering)
         const validBody = document.getElementById('validTableBody');
-        validBody.innerHTML = '';
-        data.valid_rows.forEach((row, idx) => {
+        let validHtml = '';
+        const previewLimit = 100;
+        const rowsToDisplay = data.valid_rows.slice(0, previewLimit);
+        
+        rowsToDisplay.forEach((row, idx) => {
             const badgeAction = row.action === 'update' 
                 ? '<span class="badge bg-warning bg-opacity-10 text-warning border border-warning rounded-pill">Update Existing</span>'
                 : '<span class="badge bg-primary bg-opacity-10 text-primary border border-primary rounded-pill">Data Baru</span>';
             
-            validBody.innerHTML += `
+            validHtml += `
                 <tr>
                     <td>${idx + 1}</td>
                     <td>${badgeAction}</td>
@@ -695,6 +716,19 @@
                 </tr>
             `;
         });
+
+        if (data.valid_rows.length > previewLimit) {
+            validHtml += `
+                <tr>
+                    <td colspan="9" class="text-center py-3 text-muted bg-light fw-semibold">
+                        <i data-lucide="info" class="me-1 icon-xs"></i> 
+                        Menampilkan pratinjau <strong>100 dari ${data.valid_rows.length} baris</strong> data valid. Seluruh ${data.valid_rows.length} data akan di-import ke database saat tombol konfirmasi diklik.
+                    </td>
+                </tr>
+            `;
+        }
+        validBody.innerHTML = validHtml;
+        if (window.lucide) window.lucide.createIcons();
     }
 
     // Commit Event
@@ -703,6 +737,8 @@
 
         if (!confirm(`Konfirmasi import ${parsedDataState.valid_count} baris data ke database?`)) return;
 
+        const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '{{ csrf_token() }}';
+
         this.disabled = true;
         this.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span> Meng-import...';
 
@@ -710,18 +746,27 @@
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                'X-CSRF-TOKEN': csrfToken,
                 'Accept': 'application/json'
             },
             body: JSON.stringify({
+                _token: csrfToken,
                 temp_key: parsedDataState.temp_key,
                 valid_rows: parsedDataState.valid_rows,
                 failed_details: parsedDataState.failed_details,
                 original_filename: parsedDataState.original_filename
             })
         })
-        .then(res => res.json())
+        .then(res => {
+            if (res.status === 419) {
+                alert('Sesi / Token keamanan telah berakhir. Halaman akan dimuat ulang.');
+                window.location.reload();
+                return null;
+            }
+            return res.json();
+        })
         .then(data => {
+            if (!data) return;
             if (data.status === 'success') {
                 alert(data.message);
                 window.location.reload();
