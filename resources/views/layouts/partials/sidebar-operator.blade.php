@@ -110,7 +110,8 @@
                 </a>
                 <div class="collapse {{ request()->is('operator/statistik*') || request()->is('operator/apbdes*') || request()->is('operator/polling*') ? 'show' : '' }}" id="dataCollapse">
                     <ul class="nav flex-column ms-4 mt-2 mb-2 gap-1 border-start border-white border-opacity-10 ps-3">
-                        <li><a href="{{ url('/operator/statistik') }}" class="nav-link py-1 text-white text-opacity-75 small {{ request()->is('operator/statistik*') ? 'text-white fw-bold opacity-100' : 'hover-opacity' }}">Statistik</a></li>
+                        <li><a href="{{ route('operator.statistik.data-penduduk.index') }}" class="nav-link py-1 text-white text-opacity-75 small {{ request()->is('operator/statistik/data-penduduk*') ? 'text-white fw-bold opacity-100' : 'hover-opacity' }}">Data Penduduk (Excel)</a></li>
+                        <li><a href="{{ url('/operator/statistik') }}" class="nav-link py-1 text-white text-opacity-75 small {{ request()->is('operator/statistik') || request()->is('operator/statistik/create') || request()->is('operator/statistik/*/edit') ? 'text-white fw-bold opacity-100' : 'hover-opacity' }}">Statistik Agregat</a></li>
                         <li><a href="{{ url('/operator/apbdes') }}" class="nav-link py-1 text-white text-opacity-75 small {{ request()->is('operator/apbdes*') ? 'text-white fw-bold opacity-100' : 'hover-opacity' }}">APBDes</a></li>
                         <li><a href="{{ url('/operator/polling') }}" class="nav-link py-1 text-white text-opacity-75 small {{ request()->is('operator/polling*') ? 'text-white fw-bold opacity-100' : 'hover-opacity' }}">Jajak Pendapat</a></li>
                     </ul>

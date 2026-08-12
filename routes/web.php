@@ -134,7 +134,16 @@ Route::middleware(['auth', 'role:operator,admin'])->prefix('operator')->name('op
     Route::get('produk/transaksi', [\App\Http\Controllers\Operator\ProdukController::class, 'transaksi'])->name('produk.transaksi');
     Route::post('produk/transaksi/{id}/status', [\App\Http\Controllers\Operator\ProdukController::class, 'updateTransaksiStatus'])->name('produk.transaksi.status');
     Route::resource('produk', \App\Http\Controllers\Operator\ProdukController::class)->except(['show']);
-    // Statistik
+    // Statistik & Data Penduduk
+    Route::get('statistik/data-penduduk', [\App\Http\Controllers\Operator\DataPendudukController::class, 'index'])->name('statistik.data-penduduk.index');
+    Route::get('statistik/data-penduduk/template', [\App\Http\Controllers\Operator\DataPendudukController::class, 'downloadTemplate'])->name('statistik.data-penduduk.template');
+    Route::post('statistik/data-penduduk/preview', [\App\Http\Controllers\Operator\DataPendudukController::class, 'previewImport'])->name('statistik.data-penduduk.preview');
+    Route::post('statistik/data-penduduk/commit', [\App\Http\Controllers\Operator\DataPendudukController::class, 'commitImport'])->name('statistik.data-penduduk.commit');
+    Route::post('statistik/data-penduduk/rollback/{id}', [\App\Http\Controllers\Operator\DataPendudukController::class, 'rollbackImport'])->name('statistik.data-penduduk.rollback');
+    Route::post('statistik/data-penduduk/store', [\App\Http\Controllers\Operator\DataPendudukController::class, 'store'])->name('statistik.data-penduduk.store');
+    Route::put('statistik/data-penduduk/{id}', [\App\Http\Controllers\Operator\DataPendudukController::class, 'update'])->name('statistik.data-penduduk.update');
+    Route::delete('statistik/data-penduduk/{id}', [\App\Http\Controllers\Operator\DataPendudukController::class, 'destroy'])->name('statistik.data-penduduk.destroy');
+
     Route::post('statistik/hero', [\App\Http\Controllers\Operator\StatistikController::class, 'updateHero']);
     Route::resource('statistik', \App\Http\Controllers\Operator\StatistikController::class)->except(['show']);
     
