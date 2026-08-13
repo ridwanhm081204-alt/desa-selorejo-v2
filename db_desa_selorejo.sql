@@ -43,12 +43,12 @@ CREATE TABLE `password_reset_tokens` (
 -- --------------------------------------------------------
 DROP TABLE IF EXISTS `sessions`;
 CREATE TABLE `sessions` (
-  `id` BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-  `user_id` BIGINT NULL,
-  `ip_address` VARCHAR(255) NULL,
+  `id` VARCHAR(255) NOT NULL PRIMARY KEY,
+  `user_id` BIGINT UNSIGNED NULL,
+  `ip_address` VARCHAR(45) NULL,
   `user_agent` TEXT NULL,
-  `payload` TEXT NULL,
-  `last_activity` BIGINT NULL
+  `payload` LONGTEXT NOT NULL,
+  `last_activity` INT NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Dumping data for table `sessions`
