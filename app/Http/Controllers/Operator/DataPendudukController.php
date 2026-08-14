@@ -226,8 +226,11 @@ class DataPendudukController extends Controller
 
         try {
             $file = $request->file('file');
-            $originalName = $file->getClientOriginalName();
-            
+
+            // Sanitize original filename — only keep safe characters
+            $originalName = preg_replace('/[^a-zA-Z0-9._\-]/', '_', $file->getClientOriginalName());
+            $originalName = basename($originalName); // prevent path traversal in filename
+
             // Ensure temporary directory exists
             Storage::disk('local')->makeDirectory('temp');
             Storage::disk('local')->makeDirectory('imports');
@@ -236,8 +239,8 @@ class DataPendudukController extends Controller
             $realPath = $file->getRealPath();
             $result = $this->importService->parseAndPreview($realPath, $originalName);
 
-            // Save temporary copy for confirmation phase
-            $tempFilename = 'temp/import_' . uniqid() . '.xlsx';
+            // Save temporary copy for confirmation phase — use UUID-based safe filename only
+            $tempFilename = 'temp/import_' . uniqid('', true) . '.xlsx';
             Storage::disk('local')->put($tempFilename, file_get_contents($realPath));
             $result['temp_key'] = $tempFilename;
 
@@ -256,36 +259,60 @@ class DataPendudukController extends Controller
     public function commitImport(Request $request)
     {
         $request->validate([
-            'temp_key' => 'required|string',
-            'valid_rows' => 'required|array',
-            'failed_details' => 'nullable|array',
-            'original_filename' => 'required|string',
+            'temp_key'          => ['required', 'string', 'regex:/^temp\/import_[a-zA-Z0-9._]+\.xlsx$/'],
+            'valid_rows'        => 'required|array|max:10000',
+            'failed_details'    => 'nullable|array',
+            'original_filename' => 'required|string|max:255',
         ]);
 
         $tempKey = $request->input('temp_key');
-        $fullTempPath = Storage::disk('local')->path($tempKey);
-        $validRows = $request->input('valid_rows');
-        $failedDetails = $request->input('failed_details', []);
-        $originalFilename = $request->input('original_filename');
+
+        // Security: prevent path traversal — temp_key must stay within temp/ directory
+        $resolvedPath = Storage::disk('local')->path($tempKey);
+        $allowedBase  = Storage::disk('local')->path('temp');
+        if (!str_starts_with(realpath(dirname($resolvedPath)) ?: $resolvedPath, realpath($allowedBase))) {
+            abort(403, 'Invalid file path.');
+        }
+
+        $validRows       = $request->input('valid_rows');
+        $failedDetails   = $request->input('failed_details', []);
+        $originalFilename = basename(preg_replace('/[^a-zA-Z0-9._\-]/', '_', $request->input('original_filename')));
+
+        // Secondary validation: ensure each NIK/NKK field in valid_rows is exactly 16 digits
+        foreach ($validRows as $i => $row) {
+            if (!preg_match('/^\d{16}$/', $row['nik'] ?? '')) {
+                return response()->json(['status' => 'error', 'message' => "NIK tidak valid pada baris import ke-" . ($i + 1)], 422);
+            }
+            if (!preg_match('/^\d{16}$/', $row['nkk'] ?? '')) {
+                return response()->json(['status' => 'error', 'message' => "NKK tidak valid pada baris import ke-" . ($i + 1)], 422);
+            }
+            if (!in_array($row['jenis_kelamin'] ?? '', ['L', 'P'])) {
+                return response()->json(['status' => 'error', 'message' => "Jenis kelamin tidak valid pada baris import ke-" . ($i + 1)], 422);
+            }
+        }
 
         try {
             $batch = $this->importService->commitImport(
                 $validRows,
                 $failedDetails,
                 $originalFilename,
-                $fullTempPath,
+                $resolvedPath,
                 Auth::id()
             );
 
             return response()->json([
-                'status' => 'success',
-                'message' => "Import berhasil dikonfirmasi! {$batch->success_rows} baris sukses dimasukkan/diperbarui.",
+                'status'   => 'success',
+                'message'  => "Import berhasil dikonfirmasi! {$batch->success_rows} baris sukses dimasukkan/diperbarui.",
                 'batch_id' => $batch->id
             ]);
         } catch (\Exception $e) {
+            \Illuminate\Support\Facades\Log::error('commitImport error', [
+                'user_id' => Auth::id(),
+                'error'   => $e->getMessage(),
+            ]);
             return response()->json([
-                'status' => 'error',
-                'message' => 'Gagal melakukan import data: ' . $e->getMessage()
+                'status'  => 'error',
+                'message' => 'Gagal melakukan import data. Silakan coba lagi atau hubungi administrator.'
             ], 500);
         }
     }
