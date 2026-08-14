@@ -17,4 +17,12 @@ class Wisata extends Model
         'gambar',
         'whatsapp',
     ];
+
+    public function getGambarUrlAttribute()
+    {
+        if (!$this->gambar) return asset('images/hero_desa.png');
+        if (\Illuminate\Support\Str::startsWith($this->gambar, ['http://', 'https://'])) return $this->gambar;
+        if (\Illuminate\Support\Str::startsWith($this->gambar, ['images/'])) return asset($this->gambar);
+        return asset('storage/' . $this->gambar);
+    }
 }

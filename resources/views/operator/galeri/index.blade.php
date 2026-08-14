@@ -99,7 +99,7 @@
                         <td class="ps-4 py-3 text-start">
                             @if($g->tipe == 'foto')
                                 <div class="position-relative d-inline-block">
-                                    <img src="{{ asset('storage/'.$g->url) }}" class="rounded-3 shadow-sm border border-light" style="width:100px; height:65px; object-fit:cover;">
+                                    <img src="{{ $g->gambar_url }}" class="rounded-3 shadow-sm border border-light" style="width:100px; height:65px; object-fit:cover;" onerror="this.src='{{ asset('images/hero_desa.png') }}'">
                                     <div class="position-absolute bottom-0 end-0 bg-success rounded-circle d-flex align-items-center justify-content-center border border-white" style="width:20px; height:20px; transform: translate(30%, 30%) shadow-sm;">
                                         <i data-lucide="camera" class="text-white" style="width:10px; height:10px;"></i>
                                     </div>

@@ -24,8 +24,14 @@ class BeritaFoto extends Model
      */
     public function getUrlAttribute(): string
     {
+        if (!$this->path) {
+            return asset('images/hero_desa.png');
+        }
         if (\Illuminate\Support\Str::startsWith($this->path, ['http://', 'https://'])) {
             return $this->path;
+        }
+        if (\Illuminate\Support\Str::startsWith($this->path, ['images/'])) {
+            return asset($this->path);
         }
         return asset('storage/' . $this->path);
     }

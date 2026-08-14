@@ -32,6 +32,9 @@ class DataPendudukImportService
      */
     public function parseAndPreview(string $fullPath, string $originalFilename): array
     {
+        @ini_set('memory_limit', '512M');
+        @set_time_limit(300);
+
         $reader = IOFactory::createReaderForFile($fullPath);
         $reader->setReadDataOnly(true);
         $reader->setReadEmptyCells(false);
@@ -218,6 +221,9 @@ class DataPendudukImportService
      */
     public function commitImport(array $validRows, array $failedDetails, string $originalFilename, string $tempFilePath, int $userId): ImportBatch
     {
+        @ini_set('memory_limit', '512M');
+        @set_time_limit(300);
+
         return DB::transaction(function () use ($validRows, $failedDetails, $originalFilename, $tempFilePath, $userId) {
             // Save file into private storage
             Storage::disk('local')->makeDirectory('imports');
@@ -237,14 +243,19 @@ class DataPendudukImportService
                 'uploaded_by' => $userId,
             ]);
 
-            foreach ($validRows as $row) {
-                $penduduk = DataPenduduk::withTrashed()->where('nik', $row['nik'])->first();
+            // Fetch existing NIKs in DB once for high-performance upsert
+            $existingPenduduks = DataPenduduk::withTrashed()->get()->keyBy('nik');
 
-                if ($penduduk) {
+            foreach ($validRows as $row) {
+                $nik = $row['nik'];
+                $kelompokUsia = DataPenduduk::determineKelompokUsia($row['tanggal_lahir'], $row['usia_input']);
+
+                if (isset($existingPenduduks[$nik])) {
+                    $penduduk = $existingPenduduks[$nik];
                     if ($penduduk->trashed()) {
                         $penduduk->restore();
                     }
-                    $penduduk->fill([
+                    $penduduk->update([
                         'nkk' => $row['nkk'],
                         'nama' => $row['nama'],
                         'tempat_lahir' => $row['tempat_lahir'],
@@ -256,12 +267,12 @@ class DataPendudukImportService
                         'rw' => $row['rw'],
                         'usia_input' => $row['usia_input'],
                         'pekerjaan' => $row['pekerjaan'],
+                        'kelompok_usia' => $kelompokUsia,
                         'sumber_import_id' => $batch->id,
                         'updated_by' => $userId,
                     ]);
-                    $penduduk->save();
                 } else {
-                    DataPenduduk::create([
+                    $newPenduduk = DataPenduduk::create([
                         'nkk' => $row['nkk'],
                         'nik' => $row['nik'],
                         'nama' => $row['nama'],
@@ -274,10 +285,12 @@ class DataPendudukImportService
                         'rw' => $row['rw'],
                         'usia_input' => $row['usia_input'],
                         'pekerjaan' => $row['pekerjaan'],
+                        'kelompok_usia' => $kelompokUsia,
                         'sumber_import_id' => $batch->id,
                         'created_by' => $userId,
                         'updated_by' => $userId,
                     ]);
+                    $existingPenduduks[$nik] = $newPenduduk;
                 }
             }
 

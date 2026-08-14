@@ -30,8 +30,9 @@ class Produk extends Model
 
     public function getGambarUrlAttribute()
     {
-        if (!$this->gambar) return 'https://via.placeholder.com/500x500?text=Produk';
+        if (!$this->gambar) return asset('images/hero_desa.png');
         if (\Illuminate\Support\Str::startsWith($this->gambar, ['http://', 'https://'])) return $this->gambar;
+        if (\Illuminate\Support\Str::startsWith($this->gambar, ['images/'])) return asset($this->gambar);
         return asset('storage/' . $this->gambar);
     }
 

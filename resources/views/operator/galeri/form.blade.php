@@ -42,7 +42,7 @@
                         @if(isset($galeri) && $galeri->tipe == 'foto')
                             <div class="mb-3">
                                 <span class="small text-muted d-block mb-2 italic">Gambar unggahan saat ini:</span>
-                                <img src="{{ asset('storage/'.$galeri->url) }}" class="rounded-3 shadow-sm border" style="max-height: 180px; width: 100%; object-fit: cover;">
+                                <img src="{{ $galeri->gambar_url }}" class="rounded-3 shadow-sm border" style="max-height: 180px; width: 100%; object-fit: cover;" onerror="this.src='{{ asset('images/hero_desa.png') }}'">
                             </div>
                         @endif
                         <input type="file" name="file_foto" class="form-control rounded-3 bg-white" accept="image/*">

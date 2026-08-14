@@ -75,11 +75,11 @@ class BeritaController extends Controller
             'tanggal'        => 'required|date',
             'status_publish' => 'required',
             'fotos'          => 'required|array|min:1|max:10',
-            'fotos.*'        => 'image|max:2048',
+            'fotos.*'        => 'image|max:5120',
         ]);
 
         $data['slug']    = Str::slug($data['judul']);
-        $data['penulis'] = auth()->user()->name;
+        $data['penulis'] = auth()->user()->name ?? 'Operator Desa';
 
         // Sanitasi konten HTML
         $allowedTags = '<p><br><b><i><strong><em><u><s><ul><ol><li><h2><h3><h4><h5><h6><a><img><blockquote><pre><code><table><thead><tbody><tr><th><td><span><div>';
@@ -96,18 +96,9 @@ class BeritaController extends Controller
 
         $berita = Berita::create($data);
 
-        // Simpan foto pertama ke tabel berita_foto (sudah di-store, gunakan path yang sama)
-        BeritaFoto::create([
-            'berita_id' => $berita->id,
-            'path'      => $data['gambar'],
-            'urutan'    => 0,
-        ]);
-
-        // Simpan foto-foto berikutnya
+        // Simpan semua foto ke tabel berita_foto
         foreach ($uploadedFiles as $index => $file) {
-            if ($index === 0) continue; // sudah disimpan di atas
-
-            $path = $file->store('berita', 'public');
+            $path = ($index === 0) ? $data['gambar'] : $file->store('berita', 'public');
             BeritaFoto::create([
                 'berita_id' => $berita->id,
                 'path'      => $path,
@@ -138,9 +129,10 @@ class BeritaController extends Controller
             'tanggal'        => 'required|date',
             'status_publish' => 'required',
             'fotos'          => 'nullable|array|max:10',
-            'fotos.*'        => 'image|max:2048',
+            'fotos.*'        => 'image|max:5120',
             'hapus_foto'     => 'nullable|array',
             'hapus_foto.*'   => 'integer',
+            'hapus_legacy_cover' => 'nullable|string',
         ]);
 
         $data['slug'] = Str::slug($data['judul']);
@@ -149,31 +141,33 @@ class BeritaController extends Controller
         $allowedTags = '<p><br><b><i><strong><em><u><s><ul><ol><li><h2><h3><h4><h5><h6><a><img><blockquote><pre><code><table><thead><tbody><tr><th><td><span><div>';
         $data['konten'] = strip_tags($data['konten'], $allowedTags);
 
-        // 1) Hapus foto yang dipilih user untuk dihapus
+        // 1) Hapus foto yang dipilih user untuk dihapus dari berita_foto
         if (!empty($data['hapus_foto'])) {
-            // Pastikan tidak hapus jika hanya ada 1 foto & tidak ada foto baru
-            $newFilesCount = $request->hasFile('fotos') ? count($request->file('fotos')) : 0;
-            $remainingAfterDelete = $berita->fotos()->count() - count($data['hapus_foto']) + $newFilesCount;
-
-            if ($remainingAfterDelete < 1) {
-                return back()->withInput()->with('error', 'Berita harus memiliki minimal 1 foto!');
-            }
-
             foreach ($data['hapus_foto'] as $fotoId) {
                 $foto = BeritaFoto::where('id', $fotoId)->where('berita_id', $berita->id)->first();
                 if ($foto) {
-                    Storage::disk('public')->delete($foto->path);
+                    if (!Str::startsWith($foto->path, ['images/', 'http://', 'https://'])) {
+                        Storage::disk('public')->delete($foto->path);
+                    }
                     $foto->delete();
                 }
             }
         }
 
-        // 2) Upload foto baru jika ada
+        // 2) Hapus legacy single cover jika dipilih
+        if (!empty($request->hapus_legacy_cover)) {
+            if ($berita->gambar && !Str::startsWith($berita->gambar, ['images/', 'http://', 'https://'])) {
+                Storage::disk('public')->delete($berita->gambar);
+            }
+            $berita->gambar = null;
+        }
+
+        // 3) Upload foto baru jika ada
         if ($request->hasFile('fotos')) {
             $existingCount = $berita->fotos()->count();
             $maxBaru = 10 - $existingCount;
 
-            foreach (array_slice($request->file('fotos'), 0, $maxBaru) as $file) {
+            foreach (array_slice($request->file('fotos'), 0, max(0, $maxBaru)) as $file) {
                 $path = $file->store('berita', 'public');
                 BeritaFoto::create([
                     'berita_id' => $berita->id,
@@ -183,24 +177,28 @@ class BeritaController extends Controller
             }
         }
 
-        // 3) Re-order urutan foto setelah perubahan
-        $berita->fotos()->orderBy('id')->get()->each(function ($foto, $index) {
+        // 4) Re-order urutan foto setelah perubahan
+        $berita->fotos()->orderBy('urutan')->orderBy('id')->get()->each(function ($foto, $index) {
             $foto->update(['urutan' => $index]);
         });
 
-        // 4) Update cover (kolom gambar) dari foto pertama yang tersisa
+        // 5) Update cover (kolom gambar) dari foto pertama yang tersisa
         $firstFoto = $berita->fotos()->orderBy('urutan')->first();
         if ($firstFoto) {
             $data['gambar'] = $firstFoto->path;
+        } elseif ($berita->gambar) {
+            $data['gambar'] = $berita->gambar;
+        } else {
+            $data['gambar'] = 'images/hero_desa.png';
         }
 
-        // 5) Bersihkan key yang bukan kolom DB sebelum update
-        unset($data['fotos'], $data['hapus_foto']);
+        // 6) Bersihkan key yang bukan kolom DB sebelum update
+        unset($data['fotos'], $data['hapus_foto'], $data['hapus_legacy_cover']);
 
         $berita->update($data);
 
         ActivityLog::create(['user_id' => auth()->id(), 'action' => 'Update Berita: ' . $data['judul']]);
-        return redirect('/operator/berita')->with('success', 'Berita berhasil diupdate!');
+        return redirect('/operator/berita')->with('success', 'Berita berhasil diperbarui!');
     }
 
     public function destroy($id)

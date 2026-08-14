@@ -123,6 +123,7 @@ Route::middleware(['auth', 'role:operator,admin'])->prefix('operator')->name('op
     
     // Peta Titik (titik-titik pada peta wisata & UMKM)
     Route::post('peta-titik/{id}/toggle-unggulan', [\App\Http\Controllers\Operator\PetaTitikController::class, 'toggleUnggulan'])->name('peta-titik.toggle-unggulan');
+
     Route::resource('peta-titik', \App\Http\Controllers\Operator\PetaTitikController::class)->except(['show']);
     
     // Peta Dokumen (metadata & file gambar peta)
@@ -202,4 +203,24 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::get('/pengaturan', [\App\Http\Controllers\Admin\SettingController::class, 'index']);
     Route::post('/pengaturan', [\App\Http\Controllers\Admin\SettingController::class, 'update']);
 });
+
+// Route pintar pencari gambar storage (otomatis mencari di semua lokasi folder storage cPanel)
+Route::get('/storage/{path}', function ($path) {
+    $paths = [
+        storage_path('app/public/' . $path),
+        storage_path('app/public/public/' . $path),
+        base_path('storage/app/public/' . $path),
+        base_path('storage/app/' . $path),
+        public_path('storage/' . $path),
+    ];
+
+    foreach ($paths as $filePath) {
+        if (\Illuminate\Support\Facades\File::exists($filePath) && !\Illuminate\Support\Facades\File::isDirectory($filePath)) {
+            return response()->file($filePath);
+        }
+    }
+
+    abort(404, "File gambar tidak ditemukan: " . $path);
+})->where('path', '.*');
+
 

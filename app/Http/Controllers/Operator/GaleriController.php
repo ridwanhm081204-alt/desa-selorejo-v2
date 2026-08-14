@@ -61,7 +61,7 @@ class GaleriController extends Controller
         ]);
         
         if ($data['tipe'] == 'foto') {
-            $request->validate(['file_foto' => 'required|image|max:2048']);
+            $request->validate(['file_foto' => 'required|image|max:5120']);
             $data['url'] = $request->file('file_foto')->store('galeri', 'public');
         } else {
             $request->validate(['url_video' => 'required|url']);
@@ -70,7 +70,7 @@ class GaleriController extends Controller
 
         \App\Models\Galeri::create($data);
         \App\Models\ActivityLog::create(['user_id' => auth()->id(), 'action' => 'Tambah Galeri']);
-        return redirect('/operator/galeri')->with('success', 'File berhasil ditambahkan ke galeri!');
+        return redirect('/operator/galeri')->with('success', 'Media berhasil ditambahkan ke galeri!');
     }
 
     public function edit($id) {
@@ -89,9 +89,9 @@ class GaleriController extends Controller
 
         if ($data['tipe'] == 'foto') {
             if($request->hasFile('file_foto')) {
-                $request->validate(['file_foto' => 'image|max:2048']);
-                // Hapus foto lama jika ada
-                if ($galeri->tipe === 'foto' && $galeri->url) {
+                $request->validate(['file_foto' => 'image|max:5120']);
+                // Hapus foto lama jika ada di storage (bukan URL eksternal)
+                if ($galeri->tipe === 'foto' && $galeri->url && !str_starts_with($galeri->url, 'http')) {
                     Storage::disk('public')->delete($galeri->url);
                 }
                 $data['url'] = $request->file('file_foto')->store('galeri', 'public');
@@ -101,7 +101,7 @@ class GaleriController extends Controller
         } else {
             $request->validate(['url_video' => 'required|url']);
             // Tipe berubah dari foto ke video: hapus file foto lama
-            if ($galeri->tipe === 'foto' && $galeri->url) {
+            if ($galeri->tipe === 'foto' && $galeri->url && !str_starts_with($galeri->url, 'http')) {
                 Storage::disk('public')->delete($galeri->url);
             }
             $data['url'] = $request->url_video;
@@ -115,8 +115,8 @@ class GaleriController extends Controller
     public function destroy($id) {
         $galeri = \App\Models\Galeri::findOrFail($id);
 
-        // Hapus file fisik dari storage jika ada (hanya untuk tipe foto)
-        if ($galeri->tipe === 'foto' && $galeri->url) {
+        // Hapus file fisik dari storage jika ada (hanya untuk tipe foto lokal)
+        if ($galeri->tipe === 'foto' && $galeri->url && !str_starts_with($galeri->url, 'http')) {
             Storage::disk('public')->delete($galeri->url);
         }
 

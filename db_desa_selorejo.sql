@@ -626,7 +626,7 @@ CREATE TABLE `berita` (
   `id` BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   `judul` VARCHAR(255) NULL,
   `slug` VARCHAR(255) NULL,
-  `konten` VARCHAR(255) NULL,
+  `konten` LONGTEXT NULL,
   `gambar` VARCHAR(255) NULL,
   `kategori` VARCHAR(255) NULL,
   `tanggal` DATE NULL,

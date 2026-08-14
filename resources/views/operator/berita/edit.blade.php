@@ -184,24 +184,25 @@
                                         <div class="foto-item {{ $i === 0 ? 'cover-item' : '' }}" id="foto-card-{{ $foto->id }}">
                                             <img src="{{ $foto->url }}" alt="foto {{ $i+1 }}" onerror="this.src='{{ asset('images/hero_desa.png') }}'">
                                             @if($i === 0) <span class="cover-badge">COVER</span> @endif
-                                            @if($fotosExisting->count() > 1)
-                                                <button type="button" class="remove-btn" data-foto-id="{{ $foto->id }}" title="Hapus foto ini">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-                                                </button>
-                                            @endif
+                                            <button type="button" class="remove-btn" data-foto-id="{{ $foto->id }}" title="Hapus foto ini">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                                            </button>
                                         </div>
                                     @endforeach
                                 </div>
                             @else
                                 {{-- Berita lama (hanya punya gambar di kolom gambar) --}}
-                                <div class="foto-existing-grid">
-                                    <div class="foto-item cover-item">
+                                <div class="foto-existing-grid" id="existing-grid">
+                                    <div class="foto-item cover-item" id="foto-card-legacy">
                                         <img src="{{ $berita->gambar_url }}" alt="cover" onerror="this.src='{{ asset('images/hero_desa.png') }}'">
                                         <span class="cover-badge">COVER</span>
+                                        <button type="button" class="remove-btn" id="btn-remove-legacy" title="Ganti foto cover ini">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                                        </button>
                                     </div>
                                 </div>
                                 <div class="text-muted small mt-2">
-                                    <i data-lucide="info" class="icon-xs me-1"></i> Ini berita lama. Tambahkan foto baru di bawah untuk menambah galeri foto.
+                                    <i data-lucide="info" class="icon-xs me-1"></i> Unggah foto baru di bawah untuk mengganti cover atau menambah foto dokumentasi.
                                 </div>
                             @endif
                         </div>
@@ -217,7 +218,7 @@
                             <div class="foto-upload-zone" id="upload-zone-edit" onclick="document.getElementById('foto-input-edit').click()">
                                 <i data-lucide="image-plus" style="width:28px;height:28px;color:#94a3b8;"></i>
                                 <div class="mt-1 fw-semibold text-muted small">Klik atau seret foto ke sini</div>
-                                <div class="text-muted" style="font-size:11px;">JPG, PNG, WEBP &bull; Maks 2MB per foto</div>
+                                <div class="text-muted" style="font-size:11px;">JPG, PNG, WEBP &bull; Maks 5MB per foto</div>
                             </div>
                             <input type="file" id="foto-input-edit" accept="image/*" multiple style="display:none;">
                             <div class="foto-preview-grid d-none mt-2" id="foto-preview-grid-edit"></div>
@@ -262,6 +263,7 @@
 @push('scripts')
 <script>
 (function() {
+    const HAS_MULTI_FOTO  = {{ $hasMultiFoto ? 'true' : 'false' }};
     const EXISTING_COUNT  = {{ $fotosExisting->count() ?: 1 }};
     const MAX_PHOTOS      = 10;
     const form            = document.getElementById('form-edit-berita');
@@ -272,12 +274,14 @@
     const filePickerInput = document.getElementById('foto-input-edit');
 
     let markedForRemoval = new Set();  // set of foto IDs
+    let legacyRemoved = false;
     let newFiles = [];                 // array of File objects to upload
 
     /* -------- Update total counter -------- */
     function updateTotal() {
-        const current = EXISTING_COUNT - markedForRemoval.size + newFiles.length;
-        totalEl.textContent = current;
+        const removedCount = HAS_MULTI_FOTO ? markedForRemoval.size : (legacyRemoved ? 1 : 0);
+        const current = EXISTING_COUNT - removedCount + newFiles.length;
+        totalEl.textContent = Math.max(0, current);
         totalEl.style.color = current >= MAX_PHOTOS ? '#dc3545' : '#198754';
     }
 
@@ -295,11 +299,6 @@
                 hapusContainer.querySelector(`input[value="${fotoId}"]`)?.remove();
             } else {
                 // Mark for removal
-                const minFoto = EXISTING_COUNT - markedForRemoval.size + newFiles.length;
-                if (minFoto <= 1) {
-                    alert('Berita harus memiliki minimal 1 foto!');
-                    return;
-                }
                 markedForRemoval.add(fotoId);
                 const overlay = document.createElement('div');
                 overlay.className = 'pending-remove-overlay';
@@ -316,6 +315,34 @@
             updateTotal();
         });
     });
+
+    /* -------- Legacy single photo remove handler -------- */
+    const btnRemoveLegacy = document.getElementById('btn-remove-legacy');
+    if (btnRemoveLegacy) {
+        btnRemoveLegacy.addEventListener('click', function() {
+            const card = document.getElementById('foto-card-legacy');
+            if (legacyRemoved) {
+                legacyRemoved = false;
+                card.querySelector('.pending-remove-overlay')?.remove();
+                this.style.background = 'rgba(220,53,69,0.9)';
+                hapusContainer.querySelector('input[name="hapus_legacy_cover"]')?.remove();
+            } else {
+                legacyRemoved = true;
+                const overlay = document.createElement('div');
+                overlay.className = 'pending-remove-overlay';
+                overlay.innerHTML = '<span>AKAN DIGANTI</span>';
+                card.appendChild(overlay);
+                this.style.background = '#198754';
+
+                const inp  = document.createElement('input');
+                inp.type   = 'hidden';
+                inp.name   = 'hapus_legacy_cover';
+                inp.value  = '1';
+                hapusContainer.appendChild(inp);
+            }
+            updateTotal();
+        });
+    }
 
     /* -------- Render new file previews -------- */
     function renderNewPreviews() {
@@ -430,6 +457,14 @@
 
         if (typeof tinymce !== 'undefined') {
             tinymce.triggerSave();
+        }
+
+        const removedCount = HAS_MULTI_FOTO ? markedForRemoval.size : (legacyRemoved ? 1 : 0);
+        const finalCount = EXISTING_COUNT - removedCount + newFiles.length;
+        if (finalCount < 1) {
+            e.preventDefault();
+            alert('Berita harus memiliki minimal 1 foto!');
+            return;
         }
 
         e.preventDefault();
